@@ -11,8 +11,8 @@
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
 return array(
-    // Admin section
-    'admin' => array(),
     // Front section
     'front' => array(),
+    // Admin section
+    'admin' => array(),
 );
