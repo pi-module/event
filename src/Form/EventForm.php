@@ -128,6 +128,33 @@ class EventForm extends BaseForm
                 'required' => true,
             )
         ));
+        // topic
+        $this->add(array(
+            'name' => 'topic',
+            'type' => 'Module\News\Form\Element\Topic',
+            'options' => array(
+                'label' => __('Topic'),
+                'module' => 'news',
+                'topic' => 'full',
+                'required' => true,
+            ),
+        ));
+        // topic_main
+        $this->add(array(
+            'name' => 'topic_main',
+            'type' => 'Module\News\Form\Element\Topic',
+            'options' => array(
+                'label' => __('Main topic'),
+                'module' => 'news',
+                'topic' => '',
+            ),
+            'attributes' => array(
+                'required' => true,
+                'size' => 1,
+                'multiple' => 0,
+                'description' => __('Just use for breadcrumbs and mobile apps'),
+            ),
+        ));
         // Image
         if ($this->thumbUrl) {
             $this->add(array(

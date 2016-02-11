@@ -113,12 +113,16 @@ class EventController extends ActionController
         // Get id
         $id = $this->params('id');
         $module = $this->params('module');
+        // Get Module Config
+        $configNews = Pi::service('registry')->config->read('news');
+        $configEvent = Pi::service('registry')->config->read('event');
+
         $option = array();
         // Find event
         /* if ($id) {
             $event = $this->getModel('event')->find($id)->toArray();
             if ($event['image']) {
-                $event['thumbUrl'] = sprintf('upload/%s/thumb/%s/%s', $this->config('image_path'), $event['path'], $event['image']);
+                $event['thumbUrl'] = sprintf('upload/%s/thumb/%s/%s', $configNews['image_path'], $event['path'], $event['image']);
                 $option['thumbUrl'] = Pi::url($event['thumbUrl']);
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
             }
@@ -138,31 +142,25 @@ class EventController extends ActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $values = $form->getData();
-                // Setup link
-
-                echo '<pre>';
-                print_r($values);
-                echo '</pre>';
-
                 // upload image
-                /* if (!empty($file['image']['name'])) {
+                if (!empty($file['image']['name'])) {
                     // Set upload path
                     $values['path'] = sprintf('%s/%s', date('Y'), date('m'));
-                    $originalPath = Pi::path(sprintf('upload/%s/original/%s', $this->config('image_path'), $values['path']));
+                    $originalPath = Pi::path(sprintf('upload/%s/original/%s', $configNews['image_path'], $values['path']));
                     // Image name
-                    $imageName = Pi::api('image', 'guide')->rename($file['image']['name'], $this->ImageEventPrefix, $values['path']);
+                    $imageName = Pi::api('image', 'news')->rename($file['image']['name'], $this->ImageEventPrefix, $values['path']);
                     // Upload
                     $uploader = new Upload;
                     $uploader->setDestination($originalPath);
                     $uploader->setRename($imageName);
-                    $uploader->setExtension($this->config('image_extension'));
-                    $uploader->setSize($this->config('image_size'));
+                    $uploader->setExtension($configNews['image_extension']);
+                    $uploader->setSize($configNews['image_size']);
                     if ($uploader->isValid()) {
                         $uploader->receive();
                         // Get image name
                         $values['image'] = $uploader->getUploaded('image');
                         // process image
-                        Pi::api('image', 'guide')->process($values['image'], $values['path']);
+                        Pi::api('image', 'news')->process($values['image'], $values['path']);
                     } else {
                         $this->jump(array('action' => 'update'), __('Problem in upload image. please try again'));
                     }
@@ -177,30 +175,56 @@ class EventController extends ActionController
                 $keywords = ($values['seo_keywords']) ? $values['seo_keywords'] : $values['title'];
                 $filter = new Filter\HeadKeywords;
                 $filter->setOptions(array(
-                    'force_replace_space' => (bool)$this->config('force_replace_space'),
+                    'force_replace_space' => (bool)$configNews['force_replace_space'],
                 ));
                 $values['seo_keywords'] = $filter($keywords);
                 // Set seo_description
                 $description = ($values['seo_description']) ? $values['seo_description'] : $values['title'];
                 $filter = new Filter\HeadDescription;
                 $values['seo_description'] = $filter($description);
+                // Add submitter id
+                $values['uid'] = Pi::user()->getId();
                 // Set time
-                if (empty($values['id'])) {
-                    $values['time_create'] = time();
-                }
-                $values['time_update'] = time();
                 $values['time_start'] = strtotime($values['time_start']);
                 $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
-                // Add user info
-                $values['uid'] = Pi::user()->getId();
+                // Set type
+                $values['type'] = 'event';
                 // Save values
                 if (!empty($values['id'])) {
-                    $row = $this->getModel('event')->find($values['id']);
+                    $story = Pi::api('api', 'news')->editStory($values);
+                    if (isset($story) && !empty($story)) {
+                        $row = $this->getModel('extra')->find($story['id']);
+                    } else {
+                        $message = __('Error on save story data on news module.');
+                        $this->jump(array('action' => 'index'), $message, 'error');
+                    }
                 } else {
-                    $row = $this->getModel('event')->createRow();
+                    $story = Pi::api('api', 'news')->addStory($values);
+                    if (isset($story) && !empty($story)) {
+                        $row = $this->getModel('extra')->createRow();
+                        $values['id'] = $story['id'];
+                    } else {
+                        $message = __('Error on save story data on news module.');
+                        $this->jump(array('action' => 'index'), $message, 'error');
+                    }
                 }
                 $row->assign($values);
                 $row->save();
+
+
+
+                // Setup link
+
+                echo '<pre>';
+                print_r($values);
+                echo '</pre>';
+
+
+
+                /*
+
+
+
                 // Add / Edit sitemap
                 if (Pi::service('module')->isActive('sitemap')) {
                     // Set loc
@@ -213,8 +237,6 @@ class EventController extends ActionController
                     Pi::api('sitemap', 'sitemap')->singleLink($loc, $row->status, $module, 'event', $row->id);
                 }
                 // Add log
-                $operation = (empty($values['id'])) ? 'add' : 'edit';
-                Pi::api('log', 'guide')->addLog('event', $row->id, $operation);
                 $message = __('Event data saved successfully.');
                 $this->jump(array('action' => 'index'), $message); */
             }

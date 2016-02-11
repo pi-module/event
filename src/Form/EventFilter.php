@@ -80,6 +80,16 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
+        // topic
+        $this->add(array(
+            'name' => 'topic',
+            'required' => true,
+        ));
+        // topic_main
+        $this->add(array(
+            'name' => 'topic_main',
+            'required' => true,
+        ));
         // status
         $this->add(array(
             'name' => 'status',
