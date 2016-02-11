@@ -189,7 +189,7 @@ class EventController extends ActionController
                 $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
                 // Set type
                 $values['type'] = 'event';
-                // Save values
+                // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
                     $story = Pi::api('api', 'news')->editStory($values);
                     if (isset($story) && !empty($story)) {
@@ -210,35 +210,78 @@ class EventController extends ActionController
                 }
                 $row->assign($values);
                 $row->save();
+                // Set link array
+                $link = array(
+                    'story' => $story['id'],
+                    'time_publish' => $story['time_publish'],
+                    'time_update' => $story['time_update'],
+                    'status' => $story['status'],
+                    'uid' => $story['uid'],
+                    'type' => $story['type'],
+                    'module' => array(
+                        'event' => array(
+                            'name' => 'event',
+                            'controller' => array(
+                                'topic' => array(
+                                    'name' => 'topic',
+                                    'topic' => $values['topic'],
+                                ),
+                            ),
+                        ),
+                    ),
+                );
+                // Add guide module info on link
+                if (Pi::service('module')->isActive('guide')) {
+                    $link['module']['guide'] = array(
+                        'name' => 'guide',
+                        'controller' => array(),
+                    );
+                    if (isset($values['guide_category']) && !empty($values['guide_category'])) {
+                        $link['module']['guide']['controller']['category'] = array(
+                            'name' => 'category',
+                            'topic' => $values['guide_category'],
+                        );
+                    }
 
+                    if (isset($values['guide_location']) && !empty($values['guide_location'])) {
+                        $link['module']['guide']['controller']['location'] = array(
+                            'name' => 'location',
+                            'topic' => $values['guide_location'],
+                        );
+                    }
 
+                    if (isset($values['guide_item']) && !empty($values['guide_item'])) {
+                        $link['module']['guide']['controller']['item'] = array(
+                            'name' => 'item',
+                            'topic' => $values['guide_item'],
+                        );
+                    }
 
+                    if (isset($values['guide_owner']) && !empty($values['guide_owner'])) {
+                        $link['module']['guide']['controller']['owner'] = array(
+                            'name' => 'owner',
+                            'topic' => array(
+                                $values['guide_owner'],
+                            ),
+                        );
+                    }
+                }
                 // Setup link
-
-                echo '<pre>';
-                print_r($values);
-                echo '</pre>';
-
-
-
-                /*
-
-
-
+                Pi::api('api', 'news')->setupLink($link);
                 // Add / Edit sitemap
                 if (Pi::service('module')->isActive('sitemap')) {
                     // Set loc
-                    $loc = Pi::url($this->url('guide', array(
+                    $loc = Pi::url($this->url('event', array(
                         'module' => $module,
-                        'controller' => 'event',
+                        'controller' => 'index',
                         'slug' => $values['slug']
                     )));
                     // Update sitemap
-                    Pi::api('sitemap', 'sitemap')->singleLink($loc, $row->status, $module, 'event', $row->id);
+                    Pi::api('sitemap', 'sitemap')->singleLink($loc, $story['status'], $module, 'event', $story['id']);
                 }
                 // Add log
                 $message = __('Event data saved successfully.');
-                $this->jump(array('action' => 'index'), $message); */
+                $this->jump(array('action' => 'index'), $message);
             }
         } else {
             /* if ($id) {
