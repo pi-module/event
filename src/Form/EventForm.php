@@ -19,11 +19,10 @@ class EventForm extends BaseForm
 {
     public function __construct($name = null, $option = array())
     {
-        /* $this->option = $option;
-        $this->condition = $option['condition'];
+        $this->option = $option;
         $this->thumbUrl = (isset($option['thumbUrl'])) ? $option['thumbUrl'] : '';
         $this->removeUrl = (isset($option['removeUrl'])) ? $option['removeUrl'] : '';
-        $this->module = Pi::service('module')->current(); */
+        $this->module = Pi::service('module')->current();
         parent::__construct($name);
     }
 
@@ -54,6 +53,17 @@ class EventForm extends BaseForm
                 'type' => 'text',
                 'description' => '',
                 'required' => true,
+            )
+        ));
+        // subtitle
+        $this->add(array(
+            'name' => 'subtitle',
+            'options' => array(
+                'label' => __('Subtitle'),
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'description' => '',
             )
         ));
         // slug
@@ -92,6 +102,14 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
+        // extra_main
+        $this->add(array(
+            'name' => 'extra_main',
+            'type' => 'fieldset',
+            'options' => array(
+                'label' => __('Mian options'),
+            ),
+        ));
         // status
         $this->add(array(
             'name' => 'status',
@@ -114,7 +132,7 @@ class EventForm extends BaseForm
         if ($this->thumbUrl) {
             $this->add(array(
                 'name' => 'imageview',
-                'type' => 'Module\Event\Form\Element\Image',
+                'type' => 'Module\News\Form\Element\Image',
                 'options' => array(//'label' => __('Image'),
                 ),
                 'attributes' => array(
@@ -123,7 +141,7 @@ class EventForm extends BaseForm
             ));
             $this->add(array(
                 'name' => 'remove',
-                'type' => 'Module\Event\Form\Element\Remove',
+                'type' => 'Module\News\Form\Element\Remove',
                 'options' => array(
                     'label' => __('Remove image'),
                 ),
@@ -261,68 +279,65 @@ class EventForm extends BaseForm
                 'required' => false,
             )
         ));
-        //
-
-        // extra
-        $this->add(array(
-            'name' => 'extra_view',
-            'type' => 'fieldset',
-            'options' => array(
-                'label' => __('View options'),
-            ),
-        ));
-        // owner
-        $this->add(array(
-            'name' => 'guide_owner',
-            'type' => 'Module\Guide\Form\Element\Owner',
-            'options' => array(
-                'label' => __('Owner'),
-                'module' => 'guide',
-            ),
-            'attributes' => array(
-                'required' => true,
-            )
-        ));
-        // category
-        $this->add(array(
-            'name' => 'guide_category',
-            'type' => 'Module\Guide\Form\Element\Category',
-            'options' => array(
-                'label' => __('Category'),
-                'category' => array(0 => ''),
-                'module' => 'guide',
-            ),
-            'attributes' => array(
-                'size' => 5,
-                'multiple' => 1,
-            )
-        ));
-        // location
-        $this->add(array(
-            'name' => 'guide_location',
-            'type' => 'Module\Guide\Form\Element\Location',
-            'options' => array(
-                'label' => __('Location'),
-                'module' => 'guide',
-            ),
-            'attributes' => array(
-                'size' => 5,
-                'multiple' => 1,
-            )
-        ));
-        // item
-        $this->add(array(
-            'name' => 'guide_item',
-            'type' => 'Module\Guide\Form\Element\Item',
-            'options' => array(
-                'label' => __('Item'),
-                'module' => 'guide',
-            ),
-            'attributes' => array(
-                'size' => 5,
-                'multiple' => 1,
-            )
-        ));
+        // extra guide
+        if (Pi::service('module')->isActive('guide')) {
+            $this->add(array(
+                'name' => 'extra_guide',
+                'type' => 'fieldset',
+                'options' => array(
+                    'label' => __('Guide options'),
+                ),
+            ));
+            // owner
+            $this->add(array(
+                'name' => 'guide_owner',
+                'type' => 'Module\Guide\Form\Element\Owner',
+                'options' => array(
+                    'label' => __('Owner'),
+                    'module' => 'guide',
+                ),
+            ));
+            // category
+            $this->add(array(
+                'name' => 'guide_category',
+                'type' => 'Module\Guide\Form\Element\Category',
+                'options' => array(
+                    'label' => __('Category'),
+                    'category' => array(0 => ''),
+                    'module' => 'guide',
+                ),
+                'attributes' => array(
+                    'size' => 5,
+                    'multiple' => 1,
+                )
+            ));
+            // location
+            $this->add(array(
+                'name' => 'guide_location',
+                'type' => 'Module\Guide\Form\Element\Location',
+                'options' => array(
+                    'label' => __('Location'),
+                    'module' => 'guide',
+                ),
+                'attributes' => array(
+                    'size' => 5,
+                    'multiple' => 1,
+                )
+            ));
+            // item
+            $this->add(array(
+                'name' => 'guide_item',
+                'type' => 'Module\Guide\Form\Element\Item',
+                'options' => array(
+                    'label' => __('Item'),
+                    'module' => 'guide',
+                ),
+                'attributes' => array(
+                    'size' => 5,
+                    'multiple' => 1,
+                )
+            ));
+        }
         // extra
         $this->add(array(
             'name' => 'extra_seo',
@@ -370,7 +385,6 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-
         // Save
         $this->add(array(
             'name' => 'submit',

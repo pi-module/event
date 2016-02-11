@@ -34,6 +34,16 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
+        // subtitle
+        $this->add(array(
+            'name' => 'subtitle',
+            'required' => false,
+            'filters' => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
         // slug
         $this->add(array(
             'name' => 'slug',
@@ -71,12 +81,10 @@ class EventFilter extends InputFilter
             ),
         ));
         // status
-        if ($option['condition'] == 'admin') {
-            $this->add(array(
-                'name' => 'status',
-                'required' => true,
-            ));
-        }
+        $this->add(array(
+            'name' => 'status',
+            'required' => true,
+        ));
         // image
         $this->add(array(
             'name' => 'image',
@@ -162,26 +170,29 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
-        // owner
-        $this->add(array(
-            'name' => 'owner',
-            'required' => true,
-        ));
-        // category
-        $this->add(array(
-            'name' => 'category',
-            'required' => true,
-        ));
-        // location
-        $this->add(array(
-            'name' => 'location',
-            'required' => true,
-        ));
-        // item
-        $this->add(array(
-            'name' => 'item',
-            'required' => true,
-        ));
+        // guide option
+        if (Pi::service('module')->isActive('guide')) {
+            // owner
+            $this->add(array(
+                'name' => 'guide_owner',
+                'required' => false,
+            ));
+            // category
+            $this->add(array(
+                'name' => 'guide_category',
+                'required' => false,
+            ));
+            // location
+            $this->add(array(
+                'name' => 'guide_location',
+                'required' => false,
+            ));
+            // item
+            $this->add(array(
+                'name' => 'guide_item',
+                'required' => false,
+            ));
+        }
         // seo_title
         $this->add(array(
             'name' => 'seo_title',

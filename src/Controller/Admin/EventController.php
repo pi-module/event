@@ -123,8 +123,6 @@ class EventController extends ActionController
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
             }
         } */
-        // Set option
-        $option['condition'] = 'admin';
         // Set form
         $form = new EventForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
@@ -138,13 +136,9 @@ class EventController extends ActionController
             // Form filter
             $form->setInputFilter(new EventFilter($option));
             $form->setData($data);
-
-            echo '<pre>';
-            print_r($data);
-            echo '</pre>';
-
             if ($form->isValid()) {
                 $values = $form->getData();
+                // Setup link
 
                 echo '<pre>';
                 print_r($values);
