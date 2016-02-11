@@ -273,7 +273,7 @@ class EventForm extends BaseForm
         ));
         // owner
         $this->add(array(
-            'name' => 'owner',
+            'name' => 'guide_owner',
             'type' => 'Module\Guide\Form\Element\Owner',
             'options' => array(
                 'label' => __('Owner'),
@@ -285,7 +285,7 @@ class EventForm extends BaseForm
         ));
         // category
         $this->add(array(
-            'name' => 'category',
+            'name' => 'guide_category',
             'type' => 'Module\Guide\Form\Element\Category',
             'options' => array(
                 'label' => __('Category'),
@@ -293,34 +293,34 @@ class EventForm extends BaseForm
                 'module' => 'guide',
             ),
             'attributes' => array(
-                'size' => 1,
-                'multiple' => 0,
+                'size' => 5,
+                'multiple' => 1,
             )
         ));
         // location
         $this->add(array(
-            'name' => 'location',
+            'name' => 'guide_location',
             'type' => 'Module\Guide\Form\Element\Location',
             'options' => array(
                 'label' => __('Location'),
                 'module' => 'guide',
             ),
             'attributes' => array(
-                'size' => 1,
-                'multiple' => 0,
+                'size' => 5,
+                'multiple' => 1,
             )
         ));
         // item
         $this->add(array(
-            'name' => 'item',
+            'name' => 'guide_item',
             'type' => 'Module\Guide\Form\Element\Item',
             'options' => array(
                 'label' => __('Item'),
                 'module' => 'guide',
             ),
             'attributes' => array(
-                'size' => 1,
-                'multiple' => 0,
+                'size' => 5,
+                'multiple' => 1,
             )
         ));
         // extra

@@ -129,7 +129,7 @@ class EventController extends ActionController
         $form = new EventForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         if ($this->request->isPost()) {
-            /* $data = $this->request->getPost();
+            $data = $this->request->getPost();
             $file = $this->request->getFiles();
             // Set slug
             $slug = ($data['slug']) ? $data['slug'] : $data['title'];
@@ -138,10 +138,20 @@ class EventController extends ActionController
             // Form filter
             $form->setInputFilter(new EventFilter($option));
             $form->setData($data);
+
+            echo '<pre>';
+            print_r($data);
+            echo '</pre>';
+
             if ($form->isValid()) {
                 $values = $form->getData();
+
+                echo '<pre>';
+                print_r($values);
+                echo '</pre>';
+
                 // upload image
-                if (!empty($file['image']['name'])) {
+                /* if (!empty($file['image']['name'])) {
                     // Set upload path
                     $values['path'] = sprintf('%s/%s', date('Y'), date('m'));
                     $originalPath = Pi::path(sprintf('upload/%s/original/%s', $this->config('image_path'), $values['path']));
@@ -212,8 +222,8 @@ class EventController extends ActionController
                 $operation = (empty($values['id'])) ? 'add' : 'edit';
                 Pi::api('log', 'guide')->addLog('event', $row->id, $operation);
                 $message = __('Event data saved successfully.');
-                $this->jump(array('action' => 'index'), $message);
-            } */
+                $this->jump(array('action' => 'index'), $message); */
+            }
         } else {
             /* if ($id) {
                 // Set time

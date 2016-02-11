@@ -44,9 +44,9 @@ class EventFilter extends InputFilter
                 ),
             ),
             'validators' => array(
-                new \Module\Guide\Validator\SlugDuplicate(array(
-                    'module' => Pi::service('module')->current(),
-                    'table' => 'event',
+                new \Module\News\Validator\SlugDuplicate(array(
+                    'module' => 'news',
+                    'table' => 'story',
                 )),
             ),
         ));
