@@ -10,15 +10,18 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
-    // Front section
-    'front' => array(),
-    // Admin section
-    'admin' => array(
-        array(
-            'title' => _a('Event'),
+namespace Module\Event\Controller\Admin;
+
+use Pi;
+use Pi\Mvc\Controller\ActionController;
+
+class IndexController extends ActionController
+{
+    public function indexAction()
+    {
+        return $this->redirect()->toRoute('', array(
             'controller' => 'event',
-            'permission' => 'event',
-        ),
-    ),
-);
+            'action' => 'index',
+        ));
+    }
+}

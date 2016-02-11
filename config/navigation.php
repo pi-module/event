@@ -14,5 +14,16 @@ return array(
     // Front section
     'front' => array(),
     // Admin section
-    'admin' => array(),
+    'admin' => array(
+        'event' => array(
+            'label' => _a('Event'),
+            'permission' => array(
+                'resource' => 'event',
+            ),
+            'route' => 'admin',
+            'module' => 'event',
+            'controller' => 'event',
+            'action' => 'index',
+        ),
+    ),
 );

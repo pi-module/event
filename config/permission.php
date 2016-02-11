@@ -14,5 +14,10 @@ return array(
     // Front section
     'front' => array(),
     // Admin section
-    'admin' => array(),
+    'admin' => array(
+        'event' => array(
+            'title' => _a('Event'),
+            'access' => array(),
+        ),
+    ),
 );
