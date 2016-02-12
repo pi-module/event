@@ -249,16 +249,13 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-        // register_price
+        // register
         $this->add(array(
-            'name' => 'register_price',
+            'name' => 'extra_register',
+            'type' => 'fieldset',
             'options' => array(
-                'label' => __('Minimum Price'),
+                'label' => __('Registration options'),
             ),
-            'attributes' => array(
-                'type' => 'text',
-                'description' => '',
-            )
         ));
         // register_details
         $this->add(array(
@@ -271,6 +268,51 @@ class EventForm extends BaseForm
                 'type' => 'editor',
                 'description' => '',
             )
+        ));
+        // register_price
+        $this->add(array(
+            'name' => 'register_price',
+            'options' => array(
+                'label' => __('Minimum Price'),
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'description' => '',
+            )
+        ));
+        // register_can
+        $this->add(array(
+            'name' => 'register_can',
+            'type' => 'checkbox',
+            'options' => array(
+                'label' => __('Register online?'),
+            ),
+            'attributes' => array(
+                'description' => '',
+            )
+        ));
+        // register_capacity
+        $this->add(array(
+            'name' => 'register_capacity',
+            'options' => array(
+                'label' => __('Capacity'),
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'description' => '',
+            )
+        ));
+        // register_type
+        $this->add(array(
+            'name' => 'register_type',
+            'type' => 'select',
+            'options' => array(
+                'label' => __('Registration type'),
+                'value_options' => array(
+                    'discount' => __('Discount code'),
+                    'full' => __('Pay full price'),
+                ),
+            ),
         ));
         // extra
         $this->add(array(

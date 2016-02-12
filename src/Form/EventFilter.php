@@ -142,6 +142,16 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
+        // register_details
+        $this->add(array(
+            'name' => 'register_details',
+            'required' => false,
+            'filters' => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
         // register_price
         $this->add(array(
             'name' => 'register_price',
@@ -152,9 +162,29 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
-        // register_details
+        // register_can
         $this->add(array(
-            'name' => 'register_details',
+            'name' => 'register_can',
+            'required' => false,
+            'filters' => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
+        // register_capacity
+        $this->add(array(
+            'name' => 'register_capacity',
+            'required' => false,
+            'filters' => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
+        // register_type
+        $this->add(array(
+            'name' => 'register_type',
             'required' => false,
             'filters' => array(
                 array(

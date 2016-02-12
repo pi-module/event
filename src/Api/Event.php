@@ -74,7 +74,7 @@ class Event extends AbstractApi
         } else {
             $extra['register_price_view'] = __('this event is free!');
         }
-        //
+        // canonize guide module details
         $extra['guide_category'] = Json::decode($extra['guide_category']);
         $extra['guide_location'] = Json::decode($extra['guide_location']);
         $extra['guide_item'] = Json::decode($extra['guide_item']);
@@ -90,6 +90,12 @@ class Event extends AbstractApi
         $event['eventUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $this->getModule(),
             'controller' => 'index',
+            'slug' => $event['slug'],
+        )));
+        // Set register url
+        $event['eventOrder'] = Pi::url(Pi::service('url')->assemble('event', array(
+            'module' => $this->getModule(),
+            'controller' => 'order',
             'slug' => $event['slug'],
         )));
         // Set category
