@@ -24,11 +24,14 @@ class Extra extends Model
         'time_start',
         'time_end',
         'source_url',
-        'owner',
         'organizer_name',
         'address',
         'price',
         'offer_url',
-        'registration_details'
+        'registration_details',
+        'guide_owner',
+        'guide_category',
+        'guide_location',
+        'guide_item'
     );
 }

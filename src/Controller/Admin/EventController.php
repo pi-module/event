@@ -15,10 +15,12 @@ namespace Module\Event\Controller\Admin;
 use Pi;
 use Pi\Filter;
 use Pi\Mvc\Controller\ActionController;
-use Pi\Paginator\Paginator;
 use Pi\File\Transfer\Upload;
 use Module\Event\Form\EventForm;
 use Module\Event\Form\EventFilter;
+use Module\News\Form\StorySearchForm;
+use Module\News\Form\StorySearchFilter;
+use Zend\Json\Json;
 
 class EventController extends ActionController
 {
@@ -31,50 +33,43 @@ class EventController extends ActionController
     {
         // Get page
         $page = $this->params('page', 1);
-        $module = $this->params('module');
         $title = $this->params('title');
-        // Get info
-        $list = array();
-        /* $order = array('id DESC');
-        $offset = (int)($page - 1) * $this->config('admin_perpage');
-        $limit = intval($this->config('admin_perpage'));
-        $where = array();
-        // Get
+        // Set info
+        $where = array(
+            'type' => 'event',
+        );
         if (!empty($title)) {
             $where['title LIKE ?'] = '%' . $title . '%';
         }
-        $select = $this->getModel('event')->select()->where($where)->order($order)->offset($offset)->limit($limit);
-        $rowset = $this->getModel('event')->selectWith($select);
-        // Make list
-        foreach ($rowset as $row) {
-            $list[$row->id] = Pi::api('event', 'guide')->canonizeEvent($row);
+        $order = array('id DESC');
+        $offset = (int)($page - 1) * $this->config('admin_perpage');
+        $limit = intval($this->config('admin_perpage'));
+        // Get list of story
+        $listEvent = array();
+        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, 'light', 'story');
+        foreach ($listStory as $singleStory) {
+            $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);;
         }
-        // Set paginator
-        $columns = array('count' => new \Zend\Db\Sql\Predicate\Expression('count(*)'));
-        $select = $this->getModel('event')->select()->where($where)->columns($columns);
-        $count = $this->getModel('event')->selectWith($select)->current()->count;
-        $paginator = Paginator::factory(intval($count));
-        $paginator->setItemCountPerPage($this->config('admin_perpage'));
-        $paginator->setCurrentPageNumber($page);
-        $paginator->setUrlOptions(array(
-            'router' => $this->getEvent()->getRouter(),
-            'route' => $this->getEvent()->getRouteMatch()->getMatchedRouteName(),
-            'params' => array_filter(array(
-                'module' => $this->getModule(),
-                'controller' => 'event',
-                'action' => 'index',
-            )),
-        ));
+
+        // Set template
+        $template = array(
+            'module' => 'event',
+            'controller' => 'event',
+            'action' => 'index',
+            'title' => $title,
+        );
+        // Get paginator
+        $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'story');
         // Set form
         $values = array(
             'title' => $title,
         );
-        $form = new AdminSearchForm('search');
+        $form = new StorySearchForm('search');
         $form->setAttribute('action', $this->url('', array('action' => 'process')));
-        $form->setData($values); */
+        $form->setData($values);
         // Set view
         $this->view()->setTemplate('event-index');
-        $this->view()->assign('list', $list);
+        $this->view()->assign('list', $listEvent);
         $this->view()->assign('paginator', $paginator);
         $this->view()->assign('form', $form);
     }
@@ -83,12 +78,12 @@ class EventController extends ActionController
     {
         if ($this->request->isPost()) {
             $data = $this->request->getPost();
-            $form = new AdminSearchForm('search');
-            $form->setInputFilter(new AdminSearchFilter());
+            $form = new StorySearchForm('search');
+            $form->setInputFilter(new StorySearchFilter());
             $form->setData($data);
             if ($form->isValid()) {
                 $values = $form->getData();
-                $message = __('View filtered items');
+                $message = __('View filtered events');
                 $url = array(
                     'action' => 'index',
                     'title' => $values['title'],
@@ -119,14 +114,12 @@ class EventController extends ActionController
 
         $option = array();
         // Find event
-        /* if ($id) {
-            $event = $this->getModel('event')->find($id)->toArray();
+        if ($id) {
+            $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
             if ($event['image']) {
-                $event['thumbUrl'] = sprintf('upload/%s/thumb/%s/%s', $configNews['image_path'], $event['path'], $event['image']);
-                $option['thumbUrl'] = Pi::url($event['thumbUrl']);
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
             }
-        } */
+        }
         // Set form
         $form = new EventForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
@@ -189,6 +182,10 @@ class EventController extends ActionController
                 $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
                 // Set type
                 $values['type'] = 'event';
+                // Set guide module info
+                $values['guide_category'] = Json::encode($values['guide_category']);
+                $values['guide_location'] = Json::encode($values['guide_location']);
+                $values['guide_item'] = Json::encode($values['guide_item']);
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
                     $story = Pi::api('api', 'news')->editStory($values);
@@ -239,21 +236,21 @@ class EventController extends ActionController
                     if (isset($values['guide_category']) && !empty($values['guide_category'])) {
                         $link['module']['guide']['controller']['category'] = array(
                             'name' => 'category',
-                            'topic' => $values['guide_category'],
+                            'topic' => Json::decode($values['guide_category']),
                         );
                     }
 
                     if (isset($values['guide_location']) && !empty($values['guide_location'])) {
                         $link['module']['guide']['controller']['location'] = array(
                             'name' => 'location',
-                            'topic' => $values['guide_location'],
+                            'topic' => Json::decode($values['guide_location']),
                         );
                     }
 
                     if (isset($values['guide_item']) && !empty($values['guide_item'])) {
                         $link['module']['guide']['controller']['item'] = array(
                             'name' => 'item',
-                            'topic' => $values['guide_item'],
+                            'topic' => Json::decode($values['guide_item']),
                         );
                     }
 
@@ -284,12 +281,12 @@ class EventController extends ActionController
                 $this->jump(array('action' => 'index'), $message);
             }
         } else {
-            /* if ($id) {
+            if ($id) {
                 // Set time
                 $event['time_start'] = ($event['time_start']) ? date('Y-m-d', $event['time_start']) : date('Y-m-d');
                 $event['time_end'] = ($event['time_end']) ? date('Y-m-d', $event['time_end']) : '';
                 $form->setData($event);
-            } */
+            }
         }
         // Set view
         $this->view()->setTemplate('event-update');

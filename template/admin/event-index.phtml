@@ -1,7 +1,72 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: voltan
- * Date: 2/11/16
- * Time: 2:48 PM
- */
+<?php $this->css($this->assetModule('css/admin.css')); ?>
+<div class="clearfix">
+    <div class="clearfix row">
+        <div class="col-md-4">
+            <a class="btn btn-primary" title="<?php _e('Add event'); ?>"
+               href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'update')); ?>"><i
+                    class="fa fa-folder-open"></i> <?php _e('Add event'); ?></a>
+        </div>
+        <div class="col-md-8 text-right">
+            <?php echo $this->form($form, 'inline'); ?>
+        </div>
+    </div>
+    <h3><?php _e('List of events'); ?></h3>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th><?php _e('ID'); ?></th>
+            <th><?php _e('Title'); ?></th>
+            <th><?php _e('Action'); ?></th>
+        </tr>
+        <?php foreach ($list as $event) { ?>
+            <?php
+            if ($event['status'] == 1) {
+                $labelIdClass = 'label-success';
+            } elseif ($event['status'] == 2) {
+                $labelIdClass = 'label-warning';
+            } elseif ($event['status'] == 3) {
+                $labelIdClass = 'label-warning';
+            } elseif ($event['status'] == 4) {
+                $labelIdClass = 'label-warning';
+            } elseif ($event['status'] == 5) {
+                $labelIdClass = 'label-danger';
+            }
+            ?>
+            <tr>
+                <td>
+                    <span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($event['id']); ?></span>
+                </td>
+                <td>
+                    <div class="clearfix">
+                        <?php echo $this->escape($event['title']); ?>
+                    </div>
+                    <div class="clearfix">
+                        <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                            <?php echo _b('From') ?> <?php echo $this->escape($event['time_start_view']); ?>
+                            <?php echo _b('to') ?> <?php echo $this->escape($event['time_end_view']); ?>
+                        <?php } elseif (!empty($event['time_start'])) { ?>
+                            <?php echo $this->escape($event['time_start_view']); ?>
+                        <?php } ?>
+                    </div>
+                </td>
+                <td>
+                    <a class="btn btn-primary" title="<?php _e('View'); ?>" href="<?php echo $event['eventUrl']; ?>"
+                       target="_blank"><i class="fa fa-eye"></i> <?php _e('View'); ?></a>
+                    <a class="btn btn-primary" title="<?php _e('Edit'); ?>"
+                       href="<?php echo $this->url('', array('action' => 'update', 'id' => $event['id'])); ?>"><i
+                            class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+    <div class="paginator">
+        <?php echo $this->paginationControl($paginator, 'Sliding', 'paginator.phtml'); ?>
+    </div>
+    <p>
+        <span class="label label-success"><?php _e('Published'); ?></span>
+        <span class="label label-warning"><?php _e('Pending review'); ?></span>
+        <span class="label label-warning"><?php _e('Draft'); ?></span>
+        <span class="label label-warning"><?php _e('Private'); ?></span>
+        <span class="label label-danger"><?php _e('Trash'); ?></span>
+    </p>
+</div>
+<pre><?php print_r($list); ?></pre>
