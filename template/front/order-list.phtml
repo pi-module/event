@@ -5,6 +5,9 @@
         <?php include $this->templateModule('front/user-profile-sidebar.phtml', 'user'); ?>
     </div>
     <div class="col-md-9">
-
+        <div class="page-header">
+            <h1><?php _e('List of your registered events'); ?></h1>
+        </div>
+        <pre><?php print_r($list); ?></pre>
     </div>
 </div>

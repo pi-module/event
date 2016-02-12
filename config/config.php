@@ -24,6 +24,10 @@ return array(
             'title' => _a('Manage'),
             'name' => 'manage'
         ),
+        array(
+            'title' => _a('Order'),
+            'name' => 'order'
+        ),
     ),
     'item' => array(
         // Admin
@@ -56,6 +60,15 @@ return array(
         'manage_approval' => array(
             'category' => 'manage',
             'title' => _a('Auto approval user events'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
+        // Order
+        'order_active' => array(
+            'category' => 'order',
+            'title' => _a('Active order'),
             'description' => '',
             'edit' => 'checkbox',
             'filter' => 'number_int',

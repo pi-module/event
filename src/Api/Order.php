@@ -102,6 +102,8 @@ class Order extends AbstractApi
         $order['time_order_view'] = _date($order['time_order']);
         $order['time_start_view'] = _date($order['time_start']);
         $order['time_end_view'] = _date($order['time_end']);
+        // Set event
+        $order['eventInfo'] = Pi::api('event', 'event')->getExtra($order['event']);
         // return
         return $order;
     }

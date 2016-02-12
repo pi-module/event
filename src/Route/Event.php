@@ -130,6 +130,7 @@ class Event extends Standard
         // Set controller
         if (!empty($mergedParams['controller'])
             && $mergedParams['controller'] != 'index'
+            && $mergedParams['controller'] != 'detail'
             && in_array($mergedParams['controller'], $this->controllerList)
         ) {
             $url['controller'] = $mergedParams['controller'];

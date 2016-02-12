@@ -25,5 +25,15 @@ return array(
             'controller' => 'event',
             'action' => 'index',
         ),
+        'order' => array(
+            'label' => _a('Order'),
+            'permission' => array(
+                'resource' => 'order',
+            ),
+            'route' => 'admin',
+            'module' => 'event',
+            'controller' => 'order',
+            'action' => 'index',
+        ),
     ),
 );

@@ -20,5 +20,10 @@ return array(
             'controller' => 'event',
             'permission' => 'event',
         ),
+        array(
+            'title' => _a('Order'),
+            'controller' => 'order',
+            'permission' => 'order',
+        ),
     ),
 );

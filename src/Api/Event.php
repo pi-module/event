@@ -48,6 +48,23 @@ class Event extends AbstractApi
         return $event;
     }
 
+    public function getListFromId($id)
+    {
+        $list = array();
+        $where = array('id' => $id, 'status' => 1);
+        $select = Pi::model('extra', $this->getModule())->select()->where($where);
+        $rowset = Pi::model('extra', $this->getModule())->selectWith($select);
+        foreach ($rowset as $row) {
+            $list[$row->id] = $this->canonizeExtra($row);
+            $list[$row->id]['eventUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
+                'module' => $this->getModule(),
+                'controller' => 'index',
+                'slug' => $row->slug,
+            )));
+        }
+        return $list;
+    }
+
     public function canonizeExtra($extra) {
         // Check
         if (empty($extra)) {

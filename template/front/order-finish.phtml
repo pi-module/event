@@ -5,106 +5,104 @@
         <?php include $this->templateModule('front/user-profile-sidebar.phtml', 'user'); ?>
     </div>
     <div class="col-md-9">
+        <div class="text-center">
+            <h1><?php _e('Your select event'); ?></h1>
+            <p><?php _e('You registered on this event, Check event details here and use public and private codes when you want join on event'); ?></p>
+        </div>
         <div class="clearfix">
-            <div class="text-center">
-                <h1><?php _e('Your select event'); ?></h1>
-                <p><?php _e('You registered on this event, Check event details here and use public and private codes when you want join on event'); ?></p>
-            </div>
-            <div class="clearfix">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title"><?php echo $this->escape($event['title']); ?></h2>
-                    </div>
-                    <?php if (!empty($event['text_summary'])) { ?>
-                        <div class="panel-body clearfix">
-                            <div class="col-sm-2">
-                                <a href="<?php echo $this->escape($event['eventUrl']); ?>"
-                                   title="<?php echo $this->escape($event['title']); ?>" target="_blank">
-                                    <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['thumbUrl']); ?>"
-                                         alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
-                                </a>
-                            </div>
-                            <?php echo $event['text_summary']; ?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><?php echo $this->escape($event['title']); ?></h2>
+                </div>
+                <?php if (!empty($event['text_summary'])) { ?>
+                    <div class="panel-body clearfix">
+                        <div class="col-sm-2">
                             <a href="<?php echo $this->escape($event['eventUrl']); ?>"
                                title="<?php echo $this->escape($event['title']); ?>" target="_blank">
-                                <?php _e('More info ...'); ?>
+                                <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                     alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                             </a>
                         </div>
+                        <?php echo $event['text_summary']; ?>
+                        <a href="<?php echo $this->escape($event['eventUrl']); ?>"
+                           title="<?php echo $this->escape($event['title']); ?>" target="_blank">
+                            <?php _e('More info ...'); ?>
+                        </a>
+                    </div>
+                <?php } ?>
+                <table class="table table-bordered table-condensed">
+                    <tr>
+                        <td class="col-sm-3"><i class="fa fa-calendar"></i> <?php _e('Register on'); ?></td>
+                        <td class="col-sm-9"><?php echo $this->escape($orderEvent['time_order_view']); ?></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-clock-o"></i> <?php _e('Event date'); ?></td>
+                        <td>
+                            <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                                <?php _e('From') ?>
+                                <?php echo $this->escape($event['time_start_view']); ?>
+                                <?php _e('to') ?>
+                                <?php echo $this->escape($event['time_end_view']); ?>
+                            <?php } elseif (!empty($event['time_start'])) { ?>
+                                <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <?php if (!empty($event['organizer_name'])) { ?>
+                        <tr>
+                            <td><i class="fa fa-user"></i> <?php _e('Organizer name') ?></td>
+                            <td><?php echo $this->escape($event['organizer_name']); ?></td>
+                        </tr>
                     <?php } ?>
-                    <table class="table table-bordered table-condensed">
+                    <?php if (!empty($event['source_url'])) { ?>
                         <tr>
-                            <td class="col-sm-3"><i class="fa fa-calendar"></i> <?php _e('Register on'); ?></td>
-                            <td class="col-sm-9"><?php echo $this->escape($orderEvent['time_order_view']); ?></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-clock-o"></i> <?php _e('Event date'); ?></td>
+                            <td><i class="fa fa-external-link"></i> <?php _e('Organizer Website') ?></td>
                             <td>
-                                <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                    <?php _e('From') ?>
-                                    <?php echo $this->escape($event['time_start_view']); ?>
-                                    <?php _e('to') ?>
-                                    <?php echo $this->escape($event['time_end_view']); ?>
-                                <?php } elseif (!empty($event['time_start'])) { ?>
-                                    <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
-                                <?php } ?>
+                                <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
+                                    <?php _e('Visit') ?>
+                                </a>
                             </td>
                         </tr>
-                        <?php if (!empty($event['organizer_name'])) { ?>
-                            <tr>
-                                <td><i class="fa fa-user"></i> <?php _e('Organizer name') ?></td>
-                                <td><?php echo $this->escape($event['organizer_name']); ?></td>
-                            </tr>
-                        <?php } ?>
-                        <?php if (!empty($event['source_url'])) { ?>
-                            <tr>
-                                <td><i class="fa fa-external-link"></i> <?php _e('Organizer Website') ?></td>
-                                <td>
-                                    <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
-                                        <?php _e('Visit') ?>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        <?php if (!empty($event['address'])) { ?>
-                            <tr>
-                                <td><i class="fa fa-map-marker"></i> <?php _e('Address') ?></td>
-                                <td><?php echo $this->escape($event['address']); ?></td>
-                            </tr>
-                        <?php } ?>
+                    <?php } ?>
+                    <?php if (!empty($event['address'])) { ?>
                         <tr>
-                            <td><i class="fa fa-certificate"></i> <?php _e('Price') ?></td>
-                            <td><?php echo $this->escape($orderEvent['price']); ?></td>
+                            <td><i class="fa fa-map-marker"></i> <?php _e('Address') ?></td>
+                            <td><?php echo $this->escape($event['address']); ?></td>
                         </tr>
-                        <tr>
-                            <td><i class="fa fa-certificate"></i> <?php _e('Number') ?></td>
-                            <td><?php echo $this->escape($orderEvent['number']); ?></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-certificate"></i> <?php _e('Total') ?></td>
-                            <td><?php echo $this->escape($orderEvent['total']); ?></td>
-                        </tr>
-                        <tr class="success">
-                            <td><i class="fa fa-key"></i> <?php _e('Public code') ?></td>
-                            <td><strong><?php echo $this->escape($orderEvent['code_public']); ?></strong></td>
-                        </tr>
-                        <tr class="success">
-                            <td><i class="fa fa-key"></i> <?php _e('Private code') ?></td>
-                            <td><strong><?php echo $this->escape($orderEvent['code_private']); ?></strong></td>
-                        </tr>
-                        <tr class="active">
-                            <td class="text-center" colspan="2">
-                                <a class="btn btn-primary btn-xs" title="<?php _e('Order link'); ?>"
-                                   href="<?php echo $orderOrder['order_link']; ?>"><?php _e('Order link'); ?></a>
-                                <a class="btn btn-primary btn-xs" title="<?php _e('User panel'); ?>"
-                                   href="<?php echo $orderOrder['user_link']; ?>"><?php _e('User panel'); ?></a>
-                                <a class="btn btn-primary btn-xs" title="<?php _e('List of ordered events'); ?>"
-                                   href="<?php echo $orderOrder['list_link']; ?>"><?php _e('List of ordered events'); ?></a>
-                                <a class="btn btn-success btn-xs" title="<?php _e('Registered event information'); ?>"
-                                   href="<?php echo $this->escape($event['eventUrl']); ?>"><?php _e('Registered event information'); ?></a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                    <?php } ?>
+                    <tr>
+                        <td><i class="fa fa-certificate"></i> <?php _e('Price') ?></td>
+                        <td><?php echo $this->escape($orderEvent['price']); ?></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-certificate"></i> <?php _e('Number') ?></td>
+                        <td><?php echo $this->escape($orderEvent['number']); ?></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-certificate"></i> <?php _e('Total') ?></td>
+                        <td><?php echo $this->escape($orderEvent['total']); ?></td>
+                    </tr>
+                    <tr class="success">
+                        <td><i class="fa fa-key"></i> <?php _e('Public code') ?></td>
+                        <td><strong><?php echo $this->escape($orderEvent['code_public']); ?></strong></td>
+                    </tr>
+                    <tr class="success">
+                        <td><i class="fa fa-key"></i> <?php _e('Private code') ?></td>
+                        <td><strong><?php echo $this->escape($orderEvent['code_private']); ?></strong></td>
+                    </tr>
+                    <tr class="active">
+                        <td class="text-center" colspan="2">
+                            <a class="btn btn-primary btn-xs" title="<?php _e('Order link'); ?>"
+                               href="<?php echo $orderOrder['order_link']; ?>"><?php _e('Order link'); ?></a>
+                            <a class="btn btn-primary btn-xs" title="<?php _e('User panel'); ?>"
+                               href="<?php echo $orderOrder['user_link']; ?>"><?php _e('User panel'); ?></a>
+                            <a class="btn btn-primary btn-xs" title="<?php _e('List of ordered events'); ?>"
+                               href="<?php echo $orderOrder['list_link']; ?>"><?php _e('List of ordered events'); ?></a>
+                            <a class="btn btn-success btn-xs" title="<?php _e('Registered event information'); ?>"
+                               href="<?php echo $this->escape($event['eventUrl']); ?>"><?php _e('Registered event information'); ?></a>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="alert alert-success">

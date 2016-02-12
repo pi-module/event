@@ -19,5 +19,9 @@ return array(
             'title' => _a('Event'),
             'access' => array(),
         ),
+        'order' => array(
+            'title' => _a('Order'),
+            'access' => array(),
+        ),
     ),
 );

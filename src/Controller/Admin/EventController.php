@@ -130,6 +130,9 @@ class EventController extends ActionController
                 // upload image
                 $image = Pi::api('api', 'news')->uploadImage($file, 'event-');
                 $values = array_merge($values, $image);
+                if (!isset($values['image'])) {
+                    $values['image'] = '';
+                }
                 // Set time
                 $values['time_start'] = strtotime($values['time_start']);
                 $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';

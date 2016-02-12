@@ -22,12 +22,12 @@ class OrderController extends ActionController
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
         // Check order is active or inactive
-        /* if (!$this->config('order_active')) {
+        if (!$this->config('order_active')) {
             $this->getResponse()->setStatusCode(401);
             $this->terminate(__('So sorry, At this moment order is inactive'), '', 'error-denied');
             $this->view()->setLayout('layout-simple');
             return;
-        } */
+        }
         // Set template
         $this->view()->setTemplate(false);
         // check order module
@@ -101,8 +101,30 @@ class OrderController extends ActionController
 
     public function listAction()
     {
+        // Check user is login or not
+        Pi::service('authentication')->requireLogin();
+        // Check order is active or inactive
+        if (!$this->config('order_active')) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('So sorry, At this moment order is inactive'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
+        // Get info
+        $uid = Pi::user()->getId();
+        $list = array();
+        $order = array('id DESC');
+        $where = array('uid' => $uid);
+        $select = $this->getModel('order')->select()->where($where)->order($order);
+        $rowset = $this->getModel('order')->selectWith($select);
+        // Make list
+        foreach ($rowset as $row) {
+            $list[$row->id] = Pi::api('order', 'event')->canonizeOrder($row);
+            $list[$row->id]['user'] = Pi::user()->get($row->uid, array('id', 'identity', 'name', 'email'));
+        }
         // Set view
         $this->view()->setTemplate('order-list');
+        $this->view()->assign('list', $list);
     }
 
     public function finishAction()
@@ -110,12 +132,12 @@ class OrderController extends ActionController
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
         // Check order is active or inactive
-        /* if (!$this->config('order_active')) {
+        if (!$this->config('order_active')) {
             $this->getResponse()->setStatusCode(401);
             $this->terminate(__('So sorry, At this moment order is inactive'), '', 'error-denied');
             $this->view()->setLayout('layout-simple');
             return;
-        } */
+        }
         // Get info from url
         $id = $this->params('id');
         $module = $this->params('module');

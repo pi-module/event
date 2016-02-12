@@ -22,6 +22,9 @@ class Extra extends Model
     protected $columns = array(
         'id',
         'uid',
+        'title',
+        'slug',
+        'status',
         'time_start',
         'time_end',
         'source_url',

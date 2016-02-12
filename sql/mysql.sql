@@ -1,6 +1,9 @@
 CREATE TABLE `{extra}` (
   `id`                INT(10) UNSIGNED         NOT NULL AUTO_INCREMENT,
   `uid`               INT(10) UNSIGNED         NOT NULL DEFAULT '0',
+  `title`             VARCHAR(255)             NOT NULL DEFAULT '',
+  `slug`              VARCHAR(255)             NOT NULL DEFAULT '',
+  `status`            TINYINT(1) UNSIGNED      NOT NULL DEFAULT '0',
   `time_start`        INT(10) UNSIGNED         NOT NULL DEFAULT '0',
   `time_end`          INT(10) UNSIGNED         NOT NULL DEFAULT '0',
   `source_url`        VARCHAR(255)             NOT NULL DEFAULT '',
@@ -28,7 +31,7 @@ CREATE TABLE `{order}` (
   `uid`          INT(10) UNSIGNED         NOT NULL DEFAULT '0',
   `event`        INT(10) UNSIGNED         NOT NULL DEFAULT '0',
   `order_id`     INT(10) UNSIGNED         NOT NULL DEFAULT '0',
-  `number`     INT(10) UNSIGNED         NOT NULL DEFAULT '0',
+  `number`       INT(10) UNSIGNED         NOT NULL DEFAULT '0',
   `price`        DECIMAL(16, 2)           NOT NULL DEFAULT '0.00',
   `vat`          DECIMAL(16, 2)           NOT NULL DEFAULT '0.00',
   `total`        DECIMAL(16, 2)           NOT NULL DEFAULT '0.00',
