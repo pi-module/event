@@ -20,6 +20,8 @@ use Zend\Json\Json;
  * Pi::api('event', 'event')->getEvent($parameter, $field, $type);
  * Pi::api('event', 'event')->getExtra($id);
  * Pi::api('event', 'event')->joinExtra($event);
+ * Pi::api('event', 'event')->getListFromId($id);
+ * Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, $type, $table);
  * Pi::api('event', 'event')->canonizeExtra($extra);
  * Pi::api('event', 'event')->canonizeEvent($event);
  */
@@ -63,6 +65,16 @@ class Event extends AbstractApi
             )));
         }
         return $list;
+    }
+
+    public function getEventList($where, $order, $offset = '', $limit = 10, $type = 'full', $table = 'link')
+    {
+        $listEvent = array();
+        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, $type, $table);
+        foreach ($listStory as $singleStory) {
+            $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
+        }
+        return  $listEvent;
     }
 
     public function canonizeExtra($extra) {
