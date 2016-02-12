@@ -152,9 +152,9 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
-        // registration_details
+        // register_details
         $this->add(array(
-            'name' => 'registration_details',
+            'name' => 'register_details',
             'required' => false,
             'filters' => array(
                 array(

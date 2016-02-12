@@ -28,7 +28,7 @@ class Extra extends Model
         'organizer_name',
         'address',
         'offer_url',
-        'registration_details',
+        'register_details',
         'register_can',
         'register_capacity',
         'register_price',

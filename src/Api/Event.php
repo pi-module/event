@@ -57,8 +57,8 @@ class Event extends AbstractApi
         if (is_object($extra)) {
             $extra = $extra->toArray();
         }
-        // Set registration_details
-        $extra['registration_details'] = Pi::service('markup')->render($extra['registration_details'], 'html', 'html');
+        // Set register_details
+        $extra['register_details'] = Pi::service('markup')->render($extra['register_details'], 'html', 'html');
         // Set time
         $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], array('pattern' => 'yyyy-MM-dd'));
         $extra['time_end_view'] = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], array('pattern' => 'yyyy-MM-dd'));

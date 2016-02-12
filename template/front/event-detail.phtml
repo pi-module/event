@@ -126,10 +126,10 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                              </div>
                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     <?php } ?>
-                    <?php if (!empty($event['registration_details'])) { ?>
+                    <?php if (!empty($event['register_details'])) { ?>
                         <br />
                         <div class="clearfix" itemprop="description">
-                            <?php echo $event['registration_details']; ?>
+                            <?php echo $event['register_details']; ?>
                         </div>
                     <?php } ?>
                 </div>

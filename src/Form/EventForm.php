@@ -260,9 +260,9 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-        // registration_details
+        // register_details
         $this->add(array(
-            'name' => 'registration_details',
+            'name' => 'register_details',
             'options' => array(
                 'label' => __('Registration details/requirements'),
                 'editor' => 'html',
