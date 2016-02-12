@@ -24,10 +24,7 @@ use Zend\Json\Json;
 
 class EventController extends ActionController
 {
-    /**
-     * Event Image Prefix
-     */
-    protected $ImageEventPrefix = 'event_';
+    protected $imageEventPrefix = 'event-';
 
     public function indexAction()
     {
@@ -50,7 +47,6 @@ class EventController extends ActionController
         foreach ($listStory as $singleStory) {
             $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);;
         }
-
         // Set template
         $template = array(
             'module' => 'event',
@@ -108,15 +104,12 @@ class EventController extends ActionController
         // Get id
         $id = $this->params('id');
         $module = $this->params('module');
-        // Get Module Config
-        $configNews = Pi::service('registry')->config->read('news');
-        $configEvent = Pi::service('registry')->config->read('event');
-
         $option = array();
         // Find event
         if ($id) {
             $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
             if ($event['image']) {
+                $option['thumbUrl'] = $event['thumbUrl'];
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
             }
         }
@@ -136,47 +129,8 @@ class EventController extends ActionController
             if ($form->isValid()) {
                 $values = $form->getData();
                 // upload image
-                if (!empty($file['image']['name'])) {
-                    // Set upload path
-                    $values['path'] = sprintf('%s/%s', date('Y'), date('m'));
-                    $originalPath = Pi::path(sprintf('upload/%s/original/%s', $configNews['image_path'], $values['path']));
-                    // Image name
-                    $imageName = Pi::api('image', 'news')->rename($file['image']['name'], $this->ImageEventPrefix, $values['path']);
-                    // Upload
-                    $uploader = new Upload;
-                    $uploader->setDestination($originalPath);
-                    $uploader->setRename($imageName);
-                    $uploader->setExtension($configNews['image_extension']);
-                    $uploader->setSize($configNews['image_size']);
-                    if ($uploader->isValid()) {
-                        $uploader->receive();
-                        // Get image name
-                        $values['image'] = $uploader->getUploaded('image');
-                        // process image
-                        Pi::api('image', 'news')->process($values['image'], $values['path']);
-                    } else {
-                        $this->jump(array('action' => 'update'), __('Problem in upload image. please try again'));
-                    }
-                } elseif (!isset($values['image'])) {
-                    $values['image'] = '';
-                }
-                // Set seo_title
-                $title = ($values['seo_title']) ? $values['seo_title'] : $values['title'];
-                $filter = new Filter\HeadTitle;
-                $values['seo_title'] = $filter($title);
-                // Set seo_keywords
-                $keywords = ($values['seo_keywords']) ? $values['seo_keywords'] : $values['title'];
-                $filter = new Filter\HeadKeywords;
-                $filter->setOptions(array(
-                    'force_replace_space' => (bool)$configNews['force_replace_space'],
-                ));
-                $values['seo_keywords'] = $filter($keywords);
-                // Set seo_description
-                $description = ($values['seo_description']) ? $values['seo_description'] : $values['title'];
-                $filter = new Filter\HeadDescription;
-                $values['seo_description'] = $filter($description);
-                // Add submitter id
-                $values['uid'] = Pi::user()->getId();
+                $image = Pi::api('api', 'news')->uploadImage($file, $this->imageEventPrefix);
+                $values = array_merge($values, $image);
                 // Set time
                 $values['time_start'] = strtotime($values['time_start']);
                 $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
@@ -296,40 +250,8 @@ class EventController extends ActionController
 
     public function removeAction()
     {
-        // Get id and status
         $id = $this->params('id');
-        // set event
-        $event = $this->getModel('event')->find($id);
-        // Check
-        if ($event && !empty($id)) {
-            // remove file
-            /* $files = array(
-                Pi::path(sprintf('upload/%s/original/%s/%s', $this->config('image_path'), $event->path, $event->image)),
-                Pi::path(sprintf('upload/%s/large/%s/%s', $this->config('image_path'), $event->path, $event->image)),
-                Pi::path(sprintf('upload/%s/medium/%s/%s', $this->config('image_path'), $event->path, $event->image)),
-                Pi::path(sprintf('upload/%s/thumb/%s/%s', $this->config('image_path'), $event->path, $event->image)),
-            );
-            Pi::service('file')->remove($files); */
-            // clear DB
-            $event->path = '';
-            $event->image = '';
-            // Save
-            $event->save();
-            // Check
-            if ($event->path == '' && $event->image == '') {
-                $message = sprintf(__('Image of %s removed'), $event->title);
-                $status = 1;
-            } else {
-                $message = __('Image not remove');
-                $status = 0;
-            }
-        } else {
-            $message = __('Please select event');
-            $status = 0;
-        }
-        return array(
-            'status' => $status,
-            'message' => $message,
-        );
+        $result = Pi::api('api', 'news')->removeImage($id);
+        return $result;
     }
 }
