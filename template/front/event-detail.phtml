@@ -137,28 +137,14 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php } ?>
         </div>
         <div class="col-md-4">
-            <div class="event-image-main text-center clearfix u-photo gallery">
+            <div class="event-image-main clearfix u-photo gallery">
                 <a href="<?php echo $this->escape($event['largeUrl']); ?>"
                    title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                    <img class="img-responsive" src="<?php echo $this->escape($event['mediumUrl']); ?>"
+                    <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['mediumUrl']); ?>"
                          alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                 </a>
             </div>
-            <?php if ($config['social_sharing']) { ?>
-                <div class="clearfix">
-                    <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
-                        <strong><?php _e('Share if you like'); ?></strong>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
-                        <?php echo $this->socialSharing(
-                            $config['social_sharing'],
-                            $title,
-                            $event['eventUrl'],
-                            $event['largeUrl']
-                        ); ?>
-                    </div>
-                </div>
-            <?php } ?>
+            <br />
             <?php if (!empty($event['guideItemInfo'])) { ?>
                 <div class="guide-item-related clearfix">
                     <div class="page-header">
@@ -172,7 +158,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
+                                                 src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
                                                  alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                         </a>
                                     <?php } ?>
@@ -201,7 +187,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <a class="u-url" title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
                                             <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideLocationInfo['mediumUrl']); ?>"
+                                                 src="<?php echo $this->escape($guideLocationInfo['itemimageUrl']); ?>"
                                                  alt="<?php echo $this->escape($guideLocationInfo['title']); ?>"/>
                                         </a>
                                     <?php } ?>
@@ -230,7 +216,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
                                             <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideCategoryInfo['mediumUrl']); ?>"
+                                                 src="<?php echo $this->escape($guideCategoryInfo['itemimageUrl']); ?>"
                                                  alt="<?php echo $this->escape($guideCategoryInfo['title']); ?>"/>
                                         </a>
                                     <?php } ?>
@@ -243,6 +229,21 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                 </div>
                             </div>
                         <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if ($config['social_sharing']) { ?>
+                <div class="clearfix">
+                    <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
+                        <strong><?php _e('Share if you like'); ?></strong>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
+                        <?php echo $this->socialSharing(
+                            $config['social_sharing'],
+                            $title,
+                            $event['eventUrl'],
+                            $event['largeUrl']
+                        ); ?>
                     </div>
                 </div>
             <?php } ?>
