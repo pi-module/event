@@ -16,11 +16,24 @@ return array(
             'title' => _a('Admin'),
             'name' => 'admin'
         ),
+        array(
+            'title' => _a('View'),
+            'name' => 'view'
+        ),
     ),
     'item' => array(
         // Admin
         'admin_perpage' => array(
             'category' => 'admin',
+            'title' => _a('Perpage'),
+            'description' => '',
+            'edit' => 'text',
+            'filter' => 'number_int',
+            'value' => 10
+        ),
+        // View
+        'view_perpage' => array(
+            'category' => 'view',
             'title' => _a('Perpage'),
             'description' => '',
             'edit' => 'text',

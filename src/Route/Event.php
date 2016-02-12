@@ -26,7 +26,9 @@ class Event extends Standard
         'action' => 'index'
     );
 
-    protected $controllerList = array();
+    protected $controllerList = array(
+        'index', 'category', 'detail'
+    );
 
     /**
      * {@inheritDoc}
@@ -46,20 +48,31 @@ class Event extends Standard
         if (isset($parts[0]) && in_array($parts[0], $this->controllerList)) {
             $matches['controller'] = $this->decode($parts[0]);
         } elseif (isset($parts[0]) && !in_array($parts[0], $this->controllerList)) {
-            if (in_array($parts[0], array('index', 'ajax', 'filter'))) {
-                $matches['controller'] = 'index';
-            } else {
-                return '';
+            $matches['controller'] = 'detail';
+        }
+
+        // Make Match
+        if (isset($matches['controller']) && isset($parts[0]) && !empty($parts[0])) {
+            switch ($matches['controller']) {
+                case 'category':
+                    if (isset($parts[1]) && !empty($parts[1])) {
+                        $matches['action'] = 'index';
+                        $matches['slug'] = $this->decode($parts[1]);
+                    } else {
+                        $matches['action'] = 'list';
+                    }
+                    break;
+
+                case 'detail':
+                    $matches['slug'] = $this->decode($parts[0]);
+                    break;
             }
         }
 
-
-
-
-        /* echo '<pre>';
-       print_r($matches);
-       print_r($parts);
-       echo '</pre>'; */
+        echo '<pre>';
+        print_r($matches);
+        print_r($parts);
+        echo '</pre>';
 
         return $matches;
     }

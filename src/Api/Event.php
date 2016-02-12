@@ -92,6 +92,19 @@ class Event extends AbstractApi
             'controller' => 'index',
             'slug' => $event['slug'],
         )));
+        // Set category
+        $topicList = array();
+        foreach ($event['topics'] as $topic) {
+            $topicList[] = array(
+                'title' => $topic['title'],
+                'url' => Pi::url(Pi::service('url')->assemble('event', array(
+                    'module' => $this->getModule(),
+                    'controller' => 'category',
+                    'slug' => $topic['slug'],
+                ))),
+            );
+        }
+        $event['topics'] = $topicList;
         return $event;
     }
 }

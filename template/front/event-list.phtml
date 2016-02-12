@@ -1,0 +1,74 @@
+<?php $this->css($this->assetModule('css/front.css')); ?>
+<div class="clearfix">
+    <div class="page-header clearfix">
+        <h1><?php echo $this->escape($title); ?></h1>
+    </div>
+    <?php if (!empty($config['text_description_index']) && isset($page) && $page == 1) { ?>
+        <div class="well event-description">
+            <?php echo $config['text_description_index']; ?>
+        </div>
+    <?php } ?>
+    <?php if (!empty($eventList)) { ?>
+        <div class="event-list clearfix">
+            <div class="list-group">
+                <?php foreach ($eventList as $event) { ?>
+                    <div class="list-group-item event-single clearfix h-event" itemscope
+                        itemtype="http://schema.org/Event">
+                        <div class="col-md-3">
+                            <?php if ($event['image']) { ?>
+                                <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                     src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                     alt="<?php echo $this->escape($event['title']); ?>"/>
+                            <?php } ?>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="event-single-title p-name" itemprop="name">
+                                <h2>
+                                    <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
+                                       href="<?php echo $this->escape($event['eventUrl']); ?>">
+                                        <?php echo $this->escape($event['title']); ?>
+                                    </a>
+                                    <?php if ($event['subtitle']) { ?>
+                                        <small><?php echo $this->escape($event['subtitle']); ?></small>
+                                    <?php } ?>
+                                </h2>
+                            </div>
+                            <div class="event-single-information">
+                                <ul class="clearfix list-inline event-time">
+                                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                                        <li><?php _e('From') ?></li>
+                                        <li class="dt-start" itemprop="startDate"><?php echo $this->escape($event['time_start_view']); ?></li>
+                                        <li><?php _e('to') ?></li>
+                                        <li class="dt-end" itemprop="endDate"><?php echo $this->escape($event['time_end_view']); ?></li>
+                                    <?php } elseif (!empty($event['time_start'])) { ?>
+                                        <li class="event-single-time dt-start" itemprop="startDate"><?php echo $this->escape($event['time_start_view']); ?></li>
+                                    <?php } ?>
+                                </ul>
+                                <ul class="clearfix list-inline">
+                                    <li><i class="fa fa-folder"></i> <?php _e('Topics'); ?> : </li>
+                                    <?php foreach ($event['topics'] as $eventTopic) { ?>
+                                        <li class="p-category" itemprop="about">
+                                            <a title="<?php echo $eventTopic['title']; ?>"
+                                               href="<?php echo $eventTopic['url']; ?>"><?php echo $eventTopic['title']; ?></a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (!empty($event['price'])) { ?>
+                                        <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['price']); ?>">
+                                            <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['price_view']); ?>
+                                        </li>
+                                        <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                                    <?php } ?>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="paginator">
+            <?php echo $this->paginationControl($paginator, 'Sliding', 'paginator.phtml'); ?>
+        </div>
+    <?php } ?>
+</div>
