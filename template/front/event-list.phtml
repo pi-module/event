@@ -23,13 +23,13 @@
                         </div>
                         <div class="col-md-9">
                             <div class="event-single-title p-name" itemprop="name">
-                                <h2>
+                                <h2 class="clearfix">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
                                         <?php echo $this->escape($event['title']); ?>
                                     </a>
                                     <?php if ($event['subtitle']) { ?>
-                                        <small><?php echo $this->escape($event['subtitle']); ?></small>
+                                        <small class="pull-right"><?php echo $this->escape($event['subtitle']); ?></small>
                                     <?php } ?>
                                 </h2>
                             </div>

@@ -10,106 +10,112 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-namespace Module\Event\Controller\Admin;
+namespace Module\Event\Controller\Front;
 
 use Pi;
 use Pi\Filter;
 use Pi\Mvc\Controller\ActionController;
 use Module\Event\Form\EventForm;
 use Module\Event\Form\EventFilter;
-use Module\News\Form\StorySearchForm;
-use Module\News\Form\StorySearchFilter;
 use Zend\Json\Json;
 
-class EventController extends ActionController
+class ManageController extends ActionController
 {
     public function indexAction()
     {
-        // Get page
-        $page = $this->params('page', 1);
-        $title = $this->params('title');
+        // Get info from url
+        $module = $this->params('module');
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
+        // check
+        if (!$config['manage_active']) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Owner dashboard is inactive'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        } else {
+            Pi::service('authentication')->requireLogin();
+        }
+        // Check owner
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = $this->canonizeGuideOwner();
+            $where = array('guide_owner' => $owner['id']);
+        } else {
+            $where = array('uid' => Pi::user()->getId());
+        }
+        // Get ids
+        $select = $this->getModel('extra')->select()->where($where);
+        $rowset = $this->getModel('extra')->selectWith($select);
+        $ids = array();
+        foreach ($rowset as $row) {
+            $ids[$row->id] = $row->id;
+        }
         // Set info
         $where = array(
+            'status' => 1,
             'type' => 'event',
+            'id' => $ids,
         );
-        if (!empty($title)) {
-            $where['title LIKE ?'] = '%' . $title . '%';
-        }
-        $order = array('id DESC');
-        $offset = (int)($page - 1) * $this->config('admin_perpage');
-        $limit = intval($this->config('admin_perpage'));
+        $order = array('time_publish DESC', 'id DESC');
         // Get list of story
         $listEvent = array();
-        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, 'light', 'story');
+        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, '', '', 'light', 'story');
         foreach ($listStory as $singleStory) {
-            $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);;
+            $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
         }
-        // Set template
-        $template = array(
-            'module' => 'event',
-            'controller' => 'event',
-            'action' => 'index',
-            'title' => $title,
-        );
-        // Get paginator
-        $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'story');
-        // Set form
-        $values = array(
-            'title' => $title,
-        );
-        $form = new StorySearchForm('search');
-        $form->setAttribute('action', $this->url('', array('action' => 'process')));
-        $form->setData($values);
         // Set view
-        $this->view()->setTemplate('event-index');
-        $this->view()->assign('list', $listEvent);
-        $this->view()->assign('paginator', $paginator);
-        $this->view()->assign('form', $form);
-    }
-
-    public function processAction()
-    {
-        if ($this->request->isPost()) {
-            $data = $this->request->getPost();
-            $form = new StorySearchForm('search');
-            $form->setInputFilter(new StorySearchFilter());
-            $form->setData($data);
-            if ($form->isValid()) {
-                $values = $form->getData();
-                $message = __('View filtered events');
-                $url = array(
-                    'action' => 'index',
-                    'title' => $values['title'],
-                );
-            } else {
-                $message = __('Not valid');
-                $url = array(
-                    'action' => 'index',
-                );
-            }
-        } else {
-            $message = __('Not set');
-            $url = array(
-                'action' => 'index',
-            );
-        }
-        return $this->jump($url, $message);
+        $this->view()->setTemplate('manage-index');
+        $this->view()->assign('title', __('List of your events'));
+        $this->view()->assign('owner', $owner);
+        $this->view()->assign('config', $config);
+        $this->view()->assign('events', $listEvent);
     }
 
     public function updateAction()
     {
-        // Get id
-        $id = $this->params('id');
+        // Get info from url
         $module = $this->params('module');
+        $id = $this->params('id');
         $option = array(
-            'side' => 'admin'
+            'side' => 'front'
         );
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
+        // check
+        if (!$config['manage_active']) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Owner dashboard is inactive'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        } else {
+            Pi::service('authentication')->requireLogin();
+        }
+        // Get user
+        $uid = Pi::user()->getId();
         // Find event
         if ($id) {
             $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
             if ($event['image']) {
                 $option['thumbUrl'] = $event['thumbUrl'];
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
+            }
+        }
+        // Check event uid
+        if (isset($event['uid']) && $event['uid'] != $uid) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Its not your event'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
+        // Check event guide owner
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = $this->canonizeGuideOwner();
+            $option['owner'] = $owner['id'];
+            if (isset($event['guide_owner']) && $event['guide_owner'] != $owner['id']) {
+                $this->getResponse()->setStatusCode(401);
+                $this->terminate(__('Its not your event'), '', 'error-denied');
+                $this->view()->setLayout('layout-simple');
+                return;
             }
         }
         // Set form
@@ -135,7 +141,12 @@ class EventController extends ActionController
                 $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
                 // Set type
                 $values['type'] = 'event';
+                // Set status
+                $values['status'] = $config['manage_approval'] ? 1 : 0;
                 // Set guide module info
+                if (isset($owner) && isset($owner['id'])) {
+                    $values['guide_owner'] = $owner['id'];
+                }
                 $values['guide_category'] = Json::encode($values['guide_category']);
                 $values['guide_location'] = Json::encode($values['guide_location']);
                 $values['guide_item'] = Json::encode($values['guide_item']);
@@ -243,7 +254,7 @@ class EventController extends ActionController
             }
         }
         // Set view
-        $this->view()->setTemplate('event-update');
+        $this->view()->setTemplate('manage-update');
         $this->view()->assign('form', $form);
         $this->view()->assign('title', __('Add event'));
     }
@@ -253,5 +264,27 @@ class EventController extends ActionController
         $id = $this->params('id');
         $result = Pi::api('api', 'news')->removeImage($id);
         return $result;
+    }
+
+    public function canonizeGuideOwner()
+    {
+        // Get user
+        $uid = Pi::user()->getId();
+        $owner = array();
+        // Check guide module
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = Pi::model('owner', 'guide')->find($uid, 'uid');
+            if (empty($owner)) {
+                return $this->redirect()->toRoute('', array(
+                    'module' => 'guide',
+                    'controller' => 'manage',
+                    'action' => 'index',
+                ));
+            }
+            // Set owner
+            $owner = Pi::api('owner', 'guide')->canonizeOwner($owner);
+        }
+        // return
+        return $owner;
     }
 }

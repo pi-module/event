@@ -21,6 +21,7 @@ class Extra extends Model
      */
     protected $columns = array(
         'id',
+        'uid',
         'time_start',
         'time_end',
         'source_url',

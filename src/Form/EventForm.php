@@ -67,16 +67,25 @@ class EventForm extends BaseForm
             )
         ));
         // slug
-        $this->add(array(
-            'name' => 'slug',
-            'options' => array(
-                'label' => __('slug'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
-                'description' => '',
-            )
-        ));
+        if ($this->option['side'] == 'admin') {
+            $this->add(array(
+                'name' => 'slug',
+                'options' => array(
+                    'label' => __('slug'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+        } else {
+            $this->add(array(
+                'name' => 'slug',
+                'attributes' => array(
+                    'type' => 'hidden',
+                ),
+            ));
+        }
         // text_summary
         $this->add(array(
             'name' => 'text_summary',
@@ -111,23 +120,25 @@ class EventForm extends BaseForm
             ),
         ));
         // status
-        $this->add(array(
-            'name' => 'status',
-            'type' => 'select',
-            'options' => array(
-                'label' => __('Status'),
-                'value_options' => array(
-                    1 => __('Published'),
-                    2 => __('Pending review'),
-                    3 => __('Draft'),
-                    4 => __('Private'),
-                    5 => __('Delete'),
+        if ($this->option['side'] == 'admin') {
+            $this->add(array(
+                'name' => 'status',
+                'type' => 'select',
+                'options' => array(
+                    'label' => __('Status'),
+                    'value_options' => array(
+                        1 => __('Published'),
+                        2 => __('Pending review'),
+                        3 => __('Draft'),
+                        4 => __('Private'),
+                        5 => __('Delete'),
+                    ),
                 ),
-            ),
-            'attributes' => array(
-                'required' => true,
-            )
-        ));
+                'attributes' => array(
+                    'required' => true,
+                )
+            ));
+        }
         // topic
         $this->add(array(
             'name' => 'topic',
@@ -316,14 +327,16 @@ class EventForm extends BaseForm
                 ),
             ));
             // guide_owner
-            $this->add(array(
-                'name' => 'guide_owner',
-                'type' => 'Module\Guide\Form\Element\Owner',
-                'options' => array(
-                    'label' => __('Owner'),
-                    'module' => 'guide',
-                ),
-            ));
+            if ($this->option['side'] == 'admin') {
+                $this->add(array(
+                    'name' => 'guide_owner',
+                    'type' => 'Module\Guide\Form\Element\Owner',
+                    'options' => array(
+                        'label' => __('Owner'),
+                        'module' => 'guide',
+                    ),
+                ));
+            }
             // guide_category
             $this->add(array(
                 'name' => 'guide_category',
@@ -358,6 +371,7 @@ class EventForm extends BaseForm
                 'options' => array(
                     'label' => __('Item'),
                     'module' => 'guide',
+                    'owner' => isset($this->option['owner']) ? $this->option['owner'] : '',
                 ),
                 'attributes' => array(
                     'size' => 5,
@@ -366,52 +380,54 @@ class EventForm extends BaseForm
             ));
         }
         // extra
-        $this->add(array(
-            'name' => 'extra_seo',
-            'type' => 'fieldset',
-            'options' => array(
-                'label' => __('SEO options'),
-            ),
-        ));
-        // seo_title
-        $this->add(array(
-            'name' => 'seo_title',
-            'options' => array(
-                'label' => __('SEO Title'),
-            ),
-            'attributes' => array(
-                'type' => 'textarea',
-                'rows' => '2',
-                'cols' => '40',
-                'description' => '',
-            )
-        ));
-        // seo_keywords
-        $this->add(array(
-            'name' => 'seo_keywords',
-            'options' => array(
-                'label' => __('SEO Keywords'),
-            ),
-            'attributes' => array(
-                'type' => 'textarea',
-                'rows' => '2',
-                'cols' => '40',
-                'description' => '',
-            )
-        ));
-        // seo_description
-        $this->add(array(
-            'name' => 'seo_description',
-            'options' => array(
-                'label' => __('SEO Description'),
-            ),
-            'attributes' => array(
-                'type' => 'textarea',
-                'rows' => '3',
-                'cols' => '40',
-                'description' => '',
-            )
-        ));
+        if ($this->option['side'] == 'admin') {
+            $this->add(array(
+                'name' => 'extra_seo',
+                'type' => 'fieldset',
+                'options' => array(
+                    'label' => __('SEO options'),
+                ),
+            ));
+            // seo_title
+            $this->add(array(
+                'name' => 'seo_title',
+                'options' => array(
+                    'label' => __('SEO Title'),
+                ),
+                'attributes' => array(
+                    'type' => 'textarea',
+                    'rows' => '2',
+                    'cols' => '40',
+                    'description' => '',
+                )
+            ));
+            // seo_keywords
+            $this->add(array(
+                'name' => 'seo_keywords',
+                'options' => array(
+                    'label' => __('SEO Keywords'),
+                ),
+                'attributes' => array(
+                    'type' => 'textarea',
+                    'rows' => '2',
+                    'cols' => '40',
+                    'description' => '',
+                )
+            ));
+            // seo_description
+            $this->add(array(
+                'name' => 'seo_description',
+                'options' => array(
+                    'label' => __('SEO Description'),
+                ),
+                'attributes' => array(
+                    'type' => 'textarea',
+                    'rows' => '3',
+                    'cols' => '40',
+                    'description' => '',
+                )
+            ));
+        }
         // Save
         $this->add(array(
             'name' => 'submit',

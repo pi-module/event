@@ -91,10 +91,12 @@ class EventFilter extends InputFilter
             'required' => true,
         ));
         // status
-        $this->add(array(
-            'name' => 'status',
-            'required' => true,
-        ));
+        if ($option['side'] == 'admin') {
+            $this->add(array(
+                'name' => 'status',
+                'required' => true,
+            ));
+        }
         // image
         $this->add(array(
             'name' => 'image',
@@ -183,10 +185,12 @@ class EventFilter extends InputFilter
         // guide option
         if (Pi::service('module')->isActive('guide')) {
             // owner
-            $this->add(array(
-                'name' => 'guide_owner',
-                'required' => false,
-            ));
+            if ($option['side'] == 'admin') {
+                $this->add(array(
+                    'name' => 'guide_owner',
+                    'required' => false,
+                ));
+            }
             // category
             $this->add(array(
                 'name' => 'guide_category',
@@ -203,35 +207,38 @@ class EventFilter extends InputFilter
                 'required' => false,
             ));
         }
-        // seo_title
-        $this->add(array(
-            'name' => 'seo_title',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+        // Seo options
+        if ($option['side'] == 'admin') {
+            // seo_title
+            $this->add(array(
+                'name' => 'seo_title',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
-        // seo_keywords
-        $this->add(array(
-            'name' => 'seo_keywords',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+            ));
+            // seo_keywords
+            $this->add(array(
+                'name' => 'seo_keywords',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
-        // seo_description
-        $this->add(array(
-            'name' => 'seo_description',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+            ));
+            // seo_description
+            $this->add(array(
+                'name' => 'seo_description',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
+            ));
+        }
     }
 }

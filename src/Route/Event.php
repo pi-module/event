@@ -27,7 +27,7 @@ class Event extends Standard
     );
 
     protected $controllerList = array(
-        'index', 'category', 'detail'
+        'index', 'category', 'detail', 'manage'
     );
 
     /**
@@ -66,13 +66,27 @@ class Event extends Standard
                 case 'detail':
                     $matches['slug'] = $this->decode($parts[0]);
                     break;
+
+                case 'manage':
+                    if (isset($parts[1]) && $parts[1] == 'update') {
+                        $matches['action'] = 'update';
+                        if (isset($parts[2]) && is_numeric($parts[2])) {
+                            $matches['id'] = intval($parts[2]);
+                        }
+                    } elseif (isset($parts[1]) && $parts[1] == 'remove'
+                            && isset($parts[2]) && is_numeric($parts[2])
+                    ) {
+                        $matches['action'] = 'remove';
+                        $matches['id'] = intval($parts[2]);
+                    }
+                    break;
             }
         }
 
-        echo '<pre>';
+        /* echo '<pre>';
         print_r($matches);
         print_r($parts);
-        echo '</pre>';
+        echo '</pre>'; */
 
         return $matches;
     }
@@ -118,6 +132,11 @@ class Event extends Standard
         // Set slug
         if (!empty($mergedParams['slug'])) {
             $url['slug'] = $mergedParams['slug'];
+        }
+
+        // Set id
+        if (!empty($mergedParams['id'])) {
+            $url['id'] = $mergedParams['id'];
         }
 
         // Set password

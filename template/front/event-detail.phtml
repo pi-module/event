@@ -53,7 +53,12 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
 <div class="clearfix h-event singleEvent" itemscope itemtype="http://schema.org/Event">
     <div class="clearfix itemHead page-header">
         <div class="itemTitle p-name" itemprop="name">
-            <h1><?php echo $this->escape($event['title']); ?></h1>
+            <h1 class="clearfix">
+                <?php echo $this->escape($event['title']); ?>
+                <?php if ($event['subtitle']) { ?>
+                    <small class="pull-right"><?php echo $this->escape($event['subtitle']); ?></small>
+                <?php } ?>
+            </h1>
         </div>
     </div>
     <div class="clearfix itemUnderHead">

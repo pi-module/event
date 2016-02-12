@@ -20,6 +20,10 @@ return array(
             'title' => _a('View'),
             'name' => 'view'
         ),
+        array(
+            'title' => _a('Manage'),
+            'name' => 'manage'
+        ),
     ),
     'item' => array(
         // Admin
@@ -39,6 +43,23 @@ return array(
             'edit' => 'text',
             'filter' => 'number_int',
             'value' => 10
+        ),
+        // Manage
+        'manage_active' => array(
+            'category' => 'manage',
+            'title' => _a('Manage event by users'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
+        'manage_approval' => array(
+            'category' => 'manage',
+            'title' => _a('Auto approval user events'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
         ),
     ),
 );
