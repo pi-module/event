@@ -62,17 +62,17 @@ class Event extends AbstractApi
         // Set time
         $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], array('pattern' => 'yyyy-MM-dd'));
         $extra['time_end_view'] = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], array('pattern' => 'yyyy-MM-dd'));
-        // price
-        if (is_numeric($extra['price']) && $extra['price'] > 0) {
+        // register_price
+        if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
             $configSystem = Pi::service('registry')->config->read('system');
             if (Pi::service('module')->isActive('order')) {
-                $extra['price_view'] = Pi::api('api', 'order')->viewPrice($extra['price']);
+                $extra['register_price_view'] = Pi::api('api', 'order')->viewPrice($extra['register_price']);
             } else {
-                $extra['price_view'] = _currency($extra['price']);
+                $extra['register_price_view'] = _currency($extra['register_price']);
             }
             $extra['price_currency'] = empty($configSystem['number_currency']) ? 'USD' : $configSystem['number_currency'];
         } else {
-            $extra['price_view'] = __('this event is free!');
+            $extra['register_price_view'] = __('this event is free!');
         }
         //
         $extra['guide_category'] = Json::decode($extra['guide_category']);

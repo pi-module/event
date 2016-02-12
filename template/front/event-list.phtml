@@ -52,9 +52,9 @@
                                                href="<?php echo $eventTopic['url']; ?>"><?php echo $eventTopic['title']; ?></a>
                                         </li>
                                     <?php } ?>
-                                    <?php if (!empty($event['price'])) { ?>
-                                        <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['price']); ?>">
-                                            <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['price_view']); ?>
+                                    <?php if (!empty($event['register_price'])) { ?>
+                                        <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                                            <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
                                         </li>
                                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                                     <?php } ?>

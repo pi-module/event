@@ -114,15 +114,15 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     <?php } ?>
                 </ul>
             </div>
-            <?php if (!empty($event['offer_url']) || !empty($event['price'])) { ?>
+            <?php if (!empty($event['offer_url']) || !empty($event['register_price'])) { ?>
                 <div class="clearfix" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                     <?php if (!empty($event['offer_url'])) { ?>
                         <div itemprop="url"><i class="fa fa-external-link"></i> <a title="<?php _e('Register to the event') ?>"  href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank"><?php _e('Register to the event') ?></a></div>
                     <?php } ?>
-                    <?php if (!empty($event['price'])) { ?>
-                        <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['price']); ?>">
-                            <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['price_view']); ?>
+                    <?php if (!empty($event['register_price'])) { ?>
+                        <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                            <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
                              </div>
                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     <?php } ?>

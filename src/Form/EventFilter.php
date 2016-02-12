@@ -142,9 +142,9 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
-        // price
+        // register_price
         $this->add(array(
-            'name' => 'price',
+            'name' => 'register_price',
             'required' => false,
             'filters' => array(
                 array(

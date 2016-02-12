@@ -249,9 +249,9 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-        // price
+        // register_price
         $this->add(array(
-            'name' => 'price',
+            'name' => 'register_price',
             'options' => array(
                 'label' => __('Minimum Price'),
             ),
