@@ -46,6 +46,16 @@ class Order extends AbstractApi
             // Get event
             $event = Pi::api('event', 'event')->getEvent($order['module_item'], 'id', 'light');
             $setting = Json::decode($event['setting'], true);
+            // Update sales
+            Pi::model('extra', $this->getModule())->update(
+                array('register_sales' => ($event['register_sales'] + $number)),
+                array('id' => $event['id'])
+            );
+            // Update stock
+            Pi::model('extra', $this->getModule())->update(
+                array('register_stock' => ($event['register_stock'] - $number)),
+                array('id' => $event['id'])
+            );
             // generate code
             $code = $this->generateCode();
             // Save order

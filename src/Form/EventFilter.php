@@ -172,9 +172,9 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
-        // register_capacity
+        // register_stock
         $this->add(array(
-            'name' => 'register_capacity',
+            'name' => 'register_stock',
             'required' => false,
             'filters' => array(
                 array(

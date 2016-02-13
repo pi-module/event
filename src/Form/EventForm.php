@@ -291,9 +291,9 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-        // register_capacity
+        // register_stock
         $this->add(array(
-            'name' => 'register_capacity',
+            'name' => 'register_stock',
             'options' => array(
                 'label' => __('Capacity'),
             ),

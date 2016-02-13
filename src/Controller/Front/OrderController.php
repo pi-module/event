@@ -65,7 +65,7 @@ class OrderController extends ActionController
                 $this->jump($event['eventUrl'], $message, 'error');
             }
             // Check capacity
-            if ($event['register_capacity'] === 0 || $event['register_capacity'] < $number) {
+            if ($event['register_stock'] === 0 || $event['register_stock'] < $number) {
                 $message = __('This event do not have enough capacity');
                 $this->jump($event['eventUrl'], $message, 'error');
             }
