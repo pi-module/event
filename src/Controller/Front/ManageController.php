@@ -345,9 +345,24 @@ class ManageController extends ActionController
                 return;
             }
         }
-
+        // Get info
+        $list = array();
+        $order = array('id DESC');
+        $where = array('event' => $event['id']);
+        $select = $this->getModel('order')->select()->where($where)->order($order);
+        $rowset = $this->getModel('order')->selectWith($select);
+        // Make list
+        foreach ($rowset as $row) {
+            $list[$row->id] = Pi::api('order', 'event')->canonizeOrder($row, false);
+            $list[$row->id]['user'] = Pi::user()->get($row->uid, array(
+                'id', 'identity', 'name', 'email'
+            ));
+        }
         // Set view
         $this->view()->setTemplate('manage-order');
+        $this->view()->assign('list', $list);
+        $this->view()->assign('event', $event);
+        $this->view()->assign('title', sprintf('List of orders on %s', $event['title']));
     }
 
     public function canonizeGuideOwner()

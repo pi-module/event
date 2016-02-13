@@ -120,7 +120,6 @@ class OrderController extends ActionController
         // Make list
         foreach ($rowset as $row) {
             $list[$row->id] = Pi::api('order', 'event')->canonizeOrder($row);
-            $list[$row->id]['user'] = Pi::user()->get($row->uid, array('id', 'identity', 'name', 'email'));
         }
         // Set view
         $this->view()->setTemplate('order-list');

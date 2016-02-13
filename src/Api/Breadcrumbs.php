@@ -84,6 +84,18 @@ class Breadcrumbs extends AbstractBreadcrumbs
                         $result[] = array(
                             'label' => __('Manage events'),
                         );
+                    } elseif ($params['action'] == 'order') {
+                        // Set link
+                        $result[] = array(
+                            'label' => __('Manage events'),
+                            'href' => Pi::url(Pi::service('url')->assemble('event', array(
+                                'controller' => 'manage',
+                            ))),
+                        );
+                        // Set link
+                        $result[] = array(
+                            'label' => __('List of orders'),
+                        );
                     } elseif ($params['action'] == 'update') {
                         // Set link
                         $result[] = array(

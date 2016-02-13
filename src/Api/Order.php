@@ -22,7 +22,7 @@ use Zend\Math\Rand;
  * Pi::api('order', 'event')->getProductDetails($product);
  * Pi::api('order', 'event')->postPaymentUpdate($order, $basket);
  * Pi::api('order', 'event')->getOrder($id);
- * Pi::api('order', 'event')->canonizeOrder($order);
+ * Pi::api('order', 'event')->canonizeOrder($order, $event);
  */
 
 class Order extends AbstractApi
@@ -100,7 +100,7 @@ class Order extends AbstractApi
         return $order;
     }
 
-    public function canonizeOrder($order)
+    public function canonizeOrder($order, $event = true)
     {
         // Check
         if (empty($order)) {
@@ -124,8 +124,6 @@ class Order extends AbstractApi
             $order['vat_view'] = _currency($order['vat']);
             $order['total_view'] = _currency($order['total']);
         }
-        // Set event
-        $order['eventInfo'] = Pi::api('event', 'event')->getExtra($order['event']);
         // Set order url
         $order['orderUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $this->getModule(),
@@ -133,6 +131,10 @@ class Order extends AbstractApi
             'action' => 'detail',
             'id' => $order['id'],
         )));
+        // Set event
+        if ($event) {
+            $order['eventInfo'] = Pi::api('event', 'event')->getExtra($order['event']);
+        }
         // return
         return $order;
     }
@@ -140,10 +142,10 @@ class Order extends AbstractApi
     public function generateCode()
     {
         // Generate code_public
-        $public = Rand::getInteger(100000, 999999);
+        $private = Rand::getInteger(100000, 999999);
         // Generate code_private
         // Without 0 o
-        $private = Rand::getString(6, 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789', true);
+        $public = Rand::getString(6, 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789', true);
         // Set values
         $result = array(
             'public' => $public,
