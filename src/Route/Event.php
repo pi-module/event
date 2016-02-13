@@ -78,6 +78,11 @@ class Event extends Standard
                     ) {
                         $matches['action'] = 'remove';
                         $matches['id'] = intval($parts[2]);
+                    } elseif (isset($parts[1]) && $parts[1] == 'order'
+                        && isset($parts[2]) && is_numeric($parts[2])
+                    ) {
+                        $matches['action'] = 'order';
+                        $matches['id'] = intval($parts[2]);
                     }
                     break;
 

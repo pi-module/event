@@ -266,9 +266,88 @@ class ManageController extends ActionController
 
     public function removeAction()
     {
+        // Get info from url
+        $module = $this->params('module');
         $id = $this->params('id');
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
+        // check
+        if (!$config['manage_active']) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Owner dashboard is inactive'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        } else {
+            Pi::service('authentication')->requireLogin();
+        }
+        // Get user
+        $uid = Pi::user()->getId();
+        // Find event
+        $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
+        // Check event uid
+        if (isset($event['uid']) && $event['uid'] != $uid) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Its not your event'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
+        // Check event guide owner
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = $this->canonizeGuideOwner();
+            $option['owner'] = $owner['id'];
+            if (isset($event['guide_owner']) && $event['guide_owner'] != $owner['id']) {
+                $this->getResponse()->setStatusCode(401);
+                $this->terminate(__('Its not your event'), '', 'error-denied');
+                $this->view()->setLayout('layout-simple');
+                return;
+            }
+        }
+        // remove image
         $result = Pi::api('api', 'news')->removeImage($id);
         return $result;
+    }
+
+    public function orderAction()
+    {
+        // Get info from url
+        $module = $this->params('module');
+        $id = $this->params('id');
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
+        // check
+        if (!$config['manage_active']) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Owner dashboard is inactive'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        } else {
+            Pi::service('authentication')->requireLogin();
+        }
+        // Get user
+        $uid = Pi::user()->getId();
+        // Find event
+        $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
+        // Check event uid
+        if (isset($event['uid']) && $event['uid'] != $uid) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Its not your event'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
+        // Check event guide owner
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = $this->canonizeGuideOwner();
+            $option['owner'] = $owner['id'];
+            if (isset($event['guide_owner']) && $event['guide_owner'] != $owner['id']) {
+                $this->getResponse()->setStatusCode(401);
+                $this->terminate(__('Its not your event'), '', 'error-denied');
+                $this->view()->setLayout('layout-simple');
+                return;
+            }
+        }
+
+        // Set view
+        $this->view()->setTemplate('manage-order');
     }
 
     public function canonizeGuideOwner()
