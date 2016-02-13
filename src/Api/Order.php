@@ -80,9 +80,9 @@ class Order extends AbstractApi
             $row->assign($values);
             $row->save();
             // Set url
-            $url = Pi::url(Pi::service('url')->assemble('plans', array(
+            $url = Pi::url(Pi::service('url')->assemble('event', array(
                 'module' => $this->getModule(),
-                'controller' => 'order',
+                'controller' => 'register',
                 'action' => 'detail',
                 'id' => $row->id,
             )));
@@ -127,7 +127,7 @@ class Order extends AbstractApi
         // Set order url
         $order['orderUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $this->getModule(),
-            'controller' => 'order',
+            'controller' => 'register',
             'action' => 'detail',
             'id' => $order['id'],
         )));

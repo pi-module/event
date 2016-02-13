@@ -111,8 +111,8 @@ class Breadcrumbs extends AbstractBreadcrumbs
                     }
                     break;
 
-                case 'order':
-                    if ($params['action'] == 'list') {
+                case 'register':
+                    if ($params['action'] == 'index') {
                         $result[] = array(
                             'label' => __('List of your registered events'),
                         );

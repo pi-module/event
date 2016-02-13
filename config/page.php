@@ -12,7 +12,38 @@
  */
 return array(
     // Front section
-    'front' => array(),
+    'front' => array(
+        array(
+            'title' => _a('Index page'),
+            'controller' => 'index',
+            'permission' => 'public',
+            'block' => 1,
+        ),
+        array(
+            'title' => _a('Category'),
+            'controller' => 'category',
+            'permission' => 'public',
+            'block' => 1,
+        ),
+        array(
+            'title' => _a('Event detail'),
+            'controller' => 'detail',
+            'permission' => 'public',
+            'block' => 1,
+        ),
+        array(
+            'title' => _a('Manage'),
+            'controller' => 'manage',
+            'permission' => 'manage',
+            'block' => 1,
+        ),
+        array(
+            'title' => _a('Register'),
+            'controller' => 'register',
+            'permission' => 'register',
+            'block' => 1,
+        ),
+    ),
     // Admin section
     'admin' => array(
         array(

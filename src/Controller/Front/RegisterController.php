@@ -15,9 +15,36 @@ namespace Module\Event\Controller\Front;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
 
-class OrderController extends ActionController
+class RegisterController extends ActionController
 {
     public function indexAction()
+    {
+        // Check user is login or not
+        Pi::service('authentication')->requireLogin();
+        // Check order is active or inactive
+        if (!$this->config('order_active')) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('So sorry, At this moment order is inactive'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
+        // Get info
+        $uid = Pi::user()->getId();
+        $list = array();
+        $order = array('id DESC');
+        $where = array('uid' => $uid);
+        $select = $this->getModel('order')->select()->where($where)->order($order);
+        $rowset = $this->getModel('order')->selectWith($select);
+        // Make list
+        foreach ($rowset as $row) {
+            $list[$row->id] = Pi::api('order', 'event')->canonizeOrder($row);
+        }
+        // Set view
+        $this->view()->setTemplate('register-list');
+        $this->view()->assign('list', $list);
+    }
+
+    public function addAction()
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
@@ -99,33 +126,6 @@ class OrderController extends ActionController
         }
     }
 
-    public function listAction()
-    {
-        // Check user is login or not
-        Pi::service('authentication')->requireLogin();
-        // Check order is active or inactive
-        if (!$this->config('order_active')) {
-            $this->getResponse()->setStatusCode(401);
-            $this->terminate(__('So sorry, At this moment order is inactive'), '', 'error-denied');
-            $this->view()->setLayout('layout-simple');
-            return;
-        }
-        // Get info
-        $uid = Pi::user()->getId();
-        $list = array();
-        $order = array('id DESC');
-        $where = array('uid' => $uid);
-        $select = $this->getModel('order')->select()->where($where)->order($order);
-        $rowset = $this->getModel('order')->selectWith($select);
-        // Make list
-        foreach ($rowset as $row) {
-            $list[$row->id] = Pi::api('order', 'event')->canonizeOrder($row);
-        }
-        // Set view
-        $this->view()->setTemplate('order-list');
-        $this->view()->assign('list', $list);
-    }
-
     public function detailAction()
     {
         // Check user is login or not
@@ -187,7 +187,7 @@ class OrderController extends ActionController
         Pi::service('i18n')->load(array('module/order', 'default'));
         $invoices = Pi::api('invoice', 'order')->getInvoiceFromOrder($orderOrder['id']);
         // Set view
-        $this->view()->setTemplate('order-detail');
+        $this->view()->setTemplate('register-detail');
         $this->view()->assign('orderOrder', $orderOrder);
         $this->view()->assign('orderEvent', $orderEvent);
         $this->view()->assign('invoices', $invoices);

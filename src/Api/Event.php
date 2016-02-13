@@ -124,7 +124,8 @@ class Event extends AbstractApi
         // Set register url
         $event['eventOrder'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $this->getModule(),
-            'controller' => 'order',
+            'controller' => 'register',
+            'action' => 'add',
             'slug' => $event['slug'],
         )));
         // Set category

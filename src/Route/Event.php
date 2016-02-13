@@ -27,7 +27,7 @@ class Event extends Standard
     );
 
     protected $controllerList = array(
-        'index', 'category', 'detail', 'manage', 'order'
+        'index', 'category', 'detail', 'manage', 'register'
     );
 
     /**
@@ -86,16 +86,17 @@ class Event extends Standard
                     }
                     break;
 
-                case 'order':
+                case 'register':
                     if (isset($parts[1]) && $parts[1] == 'detail') {
                         $matches['action'] = 'detail';
                         if (isset($parts[2]) && is_numeric($parts[2])) {
                             $matches['id'] = intval($parts[2]);
                         }
-                    } elseif (isset($parts[1]) && $parts[1] == 'list') {
-                        $matches['action'] = 'list';
+                    } elseif (isset($parts[1]) && $parts[1] == 'add') {
+                        $matches['action'] = 'add';
+                        $matches['slug'] = $this->decode($parts[2]);
                     } elseif (isset($parts[1])) {
-                        $matches['slug'] = $this->decode($parts[1]);
+                        $matches['action'] = 'index';
                     }
                     break;
             }

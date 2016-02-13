@@ -12,7 +12,26 @@
  */
 return array(
     // Front section
-    'front' => array(),
+    'front' => array(
+        'manage' => array(
+            'label' => _a('Manage events'),
+            'permission' => array(
+                'resource' => 'manage',
+            ),
+            'route' => 'event',
+            'module' => 'event',
+            'controller' => 'manage',
+        ),
+        'register' => array(
+            'label' => _a('Registered events'),
+            'permission' => array(
+                'resource' => 'register',
+            ),
+            'route' => 'event',
+            'module' => 'event',
+            'controller' => 'register',
+        ),
+    ),
     // Admin section
     'admin' => array(
         'event' => array(
