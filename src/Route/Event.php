@@ -82,8 +82,8 @@ class Event extends Standard
                     break;
 
                 case 'order':
-                    if (isset($parts[1]) && $parts[1] == 'finish') {
-                        $matches['action'] = 'finish';
+                    if (isset($parts[1]) && $parts[1] == 'detail') {
+                        $matches['action'] = 'detail';
                         if (isset($parts[2]) && is_numeric($parts[2])) {
                             $matches['id'] = intval($parts[2]);
                         }

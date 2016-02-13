@@ -104,7 +104,7 @@ class Breadcrumbs extends AbstractBreadcrumbs
                         $result[] = array(
                             'label' => __('List of your registered events'),
                         );
-                    } elseif ($params['action'] == 'finish') {
+                    } elseif ($params['action'] == 'detail') {
                         // Set link
                         $result[] = array(
                             'label' => __('List of your registered events'),

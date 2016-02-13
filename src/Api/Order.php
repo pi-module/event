@@ -83,7 +83,7 @@ class Order extends AbstractApi
             $url = Pi::url(Pi::service('url')->assemble('plans', array(
                 'module' => $this->getModule(),
                 'controller' => 'order',
-                'action' => 'finish',
+                'action' => 'detail',
                 'id' => $row->id,
             )));
             // Send notification
@@ -112,8 +112,27 @@ class Order extends AbstractApi
         $order['time_order_view'] = _date($order['time_order']);
         $order['time_start_view'] = _date($order['time_start']);
         $order['time_end_view'] = _date($order['time_end']);
+        // Set number view
+        $order['number_view'] = $order['number'];
+        // Set price
+        if (Pi::service('module')->isActive('order')) {
+            $order['price_view'] = Pi::api('api', 'order')->viewPrice($order['price']);
+            $order['vat_view'] = Pi::api('api', 'order')->viewPrice($order['vat']);
+            $order['total_view'] = Pi::api('api', 'order')->viewPrice($order['total']);
+        } else {
+            $order['price_view'] = _currency($order['price']);
+            $order['vat_view'] = _currency($order['vat']);
+            $order['total_view'] = _currency($order['total']);
+        }
         // Set event
         $order['eventInfo'] = Pi::api('event', 'event')->getExtra($order['event']);
+        // Set order url
+        $order['orderUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
+            'module' => $this->getModule(),
+            'controller' => 'order',
+            'action' => 'detail',
+            'id' => $order['id'],
+        )));
         // return
         return $order;
     }

@@ -127,7 +127,7 @@ class OrderController extends ActionController
         $this->view()->assign('list', $list);
     }
 
-    public function finishAction()
+    public function detailAction()
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
@@ -188,7 +188,7 @@ class OrderController extends ActionController
         Pi::service('i18n')->load(array('module/order', 'default'));
         $invoices = Pi::api('invoice', 'order')->getInvoiceFromOrder($orderOrder['id']);
         // Set view
-        $this->view()->setTemplate('order-finish');
+        $this->view()->setTemplate('order-detail');
         $this->view()->assign('orderOrder', $orderOrder);
         $this->view()->assign('orderEvent', $orderEvent);
         $this->view()->assign('invoices', $invoices);
