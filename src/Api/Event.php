@@ -22,7 +22,6 @@ use Zend\Json\Json;
  * Pi::api('event', 'event')->joinExtra($event);
  * Pi::api('event', 'event')->getListFromId($id);
  * Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, $type, $table);
- * Pi::api('event', 'event')->getEventLast($limit);
  * Pi::api('event', 'event')->canonizeExtra($extra);
  * Pi::api('event', 'event')->canonizeEvent($event);
  */
@@ -76,43 +75,6 @@ class Event extends AbstractApi
             $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
         }
         return  $listEvent;
-    }
-
-    public function getEventLast($limit)
-    {
-        // Set model
-        $extraModel = Pi::model('extra', $this->getModule());
-        $extraTable = $extraModel->getTable();
-        $extraAdapter = $extraModel->getAdapter();
-        // Set sql
-        $sql = "SELECT * FROM `%s` WHERE  (`status` = 1 AND time_end > %s ) OR (`status` = 1 AND `time_end` = 0 AND time_start > %s ) ORDER BY `time_start` ASC, `id` ASC LIMIT %s";
-        // Set sql
-        $sql = sprintf(
-            $sql,
-            $extraTable,
-            strtotime("-1 day"),
-            strtotime("-1 day"),
-            intval($limit)
-        );
-        // query
-        try {
-            $rowset = $extraAdapter->query($sql, 'execute');
-            $rowset = $rowset->toArray();
-            foreach ($rowset as $row) {
-                $eventId[] = $row['id'];
-            }
-            $listEvent = array();
-            $where = array('status' => 1, 'id' => $eventId);
-            $order = array('time_start ASC', 'id ASC');
-            $listStory = Pi::api('api', 'news')->getStoryList($where, $order, '', $limit, 'full', 'story');
-            foreach ($listStory as $singleStory) {
-                $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
-            }
-        } catch (\Exception $exception) {
-            $listEvent = array();
-        }
-        //
-        return $listEvent;
     }
 
     public function canonizeExtra($extra) {

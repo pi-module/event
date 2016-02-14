@@ -23,8 +23,20 @@ class Block
         // Set options
         $block = array();
         $block = array_merge($block, $options);
+
+        $where = array(
+            'status' => 1,
+            'type' => 'event',
+        );
+
+        if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
+            $where['topic'] = $block['topic-id'];
+        }
+
+        $order = array('time_publish ASC', 'id ASC');
+
         // Set block array
-        $block['resources'] = Pi::api('event', 'event')->getEventLast($block['number']);
+        $block['resources'] = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', 'link');
         $block['morelink'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $module,
             'controller' => 'index',

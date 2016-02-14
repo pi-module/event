@@ -59,11 +59,8 @@ class ManageController extends ActionController
                 'id' => $ids,
             );
             $order = array('time_publish DESC', 'id DESC');
-            // Get list of story
-            $listStory = Pi::api('api', 'news')->getStoryList($where, $order, '', '', 'light', 'story');
-            foreach ($listStory as $singleStory) {
-                $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
-            }
+            // Get list of event
+            $listEvent = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'light', 'story');
         }
         // Set view
         $this->view()->setTemplate('manage-index');

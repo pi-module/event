@@ -17,6 +17,13 @@ return array(
         'render' => array('block', 'recentEvent'),
         'template' => 'recent-event',
         'config' => array(
+            'topic-id' => array(
+                'title' => _a('Category'),
+                'description' => '',
+                'edit' => 'Module\News\Form\Element\Topic',
+                'filter' => 'string',
+                'value' => 0,
+            ),
             'number' => array(
                 'title' => _a('Number'),
                 'description' => '',
@@ -24,7 +31,7 @@ return array(
                 'filter' => 'number_int',
                 'value' => 5,
             ),
-            'show_morelink' => array(
+            'show-morelink' => array(
                 'title' => _a('Show more link'),
                 'description' => '',
                 'edit' => 'checkbox',

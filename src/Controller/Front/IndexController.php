@@ -33,12 +33,8 @@ class IndexController extends ActionController
         $offset = (int)($page - 1) * $config['view_perpage'];
         $order = array('time_publish DESC', 'id DESC');
         $limit = intval($config['view_perpage']);
-        // Get list of story
-        $listEvent = array();
-        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, 'full', 'link');
-        foreach ($listStory as $singleStory) {
-            $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
-        }
+        // Get list of event
+        $listEvent = Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, 'full', 'link');
         // Set template
         $template = array(
             'module' => 'event',

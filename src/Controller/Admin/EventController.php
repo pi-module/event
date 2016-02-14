@@ -38,12 +38,8 @@ class EventController extends ActionController
         $order = array('id DESC');
         $offset = (int)($page - 1) * $this->config('admin_perpage');
         $limit = intval($this->config('admin_perpage'));
-        // Get list of story
-        $listEvent = array();
-        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, 'light', 'story');
-        foreach ($listStory as $singleStory) {
-            $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);;
-        }
+        // Get list of event
+        $listEvent = Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, 'light', 'story');
         // Set template
         $template = array(
             'module' => 'event',
