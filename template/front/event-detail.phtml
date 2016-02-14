@@ -132,10 +132,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <?php _e('Minimum Price') ?> : <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
                                     </li>
                                     <li class="pull-right">
-                                        <a itemprop="url" class="btn btn-success" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['eventOrder']); ?>" target="_blank">
-                                            <i class="fa fa-shopping-cart"></i>
-                                            <?php _e('Register to the event') ?>
-                                        </a>
+                                        <?php echo $this->form($form, 'inline'); ?>
                                     </li>
                                 </ul>
                             </div>

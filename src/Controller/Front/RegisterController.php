@@ -48,6 +48,8 @@ class RegisterController extends ActionController
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
+        // Get info from url
+        $module = $this->params('module');
         // Check order is active or inactive
         if (!$this->config('order_active')) {
             $this->getResponse()->setStatusCode(401);
@@ -55,74 +57,75 @@ class RegisterController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
-        // Set template
-        $this->view()->setTemplate(false);
-        // check order module
-        if (Pi::service('module')->isActive('order')) {
-            // Get info from url
-            $module = $this->params('module');
-            $slug = $this->params('slug');
-            $number = $this->params('number', 1);
+        // Check post
+        if ($this->request->isPost()) {
+            // Get post
+            $data = $this->request->getPost()->toArray();
+            // Set number
+            if (isset($data['number']) && intval($data['number']) > 0) {
+                $number = intval($data['number']);
+            } else {
+                $number = 1;
+            }
             // Check id
-            if (!$slug) {
+            if (!intval($data['id'])) {
                 $this->getResponse()->setStatusCode(401);
                 $this->terminate(__('You need select event'), '', 'error-denied');
                 $this->view()->setLayout('layout-simple');
                 return;
             }
-            // Find event
-            $event = Pi::api('event', 'event')->getEvent($slug, 'slug', 'full');
-            // Check event
-            if (!$event || $event['status'] != 1) {
-                $this->getResponse()->setStatusCode(404);
-                $this->terminate(__('The event not found.'), '', 'error-404');
+            // check order module
+            if (Pi::service('module')->isActive('order') && !empty($data)) {
+                // Find event
+                $event = Pi::api('event', 'event')->getEvent(intval($data['id']), 'id', 'full');
+                // Check event
+                if (!$event || $event['status'] != 1) {
+                    $this->getResponse()->setStatusCode(404);
+                    $this->terminate(__('The event not found.'), '', 'error-404');
+                    $this->view()->setLayout('layout-simple');
+                    return;
+                }
+                // Check can register
+                if (!$event['register_can']) {
+                    $message = __('This event not available for registration');
+                    $this->jump($event['eventUrl'], $message, 'error');
+                }
+                // Check capacity
+                if ($event['register_stock'] === 0 || $event['register_stock'] < $number) {
+                    $message = __('This event do not have enough capacity');
+                    $this->jump($event['eventUrl'], $message, 'error');
+                }
+                // Set singel Product
+                $singleProduct = array(
+                    'product' => $event['id'],
+                    'product_price' => $event['register_price'],
+                    'discount_price' => 0,
+                    'shipping_price' => 0,
+                    'setup_price' => 0,
+                    'packing_price' => 0,
+                    'vat_price' => 0,
+                    'number' => $number,
+                    'title' => $event['title'],
+                );
+                // Set order array
+                $order = array();
+                $order['module_name'] = $module;
+                $order['module_item'] = $event['id'];
+                $order['type_payment'] = 'recurring';
+                $order['type_commodity'] = 'service';
+                $order['product'][$event['id']] = $singleProduct;
+                // Set and go to order
+                $url = Pi::api('order', 'order')->setOrderInfo($order);
+                Pi::service('url')->redirect($url);
+            } else {
+                $this->getResponse()->setStatusCode(401);
+                $this->terminate(__('Order module not installed'), '', 'error-denied');
                 $this->view()->setLayout('layout-simple');
                 return;
             }
-            // Check time_publish
-            if ($event['time_publish'] > time()) {
-                $this->getResponse()->setStatusCode(404);
-                $this->terminate(__('The Story not publish.'), '', 'error-404');
-                $this->view()->setLayout('layout-simple');
-                return;
-            }
-            // Check can register
-            if (!$event['register_can']) {
-                $message = __('This event not available for registration');
-                $this->jump($event['eventUrl'], $message, 'error');
-            }
-            // Check capacity
-            if ($event['register_stock'] === 0 || $event['register_stock'] < $number) {
-                $message = __('This event do not have enough capacity');
-                $this->jump($event['eventUrl'], $message, 'error');
-            }
-            // Set singel Product
-            $singleProduct = array(
-                'product' => $event['id'],
-                'product_price' => $event['register_price'],
-                'discount_price' => 0,
-                'shipping_price' => 0,
-                'setup_price' => 0,
-                'packing_price' => 0,
-                'vat_price' => 0,
-                'number' => $number,
-                'title' => $event['title'],
-            );
-            // Set order array
-            $order = array();
-            $order['module_name'] = $module;
-            $order['module_item'] = $event['id'];
-            $order['type_payment'] = 'recurring';
-            $order['type_commodity'] = 'service';
-            $order['product'][$event['id']] = $singleProduct;
-            // Set and go to order
-            $url = Pi::api('order', 'order')->setOrderInfo($order);
-            Pi::service('url')->redirect($url);
         } else {
-            $this->getResponse()->setStatusCode(401);
-            $this->terminate(__('Order module not installed'), '', 'error-denied');
-            $this->view()->setLayout('layout-simple');
-            return;
+            $url = array('', 'controller' => 'register', 'action' => 'index');
+            return $this->redirect()->toRoute('', $url);
         }
     }
 

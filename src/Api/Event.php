@@ -126,7 +126,7 @@ class Event extends AbstractApi
             'module' => $this->getModule(),
             'controller' => 'register',
             'action' => 'add',
-            'slug' => $event['slug'],
+            //'slug' => $event['slug'],
         )));
         // Set category
         if (isset($event['topics']) && !empty($event['topics'])) {

@@ -14,6 +14,8 @@ namespace Module\Event\Controller\Front;
 
 use Pi;
 use Pi\Mvc\Controller\ActionController;
+use Module\Event\Form\RegisterForm;
+use Module\Event\Form\RegisterFilter;
 
 class DetailController extends ActionController
 {
@@ -69,6 +71,13 @@ class DetailController extends ActionController
                 }
             }
         }
+        // Set form
+        $option = array();
+        $option['stock'] = ($event['register_stock'] > 10) ? 10 : $event['register_stock'];
+        $form = new RegisterForm('event', $option);
+        $form->setAttribute('enctype', 'multipart/form-data');
+        $form->setAttribute('action', $event['eventOrder']);
+        $form->setData($event);
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');
@@ -76,5 +85,6 @@ class DetailController extends ActionController
         $this->view()->setTemplate('event-detail');
         $this->view()->assign('event', $event);
         $this->view()->assign('config', $config);
+        $this->view()->assign('form', $form);
     }
 }
