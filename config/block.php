@@ -10,4 +10,27 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array();
+return array(
+    'recent-event' => array(
+        'title' => _a('Recent events'),
+        'description' => _a('Recent events list'),
+        'render' => array('block', 'recentEvent'),
+        'template' => 'recent-event',
+        'config' => array(
+            'number' => array(
+                'title' => _a('Number'),
+                'description' => '',
+                'edit' => 'text',
+                'filter' => 'number_int',
+                'value' => 5,
+            ),
+            'show_morelink' => array(
+                'title' => _a('Show more link'),
+                'description' => '',
+                'edit' => 'checkbox',
+                'filter' => 'number_int',
+                'value' => 0,
+            ),
+        ),
+    ),
+);
