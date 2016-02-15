@@ -80,11 +80,17 @@ class Order extends AbstractApi
             $row->assign($values);
             $row->save();
             // Set url
-            $url = Pi::url(Pi::service('url')->assemble('event', array(
+            /* $url = Pi::url(Pi::service('url')->assemble('event', array(
                 'module' => $this->getModule(),
                 'controller' => 'register',
                 'action' => 'detail',
                 'id' => $row->id,
+            ))); */
+            $url = Pi::url(Pi::service('url')->assemble('order', array(
+                'module' => 'order',
+                'controller' => 'detail',
+                'action' => 'index',
+                'id' => $order['id'],
             )));
             // Send notification
             //Pi::api('notification', 'order')->newOrder($order, $event);
@@ -93,10 +99,16 @@ class Order extends AbstractApi
         }
     }
 
-    public function getOrder($id)
+    public function getOrder($parameter, $field = 'id', $event = true)
     {
-        $order = Pi::model('order', $this->getModule())->find($id);
-        $order = $this->canonizeOrder($order);
+        // Check for order module request
+        if ($field == 'order') {
+            $field = 'order_id';
+            $event = false;
+        }
+        // Get order
+        $order = Pi::model('order', $this->getModule())->find($parameter, $field);
+        $order = $this->canonizeOrder($order, $event);
         return $order;
     }
 

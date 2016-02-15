@@ -22,7 +22,7 @@ return array(
             'module' => 'event',
             'controller' => 'manage',
         ),
-        'register' => array(
+        /* 'register' => array(
             'label' => _a('Registered events'),
             'permission' => array(
                 'resource' => 'register',
@@ -30,7 +30,7 @@ return array(
             'route' => 'event',
             'module' => 'event',
             'controller' => 'register',
-        ),
+        ), */
     ),
     // Admin section
     'admin' => array(

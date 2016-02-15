@@ -111,7 +111,7 @@ class Breadcrumbs extends AbstractBreadcrumbs
                     }
                     break;
 
-                case 'register':
+                /* case 'register':
                     if ($params['action'] == 'index') {
                         $result[] = array(
                             'label' => __('List of your registered events'),
@@ -121,7 +121,7 @@ class Breadcrumbs extends AbstractBreadcrumbs
                         $result[] = array(
                             'label' => __('List of your registered events'),
                             'href' => Pi::url(Pi::service('url')->assemble('event', array(
-                                'controller' => 'order',
+                                'controller' => 'register',
                                 'action' => 'list',
                             ))),
                         );
@@ -130,7 +130,7 @@ class Breadcrumbs extends AbstractBreadcrumbs
                             'label' => __('Registered event information'),
                         );
                     }
-                    break;
+                    break; */
             }
         } else {
             $result = array(

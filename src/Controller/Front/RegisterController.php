@@ -14,10 +14,11 @@ namespace Module\Event\Controller\Front;
 
 use Pi;
 use Pi\Mvc\Controller\ActionController;
+use Zend\Json\Json;
 
 class RegisterController extends ActionController
 {
-    public function indexAction()
+    /* public function indexAction()
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
@@ -42,7 +43,7 @@ class RegisterController extends ActionController
         // Set view
         $this->view()->setTemplate('register-list');
         $this->view()->assign('list', $list);
-    }
+    } */
 
     public function addAction()
     {
@@ -95,6 +96,11 @@ class RegisterController extends ActionController
                     $message = __('This event do not have enough capacity');
                     $this->jump($event['eventUrl'], $message, 'error');
                 }
+                // Set extra
+                $extra = array();
+                $extra['view_type'] = 'template';
+                $extra['view_template'] = 'order-detail';
+                $extra['getDetail'] = true;
                 // Set singel Product
                 $singleProduct = array(
                     'product' => $event['id'],
@@ -106,6 +112,7 @@ class RegisterController extends ActionController
                     'vat_price' => 0,
                     'number' => $number,
                     'title' => $event['title'],
+                    'extra' => json::encode($extra),
                 );
                 // Set order array
                 $order = array();
@@ -129,7 +136,7 @@ class RegisterController extends ActionController
         }
     }
 
-    public function detailAction()
+    /* public function detailAction()
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
@@ -163,11 +170,11 @@ class RegisterController extends ActionController
             $this->jump($url, __('This order not pay'));
         }
         // Check time payment
-        /* $time = time() - 3600;
+        $time = time() - 3600;
         if ($time > $orderOrder['time_payment']) {
             $url = array('', 'module' => $module, 'controller' => 'index', 'action' => 'index');
             $this->jump($url, __('This is old order and you pay it before'));
-        } */
+        }
         // Set links
         $orderOrder['order_link'] = Pi::url($this->url('order', array(
             'module' => 'order',
@@ -195,5 +202,5 @@ class RegisterController extends ActionController
         $this->view()->assign('orderEvent', $orderEvent);
         $this->view()->assign('invoices', $invoices);
         $this->view()->assign('event', $event);
-    }
+    } */
 }

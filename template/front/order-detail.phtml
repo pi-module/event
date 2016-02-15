@@ -1,0 +1,55 @@
+<?php Pi::service('i18n')->load(array('module/event', 'default')); ?>
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <th colspan="5">
+            <?php echo sprintf(__("Details of %s"), $this->escape($product['details']['title'])); ?>
+        </th>
+    </tr>
+    <tr>
+        <td><i class="fa fa-calendar"></i> <?php _e('Register on'); ?></td>
+        <td colspan="4"><?php echo $this->escape($product['extra']['orderDetail']['time_order_view']); ?></td>
+    </tr>
+    <tr>
+        <td><i class="fa fa-clock-o"></i> <?php _e('Event date'); ?></td>
+        <td colspan="4">
+            <?php if (!empty($product['details']['time_start']) && !empty($product['details']['time_end'])) { ?>
+                <?php _e('From') ?>
+                <?php echo $this->escape($product['details']['time_start_view']); ?>
+                <?php _e('to') ?>
+                <?php echo $this->escape($product['details']['time_end_view']); ?>
+            <?php } elseif (!empty($product['details']['time_start'])) { ?>
+                <?php _e('On') ?> <?php echo $this->escape($product['details']['time_start_view']); ?>
+            <?php } ?>
+        </td>
+    </tr>
+    <?php if (!empty($product['details']['organizer_name'])) { ?>
+        <tr>
+            <td><i class="fa fa-user"></i> <?php _e('Organizer name') ?></td>
+            <td colspan="4"><?php echo $this->escape($product['details']['organizer_name']); ?></td>
+        </tr>
+    <?php } ?>
+    <?php if (!empty($product['details']['source_url'])) { ?>
+        <tr>
+            <td><i class="fa fa-external-link"></i> <?php _e('Organizer Website') ?></td>
+            <td colspan="4">
+                <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($product['details']['source_url']); ?>" target="_blank">
+                    <?php _e('Visit') ?>
+                </a>
+            </td>
+        </tr>
+    <?php } ?>
+    <?php if (!empty($product['details']['address'])) { ?>
+        <tr>
+            <td><i class="fa fa-map-marker"></i> <?php _e('Address') ?></td>
+            <td colspan="4"><?php echo $this->escape($product['details']['address']); ?></td>
+        </tr>
+    <?php } ?>
+    <tr class="success">
+        <td><i class="fa fa-key"></i> <?php _e('Public code') ?></td>
+        <td colspan="4"><strong><?php echo $this->escape($product['extra']['orderDetail']['code_public']); ?></strong></td>
+    </tr>
+    <tr class="success">
+        <td><i class="fa fa-key"></i> <?php _e('Private code') ?></td>
+        <td colspan="4"><strong><?php echo $this->escape($product['extra']['orderDetail']['code_private']); ?></strong></td>
+    </tr>
+</table>

@@ -26,12 +26,12 @@ return array(
                 'member',
             ),
         ),
-        'register' => array(
+        /* 'register' => array(
             'title' => _a('Register'),
             'access' => array(
                 'member',
             ),
-        ),
+        ), */
     ),
     // Admin section
     'admin' => array(

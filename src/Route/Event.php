@@ -87,17 +87,17 @@ class Event extends Standard
                     break;
 
                 case 'register':
-                    if (isset($parts[1]) && $parts[1] == 'detail') {
+                    if (isset($parts[1]) && $parts[1] == 'add') {
+                        $matches['action'] = 'add';
+                        $matches['slug'] = $this->decode($parts[2]);
+                    } /*elseif (isset($parts[1]) && $parts[1] == 'detail') {
                         $matches['action'] = 'detail';
                         if (isset($parts[2]) && is_numeric($parts[2])) {
                             $matches['id'] = intval($parts[2]);
                         }
-                    } elseif (isset($parts[1]) && $parts[1] == 'add') {
-                        $matches['action'] = 'add';
-                        $matches['slug'] = $this->decode($parts[2]);
                     } elseif (isset($parts[1])) {
                         $matches['action'] = 'index';
-                    }
+                    }*/
                     break;
             }
         }
