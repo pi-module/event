@@ -47,8 +47,8 @@ class RegisterController extends ActionController
 
     public function addAction()
     {
-        // Check user is login or not
-        Pi::service('authentication')->requireLogin();
+        // Get uid
+        $uid = Pi::user()->getId();
         // Get info from url
         $module = $this->params('module');
         // Check order is active or inactive
@@ -121,6 +121,10 @@ class RegisterController extends ActionController
                 $order['type_payment'] = 'recurring';
                 $order['type_commodity'] = 'service';
                 $order['product'][$event['id']] = $singleProduct;
+                // Set session_order if user not login
+                if ($uid == 0) {
+                    $_SESSION['session_order'] = $singleProduct;
+                }
                 // Set and go to order
                 $url = Pi::api('order', 'order')->setOrderInfo($order);
                 Pi::service('url')->redirect($url);
