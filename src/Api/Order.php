@@ -137,12 +137,12 @@ class Order extends AbstractApi
             $order['total_view'] = _currency($order['total']);
         }
         // Set order url
-        $order['orderUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
+        /* $order['orderUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $this->getModule(),
             'controller' => 'register',
             'action' => 'detail',
             'id' => $order['id'],
-        )));
+        ))); */
         // Set event
         if ($event) {
             $order['eventInfo'] = Pi::api('event', 'event')->getExtra($order['event']);
