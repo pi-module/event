@@ -21,6 +21,10 @@ return array(
             'name' => 'view'
         ),
         array(
+            'title' => _a('Social'),
+            'name' => 'social'
+        ),
+        array(
             'title' => _a('Manage'),
             'name' => 'manage'
         ),
@@ -47,6 +51,19 @@ return array(
             'edit' => 'text',
             'filter' => 'number_int',
             'value' => 10
+        ),
+        // Social
+        'social_sharing' => array(
+            'title' => _t('Social sharing items'),
+            'description' => '',
+            'edit' => array(
+                'type' => 'multi_checkbox',
+                'options' => array(
+                    'options' => Pi::service('social_sharing')->getList(),
+                ),
+            ),
+            'filter' => 'array',
+            'category' => 'social',
         ),
         // Manage
         'manage_active' => array(

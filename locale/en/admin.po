@@ -1,0 +1,103 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: support\n"
+"POT-Creation-Date: 2016-02-15 15:16+0330\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _a;_t\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: config/block.php:15
+msgid "Recent events"
+msgstr ""
+
+#: config/block.php:16
+msgid "Recent events list"
+msgstr ""
+
+#: config/block.php:21 config/page.php:23
+msgid "Category"
+msgstr ""
+
+#: config/block.php:28
+msgid "Number"
+msgstr ""
+
+#: config/block.php:35
+msgid "Show more link"
+msgstr ""
+
+#: config/comment.php:15
+msgid "Event comments"
+msgstr ""
+
+#: config/config.php:16
+msgid "Admin"
+msgstr ""
+
+#: config/config.php:20
+msgid "View"
+msgstr ""
+
+#: config/config.php:24
+msgid "Social"
+msgstr ""
+
+#: config/config.php:28 config/page.php:35 config/permission.php:24
+msgid "Manage"
+msgstr ""
+
+#: config/config.php:32 config/navigation.php:48 config/page.php:55
+#: config/permission.php:43
+msgid "Order"
+msgstr ""
+
+#: config/config.php:40 config/config.php:49
+msgid "Perpage"
+msgstr ""
+
+#: config/config.php:57
+msgid "Social sharing items"
+msgstr ""
+
+#: config/config.php:71
+msgid "Manage event by users"
+msgstr ""
+
+#: config/config.php:79
+msgid "Auto approval user events"
+msgstr ""
+
+#: config/config.php:88
+msgid "Active order"
+msgstr ""
+
+#: config/module.php:16 config/navigation.php:38 config/page.php:50
+#: config/permission.php:39
+msgid "Event"
+msgstr ""
+
+#: config/module.php:17 config/navigation.php:17
+msgid "Manage events"
+msgstr ""
+
+#: config/page.php:17
+msgid "Index page"
+msgstr ""
+
+#: config/page.php:29
+msgid "Event detail"
+msgstr ""
+
+#: config/permission.php:17
+msgid "Global public resource"
+msgstr ""

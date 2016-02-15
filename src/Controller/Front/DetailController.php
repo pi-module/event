@@ -35,13 +35,6 @@ class DetailController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
-        // Check time_publish
-        if ($event['time_publish'] > time()) {
-            $this->getResponse()->setStatusCode(404);
-            $this->terminate(__('The Story not publish.'), '', 'error-404');
-            $this->view()->setLayout('layout-simple');
-            return;
-        }
         // Update Hits
         Pi::model('story', 'news')->update(
             array('hits' => $event['hits'] + 1),
