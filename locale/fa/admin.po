@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-02-15 15:15+0330\n"
+"POT-Creation-Date: 2016-02-15 15:18+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,8 +56,7 @@ msgstr "شبکه های اجتماعی"
 msgid "Manage"
 msgstr "مدیریت درج رویداد توسط کاربر"
 
-#: config/config.php:32 config/navigation.php:48 config/page.php:55
-#: config/permission.php:43
+#: config/config.php:32
 msgid "Order"
 msgstr "سفارش"
 
@@ -89,6 +88,10 @@ msgstr "رویداد"
 #: config/module.php:17 config/navigation.php:17
 msgid "Manage events"
 msgstr "مدیریت رویداد ها"
+
+#: config/navigation.php:48 config/page.php:55 config/permission.php:43
+msgid "List of order"
+msgstr "فهرست سفارش ها"
 
 #: config/page.php:17
 msgid "Index page"

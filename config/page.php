@@ -52,7 +52,7 @@ return array(
             'permission' => 'event',
         ),
         array(
-            'title' => _a('Order'),
+            'title' => _a('List of order'),
             'controller' => 'order',
             'permission' => 'order',
         ),

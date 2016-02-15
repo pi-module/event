@@ -40,7 +40,7 @@ return array(
             'access' => array(),
         ),
         'order' => array(
-            'title' => _a('Order'),
+            'title' => _a('List of order'),
             'access' => array(),
         ),
     ),

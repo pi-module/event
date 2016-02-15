@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-02-15 15:16+0330\n"
+"POT-Creation-Date: 2016-02-15 15:17+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,8 +56,7 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
-#: config/config.php:32 config/navigation.php:48 config/page.php:55
-#: config/permission.php:43
+#: config/config.php:32 config/page.php:55 config/permission.php:43
 msgid "Order"
 msgstr ""
 
@@ -88,6 +87,10 @@ msgstr ""
 
 #: config/module.php:17 config/navigation.php:17
 msgid "Manage events"
+msgstr ""
+
+#: config/navigation.php:48
+msgid "List of order"
 msgstr ""
 
 #: config/page.php:17

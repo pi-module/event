@@ -45,7 +45,7 @@ return array(
             'action' => 'index',
         ),
         'order' => array(
-            'label' => _a('Order'),
+            'label' => _a('List of order'),
             'permission' => array(
                 'resource' => 'order',
             ),
