@@ -53,13 +53,13 @@ return array(
             'value' => 10
         ),
         'view_template' => array(
-            'title' => _a('Single event template'),
+            'title' => _a('Event template type'),
             'description' => '',
             'edit' => array(
                 'type' => 'select',
                 'options' => array(
                     'options' => array(
-                        'default' => _a('Default'),
+                        'default' => _a('Default mode'),
                         'guide' => _a('Guide module'),
                     ),
                 ),
