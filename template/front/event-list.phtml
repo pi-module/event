@@ -12,8 +12,7 @@
         <div class="event-list clearfix">
             <div class="list-group">
                 <?php foreach ($eventList as $event) { ?>
-                    <div class="list-group-item event-single clearfix h-event" itemscope
-                        itemtype="http://schema.org/Event">
+                    <div class="list-group-item event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                         <div class="col-md-3">
                             <?php if ($event['image']) { ?>
                                 <img itemprop="image" class="img-responsive img-rounded u-photo"
@@ -59,8 +58,6 @@
                                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                                     <?php } ?>
                                 </ul>
-
-
                             </div>
                         </div>
                     </div>
