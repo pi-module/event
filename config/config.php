@@ -66,7 +66,7 @@ return array(
             ),
             'filter' => 'string',
             'value' => 'default',
-            'category' => 'search',
+            'category' => 'view',
         ),
         // Social
         'social_sharing' => array(
