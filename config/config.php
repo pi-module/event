@@ -59,13 +59,13 @@ return array(
                 'type' => 'select',
                 'options' => array(
                     'options' => array(
-                        'detail' => _a('Default'),
+                        'default' => _a('Default'),
                         'guide' => _a('Guide module'),
                     ),
                 ),
             ),
             'filter' => 'string',
-            'value' => 'detail',
+            'value' => 'default',
             'category' => 'search',
         ),
         // Social

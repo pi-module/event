@@ -74,12 +74,12 @@ class DetailController extends ActionController
         // Set template
         switch ($config['view_template']) {
             case 'guide':
-                $template = 'event-guide';
+                $template = 'event-detail-guide';
                 break;
 
             default:
             case 'detail':
-                $template = 'event-detail';
+                $template = 'event-detail-default';
                 break;
         }
         // Set view
