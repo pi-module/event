@@ -71,11 +71,22 @@ class DetailController extends ActionController
         $form->setAttribute('enctype', 'multipart/form-data');
         $form->setAttribute('action', $event['eventOrder']);
         $form->setData($event);
+        // Set template
+        switch ($config['view_template']) {
+            case 'guide':
+                $template = 'event-guide';
+                break;
+
+            default:
+            case 'detail':
+                $template = 'event-detail';
+                break;
+        }
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');
         $this->view()->headKeywords($event['seo_keywords'], 'set');
-        $this->view()->setTemplate('event-detail');
+        $this->view()->setTemplate($template);
         $this->view()->assign('event', $event);
         $this->view()->assign('config', $config);
         $this->view()->assign('form', $form);

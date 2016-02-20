@@ -52,6 +52,22 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
+        'view_template' => array(
+            'title' => _a('Single event template'),
+            'description' => '',
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'detail' => _a('Default'),
+                        'guide' => _a('Guide module'),
+                    ),
+                ),
+            ),
+            'filter' => 'string',
+            'value' => 'detail',
+            'category' => 'search',
+        ),
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),
@@ -90,6 +106,15 @@ return array(
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        // head_meta
+        'text_description_index' => array(
+            'category' => 'head_meta',
+            'title' => _a('Description for index page'),
+            'description' => '',
+            'edit' => 'textarea',
+            'filter' => 'string',
+            'value' => ''
         ),
     ),
 );

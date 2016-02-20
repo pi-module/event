@@ -55,9 +55,6 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
         <div class="itemTitle p-name" itemprop="name">
             <h1 class="clearfix">
                 <?php echo $this->escape($event['title']); ?>
-                <?php if ($event['subtitle']) { ?>
-                    <small class="pull-right"><?php echo $this->escape($event['subtitle']); ?></small>
-                <?php } ?>
             </h1>
         </div>
     </div>
@@ -67,12 +64,14 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 : <?php echo $this->escape($event['time_update_view']); ?></li>
             <li><i class="fa fa-eye"></i> <?php _e('Viewed'); ?>
                 : <?php echo _number($this->escape($event['hits'])); ?> <?php _e('Times'); ?></li>
-            <?php if (!empty($event['topics'])) { ?>
+            <?php if (!empty($event['guideCategoryInfo'])) { ?>
                 <li><i class="fa fa-folder"></i> <?php _e('Category'); ?> : </li>
-                <?php foreach ($event['topics'] as $eventTopic) { ?>
+                <?php foreach ($event['guideCategoryInfo'] as $guideCategoryInfo) { ?>
                     <li class="p-category" itemprop="about">
-                        <a title="<?php echo $eventTopic['title']; ?>"
-                           href="<?php echo $eventTopic['url']; ?>"><?php echo $eventTopic['title']; ?></a>
+                        <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>"
+                           href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
+                            <?php echo $this->escape($guideCategoryInfo['title']); ?>
+                        </a>
                     </li>
                 <?php } ?>
             <?php } ?>
@@ -100,6 +99,19 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                             </li>
                         <?php } ?>
                     </ul>
+                    <?php if (!empty($event['guideLocationInfo'])) { ?>
+                        <ul class="list-inline">
+                            <li><?php _e('Related locations'); ?></li>
+                            <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
+                                <li>
+                                    <a title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
+                                       href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
+                                        <?php echo $this->escape($guideLocationInfo['title']); ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
                     <ul class="list-unstyled">
                         <?php if (!empty($event['organizer_name'])) { ?>
                             <li itemscope itemtype="http://schema.org/Organization">
@@ -180,7 +192,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     </div>
                     <div class="thumbnails">
                         <?php foreach ($event['guideItemInfo'] as $guideItemInfo) { ?>
-                            <div class="guide-item-box h-review">
+                            <div class="guide-item-box h-review col-md-9">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['image']) { ?>
                                         <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
@@ -194,64 +206,6 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <?php echo $this->escape($guideItemInfo['title']); ?>
-                                        </a>
-                                    </h3>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-            <?php } ?>
-            <?php if (!empty($event['guideLocationInfo'])) { ?>
-                <div class="guide-item-related clearfix">
-                    <div class="page-header">
-                        <h2><?php _e('Related locations'); ?></h2>
-                    </div>
-                    <div class="thumbnails">
-                        <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
-                            <div class="guide-item-box h-review">
-                                <div class="thumbnail p-item h-card">
-                                    <?php if ($guideLocationInfo['image']) { ?>
-                                        <a class="u-url" title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
-                                           href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
-                                            <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideLocationInfo['itemimageUrl']); ?>"
-                                                 alt="<?php echo $this->escape($guideLocationInfo['title']); ?>"/>
-                                        </a>
-                                    <?php } ?>
-                                    <h3 class="p-name">
-                                        <a class="u-url" title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
-                                           href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
-                                            <?php echo $this->escape($guideLocationInfo['title']); ?>
-                                        </a>
-                                    </h3>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-            <?php } ?>
-            <?php if (!empty($event['guideCategoryInfo'])) { ?>
-                <div class="guide-item-related clearfix">
-                    <div class="page-header">
-                        <h2><?php _e('Related categories'); ?></h2>
-                    </div>
-                    <div class="thumbnails">
-                        <?php foreach ($event['guideCategoryInfo'] as $guideCategoryInfo) { ?>
-                            <div class="guide-item-box h-review">
-                                <div class="thumbnail p-item h-card">
-                                    <?php if ($guideCategoryInfo['image']) { ?>
-                                        <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>"
-                                           href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
-                                            <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideCategoryInfo['itemimageUrl']); ?>"
-                                                 alt="<?php echo $this->escape($guideCategoryInfo['title']); ?>"/>
-                                        </a>
-                                    <?php } ?>
-                                    <h3 class="p-name">
-                                        <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>"
-                                           href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
-                                            <?php echo $this->escape($guideCategoryInfo['title']); ?>
                                         </a>
                                     </h3>
                                 </div>

@@ -116,7 +116,7 @@ class EventForm extends BaseForm
             'name' => 'extra_main',
             'type' => 'fieldset',
             'options' => array(
-                'label' => __('Mian options'),
+                'label' => __('Main options'),
             ),
         ));
         // status
