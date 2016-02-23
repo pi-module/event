@@ -72,6 +72,8 @@ class Event extends Standard
                         $matches['action'] = 'update';
                         if (isset($parts[2]) && is_numeric($parts[2])) {
                             $matches['id'] = intval($parts[2]);
+                        } elseif (isset($parts[2]) && $parts[2] == 'item') {
+                            $matches['item'] = intval($parts[3]);
                         }
                     } elseif (isset($parts[1]) && $parts[1] == 'remove'
                         && isset($parts[2]) && is_numeric($parts[2])
@@ -156,7 +158,12 @@ class Event extends Standard
 
         // Set id
         if (!empty($mergedParams['id'])) {
-            $url['id'] = $mergedParams['id'];
+            $url['id'] = 'item' . $this->paramDelimiter . $mergedParams['id'];
+        }
+
+        // Set item
+        if (!empty($mergedParams['item'])) {
+            $url['item'] = 'item' . $this->paramDelimiter . $mergedParams['item'];
         }
 
         // Set password

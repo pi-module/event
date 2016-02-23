@@ -75,11 +75,14 @@ class ManageController extends ActionController
         // Get info from url
         $module = $this->params('module');
         $id = $this->params('id');
-        $option = array(
-            'side' => 'front'
-        );
+        $item = $this->params('item');
         // Get config
         $config = Pi::service('registry')->config->read($module);
+        // Set option
+        $option = array(
+            'side' => 'front',
+            'use_topic' => $config['use_topic'],
+        );
         // check
         if (!$config['manage_active']) {
             $this->getResponse()->setStatusCode(401);
@@ -116,6 +119,9 @@ class ManageController extends ActionController
                 $this->view()->setLayout('layout-simple');
                 return;
             }
+            // Check item
+            $item = Pi::api('item', 'guide')->getItemLight($item);
+            $option['item'] = $item['id'];
         }
         // Set form
         $form = new EventForm('event', $option);
@@ -152,7 +158,7 @@ class ManageController extends ActionController
                 }
                 $values['guide_category'] = Json::encode($values['guide_category']);
                 $values['guide_location'] = Json::encode($values['guide_location']);
-                $values['guide_item'] = Json::encode($values['guide_item']);
+                $values['guide_item'] = !empty($item) ? Json::encode(array($item['id'])) : Json::encode($values['guide_item']);
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
                     $story = Pi::api('api', 'news')->editStory($values);
@@ -175,6 +181,10 @@ class ManageController extends ActionController
                 }
                 $row->assign($values);
                 $row->save();
+                // Check topic
+                if (!$config['use_topic']) {
+                    $values['topic'] = array();
+                }
                 // Set link array
                 $link = array(
                     'story' => $story['id'],

@@ -97,8 +97,12 @@ class EventController extends ActionController
         // Get id
         $id = $this->params('id');
         $module = $this->params('module');
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
+        // Set option
         $option = array(
-            'side' => 'admin'
+            'side' => 'admin',
+            'use_topic' => $config['use_topic'],
         );
         // Find event
         if ($id) {
@@ -161,6 +165,10 @@ class EventController extends ActionController
                 }
                 $row->assign($values);
                 $row->save();
+                // Check topic
+                if (!$config['use_topic']) {
+                    $values['topic'] = array();
+                }
                 // Set link array
                 $link = array(
                     'story' => $story['id'],

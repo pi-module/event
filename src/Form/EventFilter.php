@@ -80,16 +80,19 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
-        // topic
-        $this->add(array(
-            'name' => 'topic',
-            'required' => true,
-        ));
-        // topic_main
-        $this->add(array(
-            'name' => 'topic_main',
-            'required' => true,
-        ));
+        // Check topic
+        if ($option['use_topic']) {
+            // topic
+            $this->add(array(
+                'name' => 'topic',
+                'required' => true,
+            ));
+            // topic_main
+            $this->add(array(
+                'name' => 'topic_main',
+                'required' => true,
+            ));
+        }
         // status
         if ($option['side'] == 'admin') {
             $this->add(array(
@@ -232,10 +235,12 @@ class EventFilter extends InputFilter
                 'required' => false,
             ));
             // item
-            $this->add(array(
-                'name' => 'guide_item',
-                'required' => false,
-            ));
+            if (!isset($option['item']) || !$option['item']) {
+                $this->add(array(
+                    'name' => 'guide_item',
+                    'required' => false,
+                ));
+            }
         }
         // Seo options
         if ($option['side'] == 'admin') {

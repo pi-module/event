@@ -43,6 +43,14 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
+        'use_topic' => array(
+            'category' => 'admin',
+            'title' => _a('Use news topics'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
         // View
         'view_perpage' => array(
             'category' => 'view',
