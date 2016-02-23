@@ -124,7 +124,7 @@ class EventController extends ActionController
             if ($form->isValid()) {
                 $values = $form->getData();
                 // upload image
-                $image = Pi::api('api', 'news')->uploadImage($file, 'event-', 'event');
+                $image = Pi::api('api', 'news')->uploadImage($file, 'event-');
                 $values = array_merge($values, $image);
                 if (!isset($values['image'])) {
                     $values['image'] = '';
