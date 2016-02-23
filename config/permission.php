@@ -43,5 +43,9 @@ return array(
             'title' => _a('List of order'),
             'access' => array(),
         ),
+        'tools' => array(
+            'title' => _a('Tools'),
+            'access' => array(),
+        ),
     ),
 );

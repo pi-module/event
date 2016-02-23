@@ -1,0 +1,178 @@
+<?php
+/**
+ * Pi Engine (http://pialog.org)
+ *
+ * @link            http://code.pialog.org for the Pi Engine source repository
+ * @copyright       Copyright (c) Pi Engine http://pialog.org
+ * @license         http://pialog.org/license.txt New BSD License
+ */
+
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+namespace Module\Event\Controller\Admin;
+
+use Pi;
+use Pi\Filter;
+use Pi\Mvc\Controller\ActionController;
+use Module\Event\Form\EventForm;
+use Module\Event\Form\EventFilter;
+use Module\News\Form\StorySearchForm;
+use Module\News\Form\StorySearchFilter;
+use Zend\Json\Json;
+
+class ToolsController extends ActionController
+{
+    public function indexAction()
+    {}
+
+    public function importAction()
+    {
+        // Check guide module
+        if (Pi::service('module')->isActive('guide')) {
+            $module = $this->params('module');
+            // Select
+            $events = array();
+            $select = Pi::model('event', 'guide')->select();
+            $rowset = Pi::model('event', 'guide')->selectWith($select);
+            foreach ($rowset as $row) {
+                $events[$row->id] = Pi::api('event', 'guide')->canonizeEvent($row);
+            }
+            // Check list
+            if (!empty($events)) {
+                // Save events
+                foreach ($events as $event) {
+                    // Set info
+                    unset($event['id']);
+                    $event['type'] = 'event';
+                    $event['time_publish'] = $event['time_start'];
+                    $event['topic'] =  array();
+                    // Save as story
+                    $story = Pi::api('api', 'news')->addStory($event);
+                    // Set id
+                    $event['id'] = $story['id'];
+                    // Set guide module info
+                    $event['guide_owner'] = Json::encode(array($event['owner']));
+                    $event['guide_category'] = Json::encode(array($event['category']));
+                    $event['guide_location'] = Json::encode(array($event['location']));
+                    $event['guide_item'] = Json::encode(array($event['item']));
+                    // Save event
+                    $row = $this->getModel('extra')->createRow();
+                    $row->assign($event);
+                    $row->save();
+                    // move image
+                    if (!empty($event['image']) && !empty($event['path'])) {
+                        // Move original
+                        $originalOld = Pi::path(
+                            sprintf('upload/guide/image/original/%s/%s', $event['path'], $event['image'])
+                        );
+                        $originalNew = Pi::path(
+                            sprintf('upload/news/image/original/%s/%s', $event['path'], $event['image'])
+                        );
+                        Pi::service('file')->copy($originalOld, $originalNew);
+                        // Move large
+                        $largeOld = Pi::path(
+                            sprintf('upload/guide/image/large/%s/%s', $event['path'], $event['image'])
+                        );
+                        $largeNew = Pi::path(
+                            sprintf('upload/news/image/large/%s/%s', $event['path'], $event['image'])
+                        );
+                        Pi::service('file')->copy($largeOld, $largeNew);
+                        // Move medium
+                        $mediumOld = Pi::path(
+                            sprintf('upload/guide/image/medium/%s/%s', $event['path'], $event['image'])
+                        );
+                        $mediumNew = Pi::path(
+                            sprintf('upload/news/image/medium/%s/%s', $event['path'], $event['image'])
+                        );
+                        Pi::service('file')->copy($mediumOld, $mediumNew);
+                        // Move thumb
+                        $thumbOld = Pi::path(
+                            sprintf('upload/guide/image/thumb/%s/%s', $event['path'], $event['image'])
+                        );
+                        $thumbNew = Pi::path(
+                            sprintf('upload/news/image/thumb/%s/%s', $event['path'], $event['image'])
+                        );
+                        Pi::service('file')->copy($thumbOld, $thumbNew);
+                    }
+                    // Set link array
+                    $link = array(
+                        'story' => $story['id'],
+                        'time_publish' => $story['time_publish'],
+                        'time_update' => $story['time_update'],
+                        'status' => $story['status'],
+                        'uid' => $story['uid'],
+                        'type' => $story['type'],
+                        'module' => array(
+                            'event' => array(
+                                'name' => 'event',
+                                'controller' => array(
+                                    'topic' => array(
+                                        'name' => 'topic',
+                                        'topic' => $event['topic'],
+                                    ),
+                                ),
+                            ),
+                        ),
+                    );
+                    $link['module']['guide'] = array(
+                        'name' => 'guide',
+                        'controller' => array(),
+                    );
+                    if (isset($values['guide_category']) && !empty($values['guide_category'])) {
+                        $link['module']['guide']['controller']['category'] = array(
+                            'name' => 'category',
+                            'topic' => Json::decode($values['guide_category']),
+                        );
+                    }
+                    if (isset($values['guide_location']) && !empty($values['guide_location'])) {
+                        $link['module']['guide']['controller']['location'] = array(
+                            'name' => 'location',
+                            'topic' => Json::decode($values['guide_location']),
+                        );
+                    }
+                    if (isset($values['guide_item']) && !empty($values['guide_item'])) {
+                        $link['module']['guide']['controller']['item'] = array(
+                            'name' => 'item',
+                            'topic' => Json::decode($values['guide_item']),
+                        );
+                    }
+                    if (isset($values['guide_owner']) && !empty($values['guide_owner'])) {
+                        $link['module']['guide']['controller']['owner'] = array(
+                            'name' => 'owner',
+                            'topic' => array(
+                                $values['guide_owner'],
+                            ),
+                        );
+                    }
+                    // Setup link
+                    Pi::api('api', 'news')->setupLink($link);
+                    // Add / Edit sitemap
+                    if (Pi::service('module')->isActive('sitemap')) {
+                        // Set loc
+                        $loc = Pi::url($this->url('event', array(
+                            'module' => $module,
+                            'controller' => 'index',
+                            'slug' => $values['slug']
+                        )));
+                        // Update sitemap
+                        Pi::api('sitemap', 'sitemap')->singleLink($loc, $story['status'], $module, 'event', $story['id']);
+                    }
+                    // Set message
+                    $message = __('Guide events imported to event module');
+                }
+            } else {
+                $message = __('Guide event table is empty');
+            }
+        } else {
+            $message = __('Guide module not installed');
+        }
+        // Set jump
+        $url = array(
+            'action' => 'index',
+        );
+        $this->jump($url, $message);
+        // Set view
+        $this->view()->setTemplate(false);
+    }
+}

@@ -54,5 +54,15 @@ return array(
             'controller' => 'order',
             'action' => 'index',
         ),
+        'tools' => array(
+            'label' => _a('Tools'),
+            'permission' => array(
+                'resource' => 'tools',
+            ),
+            'route' => 'admin',
+            'module' => 'event',
+            'controller' => 'tools',
+            'action' => 'index',
+        ),
     ),
 );

@@ -56,5 +56,10 @@ return array(
             'controller' => 'order',
             'permission' => 'order',
         ),
+        array(
+            'title' => _a('Tools'),
+            'controller' => 'tools',
+            'permission' => 'tools',
+        ),
     ),
 );
