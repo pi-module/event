@@ -34,7 +34,7 @@ class IndexController extends ActionController
         $order = array('time_publish DESC', 'id DESC');
         $limit = intval($config['view_perpage']);
         // Get list of event
-        $listEvent = Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, 'full', 'link');
+        $listEvent = Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, 'full', 'story');
         // Set template
         $template = array(
             'module' => 'event',
@@ -42,7 +42,7 @@ class IndexController extends ActionController
             'action' => 'index',
         );
         // Get paginator
-        $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'link');
+        $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'story');
         // Set view
         $this->view()->setTemplate('event-list');
         $this->view()->assign('eventList', $listEvent);
