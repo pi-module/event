@@ -56,6 +56,13 @@ class ToolsController extends ActionController
                     $event['guide_category'] = Json::encode(array($event['category']));
                     $event['guide_location'] = Json::encode(array($event['location']));
                     $event['guide_item'] = Json::encode(array($event['item']));
+                    // Set extra fields
+                    $event['register_details'] = $event['registration_details'];
+                    $event['register_price'] = $event['price'];
+                    $event['register_can'] = 0;
+                    $event['register_stock'] = 0;
+                    $event['register_sales'] = 0;
+                    $event['register_type'] = 'discount';
                     // Save event
                     $row = $this->getModel('extra')->createRow();
                     $row->assign($event);
