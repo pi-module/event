@@ -60,22 +60,6 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
-        'view_template' => array(
-            'title' => _a('Event template type'),
-            'description' => '',
-            'edit' => array(
-                'type' => 'select',
-                'options' => array(
-                    'options' => array(
-                        'default' => _a('Default mode'),
-                        'guide' => _a('Guide module'),
-                    ),
-                ),
-            ),
-            'filter' => 'string',
-            'value' => 'default',
-            'category' => 'view',
-        ),
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),

@@ -139,7 +139,7 @@ class ManageController extends ActionController
             if ($form->isValid()) {
                 $values = $form->getData();
                 // upload image
-                $image = Pi::api('api', 'news')->uploadImage($file, 'event-');
+                $image = Pi::api('api', 'news')->uploadImage($file, 'event-', 'event/image');
                 $values = array_merge($values, $image);
                 if (!isset($values['image'])) {
                     $values['image'] = '';

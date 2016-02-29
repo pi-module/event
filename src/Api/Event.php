@@ -30,7 +30,10 @@ class Event extends AbstractApi
 {
     public function getEvent($parameter, $field = 'id', $type = 'full')
     {
-        $event = Pi::api('api', 'news')->getStorySingle($parameter, $field, $type);
+        $option =  array(
+            'imagePath' => 'event/image'
+        );
+        $event = Pi::api('api', 'news')->getStorySingle($parameter, $field, $type, $option);
         $event = $this->joinExtra($event);
         return $event;
     }
@@ -69,8 +72,11 @@ class Event extends AbstractApi
 
     public function getEventList($where, $order, $offset = '', $limit = 10, $type = 'full', $table = 'link')
     {
+        $option =  array(
+            'imagePath' => 'event/image'
+        );
         $listEvent = array();
-        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, $type, $table);
+        $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, $type, $table, $option);
         foreach ($listStory as $singleStory) {
             $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
         }

@@ -52,10 +52,10 @@ class ToolsController extends ActionController
                     // Set id
                     $event['id'] = $story['id'];
                     // Set guide module info
-                    $event['guide_owner'] = Json::encode(array($event['owner']));
                     $event['guide_category'] = Json::encode(array($event['category']));
                     $event['guide_location'] = Json::encode(array($event['location']));
                     $event['guide_item'] = Json::encode(array($event['item']));
+                    $event['guide_owner'] = $event['owner'];
                     // Set extra fields
                     $event['register_details'] = $event['registration_details'];
                     $event['register_price'] = $event['price'];
@@ -74,7 +74,7 @@ class ToolsController extends ActionController
                             sprintf('upload/guide/image/original/%s/%s', $event['path'], $event['image'])
                         );
                         $originalNew = Pi::path(
-                            sprintf('upload/news/image/original/%s/%s', $event['path'], $event['image'])
+                            sprintf('upload/event/image/original/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($originalOld, $originalNew);
                         // Move large
@@ -82,7 +82,7 @@ class ToolsController extends ActionController
                             sprintf('upload/guide/image/large/%s/%s', $event['path'], $event['image'])
                         );
                         $largeNew = Pi::path(
-                            sprintf('upload/news/image/large/%s/%s', $event['path'], $event['image'])
+                            sprintf('upload/event/image/large/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($largeOld, $largeNew);
                         // Move medium
@@ -90,7 +90,7 @@ class ToolsController extends ActionController
                             sprintf('upload/guide/image/medium/%s/%s', $event['path'], $event['image'])
                         );
                         $mediumNew = Pi::path(
-                            sprintf('upload/news/image/medium/%s/%s', $event['path'], $event['image'])
+                            sprintf('upload/event/image/medium/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($mediumOld, $mediumNew);
                         // Move thumb
@@ -98,7 +98,7 @@ class ToolsController extends ActionController
                             sprintf('upload/guide/image/thumb/%s/%s', $event['path'], $event['image'])
                         );
                         $thumbNew = Pi::path(
-                            sprintf('upload/news/image/thumb/%s/%s', $event['path'], $event['image'])
+                            sprintf('upload/event/image/thumb/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($thumbOld, $thumbNew);
                     }
