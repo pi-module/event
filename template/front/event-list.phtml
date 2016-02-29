@@ -11,58 +11,60 @@
     <?php if (!empty($eventList)) { ?>
         <div class="event-list clearfix">
             <?php foreach ($eventList as $event) { ?>
-                <div class="event-single clearfix h-event row" itemscope itemtype="http://schema.org/Event">
-                    <div class="col-md-2">
-                        <?php if ($event['image']) { ?>
-                            <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                 src="<?php echo $this->escape($event['thumbUrl']); ?>"
-                                 alt="<?php echo $this->escape($event['title']); ?>"/>
-                        <?php } ?>
-                    </div>
-                    <div class="col-md-10">
-                        <div class="event-single-title p-name" itemprop="name">
-                            <h2 class="clearfix">
-                                <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
-                                   href="<?php echo $this->escape($event['eventUrl']); ?>">
-                                    <?php echo $this->escape($event['title']); ?>
-                                </a>
-                                <?php if ($event['subtitle']) { ?>
-                                    <small class="pull-right"><?php echo $this->escape($event['subtitle']); ?></small>
-                                <?php } ?>
-                            </h2>
+                <div class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <?php if ($event['image']) { ?>
+                                <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                     src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                     alt="<?php echo $this->escape($event['title']); ?>"/>
+                            <?php } ?>
                         </div>
-                        <div class="event-single-information">
-                            <ul class="clearfix list-inline event-time">
-                                <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                    <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
-                                    <li class="dt-start" itemprop="startDate"><?php echo $this->escape($event['time_start_view']); ?></li>
-                                    <li><?php _e('to') ?></li>
-                                    <li class="dt-end" itemprop="endDate"><?php echo $this->escape($event['time_end_view']); ?></li>
-                                <?php } elseif (!empty($event['time_start'])) { ?>
-                                    <li class="event-single-time dt-start" itemprop="startDate"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
-                                <?php } ?>
-                                <?php if (!empty($event['topics'])) { ?>
-                                    <li><i class="fa fa-folder"></i> <?php _e('Category'); ?> : </li>
-                                    <?php foreach ($event['topics'] as $eventTopic) { ?>
-                                        <li class="p-category" itemprop="about">
-                                            <a title="<?php echo $eventTopic['title']; ?>"
-                                               href="<?php echo $eventTopic['url']; ?>"><?php echo $eventTopic['title']; ?></a>
-                                        </li>
+                        <div class="col-md-10">
+                            <div class="event-single-title p-name" itemprop="name">
+                                <h2 class="clearfix">
+                                    <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
+                                       href="<?php echo $this->escape($event['eventUrl']); ?>">
+                                        <?php echo $this->escape($event['title']); ?>
+                                    </a>
+                                    <?php if ($event['subtitle']) { ?>
+                                        <small class="pull-right"><?php echo $this->escape($event['subtitle']); ?></small>
                                     <?php } ?>
-                                <?php } ?>
-                                <?php if (!empty($event['register_price'])) { ?>
-                                    <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
-                                        <i class="fa fa-money"></i> <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
-                                    </li>
-                                    <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
-                                <?php } ?>
-                            </ul>
-                        </div>
-                        <?php if (!empty($event['text_summary'])) { ?>
-                            <div class="event-single-summery clearfix p-summary" itemprop="description">
-                                <?php echo $event['text_summary']; ?>
+                                </h2>
                             </div>
-                        <?php } ?>
+                            <div class="event-single-information">
+                                <ul class="clearfix list-inline event-time">
+                                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                                        <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
+                                        <li class="dt-start" itemprop="startDate"><?php echo $this->escape($event['time_start_view']); ?></li>
+                                        <li><?php _e('to') ?></li>
+                                        <li class="dt-end" itemprop="endDate"><?php echo $this->escape($event['time_end_view']); ?></li>
+                                    <?php } elseif (!empty($event['time_start'])) { ?>
+                                        <li class="event-single-time dt-start" itemprop="startDate"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
+                                    <?php } ?>
+                                    <?php if (!empty($event['topics'])) { ?>
+                                        <li><i class="fa fa-folder"></i> <?php _e('Category'); ?> : </li>
+                                        <?php foreach ($event['topics'] as $eventTopic) { ?>
+                                            <li class="p-category" itemprop="about">
+                                                <a title="<?php echo $eventTopic['title']; ?>"
+                                                   href="<?php echo $eventTopic['url']; ?>"><?php echo $eventTopic['title']; ?></a>
+                                            </li>
+                                        <?php } ?>
+                                    <?php } ?>
+                                    <?php if (!empty($event['register_price'])) { ?>
+                                        <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                                            <i class="fa fa-money"></i> <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                                        </li>
+                                        <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                            <?php if (!empty($event['text_summary'])) { ?>
+                                <div class="event-single-summery clearfix p-summary" itemprop="description">
+                                    <?php echo $event['text_summary']; ?>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
             <?php } ?>
