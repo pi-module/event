@@ -8,3 +8,20 @@
     padding-bottom: 15px;
     margin-bottom: 15px;
 }
+
+.event-single h2 {
+    padding: 1px;
+    margin: 1px;
+}
+
+.event-single img {
+    padding-top: 2px;
+}
+
+.event-image-main {
+    margin-bottom: 25px;
+}
+
+.event-single-sidebar .list-unstyled li {
+    margin-bottom: 8px;
+}

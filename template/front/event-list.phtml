@@ -13,14 +13,14 @@
             <?php foreach ($eventList as $event) { ?>
                 <div class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <?php if ($event['image']) { ?>
                                 <img itemprop="image" class="img-responsive img-rounded u-photo"
                                      src="<?php echo $this->escape($event['thumbUrl']); ?>"
                                      alt="<?php echo $this->escape($event['title']); ?>"/>
                             <?php } ?>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <div class="event-single-title p-name" itemprop="name">
                                 <h2 class="clearfix">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
@@ -43,11 +43,11 @@
                                         <li class="event-single-time dt-start" itemprop="startDate"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
                                     <?php } ?>
                                     <?php if (!empty($event['topics'])) { ?>
-                                        <li><i class="fa fa-folder"></i> <?php _e('Category'); ?> : </li>
+                                        <li><i class="fa fa-folder"></i></li>
                                         <?php foreach ($event['topics'] as $eventTopic) { ?>
                                             <li class="p-category" itemprop="about">
-                                                <a title="<?php echo $eventTopic['title']; ?>"
-                                                   href="<?php echo $eventTopic['url']; ?>"><?php echo $eventTopic['title']; ?></a>
+                                                <a title="<?php echo $this->escape($eventTopic['title']); ?>"
+                                                   href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape($eventTopic['title']); ?></a>
                                             </li>
                                         <?php } ?>
                                     <?php } ?>
@@ -57,6 +57,7 @@
                                         </li>
                                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                                     <?php } ?>
+                                    <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($event['hits'])); ?></li>
                                 </ul>
                             </div>
                             <?php if (!empty($event['text_summary'])) { ?>

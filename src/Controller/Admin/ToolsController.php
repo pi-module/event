@@ -77,6 +77,7 @@ class ToolsController extends ActionController
                             sprintf('upload/event/image/original/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($originalOld, $originalNew);
+                        Pi::service('file')->remove($originalOld);
                         // Move large
                         $largeOld = Pi::path(
                             sprintf('upload/guide/image/large/%s/%s', $event['path'], $event['image'])
@@ -85,6 +86,7 @@ class ToolsController extends ActionController
                             sprintf('upload/event/image/large/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($largeOld, $largeNew);
+                        Pi::service('file')->remove($largeOld);
                         // Move medium
                         $mediumOld = Pi::path(
                             sprintf('upload/guide/image/medium/%s/%s', $event['path'], $event['image'])
@@ -93,6 +95,7 @@ class ToolsController extends ActionController
                             sprintf('upload/event/image/medium/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($mediumOld, $mediumNew);
+                        Pi::service('file')->remove($mediumOld);
                         // Move thumb
                         $thumbOld = Pi::path(
                             sprintf('upload/guide/image/thumb/%s/%s', $event['path'], $event['image'])
@@ -101,6 +104,7 @@ class ToolsController extends ActionController
                             sprintf('upload/event/image/thumb/%s/%s', $event['path'], $event['image'])
                         );
                         Pi::service('file')->copy($thumbOld, $thumbNew);
+                        Pi::service('file')->remove($thumbOld);
                     }
                     // Set link array
                     $link = array(

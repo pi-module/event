@@ -50,22 +50,20 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
     $this->headMeta($this->escape($event['largeUrl']), 'twitter:image');
 }
 ?>
-<div class="clearfix h-event singleEvent" itemscope itemtype="http://schema.org/Event">
-    <div class="clearfix itemHead page-header">
-        <div class="itemTitle p-name" itemprop="name">
-            <h1 class="clearfix">
-                <?php echo $this->escape($event['title']); ?>
-            </h1>
-        </div>
+<div class="clearfix h-event single-event" itemscope itemtype="http://schema.org/Event">
+    <div class="page-header p-name" itemprop="name">
+        <h1>
+            <?php echo $this->escape($event['title']); ?>
+        </h1>
     </div>
-    <div class="clearfix itemUnderHead">
+    <div class="clearfix small">
         <ul class="text-muted list-inline text-right pull-right">
-            <li><i class="fa fa-calendar"></i> <?php _e('Date'); ?>
-                : <?php echo $this->escape($event['time_update_view']); ?></li>
-            <li><i class="fa fa-eye"></i> <?php _e('Viewed'); ?>
-                : <?php echo _number($this->escape($event['hits'])); ?> <?php _e('Times'); ?></li>
+            <li><i class="fa fa-calendar"></i> <?php echo $this->escape($event['time_update_view']); ?></li>
+            <li><i class="fa fa-eye"></i> <?php echo _number($this->escape($event['hits'])); ?></li>
+            <?php if (!empty($event['guideCategoryInfo']) || !empty($event['topics'])) { ?>
+                <li><i class="fa fa-folder"></i></li>
+            <?php } ?>
             <?php if (!empty($event['guideCategoryInfo'])) { ?>
-                <li><i class="fa fa-folder"></i> <?php _e('Category'); ?> : </li>
                 <?php foreach ($event['guideCategoryInfo'] as $guideCategoryInfo) { ?>
                     <li class="p-category" itemprop="about">
                         <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>" href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
@@ -86,26 +84,44 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
         </ul>
     </div>
     <div class="clearfix">
-        <div class="col-md-8">
+        <div class="col-md-8 event-single-main">
             <?php if (!empty($event['text_summary'])) { ?>
-                <div class="clearfix p-summary" itemprop="description">
+                <div class="clearfix event-single-main-box p-summary" itemprop="description">
                     <?php echo $event['text_summary']; ?>
                 </div>
             <?php } ?>
+            <?php if (!empty($event['register_details'])) { ?>
+                <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
+                <div class="clearfix event-single-main-box" itemprop="description">
+                    <?php echo $event['register_details']; ?>
+                </div>
+            <?php } ?>
+            <?php if (!empty($event['text_description'])) { ?>
+                <div class="clearfix event-single-main-box p-summary" itemprop="description">
+                    <h2><?php _e('Description'); ?></h2>
+                    <?php echo $event['text_description']; ?>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="col-md-4 event-single-sidebar">
+            <div class="event-image-main clearfix u-photo gallery">
+                <a href="<?php echo $this->escape($event['largeUrl']); ?>"
+                   title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
+                    <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['mediumUrl']); ?>"
+                         alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
+                </a>
+            </div>
             <?php if ($event['register_can'] || !empty($event['offer_url']) || !empty($event['register_price'])) { ?>
                 <div class="clearfix" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                    <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                     <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                         <?php if ($event['register_can']) { ?>
                             <div class="well">
-                                <ul class="list-inline clearfix">
-                                    <li class="pull-left">
-                                        <?php _e('Minimum Price') ?> : <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
-                                    </li>
-                                    <li class="pull-right">
-                                        <?php echo $this->form($form, 'inline'); ?>
-                                    </li>
-                                </ul>
+                                <div class="clearfix">
+                                    <?php _e('Minimum Price') ?> : <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
+                                </div>
+                                <div class="clearfix">
+                                    <?php echo $this->form($form, 'inline'); ?>
+                                </div>
                             </div>
                         <?php } elseif (!empty($event['offer_url'])) { ?>
                             <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
@@ -118,30 +134,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                         <?php } ?>
                     </div>
                     <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
-                    <?php if (!empty($event['register_details'])) { ?>
-                        <br />
-                        <div class="clearfix" itemprop="description">
-                            <?php echo $event['register_details']; ?>
-                        </div>
-                    <?php } ?>
                 </div>
             <?php } ?>
-            <?php if (!empty($event['text_description'])) { ?>
-                <div class="clearfix p-summary" itemprop="description">
-                    <h2><?php _e('Description'); ?></h2>
-                    <?php echo $event['text_description']; ?>
-                </div>
-            <?php } ?>
-        </div>
-        <div class="col-md-4">
-            <div class="event-image-main clearfix u-photo gallery">
-                <a href="<?php echo $this->escape($event['largeUrl']); ?>"
-                   title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                    <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['mediumUrl']); ?>"
-                         alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
-                </a>
-            </div>
-            <br />
             <div class="clearfix eventTime">
                 <h2><?php _e('Key Event Elements'); ?></h2>
                 <div class="well">
