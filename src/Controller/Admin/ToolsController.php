@@ -76,8 +76,10 @@ class ToolsController extends ActionController
                         $originalNew = Pi::path(
                             sprintf('upload/event/image/original/%s/%s', $event['path'], $event['image'])
                         );
-                        Pi::service('file')->copy($originalOld, $originalNew);
-                        Pi::service('file')->remove($originalOld);
+                        if (file_exists($originalOld)) {
+                            Pi::service('file')->copy($originalOld, $originalNew);
+                            Pi::service('file')->remove($originalOld);
+                        }
                         // Move large
                         $largeOld = Pi::path(
                             sprintf('upload/guide/image/large/%s/%s', $event['path'], $event['image'])
@@ -85,8 +87,10 @@ class ToolsController extends ActionController
                         $largeNew = Pi::path(
                             sprintf('upload/event/image/large/%s/%s', $event['path'], $event['image'])
                         );
-                        Pi::service('file')->copy($largeOld, $largeNew);
-                        Pi::service('file')->remove($largeOld);
+                        if (file_exists($largeOld)) {
+                            Pi::service('file')->copy($largeOld, $largeNew);
+                            Pi::service('file')->remove($largeOld);
+                        }
                         // Move medium
                         $mediumOld = Pi::path(
                             sprintf('upload/guide/image/medium/%s/%s', $event['path'], $event['image'])
@@ -94,8 +98,10 @@ class ToolsController extends ActionController
                         $mediumNew = Pi::path(
                             sprintf('upload/event/image/medium/%s/%s', $event['path'], $event['image'])
                         );
-                        Pi::service('file')->copy($mediumOld, $mediumNew);
-                        Pi::service('file')->remove($mediumOld);
+                        if (file_exists($mediumOld)) {
+                            Pi::service('file')->copy($mediumOld, $mediumNew);
+                            Pi::service('file')->remove($mediumOld);
+                        }
                         // Move thumb
                         $thumbOld = Pi::path(
                             sprintf('upload/guide/image/thumb/%s/%s', $event['path'], $event['image'])
@@ -103,8 +109,10 @@ class ToolsController extends ActionController
                         $thumbNew = Pi::path(
                             sprintf('upload/event/image/thumb/%s/%s', $event['path'], $event['image'])
                         );
-                        Pi::service('file')->copy($thumbOld, $thumbNew);
-                        Pi::service('file')->remove($thumbOld);
+                        if (file_exists($thumbOld)) {
+                            Pi::service('file')->copy($thumbOld, $thumbNew);
+                            Pi::service('file')->remove($thumbOld);
+                        }
                     }
                     // Set link array
                     $link = array(
@@ -117,45 +125,51 @@ class ToolsController extends ActionController
                         'module' => array(
                             'event' => array(
                                 'name' => 'event',
-                                'controller' => array(
-                                    'topic' => array(
-                                        'name' => 'topic',
-                                        'topic' => $event['topic'],
-                                    ),
-                                ),
+                                'controller' => array(),
+                            ),
+                            'guide' => array(
+                                'name' => 'guide',
+                                'controller' => array(),
                             ),
                         ),
                     );
-                    $link['module']['guide'] = array(
-                        'name' => 'guide',
-                        'controller' => array(),
-                    );
-                    if (isset($values['guide_category']) && !empty($values['guide_category'])) {
+
+                    if (isset($event['topic']) && !empty($event['topic'])) {
+                        $link['module']['event']['controller']['topic'] = array(
+                            'name' => 'topic',
+                            'topic' => $event['topic'],
+                        );
+                    }
+
+                    if (isset($event['guide_category']) && !empty($event['guide_category'])) {
                         $link['module']['guide']['controller']['category'] = array(
                             'name' => 'category',
-                            'topic' => Json::decode($values['guide_category']),
+                            'topic' => Json::decode($event['guide_category'], true),
                         );
                     }
-                    if (isset($values['guide_location']) && !empty($values['guide_location'])) {
+
+                    if (isset($event['guide_location']) && !empty($event['guide_location'])) {
                         $link['module']['guide']['controller']['location'] = array(
                             'name' => 'location',
-                            'topic' => Json::decode($values['guide_location']),
+                            'topic' => Json::decode($event['guide_location'], true),
                         );
                     }
-                    if (isset($values['guide_item']) && !empty($values['guide_item'])) {
+
+                    if (isset($event['guide_item']) && !empty($event['guide_item'])) {
                         $link['module']['guide']['controller']['item'] = array(
                             'name' => 'item',
-                            'topic' => Json::decode($values['guide_item']),
+                            'topic' => Json::decode($event['guide_item'], true),
                         );
                     }
-                    if (isset($values['guide_owner']) && !empty($values['guide_owner'])) {
+                    if (isset($event['guide_owner']) && !empty($event['guide_owner'])) {
                         $link['module']['guide']['controller']['owner'] = array(
                             'name' => 'owner',
                             'topic' => array(
-                                $values['guide_owner'],
+                                $event['guide_owner'],
                             ),
                         );
                     }
+
                     // Setup link
                     Pi::api('api', 'news')->setupLink($link);
                     // Add / Edit sitemap
@@ -164,7 +178,7 @@ class ToolsController extends ActionController
                         $loc = Pi::url($this->url('event', array(
                             'module' => $module,
                             'controller' => 'index',
-                            'slug' => $values['slug']
+                            'slug' => $event['slug']
                         )));
                         // Update sitemap
                         Pi::api('sitemap', 'sitemap')->singleLink($loc, $story['status'], $module, 'event', $story['id']);

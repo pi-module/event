@@ -214,21 +214,21 @@ class ManageController extends ActionController
                     if (isset($values['guide_category']) && !empty($values['guide_category'])) {
                         $link['module']['guide']['controller']['category'] = array(
                             'name' => 'category',
-                            'topic' => Json::decode($values['guide_category']),
+                            'topic' => Json::decode($values['guide_category'], true),
                         );
                     }
 
                     if (isset($values['guide_location']) && !empty($values['guide_location'])) {
                         $link['module']['guide']['controller']['location'] = array(
                             'name' => 'location',
-                            'topic' => Json::decode($values['guide_location']),
+                            'topic' => Json::decode($values['guide_location'], true),
                         );
                     }
 
                     if (isset($values['guide_item']) && !empty($values['guide_item'])) {
                         $link['module']['guide']['controller']['item'] = array(
                             'name' => 'item',
-                            'topic' => Json::decode($values['guide_item']),
+                            'topic' => Json::decode($values['guide_item'], true),
                         );
                     }
 

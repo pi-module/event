@@ -110,9 +110,9 @@ class Event extends AbstractApi
             $extra['register_price_view'] = __('this event is free!');
         }
         // canonize guide module details
-        $extra['guide_category'] = Json::decode($extra['guide_category']);
-        $extra['guide_location'] = Json::decode($extra['guide_location']);
-        $extra['guide_item'] = Json::decode($extra['guide_item']);
+        $extra['guide_category'] = Json::decode($extra['guide_category'], true);
+        $extra['guide_location'] = Json::decode($extra['guide_location'], true);
+        $extra['guide_item'] = Json::decode($extra['guide_item'], true);
         return $extra;
     }
 

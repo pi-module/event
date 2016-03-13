@@ -153,7 +153,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     </ul>
                     <?php if (!empty($event['guideLocationInfo'])) { ?>
                         <ul class="list-inline">
-                            <li><?php _e('Related locations'); ?></li>
+                            <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
                             <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
                                 <li>
                                     <a title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
@@ -180,7 +180,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                         <?php } ?>
                         <?php if (!empty($event['address'])) { ?>
                             <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                                <i class="fa fa-map-marker"></i>
+                                <i class="fa fa-location-arrow"></i>
                                 <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
                             </li>
                         <?php } ?>
