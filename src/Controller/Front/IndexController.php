@@ -22,7 +22,6 @@ class IndexController extends ActionController
         // Get info from url
         $module = $this->params('module');
         $page = $this->params('page', 1);
-        //$search = $this->params('q');
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Set info
