@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-02-15 15:17+0330\n"
+"POT-Creation-Date: 2016-03-13 11:26+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,28 +56,36 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
-#: config/config.php:32 config/page.php:55 config/permission.php:43
+#: config/config.php:32
 msgid "Order"
 msgstr ""
 
-#: config/config.php:40 config/config.php:49
+#: config/config.php:40 config/config.php:57
 msgid "Perpage"
 msgstr ""
 
-#: config/config.php:57
+#: config/config.php:48
+msgid "Use news topics"
+msgstr ""
+
+#: config/config.php:65
 msgid "Social sharing items"
 msgstr ""
 
-#: config/config.php:71
+#: config/config.php:79
 msgid "Manage event by users"
 msgstr ""
 
-#: config/config.php:79
+#: config/config.php:87
 msgid "Auto approval user events"
 msgstr ""
 
-#: config/config.php:88
+#: config/config.php:96
 msgid "Active order"
+msgstr ""
+
+#: config/config.php:105
+msgid "Description for index page"
 msgstr ""
 
 #: config/module.php:16 config/navigation.php:38 config/page.php:50
@@ -89,8 +97,12 @@ msgstr ""
 msgid "Manage events"
 msgstr ""
 
-#: config/navigation.php:48
+#: config/navigation.php:48 config/page.php:55 config/permission.php:43
 msgid "List of order"
+msgstr ""
+
+#: config/navigation.php:58 config/page.php:60 config/permission.php:47
+msgid "Tools"
 msgstr ""
 
 #: config/page.php:17
