@@ -15,9 +15,12 @@
                     <div class="row">
                         <div class="col-md-3">
                             <?php if ($event['image']) { ?>
-                                <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                     src="<?php echo $this->escape($event['thumbUrl']); ?>"
-                                     alt="<?php echo $this->escape($event['title']); ?>"/>
+                                <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
+                                   href="<?php echo $this->escape($event['eventUrl']); ?>">
+                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                         src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                         alt="<?php echo $this->escape($event['title']); ?>"/>
+                                </a>
                             <?php } ?>
                         </div>
                         <div class="col-md-9">
@@ -32,7 +35,7 @@
                                     <?php } ?>
                                 </h2>
                             </div>
-                            <div class="event-single-information">
+                            <div class="event-single-information small">
                                 <ul class="clearfix list-inline event-time">
                                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
                                         <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>

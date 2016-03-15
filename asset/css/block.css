@@ -1,0 +1,14 @@
+.recent-event-single {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.recent-event-single h3 {
+    padding: 1px;
+    margin: 1px;
+}
+
+.recent-event-single img {
+    padding-top: 2px;
+}
