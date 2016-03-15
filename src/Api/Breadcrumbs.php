@@ -61,20 +61,9 @@ class Breadcrumbs extends AbstractBreadcrumbs
                 case 'category':
                     if (!empty($params['slug'])) {
                         // Set link
-                        $result[] = array(
-                            'label' => __('Category list'),
-                            'href' => Pi::url(Pi::service('url')->assemble('event', array(
-                                'controller' => 'category',
-                            ))),
-                        );
-                        // Set link
                         $topic = Pi::api('topic', 'news')->getTopic($params['slug'], 'slug');
                         $result[] = array(
                             'label' => $topic['title'],
-                        );
-                    } else {
-                        $result[] = array(
-                            'label' => __('Category list'),
                         );
                     }
                     break;
@@ -110,27 +99,6 @@ class Breadcrumbs extends AbstractBreadcrumbs
                         );
                     }
                     break;
-
-                /* case 'register':
-                    if ($params['action'] == 'index') {
-                        $result[] = array(
-                            'label' => __('List of your registered events'),
-                        );
-                    } elseif ($params['action'] == 'detail') {
-                        // Set link
-                        $result[] = array(
-                            'label' => __('List of your registered events'),
-                            'href' => Pi::url(Pi::service('url')->assemble('event', array(
-                                'controller' => 'register',
-                                'action' => 'list',
-                            ))),
-                        );
-                        // Set link
-                        $result[] = array(
-                            'label' => __('Registered event information'),
-                        );
-                    }
-                    break; */
             }
         } else {
             $result = array(
@@ -140,6 +108,5 @@ class Breadcrumbs extends AbstractBreadcrumbs
             );
         }
         return $result;
-
     }
 }
