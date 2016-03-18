@@ -36,10 +36,7 @@ class DetailController extends ActionController
             return;
         }
         // Update Hits
-        Pi::model('story', 'news')->update(
-            array('hits' => $event['hits'] + 1),
-            array('id' => $event['id'])
-        );
+        Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
         // Set guide module options
         $event['guideItemInfo'] = array();
         $event['guideLocationInfo'] = array();

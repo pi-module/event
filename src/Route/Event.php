@@ -149,7 +149,7 @@ class Event extends Standard
 
         // Set id
         if (!empty($mergedParams['id'])) {
-            $url['id'] = 'item' . $this->paramDelimiter . $mergedParams['id'];
+            $url['id'] = 'id' . $this->paramDelimiter . $mergedParams['id'];
         }
 
         // Set item

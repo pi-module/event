@@ -22,15 +22,6 @@ return array(
             'module' => 'event',
             'controller' => 'manage',
         ),
-        /* 'register' => array(
-            'label' => _a('Registered events'),
-            'permission' => array(
-                'resource' => 'register',
-            ),
-            'route' => 'event',
-            'module' => 'event',
-            'controller' => 'register',
-        ), */
     ),
     // Admin section
     'admin' => array(

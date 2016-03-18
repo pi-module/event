@@ -37,12 +37,6 @@ return array(
             'permission' => 'manage',
             'block' => 1,
         ),
-        /* array(
-            'title' => _a('Register'),
-            'controller' => 'register',
-            'permission' => 'register',
-            'block' => 1,
-        ), */
     ),
     // Admin section
     'admin' => array(

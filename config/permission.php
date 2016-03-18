@@ -26,12 +26,6 @@ return array(
                 'member',
             ),
         ),
-        /* 'register' => array(
-            'title' => _a('Register'),
-            'access' => array(
-                'member',
-            ),
-        ), */
     ),
     // Admin section
     'admin' => array(
