@@ -20,14 +20,15 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected $table = 'extra';
+    protected $table = 'story';
 
     /**
      * {@inheritDoc}
      */
     protected $searchIn = array(
         'title',
-        'register_details',
+        'text_summary',
+        'text_description',
     );
 
     /**
@@ -36,8 +37,8 @@ class Search extends AbstractSearch
     protected $meta = array(
         'id' => 'id',
         'title' => 'title',
-        'register_details' => 'content',
-        'time_start' => 'time',
+        'text_summary' => 'content',
+        'time_create' => 'time',
         'uid' => 'uid',
         'slug' => 'slug',
     );
@@ -47,7 +48,18 @@ class Search extends AbstractSearch
      */
     protected $condition = array(
         'status' => 1,
+        'type' => 'event',
     );
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getModel()
+    {
+        $model = Pi::model('story', 'news');
+
+        return $model;
+    }
 
     /**
      * {@inheritDoc}
