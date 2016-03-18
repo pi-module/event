@@ -45,7 +45,10 @@ class DetailController extends ActionController
             // Set item info
             if (!empty($event['guide_item'])) {
                 foreach ($event['guide_item'] as $item) {
-                    $event['guideItemInfo'][$item] = Pi::api('item', 'guide')->getItem($item);
+                    $guideItem = Pi::api('item', 'guide')->getItem($item);
+                    if (isset($guideItem) && !empty($guideItem)) {
+                        $event['guideItemInfo'][$item] = $guideItem;
+                    }
                 }
             }
             // Set location info

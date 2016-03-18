@@ -1,12 +1,12 @@
 <?php $this->css($this->assetModule('css/admin.css')); ?>
 <div class="clearfix">
-    <div class="clearfix well well-sm">
+    <div class="clearfix">
         <div class="col-md-4">
             <a class="btn btn-primary" title="<?php _e('Add event'); ?>"
                href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'update')); ?>"><i
                     class="fa fa-folder-open"></i> <?php _e('Add event'); ?></a>
         </div>
-        <div class="col-md-8 text-right">
+        <div class="col-md-8">
             <?php echo $this->form($form, 'inline'); ?>
         </div>
     </div>

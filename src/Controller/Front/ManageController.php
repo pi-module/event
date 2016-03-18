@@ -68,6 +68,8 @@ class ManageController extends ActionController
         $this->view()->assign('owner', $owner);
         $this->view()->assign('config', $config);
         $this->view()->assign('events', $listEvent);
+        // Language
+        __('Search');
     }
 
     public function updateAction()
@@ -109,6 +111,8 @@ class ManageController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+        // Set title
+        $title = __('Add event');
         // Check event guide owner
         if (Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
@@ -122,6 +126,7 @@ class ManageController extends ActionController
             // Check item
             $item = Pi::api('item', 'guide')->getItemLight($item);
             $option['item'] = $item['id'];
+            $title = sprintf(__('Add event to %s'), $item['title']);
         }
         // Set form
         $form = new EventForm('event', $option);
@@ -269,7 +274,7 @@ class ManageController extends ActionController
         // Set view
         $this->view()->setTemplate('manage-update');
         $this->view()->assign('form', $form);
-        $this->view()->assign('title', __('Add event'));
+        $this->view()->assign('title', $title);
     }
 
     public function removeAction()
