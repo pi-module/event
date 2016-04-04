@@ -27,6 +27,7 @@ class Block
         $where = array(
             'status' => 1,
             'type' => 'event',
+            'time_publish > ?' => strtotime("-1 day"),
         );
 
         if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
