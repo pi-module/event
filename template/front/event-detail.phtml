@@ -126,8 +126,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                         <?php } elseif (!empty($event['offer_url'])) { ?>
                             <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
                             <div itemprop="url">
-                                <i class="fa fa-external-link"></i>
-                                <a title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                    <i class="fa fa-external-link"></i>
                                     <?php _e('Register to the event') ?>
                                 </a>
                             </div>
