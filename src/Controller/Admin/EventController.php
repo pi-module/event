@@ -134,7 +134,7 @@ class EventController extends ActionController
                     $values['image'] = '';
                 }
                 // Set time
-                $values['time_publish'] = strtotime($values['time_start']);
+                $values['time_publish'] = ($values['time_end']) ? strtotime($values['time_end']) : strtotime($values['time_start']);
                 $values['time_start'] = strtotime($values['time_start']);
                 $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
                 // Set type

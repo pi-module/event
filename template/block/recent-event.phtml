@@ -33,12 +33,15 @@
                                 <ul class="clearfix list-inline event-time">
                                     <?php if ($block['show-time']) { ?>
                                         <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                            <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
-                                            <li class="dt-start" itemprop="startDate"><?php echo $this->escape($event['time_start_view']); ?></li>
-                                            <li><?php _e('to') ?></li>
-                                            <li class="dt-end" itemprop="endDate"><?php echo $this->escape($event['time_end_view']); ?></li>
+                                            <li><i class="fa fa-clock-o"></i> <?php echo _b('From') ?></li>
+                                            <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
+                                            <li><?php echo _b('to') ?></li>
+                                            <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
+                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
                                         <?php } elseif (!empty($event['time_start'])) { ?>
-                                            <li class="event-single-time dt-start" itemprop="startDate"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
+                                            <li class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
+                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                                         <?php } ?>
                                     <?php } ?>
                                     <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
@@ -52,7 +55,7 @@
                                     <?php } ?>
                                     <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
                                         <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
-                                            <i class="fa fa-money"></i> <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                                            <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
                                         </li>
                                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                                     <?php } ?>

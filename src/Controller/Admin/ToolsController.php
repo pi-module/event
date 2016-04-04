@@ -45,7 +45,7 @@ class ToolsController extends ActionController
                     // Set info
                     unset($event['id']);
                     $event['type'] = 'event';
-                    $event['time_publish'] = $event['time_start'];
+                    $event['time_publish'] = ($event['time_end']) ? $event['time_end'] : $event['time_start'];
                     $event['topic'] =  array();
                     // Save as story
                     $story = Pi::api('api', 'news')->addStory($event);

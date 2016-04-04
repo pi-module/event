@@ -36,7 +36,7 @@ class Block
             $table = 'story';
         }
 
-        $order = array('time_publish ASC', 'id ASC');
+        $order = array('time_publish DESC', 'id DESC');
 
         // Set block array
         $block['resources'] = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', $table);
@@ -45,6 +45,9 @@ class Block
             'controller' => 'index',
             'action' => 'index',
         )));
+        // Language
+        _b('this event is free!');
+        // return
         return $block;
     }
 }
