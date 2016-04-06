@@ -132,7 +132,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                 </a>
                             </div>
                         <?php } else { ?>
-                            <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                            <?php echo $this->escape($event['register_price_view']); ?>
                         <?php } ?>
                     </div>
                     <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
