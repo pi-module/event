@@ -113,6 +113,14 @@ class ToolsController extends ActionController
                             Pi::service('file')->copy($thumbOld, $thumbNew);
                             Pi::service('file')->remove($thumbOld);
                         }
+
+                        // remove item image
+                        $itemOld = Pi::path(
+                            sprintf('upload/guide/image/item/%s/%s', $event['path'], $event['image'])
+                        );
+                        if (file_exists($itemOld)) {
+                            Pi::service('file')->remove($itemOld);
+                        }
                     }
                     // Set link array
                     $link = array(
