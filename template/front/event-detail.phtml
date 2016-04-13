@@ -117,14 +117,14 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                         <?php if ($event['register_can']) { ?>
                             <div class="well">
                                 <div class="clearfix">
-                                    <?php _e('Minimum Price') ?> : <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
+                                    <?php _e('Start From') ?> : <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
                                 </div>
                                 <div class="clearfix">
                                     <?php echo $this->form($form, 'inline'); ?>
                                 </div>
                             </div>
                         <?php } elseif (!empty($event['offer_url'])) { ?>
-                            <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                            <?php _e('Start From') ?> : <?php echo $this->escape($event['register_price_view']); ?>
                             <div itemprop="url">
                                 <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                     <i class="fa fa-external-link"></i>
