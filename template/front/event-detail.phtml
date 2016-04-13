@@ -138,9 +138,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                 </div>
             <?php } ?>
-            <div class="clearfix eventTime">
+            <div class="well clearfix eventTime">
                 <h2><?php _e('Key Event Elements'); ?></h2>
-                <div class="well">
                     <ul class="list-inline">
                         <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
                             <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
@@ -190,7 +189,6 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                             </li>
                         <?php } ?>
                     </ul>
-                </div>
             </div>
             <?php if (!empty($event['guideItemInfo'])) { ?>
                 <div class="guide-item-related clearfix">
