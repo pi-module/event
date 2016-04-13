@@ -41,3 +41,24 @@
 .event-offerUrl-btn {
 	margin-top: 15px;
 }
+
+.guide-item-box .thumbnail h3 {
+    padding: 0;
+    top: 60px;
+    position: absolute;
+    font-size: 1em;
+    padding: 5px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin-right: 25px;
+    margin-left: 5px;
+}
+
+
+.guide-item-box .thumbnail h3 a {
+    color: #fff;
+}
+
+.guide-item-box .thumbnail h3 a:hover {
+    text-decoration: none;
+}
