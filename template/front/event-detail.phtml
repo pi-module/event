@@ -112,27 +112,39 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 </a>
             </div>
             <?php if ($event['register_can'] || !empty($event['offer_url']) || !empty($event['register_price'])) { ?>
-                <div class="clearfix" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                         <?php if ($event['register_can']) { ?>
                             <div class="well">
-                                <div class="clearfix">
-                                    <?php _e('Start From') ?> : <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
+                                <div class="clearfix event-minPrice-title">
+                                    <?php _e('Start From') ?> : 
+								</div>
+								<div class="clearfix event-minPrice-text">
+									<strong><?php echo $this->escape($event['register_price_view']); ?></strong>
                                 </div>
                                 <div class="clearfix">
                                     <?php echo $this->form($form, 'inline'); ?>
                                 </div>
                             </div>
                         <?php } elseif (!empty($event['offer_url'])) { ?>
-                            <?php _e('Start From') ?> : <?php echo $this->escape($event['register_price_view']); ?>
-                            <div itemprop="url">
+							<div class="event-minPrice-title">
+                            <?php _e('Start From') ?> : 
+							</div>
+							<div class="event-minPrice-text">
+							<?php echo $this->escape($event['register_price_view']); ?>
+							</div>
+                            <div class="event-offerUrl-btn" itemprop="url">
                                 <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
-                                    <i class="fa fa-external-link"></i>
                                     <?php _e('Register to the event') ?>
                                 </a>
                             </div>
                         <?php } else { ?>
-                            <?php echo $this->escape($event['register_price_view']); ?>
+							<div class="event-minPrice-title">
+                            <?php _e('Start From') ?> : 
+							</div>
+							<div class="event-minPrice-text">
+							<?php echo $this->escape($event['register_price_view']); ?>
+							</div>
                         <?php } ?>
                     </div>
                     <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />

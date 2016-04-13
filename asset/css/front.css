@@ -25,3 +25,19 @@
 .event-single-sidebar .list-unstyled li {
     margin-bottom: 8px;
 }
+
+.event-minPrice-title {
+	color: #51514F;
+	font-size: 1.4em;
+}
+
+.event-minPrice-text {
+	color: #EB4079;
+	font-size: 1.8em;
+	padding: 5px 0px;
+	font-weight: 600;
+}
+
+.event-offerUrl-btn {
+	margin-top: 15px;
+}
