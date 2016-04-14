@@ -7,7 +7,7 @@
             <?php foreach ($block['resources'] as $event) { ?>
                 <div class="recent-event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <?php if ($event['image']) { ?>
                                 <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                    href="<?php echo $this->escape($event['eventUrl']); ?>">
@@ -17,7 +17,7 @@
                                 </a>
                             <?php } ?>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="recent-event-single-title p-name" itemprop="name">
                                 <h3 class="clearfix">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
@@ -65,8 +65,10 @@
                                 </ul>
                             </div>
                             <?php if (!empty($event['text_summary']) && $block['show-summary']) { ?>
-                                <div class="event-single-summery clearfix p-summary" itemprop="description">
-                                    <?php echo $event['text_summary']; ?>
+                                <div class="col-md-12 clearfix">
+                                    <div class="event-single-summery p-summary" itemprop="description">
+                                        <?php echo $event['text_summary']; ?>
+                                    </div>
                                 </div>
                             <?php } ?>
                         </div>
