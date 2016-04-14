@@ -59,7 +59,7 @@
                                     <?php } ?>
                                     <?php if (!empty($event['register_price'])) { ?>
                                         <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
-                                            <i class="fa fa-money"></i> <?php _e('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                                            <i class="fa fa-money"></i><?php echo $this->escape($event['register_price_view']); ?>
                                         </li>
                                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                                     <?php } ?>
