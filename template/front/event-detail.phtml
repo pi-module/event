@@ -96,7 +96,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     <?php echo $event['text_description']; ?>
                 </div>
             <?php } ?>
-			<?php if (!empty($event['register_details'])) { ?>
+            <?php if (!empty($event['register_details'])) { ?>
                 <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                 <div class="clearfix event-single-main-box" itemprop="description">
                     <?php echo $event['register_details']; ?>
@@ -115,36 +115,36 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                         <?php if ($event['register_can']) { ?>
-                            <div class="well">
+                            <div class="clearfix">
                                 <div class="clearfix event-minPrice-title">
-                                    <?php _e('Start From') ?> : 
-								</div>
-								<div class="clearfix event-minPrice-text">
-									<strong><?php echo $this->escape($event['register_price_view']); ?></strong>
+                                    <?php _e('Start From') ?> :
+                                </div>
+                                <div class="clearfix event-minPrice-text">
+                                    <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
                                 </div>
                                 <div class="clearfix">
                                     <?php echo $this->form($form, 'inline'); ?>
                                 </div>
                             </div>
                         <?php } elseif (!empty($event['offer_url'])) { ?>
-							<div class="event-minPrice-title">
-                            <?php _e('Start From') ?> : 
-							</div>
-							<div class="event-minPrice-text">
-							<?php echo $this->escape($event['register_price_view']); ?>
-							</div>
+                            <div class="event-minPrice-title">
+                                <?php _e('Start From') ?> :
+                            </div>
+                            <div class="event-minPrice-text">
+                                <?php echo $this->escape($event['register_price_view']); ?>
+                            </div>
                             <div class="event-offerUrl-btn" itemprop="url">
                                 <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                     <?php _e('Register to the event') ?>
                                 </a>
                             </div>
                         <?php } else { ?>
-							<div class="event-minPrice-title">
-                            <?php _e('Start From') ?> : 
-							</div>
-							<div class="event-minPrice-text">
-							<?php echo $this->escape($event['register_price_view']); ?>
-							</div>
+                            <div class="event-minPrice-title">
+                                <?php _e('Start From') ?> :
+                            </div>
+                            <div class="event-minPrice-text">
+                                <?php echo $this->escape($event['register_price_view']); ?>
+                            </div>
                         <?php } ?>
                     </div>
                     <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
@@ -152,64 +152,64 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php } ?>
             <div class="well clearfix eventTime">
                 <h2><?php _e('Key Event Elements'); ?></h2>
-                    <ul class="list-inline">
-                        <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                            <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
-                            <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
-                            <li><?php _e('to') ?></li>
-                            <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
-                        <?php } elseif (!empty($event['time_start'])) { ?>
-                            <li class="event-single-time dt-start">
-                                <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
-                            </li>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                        <?php } ?>
-                    </ul>
-                    <?php if (!empty($event['guideLocationInfo'])) { ?>
-                        <ul class="list-inline">
-                            <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
-                            <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
-                                <li>
-                                    <a title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
-                                       href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
-                                        <?php echo $this->escape($guideLocationInfo['title']); ?>
-                                    </a>
-                                </li>
-                            <?php } ?>
-                        </ul>
+                <ul class="list-inline">
+                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                        <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
+                        <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
+                        <li><?php _e('to') ?></li>
+                        <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                    <?php } elseif (!empty($event['time_start'])) { ?>
+                        <li class="event-single-time dt-start">
+                            <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
+                        </li>
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                     <?php } ?>
-                    <ul class="list-unstyled">
-                        <?php if (!empty($event['organizer_name'])) { ?>
-                            <li itemscope itemtype="http://schema.org/Organization">
-                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
-                            </li>
-                        <?php } ?>
-                        <?php if (!empty($event['source_url'])) { ?>
-                            <li class="u-url" itemprop="url">
-                                <i class="fa fa-external-link"></i>
-                                <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
-                                    <?php _e('Organizer Website') ?>
+                </ul>
+                <?php if (!empty($event['guideLocationInfo'])) { ?>
+                    <ul class="list-inline">
+                        <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
+                        <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
+                            <li>
+                                <a title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
+                                   href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
+                                    <?php echo $this->escape($guideLocationInfo['title']); ?>
                                 </a>
                             </li>
                         <?php } ?>
-                        <?php if (!empty($event['address'])) { ?>
-                            <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                                <i class="fa fa-location-arrow"></i>
-                                <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
-                            </li>
-                        <?php } ?>
                     </ul>
+                <?php } ?>
+                <ul class="list-unstyled">
+                    <?php if (!empty($event['organizer_name'])) { ?>
+                        <li itemscope itemtype="http://schema.org/Organization">
+                            <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
+                        </li>
+                    <?php } ?>
+                    <?php if (!empty($event['source_url'])) { ?>
+                        <li class="u-url" itemprop="url">
+                            <i class="fa fa-external-link"></i>
+                            <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
+                                <?php _e('Organizer Website') ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if (!empty($event['address'])) { ?>
+                        <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                            <i class="fa fa-location-arrow"></i>
+                            <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
+                        </li>
+                    <?php } ?>
+                </ul>
             </div>
             <?php if (!empty($event['guideItemInfo'])) { ?>
-                <div class="guide-item-related clearfix">
+                <div class="event-item-related clearfix">
                     <div class="page-header">
                         <h2><?php _e('Related items'); ?></h2>
                     </div>
                     <div class="thumbnails row">
                         <?php foreach ($event['guideItemInfo'] as $guideItemInfo) { ?>
-                            <div class="guide-item-box h-review col-sm-8 col-md-8">
+                            <div class="event-item-box h-review col-sm-8 col-md-8">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['image']) { ?>
                                         <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"

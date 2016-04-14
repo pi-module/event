@@ -27,22 +27,22 @@
 }
 
 .event-minPrice-title {
-	color: #51514F;
-	font-size: 1.4em;
+    color: #51514F;
+    font-size: 1.4em;
 }
 
 .event-minPrice-text {
-	color: #EB4079;
-	font-size: 1.8em;
-	padding: 5px 0px;
-	font-weight: 600;
+    /* color: #EB4079;  */
+    font-size: 1.8em;
+    padding: 5px 0px;
+    font-weight: 600;
 }
 
 .event-offerUrl-btn {
-	margin-top: 15px;
+    margin-top: 15px;
 }
 
-.guide-item-box .thumbnail h3 {
+.event-item-box .thumbnail h3 {
     padding: 0;
     top: 60px;
     position: absolute;
@@ -54,11 +54,10 @@
     margin-left: 5px;
 }
 
-
-.guide-item-box .thumbnail h3 a {
+.event-item-box .thumbnail h3 a {
     color: #fff;
 }
 
-.guide-item-box .thumbnail h3 a:hover {
+.event-item-box .thumbnail h3 a:hover {
     text-decoration: none;
 }
