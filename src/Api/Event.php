@@ -107,7 +107,7 @@ class Event extends AbstractApi
             }
             $extra['price_currency'] = empty($configSystem['number_currency']) ? 'USD' : $configSystem['number_currency'];
         } else {
-            $extra['register_price_view'] = __('this event is free!');
+            $extra['register_price_view'] = __('free!');
         }
         // canonize guide module details
         $extra['guide_category'] = Json::decode($extra['guide_category'], true);
