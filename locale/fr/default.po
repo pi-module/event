@@ -32,7 +32,7 @@ msgstr "Ajouter / Editer l'évènement"
 
 #: src/Api/Event.php:110
 msgid "this event is free!"
-msgstr "Cet évènement est gratuit !"
+msgstr "gratuit !"
 
 #: src/Controller/Admin/EventController.php:75
 msgid "View filtered events"
@@ -233,7 +233,7 @@ msgstr "Adresse"
 #: src/Form/EventForm.php:226 template/front/event-detail.phtml:186
 #: template/front/order-detail.phtml:27
 msgid "Organizer name"
-msgstr "Nom organisateur"
+msgstr "Organisateur"
 
 #: src/Form/EventForm.php:237 template/front/event-detail.phtml:192
 #: template/front/event-detail.phtml:193 template/front/order-detail.phtml:33
