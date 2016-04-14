@@ -25,3 +25,40 @@
 .event-single-sidebar .list-unstyled li {
     margin-bottom: 8px;
 }
+
+.event-minPrice-title {
+	color: #51514F;
+	font-size: 1.4em;
+}
+
+.event-minPrice-text {
+	color: #EB4079;
+	font-size: 1.8em;
+	padding: 5px 0px;
+	font-weight: 600;
+}
+
+.event-offerUrl-btn {
+	margin-top: 15px;
+}
+
+.guide-item-box .thumbnail h3 {
+    padding: 0;
+    top: 60px;
+    position: absolute;
+    font-size: 1em;
+    padding: 5px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin-right: 25px;
+    margin-left: 5px;
+}
+
+
+.guide-item-box .thumbnail h3 a {
+    color: #fff;
+}
+
+.guide-item-box .thumbnail h3 a:hover {
+    text-decoration: none;
+}

@@ -149,7 +149,7 @@ class EventController extends ActionController
                     if (isset($story) && !empty($story)) {
                         $row = $this->getModel('extra')->find($story['id']);
                     } else {
-                        $message = __('Error on save story data on news module.');
+                        $message = __('Error on save story data on event module.');
                         $this->jump(array('action' => 'index'), $message, 'error');
                     }
                 } else {
@@ -159,7 +159,7 @@ class EventController extends ActionController
                         $row = $this->getModel('extra')->createRow();
                         $values['id'] = $story['id'];
                     } else {
-                        $message = __('Error on save story data on news module.');
+                        $message = __('Error on save story data on event module.');
                         $this->jump(array('action' => 'index'), $message, 'error');
                     }
                 }
