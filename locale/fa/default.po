@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-04-04 16:24+0430\n"
+"POT-Creation-Date: 2016-04-16 10:23+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -31,8 +31,8 @@ msgid "Add / edit event"
 msgstr "ثبت / ویرایش رویداد"
 
 #: src/Api/Event.php:110
-msgid "this event is free!"
-msgstr "این رویداد رایگان است !"
+msgid "free!"
+msgstr "رایگان !"
 
 #: src/Controller/Admin/EventController.php:75
 msgid "View filtered events"
@@ -44,14 +44,12 @@ msgstr "صحیح نیست\t"
 
 #: src/Controller/Admin/EventController.php:87
 msgid "Not set"
-msgstr "تنظیم نشدع"
+msgstr "تنظیم نشده"
 
 #: src/Controller/Admin/EventController.php:152
 #: src/Controller/Admin/EventController.php:162
-#: src/Controller/Front/ManageController.php:173
-#: src/Controller/Front/ManageController.php:183
-msgid "Error on save story data on news module."
-msgstr "خطا در ثبت اطلاعات در ماژول اخبار"
+msgid "Error on save story data on event module."
+msgstr "خطا در ذخیره اطلاعات مطلب در ماژول رویداد."
 
 #: src/Controller/Admin/EventController.php:242
 #: src/Controller/Front/ManageController.php:263
@@ -64,15 +62,15 @@ msgstr "ویرایش رویداد با موفقیت انجام شد"
 msgid "Add event"
 msgstr "رویداد جدید"
 
-#: src/Controller/Admin/ToolsController.php:187
+#: src/Controller/Admin/ToolsController.php:195
 msgid "Guide events imported to event module"
 msgstr "رویداد های ماژول معرفی اماکن به ماژول رویداد منتقل شد"
 
-#: src/Controller/Admin/ToolsController.php:190
+#: src/Controller/Admin/ToolsController.php:198
 msgid "Guide event table is empty"
 msgstr "جدول رویداد های ماژول معرفی اماکن خالی است"
 
-#: src/Controller/Admin/ToolsController.php:193
+#: src/Controller/Admin/ToolsController.php:201
 msgid "Guide module not installed"
 msgstr "ماژول معرفی اماکن نصب نشده است"
 
@@ -131,6 +129,11 @@ msgstr "این رویداد متعلق به شما نیست"
 msgid "Add event to %s"
 msgstr "درج رویداد در %s"
 
+#: src/Controller/Front/ManageController.php:173
+#: src/Controller/Front/ManageController.php:183
+msgid "Error on save story data on news module."
+msgstr "خطا در ثبت اطلاعات در ماژول اخبار"
+
 #: src/Controller/Front/RegisterController.php:57
 msgid "So sorry, At this moment order is inactive"
 msgstr "متاسفانه در این لحظه ثبت سفارش مقدور نیست"
@@ -168,7 +171,7 @@ msgstr "اسلاگ"
 msgid "Summary"
 msgstr "خلاصه"
 
-#: src/Form/EventForm.php:106 template/front/event-detail.phtml:101
+#: src/Form/EventForm.php:106 template/front/event-detail.phtml:95
 msgid "Description"
 msgstr "توضیحات"
 
@@ -222,18 +225,18 @@ msgstr "حذف تصویر"
 msgid "Image"
 msgstr "تصویر"
 
-#: src/Form/EventForm.php:215 template/front/event-detail.phtml:189
+#: src/Form/EventForm.php:215 template/front/event-detail.phtml:200
 #: template/front/order-detail.phtml:43
 msgid "Address"
 msgstr "آدرس"
 
-#: src/Form/EventForm.php:226 template/front/event-detail.phtml:175
+#: src/Form/EventForm.php:226 template/front/event-detail.phtml:186
 #: template/front/order-detail.phtml:27
 msgid "Organizer name"
 msgstr "نام سازمان دهنده"
 
-#: src/Form/EventForm.php:237 template/front/event-detail.phtml:181
-#: template/front/event-detail.phtml:182 template/front/order-detail.phtml:33
+#: src/Form/EventForm.php:237 template/front/event-detail.phtml:192
+#: template/front/event-detail.phtml:193 template/front/order-detail.phtml:33
 #: template/front/order-detail.phtml:35
 msgid "Organizer Website"
 msgstr "وب سایت سازمان دهنده"
@@ -250,9 +253,7 @@ msgstr "گزینه های ثبت نام داخلی"
 msgid "Registration details/requirements"
 msgstr "توضیحات ثبت نام"
 
-#: src/Form/EventForm.php:279 template/front/event-detail.phtml:120
-#: template/front/event-detail.phtml:127 template/front/event-detail.phtml:135
-#: template/front/event-list.phtml:62
+#: src/Form/EventForm.php:279
 msgid "Minimum Price"
 msgstr "حداقل قیمت"
 
@@ -328,8 +329,8 @@ msgstr "توضیح متا ( Meta Description ) "
 msgid "Submit"
 msgstr "ارسال"
 
-#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:129
-#: template/front/event-detail.phtml:131
+#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:137
+#: template/front/event-detail.phtml:138
 msgid "Register to the event"
 msgstr "ثبت نام در رویداد"
 
@@ -400,38 +401,43 @@ msgstr "بستن"
 msgid "Import events from guide module"
 msgstr "انتقال رویداد ها از ماژول معرفی اماکن"
 
-#: template/front/event-detail.phtml:6 template/front/event-detail.phtml:146
+#: template/front/event-detail.phtml:6 template/front/event-detail.phtml:157
 #: template/front/event-list.phtml:41 template/front/order-detail.phtml:16
 msgid "From"
 msgstr "از"
 
-#: template/front/event-detail.phtml:8 template/front/event-detail.phtml:148
+#: template/front/event-detail.phtml:8 template/front/event-detail.phtml:159
 #: template/front/event-list.phtml:43 template/front/order-detail.phtml:18
 msgid "to"
 msgstr "تا"
 
-#: template/front/event-detail.phtml:94
+#: template/front/event-detail.phtml:100
 #, php-format
 msgid "Participate/Register to %s"
 msgstr "شرکت / ثبت نام در %s"
 
-#: template/front/event-detail.phtml:142
+#: template/front/event-detail.phtml:120 template/front/event-detail.phtml:131
+#: template/front/event-detail.phtml:143
+msgid "Start From"
+msgstr "شروع از"
+
+#: template/front/event-detail.phtml:154
 msgid "Key Event Elements"
 msgstr "اطلاعات اصلی رویداد"
 
-#: template/front/event-detail.phtml:154 template/front/order-detail.phtml:21
+#: template/front/event-detail.phtml:165 template/front/order-detail.phtml:21
 msgid "On"
 msgstr "در"
 
-#: template/front/event-detail.phtml:161
+#: template/front/event-detail.phtml:172
 msgid "Related locations"
 msgstr "منطقه های مرتبط"
 
-#: template/front/event-detail.phtml:198
+#: template/front/event-detail.phtml:208
 msgid "Related items"
 msgstr "اماکن مرتبط"
 
-#: template/front/event-detail.phtml:227
+#: template/front/event-detail.phtml:237
 msgid "Share if you like"
 msgstr "اشتراک گذاری در شبکه های اجتماعی"
 
@@ -467,6 +473,9 @@ msgstr "تاریخ پایان"
 #: template/front/order-detail.phtml:36
 msgid "Visit"
 msgstr "بازدید"
+
+#~ msgid "this event is free!"
+#~ msgstr "این رویداد رایگان است !"
 
 #~ msgid "Category list"
 #~ msgstr "فهرست شاخه ها"

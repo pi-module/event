@@ -47,7 +47,7 @@ class Block
             'action' => 'index',
         )));
         // Language
-        _b('this event is free!');
+        _b('free!');
         // return
         return $block;
     }
