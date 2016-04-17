@@ -96,8 +96,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 </div>
             <?php } ?>
             <?php if (!empty($event['register_details'])) { ?>
-                <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                 <div class="clearfix event-single-main-box" itemprop="description">
+					<h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                     <?php echo $event['register_details']; ?>
                 </div>
             <?php } ?>
