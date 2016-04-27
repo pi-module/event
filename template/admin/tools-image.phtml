@@ -11,4 +11,9 @@
            href="<?php echo $this->url('', array('action' => 'image')); ?>"><i
                 class="fa fa-picture-o"></i> <?php _e('Image'); ?></a>
     </p>
+
+    <h3><?php echo $this->escape($title); ?></h3>
+
+    <div class="alert alert-success"><?php echo $this->escape($message); ?></div>
+    <?php echo $this->form($form); ?>
 </div>

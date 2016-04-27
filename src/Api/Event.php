@@ -24,6 +24,8 @@ use Zend\Json\Json;
  * Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, $type, $table);
  * Pi::api('event', 'event')->canonizeExtra($extra);
  * Pi::api('event', 'event')->canonizeEvent($event);
+ * Pi::api('event', 'event')->sitemap();
+ * Pi::api('event', 'event')->regenerateImage();
  */
 
 class Event extends AbstractApi
@@ -150,5 +152,81 @@ class Event extends AbstractApi
             $event['topics'] = $topicList;
         }
         return $event;
+    }
+
+    public function sitemap()
+    {
+        if (Pi::service('module')->isActive('sitemap')) {
+            // Remove old links
+            Pi::api('sitemap', 'sitemap')->removeAll('event', 'event');
+            // find and import
+            $columns = array('id', 'slug', 'status');
+            $where = array('type' => array(
+                'event'
+            ));
+            $select = Pi::model('story', 'news')->select()->columns($columns)->where($where);
+            $rowset = Pi::model('story', 'news')->selectWith($select);
+            foreach ($rowset as $row) {
+                // Make url
+                $loc = Pi::url(Pi::service('url')->assemble('news', array(
+                    'module' => 'event',
+                    'controller' => 'index',
+                    'slug' => $row->slug,
+                )));
+                // Add to sitemap
+                Pi::api('sitemap', 'sitemap')->groupLink($loc, $row->status, 'event', 'event', $row->id);
+            }
+        }
+    }
+
+    public function regenerateImage()
+    {
+        // Set info
+        $columns = array('id', 'image', 'path');
+        $where = array('type' => array(
+            'event'
+        ));
+        $order = array('id ASC');
+        $select = Pi::model('story', 'news')->select()->columns($columns)->where($where)->order($order);
+        $rowset = Pi::model('story', 'news')->selectWith($select);
+        foreach ($rowset as $row) {
+            if (!empty($row->image) && !empty($row->path)) {
+                // Set image original path
+                $original = Pi::path(
+                    sprintf('upload/event/image/large/%s/%s',
+                        $row->path,
+                        $row->image
+                    ));
+                // Set image large path
+                $images['large'] = Pi::path(
+                    sprintf('upload/event/image/large/%s/%s',
+                        $row->path,
+                        $row->image
+                    ));
+                // Set image medium path
+                $images['medium'] = Pi::path(
+                    sprintf('upload/event/image/medium/%s/%s',
+                        $row->path,
+                        $row->image
+                    ));
+                // Set image thumb path
+                $images['thumb'] = Pi::path(
+                    sprintf('upload/event/image/thumb/%s/%s',
+                        $row->path,
+                        $row->image
+                    ));
+                // Check original exist of not
+                if (file_exists($original)) {
+                    // Remove old images
+                    foreach ($images as $image) {
+                        if (file_exists($image)) {
+                            Pi::service('file')->remove($image);
+                        }
+                    }
+                    // regenerate
+                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image');
+                }
+            }
+        }
     }
 }
