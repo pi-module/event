@@ -47,5 +47,7 @@ class IndexController extends ActionController
         $this->view()->assign('eventList', $listEvent);
         $this->view()->assign('paginator', $paginator);
         $this->view()->assign('title', __('Event list'));
+        $this->view()->assign('page', $page);
+        $this->view()->assign('config', $config);
     }
 }
