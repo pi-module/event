@@ -83,6 +83,7 @@ class ManageController extends ActionController
         $option = array(
             'side' => 'front',
             'use_topic' => $config['use_topic'],
+            'order_active' => $config['order_active'],
         );
         // check
         if (!$config['manage_active']) {

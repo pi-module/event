@@ -103,6 +103,7 @@ class EventController extends ActionController
         $option = array(
             'side' => 'admin',
             'use_topic' => $config['use_topic'],
+            'order_active' => $config['order_active'],
         );
         // Find event
         if ($id) {

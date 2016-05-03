@@ -306,40 +306,43 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-        // register_can
-        $this->add(array(
-            'name' => 'register_can',
-            'type' => 'checkbox',
-            'options' => array(
-                'label' => __('Register online?'),
-            ),
-            'attributes' => array(
-                'description' => '',
-            )
-        ));
-        // register_stock
-        $this->add(array(
-            'name' => 'register_stock',
-            'options' => array(
-                'label' => __('Capacity'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
-                'description' => '',
-            )
-        ));
-        // register_type
-        $this->add(array(
-            'name' => 'register_type',
-            'type' => 'select',
-            'options' => array(
-                'label' => __('Registration type'),
-                'value_options' => array(
-                    'discount' => __('Discount code'),
-                    'full' => __('Pay full price'),
+        // Check order active
+        if ($this->option['order_active']) {
+            // register_can
+            $this->add(array(
+                'name' => 'register_can',
+                'type' => 'checkbox',
+                'options' => array(
+                    'label' => __('Register online?'),
                 ),
-            ),
-        ));
+                'attributes' => array(
+                    'description' => '',
+                )
+            ));
+            // register_stock
+            $this->add(array(
+                'name' => 'register_stock',
+                'options' => array(
+                    'label' => __('Capacity'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+            // register_type
+            $this->add(array(
+                'name' => 'register_type',
+                'type' => 'select',
+                'options' => array(
+                    'label' => __('Registration type'),
+                    'value_options' => array(
+                        'discount' => __('Discount code'),
+                        'full' => __('Pay full price'),
+                    ),
+                ),
+            ));
+        }
         // Check topic
         if ($this->option['use_topic']) {
             $this->add(array(

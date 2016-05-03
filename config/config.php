@@ -99,6 +99,14 @@ return array(
             'filter' => 'number_int',
             'value' => 1
         ),
+        'order_free' => array(
+            'category' => 'order',
+            'title' => _a('Show free word for free events'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
         // head_meta
         'text_description_index' => array(
             'category' => 'head_meta',

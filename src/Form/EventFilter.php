@@ -185,36 +185,39 @@ class EventFilter extends InputFilter
                 ),
             ),
         ));
-        // register_can
-        $this->add(array(
-            'name' => 'register_can',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+        // Check order active
+        if ($option['order_active']) {
+            // register_can
+            $this->add(array(
+                'name' => 'register_can',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
-        // register_stock
-        $this->add(array(
-            'name' => 'register_stock',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+            ));
+            // register_stock
+            $this->add(array(
+                'name' => 'register_stock',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
-        // register_type
-        $this->add(array(
-            'name' => 'register_type',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+            ));
+            // register_type
+            $this->add(array(
+                'name' => 'register_type',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
+            ));
+        }
         // guide option
         if (Pi::service('module')->isActive('guide') && $option['side'] == 'admin') {
             // owner

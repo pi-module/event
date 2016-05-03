@@ -110,7 +110,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                          alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                 </a>
             </div>
-            <?php if ($event['register_can'] || !empty($event['offer_url']) || !empty($event['register_price'])) { ?>
+            <?php if ($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) { ?>
                 <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                         <?php if ($event['register_can']) { ?>
@@ -137,7 +137,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                     <?php _e('Register to the event') ?>
                                 </a>
                             </div>
-                        <?php } else { ?>
+                        <?php } elseif ($config['order_free']) { ?>
                             <div class="event-minPrice-title">
                                 <?php _e('Start From') ?> :
                             </div>
