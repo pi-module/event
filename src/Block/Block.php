@@ -23,7 +23,6 @@ class Block
         // Set options
         $block = array();
         $block = array_merge($block, $options);
-
         $where = array(
             'status' => 1,
             'type' => 'event',
@@ -37,10 +36,16 @@ class Block
             $table = 'story';
         }
 
-        $order = array('time_publish DESC', 'id DESC');
+        $order = array('time_publish ASC', 'id DESC');
 
-        // Set block array
-        $block['resources'] = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', $table);
+        // Set event
+        $events = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', $table);
+        foreach ($events as $event) {
+            $block['resources'][$event['time_start'].$event['id']] = $event;
+        }
+        ksort($block['resources']);
+
+        // Set more link
         $block['morelink'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $module,
             'controller' => 'index',
