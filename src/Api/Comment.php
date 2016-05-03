@@ -65,9 +65,6 @@ class Comment extends AbstractComment
         if (null == $params) {
             $params = Pi::engine()->application()->getRouteMatch();
         }
-        echo '<pre>';
-        print_r($params);
-        echo '</pre>';
         if ($params instanceof RouteMatch) {
             $params = $params->getParams();
         }
