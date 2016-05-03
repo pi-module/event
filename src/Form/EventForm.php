@@ -86,6 +86,59 @@ class EventForm extends BaseForm
                 ),
             ));
         }
+        // extra
+        $this->add(array(
+            'name' => 'extra_time',
+            'type' => 'fieldset',
+            'options' => array(
+                'label' => __('Time options'),
+            ),
+        ));
+        // time_start
+        $this->add(array(
+            'name' => 'time_start',
+            'type' => 'datepicker',
+            'options' => array(
+                'label' => __('Time start'),
+                'datepicker' => array(
+                    'format' => 'yyyy-mm-dd',
+                    'autoclose' => true,
+                    'todayBtn' => true,
+                    'todayHighlight' => true,
+                    'weekStart' => 1,
+                ),
+            ),
+            'attributes' => array(
+                'required' => true,
+                'value' => date('Y-m-d'),
+            )
+        ));
+        // time_end
+        $this->add(array(
+            'name' => 'time_end',
+            'type' => 'datepicker',
+            'options' => array(
+                'label' => __('Time end'),
+                'datepicker' => array(
+                    'format' => 'yyyy-mm-dd',
+                    'autoclose' => true,
+                    'todayBtn' => true,
+                    'todayHighlight' => true,
+                    'weekStart' => 1,
+                ),
+            ),
+            'attributes' => array(
+                'required' => false,
+            )
+        ));
+        // extra
+        $this->add(array(
+            'name' => 'extra_text',
+            'type' => 'fieldset',
+            'options' => array(
+                'label' => __('Description options'),
+            ),
+        ));
         // text_summary
         $this->add(array(
             'name' => 'text_summary',
@@ -316,51 +369,6 @@ class EventForm extends BaseForm
                     'full' => __('Pay full price'),
                 ),
             ),
-        ));
-        // extra
-        $this->add(array(
-            'name' => 'extra_time',
-            'type' => 'fieldset',
-            'options' => array(
-                'label' => __('Time options'),
-            ),
-        ));
-        // time_start
-        $this->add(array(
-            'name' => 'time_start',
-            'type' => 'datepicker',
-            'options' => array(
-                'label' => __('Time start'),
-                'datepicker' => array(
-                    'format' => 'yyyy-mm-dd',
-                    'autoclose' => true,
-                    'todayBtn' => true,
-                    'todayHighlight' => true,
-                    'weekStart' => 1,
-                ),
-            ),
-            'attributes' => array(
-                'required' => true,
-                'value' => date('Y-m-d'),
-            )
-        ));
-        // time_end
-        $this->add(array(
-            'name' => 'time_end',
-            'type' => 'datepicker',
-            'options' => array(
-                'label' => __('Time end'),
-                'datepicker' => array(
-                    'format' => 'yyyy-mm-dd',
-                    'autoclose' => true,
-                    'todayBtn' => true,
-                    'todayHighlight' => true,
-                    'weekStart' => 1,
-                ),
-            ),
-            'attributes' => array(
-                'required' => false,
-            )
         ));
         // extra guide
         if (Pi::service('module')->isActive('guide')) {

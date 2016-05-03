@@ -60,6 +60,26 @@ class EventFilter extends InputFilter
                 )),
             ),
         ));
+        // time_start
+        $this->add(array(
+            'name' => 'time_start',
+            'required' => true,
+            'filters' => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
+        // time_end
+        $this->add(array(
+            'name' => 'time_end',
+            'required' => false,
+            'filters' => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
         // text_summary
         $this->add(array(
             'name' => 'text_summary',
@@ -188,26 +208,6 @@ class EventFilter extends InputFilter
         // register_type
         $this->add(array(
             'name' => 'register_type',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
-                ),
-            ),
-        ));
-        // time_start
-        $this->add(array(
-            'name' => 'time_start',
-            'required' => true,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
-                ),
-            ),
-        ));
-        // time_end
-        $this->add(array(
-            'name' => 'time_end',
             'required' => false,
             'filters' => array(
                 array(
