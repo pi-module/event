@@ -47,9 +47,11 @@
                                 <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
                                    href="<?php echo $this->url('', array('action' => 'update', 'id' => $event['id'])); ?>"><i
                                         class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                                <?php if ($config['order_active']) { ?>
                                 <a class="btn btn-primary btn-xs" title="<?php _e('List of orders'); ?>"
                                    href="<?php echo $this->url('', array('action' => 'order', 'id' => $event['id'])); ?>"><i
                                         class="fa fa-shopping-cart"></i> <?php _e('List of orders'); ?></a>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php } ?>
