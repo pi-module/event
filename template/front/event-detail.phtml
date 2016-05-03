@@ -97,37 +97,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php } ?>
             <?php if (!empty($event['register_details'])) { ?>
                 <div class="clearfix event-single-main-box" itemprop="description">
-					<h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
+                    <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                     <?php echo $event['register_details']; ?>
-                </div>
-            <?php } ?>
-            <?php if (!empty($event['guideItemInfo']['free'])) { ?>
-                <div class="event-item-related clearfix">
-                    <div class="page-header">
-                        <h2><?php _e('Related items'); ?></h2>
-                    </div>
-                    <div class="thumbnails row">
-                        <?php foreach ($event['guideItemInfo']['free'] as $guideItemInfo) { ?>
-                            <div class="event-item-box h-review col-sm-4 col-md-3">
-                                <div class="thumbnail p-item h-card">
-                                    <?php if ($guideItemInfo['image']) { ?>
-                                        <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
-                                           href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                            <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
-                                                 alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
-                                        </a>
-                                    <?php } ?>
-                                    <h3 class="p-name">
-                                        <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
-                                           href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                            <?php echo $this->escape($guideItemInfo['title']); ?>
-                                        </a>
-                                    </h3>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
                 </div>
             <?php } ?>
         </div>
@@ -275,5 +246,34 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 </div>
             <?php } ?>
         </div>
+        <?php if (!empty($event['guideItemInfo']['free'])) { ?>
+            <div class="col-md-12 event-item-related clearfix">
+                <div class="page-header">
+                    <h2><?php _e('Related items'); ?></h2>
+                </div>
+                <div class="thumbnails row">
+                    <?php foreach ($event['guideItemInfo']['free'] as $guideItemInfo) { ?>
+                        <div class="event-item-box h-review col-sm-4 col-md-3">
+                            <div class="thumbnail p-item h-card">
+                                <?php if ($guideItemInfo['image']) { ?>
+                                    <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                       href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                        <img class="img-responsive u-photo"
+                                             src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
+                                             alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                    </a>
+                                <?php } ?>
+                                <h3 class="p-name">
+                                    <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                       href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                        <?php echo $this->escape($guideItemInfo['title']); ?>
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
