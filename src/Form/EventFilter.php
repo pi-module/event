@@ -216,7 +216,7 @@ class EventFilter extends InputFilter
             ),
         ));
         // guide option
-        if (Pi::service('module')->isActive('guide')) {
+        if (Pi::service('module')->isActive('guide') && $this->option['side'] == 'admin') {
             // owner
             if ($option['side'] == 'admin') {
                 $this->add(array(

@@ -192,36 +192,6 @@ class EventForm extends BaseForm
                 )
             ));
         }
-        // Check topic
-        if ($this->option['use_topic']) {
-            // topic
-            $this->add(array(
-                'name' => 'topic',
-                'type' => 'Module\News\Form\Element\Topic',
-                'options' => array(
-                    'label' => __('Topic'),
-                    'module' => 'news',
-                    'topic' => 'full',
-                    'required' => true,
-                ),
-            ));
-            // topic_main
-            $this->add(array(
-                'name' => 'topic_main',
-                'type' => 'Module\News\Form\Element\Topic',
-                'options' => array(
-                    'label' => __('Main topic'),
-                    'module' => 'news',
-                    'topic' => '',
-                ),
-                'attributes' => array(
-                    'required' => true,
-                    'size' => 1,
-                    'multiple' => 0,
-                    'description' => __('Just use for breadcrumbs and mobile apps'),
-                ),
-            ));
-        }
         // Image
         if ($this->thumbUrl) {
             $this->add(array(
@@ -370,8 +340,45 @@ class EventForm extends BaseForm
                 ),
             ),
         ));
+        // Check topic
+        if ($this->option['use_topic']) {
+            $this->add(array(
+                'name' => 'extra_topic',
+                'type' => 'fieldset',
+                'options' => array(
+                    'label' => __('Topic options'),
+                ),
+            ));
+            // topic
+            $this->add(array(
+                'name' => 'topic',
+                'type' => 'Module\News\Form\Element\Topic',
+                'options' => array(
+                    'label' => __('Topic'),
+                    'module' => 'news',
+                    'topic' => 'full',
+                    'required' => true,
+                ),
+            ));
+            // topic_main
+            $this->add(array(
+                'name' => 'topic_main',
+                'type' => 'Module\News\Form\Element\Topic',
+                'options' => array(
+                    'label' => __('Main topic'),
+                    'module' => 'news',
+                    'topic' => '',
+                ),
+                'attributes' => array(
+                    'required' => true,
+                    'size' => 1,
+                    'multiple' => 0,
+                    'description' => __('Just use for breadcrumbs and mobile apps'),
+                ),
+            ));
+        }
         // extra guide
-        if (Pi::service('module')->isActive('guide')) {
+        if (Pi::service('module')->isActive('guide') && $this->option['side'] == 'admin') {
             $this->add(array(
                 'name' => 'extra_guide',
                 'type' => 'fieldset',

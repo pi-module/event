@@ -54,7 +54,6 @@ class ManageController extends ActionController
         $listEvent = array();
         if (!empty($ids)) {
             $where = array(
-                'status' => 1,
                 'type' => 'event',
                 'id' => $ids,
             );
@@ -156,7 +155,7 @@ class ManageController extends ActionController
                 // Set type
                 $values['type'] = 'event';
                 // Set status
-                $values['status'] = $config['manage_approval'] ? 1 : 0;
+                $values['status'] = $config['manage_approval'] ? 1 : 2;
                 // Set guide module info
                 if (isset($owner) && isset($owner['id'])) {
                     $values['guide_owner'] = $owner['id'];
@@ -260,7 +259,11 @@ class ManageController extends ActionController
                     Pi::api('sitemap', 'sitemap')->singleLink($loc, $story['status'], $module, 'event', $story['id']);
                 }
                 // Add log
-                $message = __('Event data saved successfully.');
+                if ($row->status == 1) {
+                    $message = __('Thanks for contributing ! Event data saved successfully and was published on public side');
+                } else {
+                    $message = __('Thanks for contributing ! Event data saved successfully and we will be validate it soon');
+                }
                 $this->jump(array('action' => 'index'), $message);
             }
         } else {
@@ -275,6 +278,7 @@ class ManageController extends ActionController
         $this->view()->setTemplate('manage-update');
         $this->view()->assign('form', $form);
         $this->view()->assign('title', $title);
+        $this->view()->assign('config', $config);
     }
 
     public function removeAction()
