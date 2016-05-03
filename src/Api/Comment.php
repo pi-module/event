@@ -34,15 +34,15 @@ class Comment extends AbstractComment
         $items = (array)$item;
 
         // Set options
-        $story = Pi::api('event', 'event')->getListFromId($items);
+        $event = Pi::api('event', 'event')->getListFromId($items);
 
         foreach ($items as $id) {
             $result[$id] = array(
-                'id' => $story[$id]['id'],
-                'title' => $story[$id]['title'],
-                'url' => $story[$id]['storyUrl'],
-                'uid' => $story[$id]['uid'],
-                'time' => $story[$id]['time_create'],
+                'id' => $event[$id]['id'],
+                'title' => $event[$id]['title'],
+                'url' => $event[$id]['eventUrl'],
+                'uid' => $event[$id]['uid'],
+                'time' => $event[$id]['time_create'],
             );
         }
 
@@ -65,6 +65,9 @@ class Comment extends AbstractComment
         if (null == $params) {
             $params = Pi::engine()->application()->getRouteMatch();
         }
+        echo '<pre>';
+        print_r($params);
+        echo '</pre>';
         if ($params instanceof RouteMatch) {
             $params = $params->getParams();
         }
