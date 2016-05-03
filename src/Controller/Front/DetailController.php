@@ -44,10 +44,18 @@ class DetailController extends ActionController
         if (Pi::service('module')->isActive('guide')) {
             // Set item info
             if (!empty($event['guide_item'])) {
+                $event['guideItemInfo'] = array(
+                    'commercial' => array(),
+                    'free' => array(),
+                );
                 foreach ($event['guide_item'] as $item) {
                     $guideItem = Pi::api('item', 'guide')->getItem($item);
                     if (isset($guideItem) && !empty($guideItem)) {
-                        $event['guideItemInfo'][$item] = $guideItem;
+                        if (in_array($guideItem['item_type'], array('commercial', 'person'))) {
+                            $event['guideItemInfo']['commercial'][$item] = $guideItem;
+                        } else {
+                            $event['guideItemInfo']['free'][$item] = $guideItem;
+                        }
                     }
                 }
             }

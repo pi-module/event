@@ -101,6 +101,35 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     <?php echo $event['register_details']; ?>
                 </div>
             <?php } ?>
+            <?php if (!empty($event['guideItemInfo']['free'])) { ?>
+                <div class="event-item-related clearfix">
+                    <div class="page-header">
+                        <h2><?php _e('Related items'); ?></h2>
+                    </div>
+                    <div class="thumbnails row">
+                        <?php foreach ($event['guideItemInfo']['free'] as $guideItemInfo) { ?>
+                            <div class="event-item-box h-review col-sm-4 col-md-3">
+                                <div class="thumbnail p-item h-card">
+                                    <?php if ($guideItemInfo['image']) { ?>
+                                        <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                           href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                            <img class="img-responsive u-photo"
+                                                 src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
+                                                 alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                        </a>
+                                    <?php } ?>
+                                    <h3 class="p-name">
+                                        <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                           href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                            <?php echo $this->escape($guideItemInfo['title']); ?>
+                                        </a>
+                                    </h3>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
         <div class="col-md-4 event-single-sidebar">
             <div class="event-image-main clearfix u-photo gallery">
@@ -201,13 +230,13 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     <?php } ?>
                 </ul>
             </div>
-            <?php if (!empty($event['guideItemInfo'])) { ?>
+            <?php if (!empty($event['guideItemInfo']['commercial'])) { ?>
                 <div class="event-item-related clearfix">
                     <div class="page-header">
-                        <h2><?php _e('Related items'); ?></h2>
+                        <h2><?php _e('Nearby recommended professionals'); ?></h2>
                     </div>
                     <div class="thumbnails row">
-                        <?php foreach ($event['guideItemInfo'] as $guideItemInfo) { ?>
+                        <?php foreach ($event['guideItemInfo']['commercial'] as $guideItemInfo) { ?>
                             <div class="event-item-box h-review col-sm-8 col-md-8">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['image']) { ?>
