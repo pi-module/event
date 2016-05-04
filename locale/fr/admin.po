@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-04-13 20:21+0200\n"
+"POT-Creation-Date: 2016-05-04 07:39+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -62,7 +62,9 @@ msgstr "Utiliser les effets pour les blocs"
 
 #: config/block.php:78
 msgid "Use block effects or set custom effect on theme"
-msgstr "Utiliser les effets pour les blocs ou définir un effet personnalisé dans le thème"
+msgstr ""
+"Utiliser les effets pour les blocs ou définir un effet personnalisé dans le "
+"thème"
 
 #: config/comment.php:15
 msgid "Event comments"
@@ -112,7 +114,11 @@ msgstr "Auto-approbation des évènements utilisateurs"
 msgid "Active order"
 msgstr "Activer l'inscription"
 
-#: config/config.php:105
+#: config/config.php:104
+msgid "Show free word for free events"
+msgstr "Afficher le mot \"gratuit\" pour les évènements gratuits"
+
+#: config/config.php:113
 msgid "Description for index page"
 msgstr "Description pour la page Index"
 
