@@ -211,11 +211,14 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                             <div class="event-item-box h-review col-sm-8 col-md-8">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['image']) { ?>
-                                        <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                        <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <img class="img-responsive u-photo"
                                                  src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
                                                  alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                            <?php if ($guideItemInfo['ribbon']) { ?>
+                                                <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
+                                            <?php } ?>
                                         </a>
                                     <?php } ?>
                                     <h3 class="p-name">
@@ -256,11 +259,14 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                         <div class="event-item-box h-review col-sm-4 col-md-3">
                             <div class="thumbnail p-item h-card">
                                 <?php if ($guideItemInfo['image']) { ?>
-                                    <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                    <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                        href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                         <img class="img-responsive u-photo"
                                              src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
                                              alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                        <?php if ($guideItemInfo['ribbon']) { ?>
+                                            <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
+                                        <?php } ?>
                                     </a>
                                 <?php } ?>
                                 <h3 class="p-name">
