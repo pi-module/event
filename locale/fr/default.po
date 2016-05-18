@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-05-04 07:39+0200\n"
+"POT-Creation-Date: 2016-05-18 13:52+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr "Liste des inscriptions"
 msgid "Add / edit event"
 msgstr "Ajouter / Editer l'évènement"
 
-#: src/Api/Event.php:112
+#: src/Api/Event.php:114
 msgid "free!"
 msgstr "gratuit !"
 
@@ -124,9 +124,21 @@ msgstr "Liste des Evènements sur %s"
 msgid "The event not found."
 msgstr "L'évènement n'a pas été trouvé."
 
-#: src/Controller/Front/IndexController.php:49
+#: src/Controller/Front/IndexController.php:41
 msgid "Event list"
 msgstr "Liste des Evènements"
+
+#: src/Controller/Front/JsonController.php:70
+#: template/front/event-detail.phtml:6 template/front/event-detail.phtml:156
+#: template/front/event-list.phtml:41 template/front/order-detail.phtml:16
+msgid "From"
+msgstr "Du"
+
+#: src/Controller/Front/JsonController.php:70
+#: template/front/event-detail.phtml:8 template/front/event-detail.phtml:158
+#: template/front/event-list.phtml:43 template/front/order-detail.phtml:18
+msgid "to"
+msgstr "au"
 
 #: src/Controller/Front/ManageController.php:33
 #: src/Controller/Front/ManageController.php:91
@@ -199,6 +211,7 @@ msgid "Order module not installed"
 msgstr "Le module Commande n'est pas installé"
 
 #: src/Form/EventForm.php:50 template/admin/event-index.phtml:18
+#: template/front/event-angular.phtml:66 template/front/event-angular.phtml:102
 #: template/front/manage-index.phtml:21
 msgid "Title"
 msgstr "Titre"
@@ -352,11 +365,11 @@ msgstr "Options Module Guide"
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: src/Form/EventForm.php:408
+#: src/Form/EventForm.php:408 template/front/event-angular.phtml:71
 msgid "Category"
 msgstr "Catégorie"
 
-#: src/Form/EventForm.php:423
+#: src/Form/EventForm.php:423 template/front/event-angular.phtml:82
 msgid "Location"
 msgstr "Lieu"
 
@@ -481,15 +494,62 @@ msgstr "Importer les Evènements depuis le module Guide"
 msgid "Sitemap"
 msgstr "Sitemap"
 
-#: template/front/event-detail.phtml:6 template/front/event-detail.phtml:156
-#: template/front/event-list.phtml:41 template/front/order-detail.phtml:16
-msgid "From"
-msgstr "Du"
+#: template/front/event-angular.phtml:49
+msgid "Search on this group"
+msgstr "Rechercher"
 
-#: template/front/event-detail.phtml:8 template/front/event-detail.phtml:158
-#: template/front/event-list.phtml:43 template/front/order-detail.phtml:18
-msgid "to"
-msgstr "au"
+#: template/front/event-angular.phtml:53
+msgid "Event time"
+msgstr "Date"
+
+#: template/front/event-angular.phtml:55 template/front/event-angular.phtml:73
+#: template/front/event-angular.phtml:84
+msgid "All"
+msgstr "Tout"
+
+#: template/front/event-angular.phtml:56
+msgid "This week"
+msgstr "Cette semaine"
+
+#: template/front/event-angular.phtml:57
+msgid "Next week"
+msgstr "La semaine prochaine"
+
+#: template/front/event-angular.phtml:58
+msgid "This month"
+msgstr "Ce mois"
+
+#: template/front/event-angular.phtml:59
+msgid "Next month"
+msgstr "Le mois prochain"
+
+#: template/front/event-angular.phtml:60
+msgid "Next two months"
+msgstr "Les 2 prochains mois"
+
+#: template/front/event-angular.phtml:61
+msgid "Next months"
+msgstr "Les mois prochains"
+
+#: template/front/event-angular.phtml:62
+msgid "Expired"
+msgstr "Terminés"
+
+#: template/front/event-angular.phtml:99
+msgid "Sort by"
+msgstr "Trier par"
+
+#: template/front/event-angular.phtml:100
+msgid "Time"
+msgstr "Date"
+
+#: template/front/event-angular.phtml:101
+msgid "Hits"
+msgstr "Hits"
+
+#: template/front/event-angular.phtml:103
+msgid "Default"
+msgstr "Défaut"
 
 #: template/front/event-detail.phtml:100
 #, php-format
@@ -517,11 +577,11 @@ msgstr "Lieux associés"
 msgid "Nearby recommended professionals"
 msgstr "Professionnels recommandés à proximité"
 
-#: template/front/event-detail.phtml:236
+#: template/front/event-detail.phtml:239
 msgid "Share if you like"
 msgstr "Partage si tu apprécies !"
 
-#: template/front/event-detail.phtml:252
+#: template/front/event-detail.phtml:255
 msgid "Related items"
 msgstr "Eléments associés"
 
