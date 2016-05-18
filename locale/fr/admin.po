@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-05-04 07:39+0200\n"
+"POT-Creation-Date: 2016-05-18 13:36+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -75,50 +75,82 @@ msgid "Admin"
 msgstr "Admin"
 
 #: config/config.php:20
+msgid "News module"
+msgstr "Module News"
+
+#: config/config.php:24
+msgid "Guide module"
+msgstr "Module Guide"
+
+#: config/config.php:28
 msgid "View"
 msgstr "Voir"
 
-#: config/config.php:24
+#: config/config.php:32
 msgid "Social"
 msgstr "Social"
 
-#: config/config.php:28 config/page.php:35 config/permission.php:24
+#: config/config.php:36 config/page.php:35 config/permission.php:24
 msgid "Manage"
 msgstr "Gérer"
 
-#: config/config.php:32
+#: config/config.php:40
 msgid "Order"
 msgstr "Commander"
 
-#: config/config.php:40 config/config.php:57
+#: config/config.php:48 config/config.php:86
 msgid "Perpage"
 msgstr "Par page"
 
-#: config/config.php:48
+#: config/config.php:57
 msgid "Use news topics"
 msgstr "Utiliser les catégories du module News"
 
 #: config/config.php:65
+msgid "Select location level for show on filter form"
+msgstr "Sélectionner le niveau Lieux à afficher dans les filtres de recherche"
+
+#: config/config.php:71
+msgid "level 1"
+msgstr "niveau 1"
+
+#: config/config.php:72
+msgid "level 2"
+msgstr "niveau 2"
+
+#: config/config.php:73
+msgid "level 3"
+msgstr "niveau 3"
+
+#: config/config.php:74
+msgid "level 4"
+msgstr "niveau 4"
+
+#: config/config.php:75
+msgid "level 5"
+msgstr "niveau 5"
+
+#: config/config.php:96
 msgid "Social sharing items"
 msgstr "Réseaux sociaux"
 
-#: config/config.php:79
+#: config/config.php:110
 msgid "Manage event by users"
 msgstr "Gestion des évènements par les utilisateurs"
 
-#: config/config.php:87
+#: config/config.php:118
 msgid "Auto approval user events"
 msgstr "Auto-approbation des évènements utilisateurs"
 
-#: config/config.php:96
+#: config/config.php:127
 msgid "Active order"
 msgstr "Activer l'inscription"
 
-#: config/config.php:104
+#: config/config.php:135
 msgid "Show free word for free events"
 msgstr "Afficher le mot \"gratuit\" pour les évènements gratuits"
 
-#: config/config.php:113
+#: config/config.php:144
 msgid "Description for index page"
 msgstr "Description pour la page Index"
 
