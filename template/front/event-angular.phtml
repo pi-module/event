@@ -77,7 +77,7 @@ $this->footScript()->appendScript($script);
                         <option value="thisMonth"><?php _e('This month'); ?></option>
                         <option value="nextMonth"><?php _e('Next month'); ?></option>
                         <option value="nextAllMonth"><?php _e('Next months'); ?></option>
-                        <option value="expire"><?php _e('Expire'); ?></option>
+                        <option value="expire"><?php _e('Expired'); ?></option>
 
                     </select>
                 </div>
@@ -103,12 +103,12 @@ $this->footScript()->appendScript($script);
                 <?php } ?>
                 <div class="clearfix event-sort">
                     <ul class="list-inline">
-                        <li><?php _e('Sort type'); ?> :</li>
-                        <li class="event-sort-type" ng-click="sort('time_publish')"><?php _e('Sort time'); ?> <i class="fa sort-icon" ng-show="sortKey=='time_create'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sort('hits')"><?php _e('Sort hits'); ?> <i class="fa sort-icon" ng-show="sortKey=='hits'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sort('favourite')"><?php _e('Sort favourite'); ?> <i class="fa sort-icon" ng-show="sortKey=='favourite'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sort('title')"><?php _e('Sort title'); ?>  <i class="fa sort-icon" ng-show="sortKey=='title'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Sort default'); ?></li>
+                        <li><?php _e('Sort by'); ?> :</li>
+                        <li class="event-sort-type" ng-click="sort('time_publish')"><?php _e('Time'); ?> <i class="fa sort-icon" ng-show="sortKey=='time_create'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('hits')"><?php _e('Hits'); ?> <i class="fa sort-icon" ng-show="sortKey=='hits'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('favourite')"><?php _e('Favourite'); ?> <i class="fa sort-icon" ng-show="sortKey=='favourite'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('title')"><?php _e('Title'); ?>  <i class="fa sort-icon" ng-show="sortKey=='title'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                 </div>
                 <div class="clearfix">
