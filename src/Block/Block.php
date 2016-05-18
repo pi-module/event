@@ -26,8 +26,31 @@ class Block
         $where = array(
             'status' => 1,
             'type' => 'event',
-            'time_publish > ?' => strtotime("-1 day"),
         );
+
+        $eventModel = Pi::model('extra', 'event');
+        $eventTable = $eventModel->getTable();
+        $eventAdapter = $eventModel->getAdapter();
+        // Set sql
+        $sql = "SELECT * FROM `%s` WHERE  (`status` = 1 AND time_end > %s ) OR (`status` = 1 AND `time_end` = 0 AND time_start > %s ) ORDER BY `time_start` ASC, `id` ASC LIMIT %s";
+        // Set sql
+        $sql = sprintf(
+            $sql,
+            $eventTable,
+            strtotime("-1 day"),
+            strtotime("-1 day"),
+            intval($block['number'])
+        );
+        // query
+        try {
+            $rowset = $eventAdapter->query($sql, 'execute');
+            $rowset = $rowset->toArray();
+            foreach ($rowset as $row) {
+                $where['id'][$row['id']] = $row['id'];
+            }
+        } catch (\Exception $exception) {
+            $where['time_publish > ?'] = strtotime("-1 day");
+        }
 
         if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
             $where['topic'] = $block['topic-id'];
@@ -36,14 +59,13 @@ class Block
             $table = 'story';
         }
 
-        $order = array('time_publish ASC', 'id DESC');
+        $order = array('id ASC');
 
         // Set event
         $events = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', $table);
         foreach ($events as $event) {
             $block['resources'][$event['time_start'].$event['id']] = $event;
         }
-        ksort($block['resources']);
 
         // Set more link
         $block['morelink'] = Pi::url(Pi::service('url')->assemble('event', array(
