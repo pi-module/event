@@ -38,8 +38,7 @@ class IndexController extends ActionController
         $this->view()->assign('filterUrl', $filterUrl);
         $this->view()->assign('locationList', $locationList);
         $this->view()->assign('categoryList', $categoryList);
-        $this->view()->assign('eventTitleH1', __('Event list'));
-        $this->view()->assign('showIndexDesc', 1);
+        $this->view()->assign('title', __('Event list'));
         $this->view()->assign('isHomepage', 1);
     }
 }

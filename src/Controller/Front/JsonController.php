@@ -84,6 +84,8 @@ class JsonController extends IndexController
                 $timeLevel = 'thisMonth';
             } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 60))) {
                 $timeLevel = 'nextMonth';
+            } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 90))) {
+                $timeLevel = 'nextTwoMonth';
             } else {
                 $timeLevel = 'nextAllMonth';
             }
