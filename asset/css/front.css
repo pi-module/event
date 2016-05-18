@@ -18,6 +18,11 @@
     padding-top: 2px;
 }
 
+.event-single-body {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .event-single-subtitle {
     font-size: 1em !important;
     font-weight: normal !important;
