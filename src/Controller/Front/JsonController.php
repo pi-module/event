@@ -73,9 +73,9 @@ class JsonController extends IndexController
             }
             // Set time level
             if ($event['time_end'] == 0 && $event['time_start'] < time()) {
-                $timeLevel = 'expire';
+                $timeLevel = 'expired';
             } elseif ($event['time_end'] > 0 && $event['time_end'] < time()) {
-                $timeLevel = 'expire';
+                $timeLevel = 'expired';
             } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 7))) {
                 $timeLevel = 'thisWeek';
             } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 14))) {
