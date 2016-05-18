@@ -21,33 +21,25 @@ class IndexController extends ActionController
     {
         // Get info from url
         $module = $this->params('module');
-        $page = $this->params('page', 1);
         // Get config
         $config = Pi::service('registry')->config->read($module);
-        // Set info
-        $where = array(
-            'status' => 1,
-            'type' => 'event'
-        );
-        $offset = (int)($page - 1) * $config['view_perpage'];
-        $order = array('time_publish DESC', 'id DESC');
-        $limit = intval($config['view_perpage']);
-        // Get list of event
-        $listEvent = Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, 'full', 'story');
-        // Set template
-        $template = array(
-            'module' => 'event',
-            'controller' => 'index',
-            'action' => 'index',
-        );
-        // Get paginator
-        $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'story');
+        // Set filter url
+        $filterUrl = Pi::url($this->url('', array(
+            'controller' => 'json',
+            'action' => 'filterIndex'
+        )));
+        // Get location list
+        $locationList = Pi::api('event', 'event')->getLocationList();
+        // Get category list
+        $categoryList = Pi::api('event', 'event')->getCategoryList();
         // Set view
-        $this->view()->setTemplate('event-list');
-        $this->view()->assign('eventList', $listEvent);
-        $this->view()->assign('paginator', $paginator);
-        $this->view()->assign('title', __('Event list'));
-        $this->view()->assign('page', $page);
+        $this->view()->setTemplate('event-angular');
         $this->view()->assign('config', $config);
+        $this->view()->assign('filterUrl', $filterUrl);
+        $this->view()->assign('locationList', $locationList);
+        $this->view()->assign('categoryList', $categoryList);
+        $this->view()->assign('eventTitleH1', __('Event list'));
+        $this->view()->assign('showIndexDesc', 1);
+        $this->view()->assign('isHomepage', 1);
     }
 }

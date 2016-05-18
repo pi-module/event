@@ -26,6 +26,8 @@ use Zend\Json\Json;
  * Pi::api('event', 'event')->canonizeEvent($event);
  * Pi::api('event', 'event')->sitemap();
  * Pi::api('event', 'event')->regenerateImage();
+ * Pi::api('event', 'event')->getLocationList();
+ * Pi::api('event', 'event')->getCategoryList();
  */
 
 class Event extends AbstractApi
@@ -228,5 +230,58 @@ class Event extends AbstractApi
                 }
             }
         }
+    }
+
+    public function getLocationList()
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+        // Set list
+        $list = array();
+        // Check guide module install
+        if (Pi::service('module')->isActive('guide')) {
+            $listLocation = Pi::api('location', 'guide')->locationListByLevel($config['filter_location_level']);
+            foreach ($listLocation as $location) {
+                $list[] = array(
+                    'id' => $location['id'],
+                    'title' => $location['title'],
+                    'value' => sprintf('location-%s-guide', $location['id']),
+                );
+            }
+        }
+        // return
+        return $list;
+    }
+
+    public function getCategoryList()
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+        // Set list
+        $list = array();
+        // Check guide module install
+        if (Pi::service('module')->isActive('guide')) {
+            $listGuide = Pi::api('category', 'guide')->categoryList();
+            foreach ($listGuide as $category) {
+                $list[] = array(
+                    'id' => $category['id'],
+                    'title' => $category['title'],
+                    'value' => sprintf('category-%s-guide', $category['id']),
+                );
+            }
+        }
+        // Check news module use topic
+        if ($config['use_topic']) {
+            $listNews = Pi::api('topic', 'news')->getTopicList();
+            foreach ($listNews as $topic) {
+                $list[] = array(
+                    'id' => $topic['id'],
+                    'title' => $topic['title'],
+                    'value' => sprintf('category-%s-news', $topic['id']),
+                );
+            }
+        }
+        // return
+        return $list;
     }
 }

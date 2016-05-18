@@ -17,6 +17,14 @@ return array(
             'name' => 'admin'
         ),
         array(
+            'title' => _a('News module'),
+            'name' => 'news'
+        ),
+        array(
+            'title' => _a('Guide module'),
+            'name' => 'guide'
+        ),
+        array(
             'title' => _a('View'),
             'name' => 'view'
         ),
@@ -43,13 +51,34 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
+        // News
         'use_topic' => array(
-            'category' => 'admin',
+            'category' => 'news',
             'title' => _a('Use news topics'),
             'description' => '',
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        // Guide
+        'filter_location_level' => array(
+            'title' => _a('Select location level for show on filter form'),
+            'description' => '',
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        1 => _a('level 1'),
+                        2 => _a('level 2'),
+                        3 => _a('level 3'),
+                        4 => _a('level 4'),
+                        5 => _a('level 5'),
+                    ),
+                ),
+            ),
+            'filter' => 'number_int',
+            'value' => 1,
+            'category' => 'guide',
         ),
         // View
         'view_perpage' => array(
@@ -60,6 +89,8 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
+        
+        
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),

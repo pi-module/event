@@ -27,7 +27,7 @@ class Event extends Standard
     );
 
     protected $controllerList = array(
-        'index', 'category', 'detail', 'manage', 'register'
+        'index', 'category', 'detail', 'manage', 'register', 'json'
     );
 
     /**
@@ -91,6 +91,38 @@ class Event extends Standard
                         $matches['action'] = 'add';
                         $matches['slug'] = $this->decode($parts[2]);
                     }
+                    break;
+
+                case 'json':
+                    $matches['action'] = $this->decode($parts[1]);
+
+                    if ($parts[1] == 'filterCategory') {
+                        $matches['slug'] = $this->decode($parts[2]);
+                    } elseif ($parts[1] == 'filterTag') {
+                        $matches['slug'] = $this->decode($parts[2]);
+                    } elseif ($parts[1] == 'filterSearch') {
+                        $keyword = _get('keyword');
+                        if (isset($keyword) && !empty($keyword)) {
+                            $matches['keyword'] = $keyword;
+                        }
+                    }
+
+                    if (isset($parts[2]) && $parts[2] == 'id') {
+                        $matches['id'] = intval($parts[3]);
+                    }
+
+                    if (isset($parts[2]) && $parts[2] == 'update') {
+                        $matches['update'] = intval($parts[3]);
+                    } elseif (isset($parts[4]) && $parts[4] == 'update') {
+                        $matches['update'] = intval($parts[5]);
+                    }
+
+                    if (isset($parts[4]) && $parts[4] == 'password') {
+                        $matches['password'] = $this->decode($parts[5]);
+                    } elseif (isset($parts[6]) && $parts[6] == 'password') {
+                        $matches['password'] = $this->decode($parts[7]);
+                    }
+
                     break;
             }
         }

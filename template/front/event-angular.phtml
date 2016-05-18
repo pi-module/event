@@ -1,0 +1,168 @@
+<?php
+// Load angular custom js
+$script = <<<'EOT'
+var app = angular.module('event', ['angularUtils.directives.dirPagination']);
+var compareCount = 0;
+var compareList = [];
+app.controller('listdata',function($scope, $http){
+    $scope.events = [];
+    $('.ajax-spinner').show();
+    $http.get("%s").success(function(response){
+        $scope.events = response;
+        $('.ajax-spinner').hide();
+    });
+    $scope.sortKey = "%s";
+    $scope.reverse = true;
+    $scope.sort = function(keyname){
+        $scope.sortKey = keyname;
+        $scope.reverse = !$scope.reverse;
+    }
+});
+EOT;
+$script = sprintf(
+    $script,
+    $filterUrl,
+    'time_publish'
+);
+
+// Load header files
+$this->jQuery();
+$this->angular();
+$this->js($this->assetModule('js/dirPagination.js'));
+$this->css($this->assetModule('css/front.css'));
+$this->footScript()->appendScript($script);
+?>
+<div class="clearfix row">
+    <div class="ajax-spinner">
+        <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader"/>
+    </div>
+    <div class="col-sm-12 col-md-3">
+        <div class="event-search-form clearfix">
+            <div class="page-header">
+                <h4><?php _e('Search on this group'); ?></h4>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label><?php _e('Title'); ?></label>
+                    <input type="text" ng-model="filterTitle" class="form-control">
+                </div>
+                <?php if (isset($categoryList) && !empty($categoryList)) { ?>
+                    <div class="form-group">
+                        <label><?php _e('Category'); ?></label>
+                        <select ng-model="filterCategory" class="form-control">
+                            <option value=""><?php _e('All'); ?></option>
+                            <?php foreach ($categoryList as $category) { ?>
+                                <option value="<?php echo $category['value']; ?>"><?php echo $category['title']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                <?php } ?>
+                <?php if (isset($locationList) && !empty($locationList)) { ?>
+                    <div class="form-group">
+                        <label><?php _e('Location'); ?></label>
+                        <select ng-model="filterLocation" class="form-control">
+                            <option value=""><?php _e('All'); ?></option>
+                            <?php foreach ($locationList as $location) { ?>
+                                <option value="<?php echo $location['value']; ?>"><?php echo $location['title']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                <?php } ?>
+                <div class="form-group">
+                    <label><?php _e('Event time'); ?></label>
+                    <select ng-model="filterTime" class="form-control">
+                        <option value=""><?php _e('All'); ?></option>
+                        <option value="thisWeek"><?php _e('This week'); ?></option>
+                        <option value="nextWeek"><?php _e('Next week'); ?></option>
+                        <option value="thisMonth"><?php _e('This month'); ?></option>
+                        <option value="nextMonth"><?php _e('Next month'); ?></option>
+                        <option value="nextAllMonth"><?php _e('Next months'); ?></option>
+                        <option value="expire"><?php _e('Expire'); ?></option>
+
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-9" ng-controller="listdata">
+        <div class="clearfix">
+            <div class="event-list clearfix">
+                <?php if (isset($eventTitleH1) && !empty($eventTitleH1)) { ?>
+                    <div class="page-header">
+                        <h1><?php echo $eventTitleH1; ?></h1>
+                    </div>
+                <?php } elseif (isset($eventTitleH2) && !empty($eventTitleH2)) { ?>
+                    <div class="page-header">
+                        <h2><?php echo $eventTitleH2; ?></h2>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($config['text_description_index']) && isset($showIndexDesc) && $showIndexDesc == 1) { ?>
+                    <div class="well eventIndexDescription">
+                        <?php echo $config['text_description_index']; ?>
+                    </div>
+                <?php } ?>
+                <div class="clearfix event-sort">
+                    <ul class="list-inline">
+                        <li><?php _e('Sort type'); ?> :</li>
+                        <li class="event-sort-type" ng-click="sort('time_publish')"><?php _e('Sort time'); ?> <i class="fa sort-icon" ng-show="sortKey=='time_create'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('hits')"><?php _e('Sort hits'); ?> <i class="fa sort-icon" ng-show="sortKey=='hits'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('favourite')"><?php _e('Sort favourite'); ?> <i class="fa sort-icon" ng-show="sortKey=='favourite'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('title')"><?php _e('Sort title'); ?>  <i class="fa sort-icon" ng-show="sortKey=='title'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Sort default'); ?></li>
+                    </ul>
+                </div>
+                <div class="clearfix">
+                    <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                         class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                        <div class="row">
+                            <div class="col-md-3" ng-if="event.image">
+                                <a itemprop="url" title="{{event.title}}"
+                                   href="{{event.eventUrl}}">
+                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                         src="{{event.thumbUrl}}"
+                                         alt="{{event.title}}"/>
+                                </a>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="p-name clearfix" itemprop="name">
+                                    <h2 class="pull-left event-single-title">
+                                        <a itemprop="url" title="{{event.title}}"
+                                           href="{{event.eventUrl}}">
+                                            {{event.title}}
+                                        </a>
+                                    </h2>
+                                    <div class="pull-right event-single-subtitle" ng-if="event.subtitle">{{event.subtitle}}</div>
+                                </div>
+                                <div class="event-single-information small">
+                                    <ul class="clearfix list-inline event-time">
+                                        <li ng-if="event.time_view">
+                                            <i class="fa fa-clock-o"></i> {{event.time_view}}
+                                            <meta ng-if="event.time_start_view" itemprop="startDate" content="{{event.time_start_view}}" />
+                                            <meta ng-if="event.time_end_view" itemprop="endDate" content="{{event.time_end_view}}" />
+
+                                        </li>
+                                        <li ng-if="event.register_price" class="p-price" itemprop="price" content="{{event.register_price}}">
+                                            <i class="fa fa-money"></i> {{event.register_price_view}}
+                                        </li>
+                                        <meta ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}" />
+                                        <li><i class="fa fa-eye"></i> {{event.hits}}</li>
+                                    </ul>
+                                </div>
+                                <div class="event-single-summery clearfix p-summary" itemprop="description" ng-if="event.text_summary">
+                                    {{event.text_summary}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="paginator">
+                <dir-pagination-controls
+                    max-size="<?php echo $config['view_perpage']; ?>"
+                    direction-links="true"
+                    boundary-links="true">
+                </dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
