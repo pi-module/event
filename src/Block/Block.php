@@ -47,6 +47,7 @@ class Block
             $rowset = $rowset->toArray();
             foreach ($rowset as $row) {
                 $list[] = $row['id'];
+                $block['resources'][$row['id']] = array();
             }
         } catch (\Exception $exception) {
             $where['time_publish > ?'] = strtotime("-1 day");
@@ -68,7 +69,7 @@ class Block
         // Set event
         $events = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', $table);
         foreach ($events as $event) {
-            $block['resources'][$event['time_start'].$event['id']] = $event;
+            $block['resources'][$event['id']] = $event;
         }
 
         // Set more link
