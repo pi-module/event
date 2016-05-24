@@ -63,7 +63,7 @@ class Block
         $table = 'story';
         $where['id'] = $list;
 
-        $order = array('id ASC');
+        $order = array('time_publish ASC', 'id ASC');
 
         // Set event
         $events = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', $table);
