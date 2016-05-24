@@ -25,7 +25,7 @@ class Block
         $block = array_merge($block, $options);
         $where = array(
             'status' => 1,
-            'type' => 'event',
+            //'type' => 'event',
         );
 
         $eventModel = Pi::model('extra', 'event');
