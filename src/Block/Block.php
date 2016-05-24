@@ -46,17 +46,19 @@ class Block
             $rowset = $eventAdapter->query($sql, 'execute');
             $rowset = $rowset->toArray();
             foreach ($rowset as $row) {
-                $where['id'][$row['id']] = $row['id'];
+                $list[] = $row['id'];
             }
         } catch (\Exception $exception) {
             $where['time_publish > ?'] = strtotime("-1 day");
         }
 
         if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
-            $where['topic'] = $block['topic-id'];
             $table = 'link';
+            $where['topic'] = $block['topic-id'];
+            $where['story'] = $list;
         } else {
             $table = 'story';
+            $where['id'] = $list;
         }
 
         $order = array('id ASC');
