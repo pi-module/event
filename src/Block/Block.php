@@ -57,14 +57,11 @@ class Block
             ->where(function ($where) {
                 $fromWhere = clone $where;
                 $toWhere = clone $where;
-
                 $fromWhere->equalTo('status', 1);
                 $fromWhere->greaterThan('time_end', strtotime("-1 day"));
-
                 $toWhere->equalTo('status', 1);
                 $toWhere->equalTo('time_end', 0);
                 $toWhere->greaterThan('time_start', strtotime("-1 day"));
-
                 $where->andPredicate($fromWhere)->orPredicate($toWhere);
             })
             ->order('time_start ASC, id ASC')
