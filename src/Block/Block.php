@@ -28,7 +28,7 @@ class Block
             //'type' => 'event',
         );
 
-        $eventModel = Pi::model('extra', 'event');
+        /* $eventModel = Pi::model('extra', 'event');
         $eventTable = $eventModel->getTable();
         $eventAdapter = $eventModel->getAdapter();
         // Set sql
@@ -51,6 +51,28 @@ class Block
             }
         } catch (\Exception $exception) {
             $where['time_publish > ?'] = strtotime("-1 day");
+        } */
+
+        $select = Pi::model('extra', 'event')->select()
+            ->where(function ($where) {
+                $fromWhere = clone $where;
+                $toWhere = clone $where;
+
+                $fromWhere->equalTo('status', 1);
+                $fromWhere->greaterThan('time_end', strtotime("-1 day"));
+
+                $toWhere->equalTo('status', 1);
+                $toWhere->equalTo('time_end', 0);
+                $toWhere->greaterThan('time_start', strtotime("-1 day"));
+
+                $where->andPredicate($fromWhere)->orPredicate($toWhere);
+            })
+            ->order('time_start ASC, id ASC')
+            ->limit(intval($block['number']));
+        $rowset = Pi::model('extra', 'event')->selectWith($select)->toArray();
+        foreach ($rowset as $row) {
+            $list[] = $row['id'];
+            $block['resources'][$row['id']] = array();
         }
 
         /* if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
@@ -61,6 +83,7 @@ class Block
             $table = 'story';
             $where['id'] = $list;
         } */
+
         $table = 'story';
         $where['id'] = $list;
 
