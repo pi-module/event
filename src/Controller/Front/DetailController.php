@@ -37,6 +37,9 @@ class DetailController extends ActionController
         }
         // Update Hits
         Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+        // Set event topic
+        $eventTopic = array();
+        $eventTopic = array_merge($eventTopic, $event['topic']);
         // Set guide module options
         $event['guideItemInfo'] = array();
         $event['guideLocationInfo'] = array();
@@ -69,6 +72,7 @@ class DetailController extends ActionController
             if (!empty($event['guide_category'])) {
                 foreach ($event['guide_category'] as $category) {
                     $event['guideCategoryInfo'][$category] = Pi::api('category', 'guide')->getCategory($category);
+                    $eventTopic = array_merge($eventTopic, $event['guide_category']);
                 }
             }
         }
@@ -79,6 +83,12 @@ class DetailController extends ActionController
         $form->setAttribute('enctype', 'multipart/form-data');
         $form->setAttribute('action', $event['eventOrder']);
         $form->setData($event);
+        // Related
+        if (!empty($eventTopic)) {
+            $eventTopic = array_unique($eventTopic);
+            $relatedEvents = Pi::api('event', 'event')->getEventRelated($event['id'], $eventTopic);
+            $this->view()->assign('relatedEvents', $relatedEvents);
+        }
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');

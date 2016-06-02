@@ -28,6 +28,7 @@ use Zend\Json\Json;
  * Pi::api('event', 'event')->regenerateImage();
  * Pi::api('event', 'event')->getLocationList();
  * Pi::api('event', 'event')->getCategoryList();
+ * Pi::api('event', 'event')->getEventRelated($id, $topic);
  */
 
 class Event extends AbstractApi
@@ -283,5 +284,18 @@ class Event extends AbstractApi
         }
         // return
         return $list;
+    }
+    
+    public function getEventRelated($id, $topic)
+    {
+        $listEvent = array();
+        $listStory = Pi::api('api', 'news')->getStoryRelated($id, $topic, 'event');
+        foreach ($listStory as $singleStory) {
+            $eventExtra = Pi::api('event', 'event')->joinExtra($singleStory);
+            if (($eventExtra['time_end'] == 0 && $eventExtra['time_start'] > strtotime("-1 day")) || ($eventExtra['time_end'] > strtotime("-1 day"))) {
+                $listEvent[$singleStory['id']] = $eventExtra;
+            }
+        }
+        return $listEvent;
     }
 }

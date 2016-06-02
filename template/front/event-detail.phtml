@@ -248,6 +248,16 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     </div>
                 </div>
             <?php } ?>
+            <?php if (isset($relatedEvents) && !empty($relatedEvents)) { ?>
+                <div class="clearfix ">
+                    <h2><?php _e('Related events'); ?></h2>
+                    <ul>
+                        <?php foreach ($relatedEvents as $relatedEvent) { ?>
+                            <li><a href="<?php echo $this->escape($relatedEvent['eventUrl']); ?>" title="<?php echo $this->escape($relatedEvent['title']); ?>"><?php echo $this->escape($relatedEvent['title']); ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            <?php } ?>
         </div>
         <?php if (!empty($event['guideItemInfo']['free'])) { ?>
             <div class="col-md-12 event-item-related clearfix">
