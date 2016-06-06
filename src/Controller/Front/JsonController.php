@@ -33,6 +33,8 @@ class JsonController extends IndexController
 
     public function filterIndexAction()
     {
+        // Get time
+        $time = Pi::api('time', 'event')->makeTime();
         // Set info
         $where = array(
             'status' => 1,
@@ -72,19 +74,19 @@ class JsonController extends IndexController
                 $timeView = $event['time_start_view'];
             }
             // Set time level
-            if ($event['time_end'] == 0 && $event['time_start'] < time()) {
+            if ($event['time_end'] == 0 && $event['time_start'] < $time['expired']) {
                 $timeLevel = 'expired';
-            } elseif ($event['time_end'] > 0 && $event['time_end'] < time()) {
+            } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['expired']) {
                 $timeLevel = 'expired';
-            } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 7))) {
+            } elseif ($event['time_start'] < $time['thisWeek']) {
                 $timeLevel = 'thisWeek';
-            } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 14))) {
+            } elseif ($event['time_start'] < $time['nextWeek']) {
                 $timeLevel = 'nextWeek';
-            } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 30))) {
+            } elseif ($event['time_start'] < $time['nextWeek'] && $event['time_start'] > $time['nextMonth']) {
                 $timeLevel = 'thisMonth';
-            } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 60))) {
+            } elseif ($event['time_start'] < $time['nextMonth']) {
                 $timeLevel = 'nextMonth';
-            } elseif ($event['time_start'] < (time() + (60 * 60 * 24 * 90))) {
+            } elseif ($event['time_start'] < $time['nextTwoMonth']) {
                 $timeLevel = 'nextTwoMonth';
             } else {
                 $timeLevel = 'nextAllMonth';
