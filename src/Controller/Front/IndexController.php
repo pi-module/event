@@ -40,5 +40,7 @@ class IndexController extends ActionController
         $this->view()->assign('categoryList', $categoryList);
         $this->view()->assign('title', __('Event list'));
         $this->view()->assign('isHomepage', 1);
+        // Language
+        __('Toman');
     }
 }

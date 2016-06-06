@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-06 15:35+0430\n"
+"POT-Creation-Date: 2016-06-06 15:46+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,6 +19,10 @@ msgstr ""
 #: src/Block/Block.php:102
 msgid "free!"
 msgstr "رایگان !"
+
+#: src/Block/Block.php:103
+msgid "Toman"
+msgstr "تومان"
 
 #: template/admin/event-index.phtml:45 template/block/recent-event.phtml:36
 msgid "From"
