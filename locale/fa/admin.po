@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-04-16 10:25+0430\n"
+"POT-Creation-Date: 2016-06-06 15:33+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -73,46 +73,82 @@ msgid "Admin"
 msgstr "بخش مدیریت"
 
 #: config/config.php:20
+msgid "News module"
+msgstr "ماژول اخبار"
+
+#: config/config.php:24
+msgid "Guide module"
+msgstr "ماژول مدیریت اماکن"
+
+#: config/config.php:28
 msgid "View"
 msgstr "نمایش"
 
-#: config/config.php:24
+#: config/config.php:32
 msgid "Social"
 msgstr "شبکه های اجتماعی"
 
-#: config/config.php:28 config/page.php:35 config/permission.php:24
+#: config/config.php:36 config/page.php:35 config/permission.php:24
 msgid "Manage"
 msgstr "مدیریت درج رویداد توسط کاربر"
 
-#: config/config.php:32
+#: config/config.php:40
 msgid "Order"
 msgstr "سفارش"
 
-#: config/config.php:40 config/config.php:57
+#: config/config.php:48 config/config.php:86
 msgid "Perpage"
 msgstr "تعداد در صفحه"
 
-#: config/config.php:48
+#: config/config.php:57
 msgid "Use news topics"
 msgstr "استفاده از موضوع های ماژول اخبار"
 
 #: config/config.php:65
+msgid "Select location level for show on filter form"
+msgstr "انتخاب سطح مکان برای نمایش در فرم"
+
+#: config/config.php:71
+msgid "level 1"
+msgstr "سطح ۱"
+
+#: config/config.php:72
+msgid "level 2"
+msgstr "سطح ۲"
+
+#: config/config.php:73
+msgid "level 3"
+msgstr "سطح ۳"
+
+#: config/config.php:74
+msgid "level 4"
+msgstr "سطح ۴"
+
+#: config/config.php:75
+msgid "level 5"
+msgstr "سطح ۵"
+
+#: config/config.php:96
 msgid "Social sharing items"
 msgstr "موارد اشتراک گذاری در شبکه های اجتماعی"
 
-#: config/config.php:79
+#: config/config.php:110
 msgid "Manage event by users"
 msgstr "مدیریت رویداد ها توسط کاربر"
 
-#: config/config.php:87
+#: config/config.php:118
 msgid "Auto approval user events"
 msgstr "تایید خودکار رویداد های درج شده توسط کاربر"
 
-#: config/config.php:96
+#: config/config.php:127
 msgid "Active order"
 msgstr "فعال سازی ثبت نام در رویداد"
 
-#: config/config.php:105
+#: config/config.php:135
+msgid "Show free word for free events"
+msgstr "نمایش کلمه رایگان برای رویداد های رایگان"
+
+#: config/config.php:144
 msgid "Description for index page"
 msgstr "متن توضیحات صفحه اول ماژول"
 
