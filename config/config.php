@@ -89,8 +89,14 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
-        
-        
+        'show_related' => array(
+            'category' => 'show',
+            'title' => _a('Show related event'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),

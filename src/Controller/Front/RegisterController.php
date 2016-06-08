@@ -118,7 +118,7 @@ class RegisterController extends ActionController
                 $order = array();
                 $order['module_name'] = $module;
                 $order['module_item'] = $event['id'];
-                $order['type_payment'] = 'recurring';
+                $order['type_payment'] = 'onetime';
                 $order['type_commodity'] = 'service';
                 $order['product'][$event['id']] = $singleProduct;
                 // Set session_order if user not login

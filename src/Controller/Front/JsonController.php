@@ -74,23 +74,41 @@ class JsonController extends IndexController
                 $timeView = $event['time_start_view'];
             }
             // Set time level
+            $timeLevel = '';
             if ($event['time_end'] == 0 && $event['time_start'] < $time['expired']) {
                 $timeLevel = 'expired';
             } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['expired']) {
-                $timeLevel = 'expired';
-            } elseif ($event['time_start'] < $time['thisWeek']) {
-                $timeLevel = 'thisWeek';
-            } elseif ($event['time_start'] < $time['nextWeek']) {
-                $timeLevel = 'nextWeek';
-            } elseif ($event['time_start'] < $time['nextWeek'] && $event['time_start'] > $time['nextMonth']) {
-                $timeLevel = 'thisMonth';
-            } elseif ($event['time_start'] < $time['nextMonth']) {
-                $timeLevel = 'nextMonth';
-            } elseif ($event['time_start'] < $time['nextTwoMonth']) {
-                $timeLevel = 'nextTwoMonth';
-            } else {
-                $timeLevel = 'nextAllMonth';
+                $timeLevel .= ' expired';
             }
+
+            if ($event['time_start'] > $time['thisWeek'] && $event['time_start'] < $time['nextWeek']) {
+                $timeLevel .= ' thisWeek';
+            }
+
+            if ($event['time_start'] > $time['nextWeek'] && $event['time_start'] < $time['nextTwoWeek']) {
+                $timeLevel .= ' nextWeek';
+            }
+
+            if ($event['time_start'] > $time['thisWeek'] && $event['time_start'] < $time['nextMonth']) {
+                $timeLevel .= ' thisMonth';
+            }
+
+            if ($event['time_start'] > $time['nextWeek'] && $event['time_start'] < $time['nextTwoMonth']) {
+                $timeLevel .= ' nextMonth';
+            }
+
+            if ($event['time_start'] > $time['nextTwoWeek'] && $event['time_start'] < $time['nextThreeMonth']) {
+                $timeLevel .= ' nextTwoMonth';
+            }
+
+            if ($event['time_start'] > $time['nextThreeMonth'] && $event['time_start'] < $time['nextFourMonth']) {
+                $timeLevel .= ' nextThreeMonth';
+            }
+
+            if (empty($timeLevel)) {
+                $timeLevel .= ' nextAllMonth';
+            }
+
             // Set single event array
             $eventSingle = array(
                 'id' => $event['id'],
