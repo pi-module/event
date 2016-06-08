@@ -123,7 +123,10 @@ class RegisterController extends ActionController
                 $order['product'][$event['id']] = $singleProduct;
                 // Set session_order if user not login
                 if ($uid == 0) {
-                    $_SESSION['session_order'] = $singleProduct;
+                    $_SESSION['session_order'] = array(
+                        'module' => 'event',
+                        'value' => $singleProduct,
+                    );
                 }
                 // Set and go to order
                 $url = Pi::api('order', 'order')->setOrderInfo($order);
