@@ -409,6 +409,7 @@ class EventForm extends BaseForm
                     'category' => array(0 => ''),
                     'module' => 'guide',
                     'type' => 'external',
+                    'status' => 1,
                 ),
                 'attributes' => array(
                     'size' => 5,
@@ -423,6 +424,7 @@ class EventForm extends BaseForm
                     'label' => __('Location'),
                     'module' => 'guide',
                     'type' => 'external',
+                    'status' => 1,
                 ),
                 'attributes' => array(
                     'size' => 5,
@@ -438,6 +440,7 @@ class EventForm extends BaseForm
                         'label' => __('Item'),
                         'module' => 'guide',
                         'owner' => isset($this->option['owner']) ? $this->option['owner'] : '',
+                        'status' => 1,
                     ),
                     'attributes' => array(
                         'size' => 5,
