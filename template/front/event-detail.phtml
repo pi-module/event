@@ -249,11 +249,38 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 </div>
             <?php } ?>
             <?php if (isset($relatedEvents) && !empty($relatedEvents)) { ?>
-                <div class="clearfix ">
-                    <h2><?php _e('Related events'); ?></h2>
-                    <ul>
+                <div class="event-related clearfix">
+                    <div class="page-header">
+                        <h2><?php _e('Related events'); ?></h2>
+                    </div>
+                    <ul class="list-unstyled">
                         <?php foreach ($relatedEvents as $relatedEvent) { ?>
-                            <li><a href="<?php echo $this->escape($relatedEvent['eventUrl']); ?>" title="<?php echo $this->escape($relatedEvent['title']); ?>"><?php echo $this->escape($relatedEvent['title']); ?></a></li>
+                            <li itemscope itemtype="http://schema.org/Event">
+                                <div class="eventList-time small">
+                                    <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
+                                        <span class="eventSingleTime dt-start">
+                                            <?php _e('From') ?> <span itemprop="startDate"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
+                                        </span>
+                                        <span class="eventSingleTime dt-end">
+                                            <?php _e('to') ?> <span itemprop="endDate"><?php echo $this->escape($relatedEvent['time_end_view']); ?></span>
+                                        </span>
+                                        <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
+                                            <span class="eventSingleTime dt-start" itemprop="startDate"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
+                                        <?php } ?>
+                                        <?php if (!empty($relatedEvent['locationInfo']['title'])) { ?>
+                                        <span> , </span>
+                                        <span itemprop="location"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
+                                    <?php } ?>
+                                </div>
+                                <div class="eventList-title">
+                                    <strong>
+                                        <a itemprop="url" title="<?php echo $this->escape($relatedEvent['title']); ?>"
+                                           href="<?php echo $this->escape($relatedEvent['eventUrl']); ?>">
+                                            <span itemprop="name"><?php echo $this->escape($relatedEvent['title']); ?></span>
+                                        </a>
+                                    </strong>
+                                </div>
+                            </li>
                         <?php } ?>
                     </ul>
                 </div>
