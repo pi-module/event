@@ -117,13 +117,12 @@ $this->footScript()->appendScript($script);
                             </div>
                             <div class="col-md-9 event-single-body">
                                 <div class="p-name clearfix" itemprop="name">
-                                    <h2 class="pull-left event-single-title">
+                                    <h2 class="event-single-title">
                                         <a itemprop="url" title="{{event.title}}"
                                            href="{{event.eventUrl}}">
                                             {{event.title}}
                                         </a>
                                     </h2>
-                                    <div class="pull-right event-single-subtitle" ng-if="event.subtitle">{{event.subtitle}}</div>
                                 </div>
                                 <div class="event-single-information small">
                                     <ul class="clearfix list-inline event-time">
@@ -131,7 +130,6 @@ $this->footScript()->appendScript($script);
                                             <i class="fa fa-clock-o"></i> {{event.time_view}}
                                             <meta ng-if="event.time_start_view" itemprop="startDate" content="{{event.time_start_view}}" />
                                             <meta ng-if="event.time_end_view" itemprop="endDate" content="{{event.time_end_view}}" />
-
                                         </li>
                                         <li ng-if="event.register_price" class="p-price" itemprop="price" content="{{event.register_price}}">
                                             <i class="fa fa-money"></i> {{event.register_price_view}}

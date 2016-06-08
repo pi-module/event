@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-06 15:46+0430\n"
+"POT-Creation-Date: 2016-06-08 10:10+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -75,21 +75,23 @@ msgstr "ماژول معرفی اماکن نصب نشده است"
 
 #: src/Controller/Admin/ToolsController.php:213
 msgid "Rebuild thie module links on sitemap module tabels"
-msgstr ""
+msgstr "بازسازی لینک های ماژول در ماٰژول نقشه سایت"
 
 #: src/Controller/Admin/ToolsController.php:222
 msgid "Sitemap rebuild finished"
-msgstr ""
+msgstr "بازسازی لینک های نقشه سایت پایان یافت"
 
 #: src/Controller/Admin/ToolsController.php:227
 msgid "Rebuild sitemap links"
-msgstr ""
+msgstr "بازسازی لینک های نقشه سایت"
 
 #: src/Controller/Admin/ToolsController.php:234
 msgid ""
 "Regenerate all images by new setting. Please make backup from youe files on "
 "upload folder , before use this tools"
 msgstr ""
+"تولید دوباره تمام تصاویر با تنظیمات جدید، لطفا از فایل های تصاویر قبلی نسخه "
+"پشتیبان تهیه فرمایید"
 
 #: src/Controller/Admin/ToolsController.php:243
 msgid "Regenerate images finished"
@@ -129,13 +131,13 @@ msgstr "فهرست رویداد ها"
 msgid "Toman"
 msgstr "تومان"
 
-#: src/Controller/Front/JsonController.php:70
+#: src/Controller/Front/JsonController.php:72
 #: template/front/event-detail.phtml:6 template/front/event-detail.phtml:156
 #: template/front/event-list.phtml:41 template/front/order-detail.phtml:16
 msgid "From"
 msgstr "از"
 
-#: src/Controller/Front/JsonController.php:70
+#: src/Controller/Front/JsonController.php:72
 #: template/front/event-detail.phtml:8 template/front/event-detail.phtml:158
 #: template/front/event-list.phtml:43 template/front/order-detail.phtml:18
 msgid "to"
@@ -180,12 +182,16 @@ msgid ""
 "Thanks for contributing ! Event data saved successfully and was published on "
 "public side"
 msgstr ""
+"با تشکر از مشارکت شما ! اطلاعات رویداد با موفقیت ذخیره شد و در وب سایت منتشر "
+"شد"
 
 #: src/Controller/Front/ManageController.php:266
 msgid ""
 "Thanks for contributing ! Event data saved successfully and we will be "
 "validate it soon"
 msgstr ""
+"با تشکر از مشارکت شما ! اطلاعات رویداد با موفقیت ذخیره شد و به زودی در دسترس "
+"خواهد بود"
 
 #: src/Controller/Front/RegisterController.php:57
 msgid "So sorry, At this moment order is inactive"
@@ -208,7 +214,7 @@ msgid "Order module not installed"
 msgstr "ماژول سفارش ثبت نشده است"
 
 #: src/Form/EventForm.php:50 template/admin/event-index.phtml:18
-#: template/front/event-angular.phtml:66 template/front/event-angular.phtml:102
+#: template/front/event-angular.phtml:67 template/front/event-angular.phtml:103
 #: template/front/manage-index.phtml:21
 msgid "Title"
 msgstr "عنوان"
@@ -362,11 +368,11 @@ msgstr "گزینه های ماژول Guide"
 msgid "Owner"
 msgstr "سازنده"
 
-#: src/Form/EventForm.php:408 template/front/event-angular.phtml:71
+#: src/Form/EventForm.php:408 template/front/event-angular.phtml:72
 msgid "Category"
 msgstr "شاخه"
 
-#: src/Form/EventForm.php:423 template/front/event-angular.phtml:82
+#: src/Form/EventForm.php:423 template/front/event-angular.phtml:83
 msgid "Location"
 msgstr "منطقه"
 
@@ -499,8 +505,8 @@ msgstr "جستجو در این گروه"
 msgid "Event time"
 msgstr "تاریخ رویداد"
 
-#: template/front/event-angular.phtml:55 template/front/event-angular.phtml:73
-#: template/front/event-angular.phtml:84
+#: template/front/event-angular.phtml:55 template/front/event-angular.phtml:74
+#: template/front/event-angular.phtml:85
 msgid "All"
 msgstr "همه"
 
@@ -525,26 +531,30 @@ msgid "Next two months"
 msgstr "دو ماه آینده"
 
 #: template/front/event-angular.phtml:61
+msgid "Next three months"
+msgstr "سه ماه آینده"
+
+#: template/front/event-angular.phtml:62
 msgid "Next months"
 msgstr "ماه های بعدی"
 
-#: template/front/event-angular.phtml:62
+#: template/front/event-angular.phtml:63
 msgid "Expired"
 msgstr "باطل شده"
 
-#: template/front/event-angular.phtml:99
+#: template/front/event-angular.phtml:100
 msgid "Sort by"
 msgstr "مرتب سازی براساس"
 
-#: template/front/event-angular.phtml:100
+#: template/front/event-angular.phtml:101
 msgid "Time"
 msgstr "تاریخ انتشار"
 
-#: template/front/event-angular.phtml:101
+#: template/front/event-angular.phtml:102
 msgid "Hits"
 msgstr "بازدید"
 
-#: template/front/event-angular.phtml:103
+#: template/front/event-angular.phtml:104
 msgid "Default"
 msgstr "پیشفرض"
 

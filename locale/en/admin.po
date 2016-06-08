@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-04-04 16:24+0430\n"
+"POT-Creation-Date: 2016-06-08 10:14+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -73,46 +73,86 @@ msgid "Admin"
 msgstr ""
 
 #: config/config.php:20
-msgid "View"
+msgid "News module"
 msgstr ""
 
 #: config/config.php:24
-msgid "Social"
+msgid "Guide module"
 msgstr ""
 
-#: config/config.php:28 config/page.php:35 config/permission.php:24
-msgid "Manage"
+#: config/config.php:28
+msgid "View"
 msgstr ""
 
 #: config/config.php:32
+msgid "Social"
+msgstr ""
+
+#: config/config.php:36 config/page.php:35 config/permission.php:24
+msgid "Manage"
+msgstr ""
+
+#: config/config.php:40
 msgid "Order"
 msgstr ""
 
-#: config/config.php:40 config/config.php:57
+#: config/config.php:48 config/config.php:86
 msgid "Perpage"
 msgstr ""
 
-#: config/config.php:48
+#: config/config.php:57
 msgid "Use news topics"
 msgstr ""
 
 #: config/config.php:65
+msgid "Select location level for show on filter form"
+msgstr ""
+
+#: config/config.php:71
+msgid "level 1"
+msgstr ""
+
+#: config/config.php:72
+msgid "level 2"
+msgstr ""
+
+#: config/config.php:73
+msgid "level 3"
+msgstr ""
+
+#: config/config.php:74
+msgid "level 4"
+msgstr ""
+
+#: config/config.php:75
+msgid "level 5"
+msgstr ""
+
+#: config/config.php:94
+msgid "Show related event"
+msgstr ""
+
+#: config/config.php:102
 msgid "Social sharing items"
 msgstr ""
 
-#: config/config.php:79
+#: config/config.php:116
 msgid "Manage event by users"
 msgstr ""
 
-#: config/config.php:87
+#: config/config.php:124
 msgid "Auto approval user events"
 msgstr ""
 
-#: config/config.php:96
+#: config/config.php:133
 msgid "Active order"
 msgstr ""
 
-#: config/config.php:105
+#: config/config.php:141
+msgid "Show free word for free events"
+msgstr ""
+
+#: config/config.php:150
 msgid "Description for index page"
 msgstr ""
 

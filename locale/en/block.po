@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-04-04 16:25+0430\n"
+"POT-Creation-Date: 2016-06-08 10:14+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,26 +16,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: src/Block/Block.php:49
-msgid "this event is free!"
+#: src/Block/Block.php:102
+msgid "free!"
 msgstr ""
 
-#: template/admin/event-index.phtml:45 template/block/recent-event.phtml:36
+#: src/Block/Block.php:103
+msgid "Toman"
+msgstr ""
+
+#: template/admin/event-index.phtml:45 template/block/recent-event.phtml:33
 msgid "From"
 msgstr ""
 
-#: template/admin/event-index.phtml:46 template/block/recent-event.phtml:38
+#: template/admin/event-index.phtml:46 template/block/recent-event.phtml:35
 msgid "to"
 msgstr ""
 
-#: template/block/recent-event.phtml:58
+#: template/block/recent-event.phtml:55
 msgid "Minimum Price"
 msgstr ""
 
-#: template/block/recent-event.phtml:78 template/block/recent-event.phtml:79
+#: template/block/recent-event.phtml:77 template/block/recent-event.phtml:78
 msgid "More events"
 msgstr ""
 
-#: template/block/recent-event.phtml:83
+#: template/block/recent-event.phtml:82
 msgid "No event actually or to come"
 msgstr ""

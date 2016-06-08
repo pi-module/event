@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-06 15:46+0430\n"
+"POT-Creation-Date: 2016-06-08 10:14+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -24,23 +24,23 @@ msgstr "رایگان !"
 msgid "Toman"
 msgstr "تومان"
 
-#: template/admin/event-index.phtml:45 template/block/recent-event.phtml:36
+#: template/admin/event-index.phtml:45 template/block/recent-event.phtml:33
 msgid "From"
 msgstr "از"
 
-#: template/admin/event-index.phtml:46 template/block/recent-event.phtml:38
+#: template/admin/event-index.phtml:46 template/block/recent-event.phtml:35
 msgid "to"
 msgstr "تا"
 
-#: template/block/recent-event.phtml:58
+#: template/block/recent-event.phtml:55
 msgid "Minimum Price"
 msgstr "حداقل قیمت"
 
-#: template/block/recent-event.phtml:80 template/block/recent-event.phtml:81
+#: template/block/recent-event.phtml:77 template/block/recent-event.phtml:78
 msgid "More events"
 msgstr "رویداد های بیشتر"
 
-#: template/block/recent-event.phtml:85
+#: template/block/recent-event.phtml:82
 msgid "No event actually or to come"
 msgstr "هیچ رویدادی در دسترس نیست"
 
