@@ -264,12 +264,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <span class="eventSingleTime dt-end">
                                             <?php _e('to') ?> <span itemprop="endDate"><?php echo $this->escape($relatedEvent['time_end_view']); ?></span>
                                         </span>
-                                        <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
+                                    <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
                                             <span class="eventSingleTime dt-start" itemprop="startDate"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
-                                        <?php } ?>
-                                        <?php if (!empty($relatedEvent['locationInfo']['title'])) { ?>
-                                        <span> , </span>
-                                        <span itemprop="location"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
                                     <?php } ?>
                                 </div>
                                 <div class="eventList-title">
