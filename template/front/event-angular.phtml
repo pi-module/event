@@ -22,12 +22,53 @@ $script = sprintf(
     $filterUrl,
     'time_publish'
 );
+
 // Load header files
 $this->jQuery();
 $this->angular();
 $this->js($this->assetModule('js/dirPagination.js'));
 $this->css($this->assetModule('css/front.css'));
 $this->footScript()->appendScript($script);
+
+// Set Open Graph tags for meta
+$this->doctype('HTML5');
+if (isset($category['title']) && !empty($category['title'])) {
+    $this->headMeta($this->escape($category['title']), 'og:title', 'property');
+} elseif (isset($title) && !empty($title)) {
+    $this->headMeta($this->escape($title), 'og:title', 'property');
+}
+if (isset($category['topicUrl']) && !empty($category['topicUrl'])) {
+    $this->headMeta($this->escape($category['topicUrl']), 'og:url', 'property');
+} else{
+    $this->headMeta(Pi::url($this->url('', array('module' => 'event'))), 'og:url', 'property');
+}
+if (isset($category['text_summary']) && !empty($category['text_summary'])) {
+    $this->headMeta(_strip($category['text_summary']), 'og:description', 'property');
+} elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
+    $this->headMeta(_strip($config['text_description_index']), 'og:description', 'property');
+}
+if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
+    $this->headMeta($this->escape($category['largeUrl']), 'og:image', 'property');
+} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+    $this->headMeta($this->escape($config['image_homepage']), 'og:image', 'property');
+}
+
+// Set twitter for meta
+if (isset($category['title']) && !empty($category['title'])) {
+    $this->headMeta($this->escape($category['title']), 'twitter:title');
+} elseif (isset($title) && !empty($title)) {
+    $this->headMeta($this->escape($title), 'twitter:title');
+}
+if (isset($category['text_summary']) && !empty($category['text_summary'])) {
+    $this->headMeta(_strip($category['text_summary']), 'twitter:description');
+} elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
+    $this->headMeta(_strip($config['text_description_index']), 'twitter:description');
+}
+if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
+    $this->headMeta($this->escape($category['largeUrl']), 'twitter:image');
+} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+    $this->headMeta($this->escape($config['image_homepage']), 'twitter:image');
+}
 ?>
 <div class="clearfix row">
     <div class="ajax-spinner">
