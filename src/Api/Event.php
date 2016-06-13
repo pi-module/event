@@ -22,13 +22,14 @@ use Zend\Json\Json;
  * Pi::api('event', 'event')->joinExtra($event);
  * Pi::api('event', 'event')->getListFromId($id);
  * Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, $type, $table);
- * Pi::api('event', 'event')->canonizeExtra($extra);
- * Pi::api('event', 'event')->canonizeEvent($event);
- * Pi::api('event', 'event')->sitemap();
- * Pi::api('event', 'event')->regenerateImage();
  * Pi::api('event', 'event')->getLocationList();
  * Pi::api('event', 'event')->getCategoryList();
  * Pi::api('event', 'event')->getEventRelated($id, $topic);
+ * Pi::api('event', 'event')->canonizeExtra($extra);
+ * Pi::api('event', 'event')->canonizeEvent($event);
+ * Pi::api('event', 'event')->canonizeEventJson($event, $time);
+ * Pi::api('event', 'event')->sitemap();
+ * Pi::api('event', 'event')->regenerateImage();
  */
 
 class Event extends AbstractApi
@@ -88,7 +89,74 @@ class Event extends AbstractApi
         return  $listEvent;
     }
 
-    public function canonizeExtra($extra) {
+    public function getLocationList()
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+        // Set list
+        $list = array();
+        // Check guide module install
+        if (Pi::service('module')->isActive('guide')) {
+            $listLocation = Pi::api('location', 'guide')->locationListByLevel($config['filter_location_level']);
+            foreach ($listLocation as $location) {
+                $list[] = array(
+                    'id' => $location['id'],
+                    'title' => $location['title'],
+                    'value' => sprintf('location-%s-guide', $location['id']),
+                );
+            }
+        }
+        // return
+        return $list;
+    }
+
+    public function getCategoryList()
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+        // Set list
+        $list = array();
+        // Check guide module install
+        if (Pi::service('module')->isActive('guide')) {
+            $listGuide = Pi::api('category', 'guide')->categoryList();
+            foreach ($listGuide as $category) {
+                $list[] = array(
+                    'id' => $category['id'],
+                    'title' => $category['title'],
+                    'value' => sprintf('category-%s-guide', $category['id']),
+                );
+            }
+        }
+        // Check news module use topic
+        if ($config['use_topic']) {
+            $listNews = Pi::api('topic', 'news')->getTopicList();
+            foreach ($listNews as $topic) {
+                $list[] = array(
+                    'id' => $topic['id'],
+                    'title' => $topic['title'],
+                    'value' => sprintf('category-%s-news', $topic['id']),
+                );
+            }
+        }
+        // return
+        return $list;
+    }
+
+    public function getEventRelated($id, $topic)
+    {
+        $listEvent = array();
+        $listStory = Pi::api('api', 'news')->getStoryRelated($id, $topic, 'event');
+        foreach ($listStory as $singleStory) {
+            $eventExtra = Pi::api('event', 'event')->joinExtra($singleStory);
+            if (($eventExtra['time_end'] == 0 && $eventExtra['time_start'] > strtotime("-1 day")) || ($eventExtra['time_end'] > strtotime("-1 day"))) {
+                $listEvent[$singleStory['id']] = $eventExtra;
+            }
+        }
+        return $listEvent;
+    }
+
+    public function canonizeExtra($extra)
+    {
         // Check
         if (empty($extra)) {
             return '';
@@ -121,7 +189,8 @@ class Event extends AbstractApi
         return $extra;
     }
 
-    public function canonizeEvent($event) {
+    public function canonizeEvent($event)
+    {
         // Check
         if (empty($event)) {
             return '';
@@ -155,6 +224,102 @@ class Event extends AbstractApi
             $event['topics'] = $topicList;
         }
         return $event;
+    }
+
+    public function canonizeEventJson($event, $time)
+    {
+        // Set text_summary
+        $event['text_summary'] = Pi::service('markup')->render($event['text_summary'], 'html', 'html');
+        $event['text_summary'] = strip_tags($event['text_summary'], "<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
+        $event['text_summary'] = str_replace("<p>&nbsp;</p>", "", $event['text_summary']);
+        // Set category list
+        $categoryList = array();
+        if (isset($event['guide_category']) && !empty($event['guide_category'])) {
+            foreach ($event['guide_category'] as $category) {
+                $categoryList[$category] = sprintf('category-%s-guide', $category);
+            }
+        }
+        if (isset($event['topic']) && !empty($event['topic'])) {
+            foreach ($event['topic'] as $category) {
+                $categoryList[$category] = sprintf('category-%s-news', $category);
+            }
+        }
+        // Set location list
+        $locationList = array();
+        if (isset($event['guide_location']) && !empty($event['guide_location'])) {
+            foreach ($event['guide_location'] as $category) {
+                $locationList[$category] = sprintf('location-%s-guide', $category);
+            }
+        }
+        // Set time view
+        if (!empty($event['time_start']) && !empty($event['time_end'])) {
+            $timeView = sprintf('%s %s %s %s', __('From'), $event['time_start_view'], __('to'), $event['time_end_view']);
+        } elseif (!empty($event['time_start'])) {
+            $timeView = $event['time_start_view'];
+        }
+        // Set time level
+        $timeLevel = '';
+        if ($event['time_end'] == 0 && $event['time_start'] < $time['expired']) {
+            $timeLevel = 'expired';
+        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['expired']) {
+            $timeLevel .= ' expired';
+        }
+
+        if ($event['time_start'] > $time['thisWeek'] && $event['time_start'] < $time['nextWeek']) {
+            $timeLevel .= ' thisWeek';
+        }
+
+        if ($event['time_start'] > $time['nextWeek'] && $event['time_start'] < $time['nextTwoWeek']) {
+            $timeLevel .= ' nextWeek';
+        }
+
+        if ($event['time_start'] > $time['thisMonth'] && $event['time_start'] < $time['nextMonth']) {
+            $timeLevel .= ' thisMonth';
+        }
+
+        if ($event['time_start'] > $time['nextMonth'] && $event['time_start'] < $time['nextTwoMonth']) {
+            $timeLevel .= ' nextMonth';
+        }
+
+        if ($event['time_start'] > $time['nextTwoMonth'] && $event['time_start'] < $time['nextThreeMonth']) {
+            $timeLevel .= ' nextTwoMonth';
+        }
+
+        if ($event['time_start'] > $time['nextThreeMonth'] && $event['time_start'] < $time['nextFourMonth']) {
+            $timeLevel .= ' nextThreeMonth';
+        }
+
+        if (empty($timeLevel)) {
+            $timeLevel .= ' nextAllMonth';
+        }
+
+        // Set single event array
+        $eventSingle = array(
+            'id' => $event['id'],
+            'title' => $event['title'],
+            'image' => $event['image'],
+            'thumbUrl' => $event['thumbUrl'],
+            'eventUrl' => $event['eventUrl'],
+            'subtitle' => $event['subtitle'],
+            'register_price' => $event['register_price'],
+            'register_price_view' => $event['register_price_view'],
+            'price_currency' => $event['price_currency'],
+            'hits' => $event['hits'],
+            'text_summary' => $event['text_summary'],
+            'time_create' => $event['time_create'],
+            'time_publish' => $event['time_publish'],
+            'time_update' => $event['time_update'],
+            'time_start' => $event['time_start'],
+            'time_end' => $event['time_end'],
+            'time_start_view' => date("Y-m-d H:i:s", $event['time_start']),
+            'time_end_view' => date("Y-m-d H:i:s", $event['time_end']),
+            'time_view' => $timeView,
+            'time_level' => $timeLevel,
+            'category' => implode(' ', $categoryList),
+            'location' => implode(' ', $locationList),
+        );
+
+        return $eventSingle;
     }
 
     public function sitemap()
@@ -231,71 +396,5 @@ class Event extends AbstractApi
                 }
             }
         }
-    }
-
-    public function getLocationList()
-    {
-        // Get config
-        $config = Pi::service('registry')->config->read($this->getModule());
-        // Set list
-        $list = array();
-        // Check guide module install
-        if (Pi::service('module')->isActive('guide')) {
-            $listLocation = Pi::api('location', 'guide')->locationListByLevel($config['filter_location_level']);
-            foreach ($listLocation as $location) {
-                $list[] = array(
-                    'id' => $location['id'],
-                    'title' => $location['title'],
-                    'value' => sprintf('location-%s-guide', $location['id']),
-                );
-            }
-        }
-        // return
-        return $list;
-    }
-
-    public function getCategoryList()
-    {
-        // Get config
-        $config = Pi::service('registry')->config->read($this->getModule());
-        // Set list
-        $list = array();
-        // Check guide module install
-        if (Pi::service('module')->isActive('guide')) {
-            $listGuide = Pi::api('category', 'guide')->categoryList();
-            foreach ($listGuide as $category) {
-                $list[] = array(
-                    'id' => $category['id'],
-                    'title' => $category['title'],
-                    'value' => sprintf('category-%s-guide', $category['id']),
-                );
-            }
-        }
-        // Check news module use topic
-        if ($config['use_topic']) {
-            $listNews = Pi::api('topic', 'news')->getTopicList();
-            foreach ($listNews as $topic) {
-                $list[] = array(
-                    'id' => $topic['id'],
-                    'title' => $topic['title'],
-                    'value' => sprintf('category-%s-news', $topic['id']),
-                );
-            }
-        }
-        // return
-        return $list;
-    }
-    
-    public function getEventRelated($id, $topic)
-    {
-        $listEvent = array();
-        $listStory = Pi::api('api', 'news')->getStoryRelated($id, $topic, 'event');
-        foreach ($listStory as $singleStory) {
-            $eventExtra = Pi::api('event', 'event')->joinExtra($singleStory);
-            if (($eventExtra['time_end'] == 0 && $eventExtra['time_start'] > strtotime("-1 day")) || ($eventExtra['time_end'] > strtotime("-1 day"))) {
-                $listEvent[$singleStory['id']] = $eventExtra;
-            }
-        }
-        return $listEvent;
     }
 }

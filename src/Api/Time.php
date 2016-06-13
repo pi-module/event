@@ -52,7 +52,7 @@ class Time extends AbstractApi
                 }
 
                 $time = array(
-                    'expired' => pmktime(0, 0, 0, pdate('m', strtotime("-1 Saturday")), pdate('d', strtotime("-1 Saturday")), pdate('Y', strtotime("-1 Saturday"))),
+                    'expired' => time(),
                     'thisWeek' => pmktime(0, 0, 0, pdate('m', strtotime("-1 Saturday")), pdate('d', strtotime("-1 Saturday")), pdate('Y', strtotime("-1 Saturday"))),
                     'nextWeek' => pmktime(0, 0, 0, pdate('m', strtotime("+1 Saturday")), pdate('d', strtotime("+1 Saturday")), pdate('Y', strtotime("+1 Saturday"))),
                     'nextTwoWeek' => pmktime(0, 0, 0, pdate('m', strtotime("+2 Saturday")), pdate('d', strtotime("+2 Saturday")), pdate('Y', strtotime("+2 Saturday"))),
@@ -66,7 +66,7 @@ class Time extends AbstractApi
 
             default:
                 $time = array(
-                    'expired' => strtotime("-1 Monday"),
+                    'expired' => time(),
                     'thisWeek' => strtotime("-1 Monday"),
                     'nextWeek' => strtotime("+1 Monday"),
                     'nextTwoWeek' => strtotime("+2 Monday"),
@@ -74,7 +74,7 @@ class Time extends AbstractApi
                     'nextMonth' => strtotime('first day of +1 month'),
                     'nextTwoMonth' => strtotime('first day of +2 month'),
                     'nextThreeMonth' => strtotime('first day of +3 month'),
-                    'nextFourMonth' => 'Y-m-d' ,strtotime('first day of +4 month'),
+                    'nextFourMonth' => strtotime('first day of +4 month'),
                 );
                 break;
         }

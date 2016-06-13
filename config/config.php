@@ -90,12 +90,20 @@ return array(
             'value' => 10
         ),
         'show_related' => array(
-            'category' => 'show',
+            'category' => 'view',
             'title' => _a('Show related event'),
             'description' => '',
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        'image_homepage' => array(
+            'category' => 'view',
+            'title' => _a('Set wide image for homepage'),
+            'description' => '',
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => ''
         ),
         // Social
         'social_sharing' => array(

@@ -21,7 +21,6 @@ class CategoryController extends ActionController
     {
         // Get info from url
         $module = $this->params('module');
-        $page = $this->params('page', 1);
         $slug = $this->params('slug');
         // Get config
         $config = Pi::service('registry')->config->read($module);
@@ -34,34 +33,29 @@ class CategoryController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
-        // Set info
-        $where = array(
-            'status' => 1,
-            'type' => 'event',
-            'topic' => $category['ids'],
-        );
-        $offset = (int)($page - 1) * $config['view_perpage'];
-        $order = array('time_publish DESC', 'id DESC');
-        $limit = intval($config['view_perpage']);
-        // Get list of event
-        $listEvent = Pi::api('event', 'event')->getEventList($where, $order, $offset, $limit, 'full', 'link');
-        // Set template
-        $template = array(
-            'module' => 'event',
-            'controller' => 'category',
-            'action' => 'index',
-            'slug' => $category['slug'],
-        );
-        // Get paginator
-        $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'link');
+        // Set filter url
+        $filterUrl = Pi::url($this->url('', array(
+            'controller' => 'json',
+            'action' => 'filterCategory',
+            'slug' => $slug,
+        )));
+        // Get location list
+        $locationList = Pi::api('event', 'event')->getLocationList();
+        // Get category list
+        $categoryList = Pi::api('event', 'event')->getCategoryList();
         // Set view
         $this->view()->headTitle($category['seo_title']);
         $this->view()->headdescription($category['seo_description'], 'set');
         $this->view()->headkeywords($category['seo_keywords'], 'set');
-        $this->view()->setTemplate('event-list');
-        $this->view()->assign('eventList', $listEvent);
-        $this->view()->assign('paginator', $paginator);
+        $this->view()->setTemplate('event-angular');
+        $this->view()->assign('config', $config);
+        $this->view()->assign('filterUrl', $filterUrl);
+        $this->view()->assign('locationList', $locationList);
+        $this->view()->assign('categoryList', $categoryList);
         $this->view()->assign('category', $category);
         $this->view()->assign('title', sprintf(__('Event list on %s'), $category['title']));
+        $this->view()->assign('isCategoryPage', 1);
+        // Language
+        __('Toman');
     }
 }

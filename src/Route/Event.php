@@ -12,6 +12,7 @@
  */
 namespace Module\Event\Route;
 
+use Pi;
 use Pi\Mvc\Router\Http\Standard;
 
 class Event extends Standard
@@ -47,83 +48,83 @@ class Event extends Standard
         $matches = array_merge($this->defaults, $matches);
         if (isset($parts[0]) && in_array($parts[0], $this->controllerList)) {
             $matches['controller'] = $this->decode($parts[0]);
-        } elseif (isset($parts[0]) && !in_array($parts[0], $this->controllerList)) {
-            $matches['controller'] = 'detail';
-        }
+            // Make Match
+            if (isset($matches['controller'])) {
+                switch ($matches['controller']) {
+                    case 'category':
+                        return false;
+                        break;
 
-        // Make Match
-        if (isset($matches['controller']) && isset($parts[0]) && !empty($parts[0])) {
-            switch ($matches['controller']) {
-                case 'category':
-                    if (isset($parts[1]) && !empty($parts[1])) {
-                        $matches['action'] = 'index';
-                        $matches['slug'] = $this->decode($parts[1]);
-                    }
-                    break;
+                    case 'detail':
+                        return false;
+                        break;
 
-                case 'detail':
-                    $matches['slug'] = $this->decode($parts[0]);
-                    break;
-
-                case 'manage':
-                    if (isset($parts[1]) && $parts[1] == 'update') {
-                        $matches['action'] = 'update';
-                        if (isset($parts[2]) && is_numeric($parts[2])) {
+                    case 'manage':
+                        if (isset($parts[1]) && $parts[1] == 'update') {
+                            $matches['action'] = 'update';
+                            if (isset($parts[2]) && is_numeric($parts[2])) {
+                                $matches['id'] = intval($parts[2]);
+                            } elseif (isset($parts[2]) && $parts[2] == 'item') {
+                                $matches['item'] = intval($parts[3]);
+                            }
+                        } elseif (isset($parts[1]) && $parts[1] == 'remove'
+                            && isset($parts[2]) && is_numeric($parts[2])
+                        ) {
+                            $matches['action'] = 'remove';
                             $matches['id'] = intval($parts[2]);
-                        } elseif (isset($parts[2]) && $parts[2] == 'item') {
-                            $matches['item'] = intval($parts[3]);
+                        } elseif (isset($parts[1]) && $parts[1] == 'order'
+                            && isset($parts[2]) && is_numeric($parts[2])
+                        ) {
+                            $matches['action'] = 'order';
+                            $matches['id'] = intval($parts[2]);
                         }
-                    } elseif (isset($parts[1]) && $parts[1] == 'remove'
-                        && isset($parts[2]) && is_numeric($parts[2])
-                    ) {
-                        $matches['action'] = 'remove';
-                        $matches['id'] = intval($parts[2]);
-                    } elseif (isset($parts[1]) && $parts[1] == 'order'
-                        && isset($parts[2]) && is_numeric($parts[2])
-                    ) {
-                        $matches['action'] = 'order';
-                        $matches['id'] = intval($parts[2]);
-                    }
-                    break;
+                        break;
 
-                case 'register':
-                    if (isset($parts[1]) && $parts[1] == 'add') {
-                        $matches['action'] = 'add';
-                        $matches['slug'] = $this->decode($parts[2]);
-                    }
-                    break;
-
-                case 'json':
-                    $matches['action'] = $this->decode($parts[1]);
-
-                    if ($parts[1] == 'filterCategory') {
-                        $matches['slug'] = $this->decode($parts[2]);
-                    } elseif ($parts[1] == 'filterTag') {
-                        $matches['slug'] = $this->decode($parts[2]);
-                    } elseif ($parts[1] == 'filterSearch') {
-                        $keyword = _get('keyword');
-                        if (isset($keyword) && !empty($keyword)) {
-                            $matches['keyword'] = $keyword;
+                    case 'register':
+                        if (isset($parts[1]) && $parts[1] == 'add') {
+                            $matches['action'] = 'add';
+                            $matches['slug'] = $this->decode($parts[2]);
                         }
-                    }
+                        break;
 
-                    if (isset($parts[2]) && $parts[2] == 'id') {
-                        $matches['id'] = intval($parts[3]);
-                    }
+                    case 'json':
+                        $matches['action'] = $this->decode($parts[1]);
 
-                    if (isset($parts[2]) && $parts[2] == 'update') {
-                        $matches['update'] = intval($parts[3]);
-                    } elseif (isset($parts[4]) && $parts[4] == 'update') {
-                        $matches['update'] = intval($parts[5]);
-                    }
+                        if ($parts[1] == 'filterCategory') {
+                            $matches['slug'] = $this->decode($parts[2]);
+                        } elseif ($parts[1] == 'filterTag') {
+                            $matches['slug'] = $this->decode($parts[2]);
+                        }
 
-                    if (isset($parts[4]) && $parts[4] == 'password') {
-                        $matches['password'] = $this->decode($parts[5]);
-                    } elseif (isset($parts[6]) && $parts[6] == 'password') {
-                        $matches['password'] = $this->decode($parts[7]);
-                    }
+                        if (isset($parts[2]) && $parts[2] == 'id') {
+                            $matches['id'] = intval($parts[3]);
+                        }
 
-                    break;
+                        if (isset($parts[2]) && $parts[2] == 'update') {
+                            $matches['update'] = intval($parts[3]);
+                        } elseif (isset($parts[4]) && $parts[4] == 'update') {
+                            $matches['update'] = intval($parts[5]);
+                        }
+
+                        if (isset($parts[4]) && $parts[4] == 'password') {
+                            $matches['password'] = $this->decode($parts[5]);
+                        } elseif (isset($parts[6]) && $parts[6] == 'password') {
+                            $matches['password'] = $this->decode($parts[7]);
+                        }
+
+                        break;
+                }
+            }
+        } elseif (isset($parts[0])) {
+            $categorySlug = Pi::registry('categoryRoute', 'event')->read();
+            if (in_array($parts[0], $categorySlug)) {
+                $matches['controller'] = 'category';
+                $matches['action'] = 'index';
+                $matches['slug'] = $this->decode($parts[0]);
+            } else {
+                $matches['controller'] = 'detail';
+                $matches['action'] = 'index';
+                $matches['slug'] = $this->decode($parts[0]);
             }
         }
 
@@ -162,6 +163,7 @@ class Event extends Standard
         if (!empty($mergedParams['controller'])
             && $mergedParams['controller'] != 'index'
             && $mergedParams['controller'] != 'detail'
+            && $mergedParams['controller'] != 'category'
             && in_array($mergedParams['controller'], $this->controllerList)
         ) {
             $url['controller'] = $mergedParams['controller'];

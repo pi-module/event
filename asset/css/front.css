@@ -144,3 +144,19 @@ a.item-ribbon:hover {
 .eventsort-type {
     cursor: pointer;
 }
+
+/* top description*/
+.event-width-description {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 15px;
+    right: 0;
+    width: 50%;
+    margin-top: 3%;
+    margin-right: 5%;
+    border-radius: 4px;
+}
+
+.event-width-image {
+    margin-bottom: 15px;
+}

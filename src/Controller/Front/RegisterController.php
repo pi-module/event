@@ -18,33 +18,6 @@ use Zend\Json\Json;
 
 class RegisterController extends ActionController
 {
-    /* public function indexAction()
-    {
-        // Check user is login or not
-        Pi::service('authentication')->requireLogin();
-        // Check order is active or inactive
-        if (!$this->config('order_active')) {
-            $this->getResponse()->setStatusCode(401);
-            $this->terminate(__('So sorry, At this moment order is inactive'), '', 'error-denied');
-            $this->view()->setLayout('layout-simple');
-            return;
-        }
-        // Get info
-        $uid = Pi::user()->getId();
-        $list = array();
-        $order = array('id DESC');
-        $where = array('uid' => $uid);
-        $select = $this->getModel('order')->select()->where($where)->order($order);
-        $rowset = $this->getModel('order')->selectWith($select);
-        // Make list
-        foreach ($rowset as $row) {
-            $list[$row->id] = Pi::api('order', 'event')->canonizeOrder($row);
-        }
-        // Set view
-        $this->view()->setTemplate('register-list');
-        $this->view()->assign('list', $list);
-    } */
-
     public function addAction()
     {
         // Get uid
@@ -142,72 +115,4 @@ class RegisterController extends ActionController
             return $this->redirect()->toRoute('', $url);
         }
     }
-
-    /* public function detailAction()
-    {
-        // Check user is login or not
-        Pi::service('authentication')->requireLogin();
-        // Check order is active or inactive
-        if (!$this->config('order_active')) {
-            $this->getResponse()->setStatusCode(401);
-            $this->terminate(__('So sorry, At this moment order is inactive'), '', 'error-denied');
-            $this->view()->setLayout('layout-simple');
-            return;
-        }
-        // Get info from url
-        $id = $this->params('id');
-        $module = $this->params('module');
-        // Get order and event
-        $orderEvent = Pi::api('order', 'event')->getOrder($id);
-        $event = Pi::api('event', 'event')->getEvent($orderEvent['event']);
-        $orderOrder = Pi::api('order', 'order')->getOrder($orderEvent['order_id']);
-        // Check order
-        if (!$orderOrder['id']) {
-            $url = array('', 'module' => $module, 'controller' => 'index', 'action' => 'index');
-            $this->jump($url, __('Order not set.'));
-        }
-        // Check user
-        if ($orderOrder['uid'] != Pi::user()->getId()) {
-            $url = array('', 'module' => $module, 'controller' => 'index', 'action' => 'index');
-            $this->jump($url, __('It not your order.'));
-        }
-        // Check status payment
-        if ($orderOrder['status_payment'] != 2) {
-            $url = array('', 'module' => $module, 'controller' => 'index', 'action' => 'index');
-            $this->jump($url, __('This order not pay'));
-        }
-        // Check time payment
-        $time = time() - 3600;
-        if ($time > $orderOrder['time_payment']) {
-            $url = array('', 'module' => $module, 'controller' => 'index', 'action' => 'index');
-            $this->jump($url, __('This is old order and you pay it before'));
-        }
-        // Set links
-        $orderOrder['order_link'] = Pi::url($this->url('order', array(
-            'module' => 'order',
-            'controller' => 'detail',
-            'action' => 'index',
-            'id' => $orderOrder['id']
-        )));
-        $orderOrder['user_link'] = Pi::url($this->url('order', array(
-            'module' => 'order',
-            'controller' => 'index',
-            'action' => 'index',
-        )));
-        $orderOrder['list_link'] = Pi::url($this->url('', array(
-            'module' => $module,
-            'controller' => 'order',
-            'action' => 'list',
-        )));
-
-        // Get invoice information
-        Pi::service('i18n')->load(array('module/order', 'default'));
-        $invoices = Pi::api('invoice', 'order')->getInvoiceFromOrder($orderOrder['id']);
-        // Set view
-        $this->view()->setTemplate('register-detail');
-        $this->view()->assign('orderOrder', $orderOrder);
-        $this->view()->assign('orderEvent', $orderEvent);
-        $this->view()->assign('invoices', $invoices);
-        $this->view()->assign('event', $event);
-    } */
 }

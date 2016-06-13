@@ -34,13 +34,30 @@ $this->footScript()->appendScript($script);
         <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader"/>
     </div>
     <div class="col-sm-12 col-md-12">
-        <div class="page-header clearfix">
-            <h1><?php echo $this->escape($title); ?></h1>
-        </div>
-        <?php if (!empty($config['text_description_index']) && isset($isHomepage) && $isHomepage == 1) { ?>
-            <div class="well event-description">
-                <?php echo $config['text_description_index']; ?>
+        <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
+            <div class="event-width-description">
+                <h1><?php echo $this->escape($title); ?></h1>
+                <?php if (!empty($config['text_description_index'])) { ?>
+                    <div class="clearfix"><?php echo $config['text_description_index']; ?></div>
+                <?php } ?>
             </div>
+            <?php if (!empty($config['image_homepage'])) { ?>
+                <div class="event-width-image">
+                    <img class="img-responsive" srcset="<?php echo $config['image_homepage']; ?>" alt="<?php echo $this->escape($title); ?>">
+                </div>
+            <?php } ?>
+        <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
+            <div class="event-width-description">
+                <h1><?php echo $this->escape($category['title']); ?></h1>
+                <?php if (!empty($category['text_summary'])) { ?>
+                    <div class="clearfix"><?php echo $category['text_summary']; ?></div>
+                <?php } ?>
+            </div>
+            <?php if (!empty($category['largeUrl'])) { ?>
+                <div class="event-width-image">
+                    <img class="img-responsive" srcset="<?php echo $category['largeUrl']; ?>" alt="<?php echo $this->escape($category['title']); ?>">
+                </div>
+            <?php } ?>
         <?php } ?>
     </div>
     <div class="col-sm-12 col-md-3">
