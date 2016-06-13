@@ -83,7 +83,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php } ?>
         </ul>
     </div>
-    <div class="clearfix">
+    <div class="clearfix row">
         <div class="col-md-8 event-single-main">
             <?php if (!empty($event['text_summary'])) { ?>
                 <div class="clearfix event-single-main-box p-summary" itemprop="description">
@@ -114,13 +114,15 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                         <?php if ($event['register_can']) { ?>
-                            <div class="clearfix">
-                                <div class="clearfix event-minPrice-title">
-                                    <?php _e('Start From') ?> :
-                                </div>
-                                <div class="clearfix event-minPrice-text">
-                                    <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
-                                </div>
+                            <div class="clearfix text-center">
+                                <ul class="list-inline">
+                                    <li class="clearfix event-minPrice-title">
+                                        <?php _e('Start From') ?> :
+                                    </li>
+                                    <li class="clearfix event-minPrice-text">
+                                        <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
+                                    </li>
+                                </ul>
                                 <div class="clearfix">
                                     <?php echo $this->form($form, 'inline'); ?>
                                 </div>
