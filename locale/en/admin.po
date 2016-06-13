@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-08 10:14+0430\n"
+"POT-Creation-Date: 2016-06-13 12:47+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -133,30 +133,34 @@ msgid "Show related event"
 msgstr ""
 
 #: config/config.php:102
+msgid "Set wide image for homepage"
+msgstr ""
+
+#: config/config.php:110
 msgid "Social sharing items"
 msgstr ""
 
-#: config/config.php:116
+#: config/config.php:124
 msgid "Manage event by users"
 msgstr ""
 
-#: config/config.php:124
+#: config/config.php:132
 msgid "Auto approval user events"
 msgstr ""
 
-#: config/config.php:133
+#: config/config.php:141
 msgid "Active order"
 msgstr ""
 
-#: config/config.php:141
+#: config/config.php:149
 msgid "Show free word for free events"
 msgstr ""
 
-#: config/config.php:150
+#: config/config.php:158
 msgid "Description for index page"
 msgstr ""
 
-#: config/module.php:16 config/navigation.php:29 config/page.php:44
+#: config/module.php:16 config/navigation.php:29 config/page.php:56
 #: config/permission.php:33
 msgid "Event"
 msgstr ""
@@ -165,11 +169,11 @@ msgstr ""
 msgid "Manage events"
 msgstr ""
 
-#: config/navigation.php:39 config/page.php:49 config/permission.php:37
+#: config/navigation.php:39 config/page.php:61 config/permission.php:37
 msgid "List of order"
 msgstr ""
 
-#: config/navigation.php:49 config/page.php:54 config/permission.php:41
+#: config/navigation.php:49 config/page.php:66 config/permission.php:41
 msgid "Tools"
 msgstr ""
 
@@ -179,6 +183,14 @@ msgstr ""
 
 #: config/page.php:29
 msgid "Event detail"
+msgstr ""
+
+#: config/page.php:41
+msgid "Register"
+msgstr ""
+
+#: config/page.php:47
+msgid "Json output"
 msgstr ""
 
 #: config/permission.php:17
