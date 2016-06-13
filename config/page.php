@@ -44,7 +44,7 @@ return array(
             'block' => 0,
         ),
         array(
-            'title' => _a('Json'),
+            'label' => _a('Json output'),
             'controller' => 'json',
             'permission' => 'public',
             'block' => 0,
