@@ -358,9 +358,9 @@ class EventForm extends BaseForm
                 'type' => 'Module\News\Form\Element\Topic',
                 'options' => array(
                     'label' => __('Topic'),
-                    'module' => 'news',
-                    'topic' => 'full',
                     'required' => true,
+                    'topic' => 'full',
+                    'type' => 'event',
                 ),
             ));
             // topic_main
@@ -369,8 +369,9 @@ class EventForm extends BaseForm
                 'type' => 'Module\News\Form\Element\Topic',
                 'options' => array(
                     'label' => __('Main topic'),
-                    'module' => 'news',
+                    'required' => true,
                     'topic' => '',
+                    'type' => 'event',
                 ),
                 'attributes' => array(
                     'required' => true,

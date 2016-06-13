@@ -35,28 +35,49 @@ $this->footScript()->appendScript($script);
     </div>
     <div class="col-sm-12 col-md-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
-            <div class="event-width-description">
-                <h1><?php echo $this->escape($title); ?></h1>
-                <?php if (!empty($config['text_description_index'])) { ?>
-                    <div class="clearfix"><?php echo $config['text_description_index']; ?></div>
-                <?php } ?>
-            </div>
             <?php if (!empty($config['image_homepage'])) { ?>
-                <div class="event-width-image">
-                    <img class="img-responsive" srcset="<?php echo $config['image_homepage']; ?>" alt="<?php echo $this->escape($title); ?>">
+                <div class="event-width-description">
+                    <h1><?php echo $this->escape($title); ?></h1>
+                    <?php if (!empty($config['text_description_index'])) { ?>
+                        <div class="clearfix"><?php echo $config['text_description_index']; ?></div>
+                    <?php } ?>
                 </div>
+                <?php if (!empty($config['image_homepage'])) { ?>
+                    <div class="event-width-image">
+                        <img class="img-responsive" srcset="<?php echo $config['image_homepage']; ?>"
+                             alt="<?php echo $this->escape($title); ?>">
+                    </div>
+                <?php } else { ?>
+                    <div class="page-header">
+                        <h1><?php echo $this->escape($title); ?></h1>
+                    </div>
+                    <?php if (!empty($config['text_description_index'])) { ?>
+                        <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
+                    <?php } ?>
+                <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
-            <div class="event-width-description">
-                <h1><?php echo $this->escape($category['title']); ?></h1>
-                <?php if (!empty($category['text_summary'])) { ?>
-                    <div class="clearfix"><?php echo $category['text_summary']; ?></div>
-                <?php } ?>
-            </div>
             <?php if (!empty($category['largeUrl'])) { ?>
-                <div class="event-width-image">
-                    <img class="img-responsive" srcset="<?php echo $category['largeUrl']; ?>" alt="<?php echo $this->escape($category['title']); ?>">
+                <div class="event-width-description">
+                    <h1><?php echo $this->escape($category['title']); ?></h1>
+                    <?php if (!empty($category['text_summary'])) { ?>
+                        <div class="clearfix"><?php echo $category['text_summary']; ?></div>
+                    <?php } ?>
                 </div>
+                <div class="event-width-image">
+                    <img class="img-responsive" srcset="<?php echo $category['largeUrl']; ?>"
+                         alt="<?php echo $this->escape($category['title']); ?>">
+                </div>
+                <?php if (!empty($category['text_description'])) { ?>
+                    <div class="clearfix well"><?php echo $category['text_description']; ?></div>
+                <?php } ?>
+            <?php } else { ?>
+                <div class="page-header">
+                    <h1><?php echo $this->escape($category['title']); ?></h1>
+                </div>
+                <?php if (!empty($category['text_summary'])) { ?>
+                    <div class="clearfix well"><?php echo $category['text_summary']; ?></div>
+                <?php } ?>
             <?php } ?>
         <?php } ?>
     </div>
@@ -66,6 +87,10 @@ $this->footScript()->appendScript($script);
                 <h4><?php _e('Search on this group'); ?></h4>
             </div>
             <form>
+                <div class="form-group">
+                    <label><?php _e('Title'); ?></label>
+                    <input type="text" ng-model="filterTitle" class="form-control">
+                </div>
                 <div class="form-group">
                     <label><?php _e('Event time'); ?></label>
                     <select ng-model="filterTime" class="form-control">
@@ -80,17 +105,14 @@ $this->footScript()->appendScript($script);
                         <option value="expired"><?php _e('Expired'); ?></option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label><?php _e('Title'); ?></label>
-                    <input type="text" ng-model="filterTitle" class="form-control">
-                </div>
-                <?php if (isset($categoryList) && !empty($categoryList)) { ?>
+                <?php if (isset($categoryList) && !empty($categoryList) && $isCategoryPage == 0) { ?>
                     <div class="form-group">
                         <label><?php _e('Category'); ?></label>
                         <select ng-model="filterCategory" class="form-control">
                             <option value=""><?php _e('All'); ?></option>
                             <?php foreach ($categoryList as $category) { ?>
-                                <option value="<?php echo $category['value']; ?>"><?php echo $category['title']; ?></option>
+                                <option
+                                    value="<?php echo $category['value']; ?>"><?php echo $category['title']; ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -101,7 +123,8 @@ $this->footScript()->appendScript($script);
                         <select ng-model="filterLocation" class="form-control">
                             <option value=""><?php _e('All'); ?></option>
                             <?php foreach ($locationList as $location) { ?>
-                                <option value="<?php echo $location['value']; ?>"><?php echo $location['title']; ?></option>
+                                <option
+                                    value="<?php echo $location['value']; ?>"><?php echo $location['title']; ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -115,14 +138,23 @@ $this->footScript()->appendScript($script);
                 <div class="clearfix event-sort">
                     <ul class="list-inline">
                         <li><?php _e('Sort by'); ?> :</li>
-                        <li class="event-sort-type" ng-click="sort('time_publish')"><?php _e('Time'); ?> <i class="fa sort-icon" ng-show="sortKey=='time_publish'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sort('hits')"><?php _e('Hits'); ?> <i class="fa sort-icon" ng-show="sortKey=='hits'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sort('title')"><?php _e('Title'); ?>  <i class="fa sort-icon" ng-show="sortKey=='title'" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('time_publish')"><?php _e('Time'); ?> <i
+                                class="fa sort-icon" ng-show="sortKey=='time_publish'"
+                                ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" ng-click="sort('hits')"><?php _e('Hits'); ?> <i class="fa sort-icon"
+                                                                                                    ng-show="sortKey=='hits'"
+                                                                                                    ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i>
+                        </li>
+                        <li class="event-sort-type" ng-click="sort('title')"><?php _e('Title'); ?> <i
+                                class="fa sort-icon" ng-show="sortKey=='title'"
+                                ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
                         <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                 </div>
                 <div class="clearfix">
-                    <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime} |itemsPerPage:<?php echo $config['view_perpage']; ?>" class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                    <div
+                        dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                        class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                         <div class="row">
                             <div class="col-md-3 event-single-image" ng-if="event.image">
                                 <a itemprop="url" title="{{event.title}}"
@@ -145,17 +177,22 @@ $this->footScript()->appendScript($script);
                                     <ul class="clearfix list-inline event-time">
                                         <li ng-if="event.time_view">
                                             <i class="fa fa-clock-o"></i> {{event.time_view}}
-                                            <meta ng-if="event.time_start_view" itemprop="startDate" content="{{event.time_start_view}}" />
-                                            <meta ng-if="event.time_end_view" itemprop="endDate" content="{{event.time_end_view}}" />
+                                            <meta ng-if="event.time_start_view" itemprop="startDate"
+                                                  content="{{event.time_start_view}}"/>
+                                            <meta ng-if="event.time_end_view" itemprop="endDate"
+                                                  content="{{event.time_end_view}}"/>
                                         </li>
-                                        <li ng-if="event.register_price" class="p-price" itemprop="price" content="{{event.register_price}}">
+                                        <li ng-if="event.register_price" class="p-price" itemprop="price"
+                                            content="{{event.register_price}}">
                                             <i class="fa fa-money"></i> {{event.register_price_view}}
                                         </li>
-                                        <meta ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}" />
+                                        <meta ng-if="event.register_price" itemprop="priceCurrency"
+                                              content="{{event.price_currency}}"/>
                                         <li><i class="fa fa-eye"></i> {{event.hits}}</li>
                                     </ul>
                                 </div>
-                                <div class="event-single-summery clearfix p-summary" itemprop="description" ng-if="event.text_summary">
+                                <div class="event-single-summery clearfix p-summary" itemprop="description"
+                                     ng-if="event.text_summary">
                                     {{event.text_summary}}
                                 </div>
                             </div>

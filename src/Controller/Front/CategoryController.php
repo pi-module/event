@@ -54,6 +54,7 @@ class CategoryController extends ActionController
         $this->view()->assign('categoryList', $categoryList);
         $this->view()->assign('category', $category);
         $this->view()->assign('title', sprintf(__('Event list on %s'), $category['title']));
+        $this->view()->assign('isHomepage', 0);
         $this->view()->assign('isCategoryPage', 1);
         // Language
         __('Toman');
