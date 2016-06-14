@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-05-18 13:52+0200\n"
+"POT-Creation-Date: 2016-06-13 18:35+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr "Liste des inscriptions"
 msgid "Add / edit event"
 msgstr "Ajouter / Editer l'évènement"
 
-#: src/Api/Event.php:114
+#: src/Api/Event.php:115
 msgid "free!"
 msgstr "gratuit !"
 
@@ -128,13 +128,17 @@ msgstr "L'évènement n'a pas été trouvé."
 msgid "Event list"
 msgstr "Liste des Evènements"
 
-#: src/Controller/Front/JsonController.php:70
+#: src/Controller/Front/IndexController.php:44
+msgid "Toman"
+msgstr "Toman"
+
+#: src/Controller/Front/JsonController.php:72
 #: template/front/event-detail.phtml:6 template/front/event-detail.phtml:156
 #: template/front/event-list.phtml:41 template/front/order-detail.phtml:16
 msgid "From"
 msgstr "Du"
 
-#: src/Controller/Front/JsonController.php:70
+#: src/Controller/Front/JsonController.php:72
 #: template/front/event-detail.phtml:8 template/front/event-detail.phtml:158
 #: template/front/event-list.phtml:43 template/front/order-detail.phtml:18
 msgid "to"
@@ -517,15 +521,15 @@ msgstr "La semaine prochaine"
 
 #: template/front/event-angular.phtml:58
 msgid "This month"
-msgstr "Ce mois"
+msgstr "M"
 
 #: template/front/event-angular.phtml:59
 msgid "Next month"
-msgstr "Le mois prochain"
+msgstr "M+1"
 
 #: template/front/event-angular.phtml:60
 msgid "Next two months"
-msgstr "Les 2 prochains mois"
+msgstr "M+2"
 
 #: template/front/event-angular.phtml:61
 msgid "Next months"
@@ -581,7 +585,11 @@ msgstr "Professionnels recommandés à proximité"
 msgid "Share if you like"
 msgstr "Partage si tu apprécies !"
 
-#: template/front/event-detail.phtml:255
+#: template/front/event-detail.phtml:253
+msgid "Related events"
+msgstr "Evènements relatifs"
+
+#: template/front/event-detail.phtml:265
 msgid "Related items"
 msgstr "Eléments associés"
 
