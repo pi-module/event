@@ -106,7 +106,7 @@ $this->footScript()->appendScript($script);
                 <div class="clearfix">
                     <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime} |itemsPerPage:<?php echo $config['view_perpage']; ?>" class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                         <div class="row">
-                            <div class="col-md-2 event-single-image" ng-if="event.image">
+                            <div class="col-md-3 event-single-image" ng-if="event.image">
                                 <a itemprop="url" title="{{event.title}}"
                                    href="{{event.eventUrl}}">
                                     <img itemprop="image" class="img-responsive img-rounded u-photo"
@@ -114,7 +114,7 @@ $this->footScript()->appendScript($script);
                                          alt="{{event.title}}"/>
                                 </a>
                             </div>
-                            <div class="col-md-10 event-single-body">
+                            <div class="col-md-9 event-single-body">
                                 <div class="p-name clearfix" itemprop="name">
                                     <h2 class="pull-left event-single-title">
                                         <a itemprop="url" title="{{event.title}}"
