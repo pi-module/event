@@ -524,23 +524,23 @@ msgstr "La semaine prochaine"
 
 #: template/front/event-angular.phtml:141
 msgid "This month"
-msgstr "M"
+msgstr "Ce mois-ci"
 
 #: template/front/event-angular.phtml:142
 msgid "Next month"
-msgstr "M+1"
+msgstr "Le mois prochain"
 
 #: template/front/event-angular.phtml:143
 msgid "Next two months"
-msgstr "M+2"
+msgstr "En M+2"
 
 #: template/front/event-angular.phtml:144
 msgid "Next three months"
-msgstr "M+3"
+msgstr "En M+3"
 
 #: template/front/event-angular.phtml:145
 msgid "Next months"
-msgstr "Les mois prochains"
+msgstr "Au delà de M+3"
 
 #: template/front/event-angular.phtml:146
 msgid "Expired"
