@@ -39,7 +39,9 @@ class DetailController extends ActionController
         Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
         // Set event topic
         $eventTopic = array();
-        $eventTopic = array_merge($eventTopic, $event['topic']);
+        if (!empty($event['topic'])) {
+            $eventTopic = array_merge($eventTopic, $event['topic']);
+        }
         // Set guide module options
         $event['guideItemInfo'] = array();
         $event['guideLocationInfo'] = array();
