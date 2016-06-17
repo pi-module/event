@@ -36,7 +36,7 @@ class Event extends AbstractApi
 {
     public function getEvent($parameter, $field = 'id', $type = 'full')
     {
-        $option =  array(
+        $option = array(
             'imagePath' => 'event/image'
         );
         $event = Pi::api('api', 'news')->getStorySingle($parameter, $field, $type, $option);
@@ -78,7 +78,7 @@ class Event extends AbstractApi
 
     public function getEventList($where, $order, $offset = '', $limit = 10, $type = 'full', $table = 'link')
     {
-        $option =  array(
+        $option = array(
             'imagePath' => 'event/image'
         );
         $listEvent = array();
@@ -86,7 +86,7 @@ class Event extends AbstractApi
         foreach ($listStory as $singleStory) {
             $listEvent[$singleStory['id']] = Pi::api('event', 'event')->joinExtra($singleStory);
         }
-        return  $listEvent;
+        return $listEvent;
     }
 
     public function getLocationList()
@@ -259,33 +259,33 @@ class Event extends AbstractApi
         }
         // Set time level
         $timeLevel = '';
-        if ($event['time_end'] == 0 && $event['time_start'] < $time['expired']) {
+        if ($event['time_end'] == 0 && $event['time_start'] <= $time['expired']) {
             $timeLevel = 'expired';
-        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['expired']) {
+        } elseif ($event['time_end'] > 0 && $event['time_end'] <= $time['expired']) {
             $timeLevel .= ' expired';
         }
 
-        if ($event['time_start'] > $time['thisWeek'] && $event['time_start'] < $time['nextWeek']) {
+        if ($event['time_start'] > $time['thisWeek'] && $event['time_start'] <= $time['nextWeek']) {
             $timeLevel .= ' thisWeek';
         }
 
-        if ($event['time_start'] > $time['nextWeek'] && $event['time_start'] < $time['nextTwoWeek']) {
+        if ($event['time_start'] > $time['nextWeek'] && $event['time_start'] <= $time['nextTwoWeek']) {
             $timeLevel .= ' nextWeek';
         }
 
-        if ($event['time_start'] > $time['thisMonth'] && $event['time_start'] < $time['nextMonth']) {
+        if ($event['time_start'] > $time['thisMonth'] && $event['time_start'] <= $time['nextMonth']) {
             $timeLevel .= ' thisMonth';
         }
 
-        if ($event['time_start'] > $time['nextMonth'] && $event['time_start'] < $time['nextTwoMonth']) {
+        if ($event['time_start'] > $time['nextMonth'] && $event['time_start'] <= $time['nextTwoMonth']) {
             $timeLevel .= ' nextMonth';
         }
 
-        if ($event['time_start'] > $time['nextTwoMonth'] && $event['time_start'] < $time['nextThreeMonth']) {
+        if ($event['time_start'] > $time['nextTwoMonth'] && $event['time_start'] <= $time['nextThreeMonth']) {
             $timeLevel .= ' nextTwoMonth';
         }
 
-        if ($event['time_start'] > $time['nextThreeMonth'] && $event['time_start'] < $time['nextFourMonth']) {
+        if ($event['time_start'] > $time['nextThreeMonth'] && $event['time_start'] <= $time['nextFourMonth']) {
             $timeLevel .= ' nextThreeMonth';
         }
 
