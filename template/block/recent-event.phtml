@@ -2,8 +2,8 @@
     $this->css($this->assetModule('css/block.css', 'event'));
 } ?>
 <div class="event-block">
-    <div class="recent-event-list clearfix">
-        <?php if (!empty($block['resources'])) { ?>
+    <?php if (!empty($block['resources'])) { ?>
+        <div class="recent-event-list clearfix">
             <?php foreach ($block['resources'] as $event) { ?>
                 <div class="recent-event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                     <div class="row">
@@ -78,8 +78,8 @@
                        href="<?php echo $this->escape($block['morelink']); ?>"><?php echo _b('More events'); ?></a>
                 </div>
             <?php } ?>
-        <?php } else { ?>
-            <p><?php echo _b('No event actually or to come') ?></p>
-        <?php } ?>
-    </div>
+        </div>
+    <?php } else { ?>
+        <p><?php echo _b('No event actually or to come') ?></p>
+    <?php } ?>
 </div>
