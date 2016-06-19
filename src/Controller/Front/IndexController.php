@@ -32,12 +32,15 @@ class IndexController extends ActionController
         $locationList = Pi::api('event', 'event')->getLocationList();
         // Get category list
         $categoryList = Pi::api('event', 'event')->getCategoryList();
+        // Get price filter list
+        $priceFilterList = Pi::api('event', 'event')->getPriceFilterList();
         // Set view
         $this->view()->setTemplate('event-angular');
         $this->view()->assign('config', $config);
         $this->view()->assign('filterUrl', $filterUrl);
         $this->view()->assign('locationList', $locationList);
         $this->view()->assign('categoryList', $categoryList);
+        $this->view()->assign('priceFilterList', $priceFilterList);
         $this->view()->assign('title', __('Event list'));
         $this->view()->assign('isHomepage', 1);
         $this->view()->assign('isCategoryPage', 0);

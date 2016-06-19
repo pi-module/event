@@ -170,6 +170,18 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         </select>
                     </div>
                 <?php } ?>
+                <?php if (isset($priceFilterList) && !empty($priceFilterList)) { ?>
+                    <div class="form-group">
+                        <label><?php _e('Price'); ?></label>
+                        <select ng-model="filterPrice" class="form-control">
+                            <option value=""><?php _e('All'); ?></option>
+                            <?php foreach ($priceFilterList as $priceFilter) { ?>
+                                <option
+                                    value="<?php echo $priceFilter['value']; ?>"><?php echo $priceFilter['title']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                <?php } ?>
             </form>
         </div>
     </div>
@@ -194,10 +206,10 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 </div>
                 <div class="clearfix">
                     <div
-                        dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                        dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                         class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                         <div class="row">
-                            <div class="col-md-3 event-single-image" ng-if="event.image">
+                            <div class="col-md-3 event-single-image text-center" ng-if="event.image">
                                 <a itemprop="url" title="{{event.title}}"
                                    href="{{event.eventUrl}}">
                                     <img itemprop="image" class="img-responsive img-rounded u-photo"

@@ -98,7 +98,7 @@ class ManageController extends ActionController
         $uid = Pi::user()->getId();
         // Find event
         if ($id) {
-            $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
+            $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
             if ($event['image']) {
                 $option['thumbUrl'] = $event['thumbUrl'];
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
@@ -301,7 +301,7 @@ class ManageController extends ActionController
         // Get user
         $uid = Pi::user()->getId();
         // Find event
-        $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
+        $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
         // Check event uid
         if (isset($event['uid']) && $event['uid'] != $uid) {
             $this->getResponse()->setStatusCode(401);
@@ -344,7 +344,7 @@ class ManageController extends ActionController
         // Get user
         $uid = Pi::user()->getId();
         // Find event
-        $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
+        $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
         // Check event uid
         if (isset($event['uid']) && $event['uid'] != $uid) {
             $this->getResponse()->setStatusCode(401);

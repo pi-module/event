@@ -29,7 +29,7 @@ class Order extends AbstractApi
 {
     public function getProductDetails($product)
     {
-        $event = Pi::api('event', 'event')->getEvent($product, 'id', 'light');
+        $event = Pi::api('event', 'event')->getEventSingle($product, 'id', 'light');
         $event['productUrl'] = $event['eventUrl'];
         return $event;
     }
@@ -44,7 +44,7 @@ class Order extends AbstractApi
                 $number = $product['number'];
             }
             // Get event
-            $event = Pi::api('event', 'event')->getEvent($order['module_item'], 'id', 'light');
+            $event = Pi::api('event', 'event')->getEventSingle($order['module_item'], 'id', 'light');
             $setting = Json::decode($event['setting'], true);
             // Update sales
             Pi::model('extra', $this->getModule())->update(
@@ -145,7 +145,7 @@ class Order extends AbstractApi
         ))); */
         // Set event
         if ($event) {
-            $order['eventInfo'] = Pi::api('event', 'event')->getExtra($order['event']);
+            $order['eventInfo'] = Pi::api('event', 'event')->getEventSingle($order['event']);
         }
         // return
         return $order;

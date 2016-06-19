@@ -71,7 +71,7 @@ class Comment extends AbstractComment
         if ('event' == $params['module']
             && !empty($params['slug'])
         ) {
-            $event = Pi::api('event', 'event')->getEvent($params['slug'], 'slug');
+            $event = Pi::api('event', 'event')->getEventSingle($params['slug'], 'slug');
             $item = $event['id'];
         } else {
             $item = false;

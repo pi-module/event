@@ -40,7 +40,7 @@ class Breadcrumbs extends AbstractBreadcrumbs
             // Set
             switch ($params['controller']) {
                 case 'detail':
-                    $event = Pi::api('event', 'event')->getEvent($params['slug'], 'slug', 'light');
+                    $event = Pi::api('event', 'event')->getEventSingle($params['slug'], 'slug', 'light');
                     // Check topic_mai
                     if ($event['topic_main'] > 0) {
                         $topic = Pi::api('topic', 'news')->getTopic($event['topic_main']);

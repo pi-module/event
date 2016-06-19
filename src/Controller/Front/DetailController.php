@@ -27,7 +27,7 @@ class DetailController extends ActionController
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Find event
-        $event = Pi::api('event', 'event')->getEvent($slug, 'slug', 'full');
+        $event = Pi::api('event', 'event')->getEventSingle($slug, 'slug', 'full');
         // Check event
         if (!$event || $event['status'] != 1) {
             $this->getResponse()->setStatusCode(404);

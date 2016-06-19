@@ -105,6 +105,14 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
+        'price_filter' => array(
+            'category' => 'view',
+            'title' => _a('Price filter'),
+            'description' => _a('Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|'),
+            'edit' => 'textarea',
+            'filter' => 'string',
+            'value' => ''
+        ),
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),

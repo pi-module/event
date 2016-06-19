@@ -107,7 +107,7 @@ class EventController extends ActionController
         );
         // Find event
         if ($id) {
-            $event = Pi::api('event', 'event')->getEvent($id, 'id', 'full');
+            $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
             if ($event['image']) {
                 $option['thumbUrl'] = $event['thumbUrl'];
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));

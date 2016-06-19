@@ -51,7 +51,7 @@ class RegisterController extends ActionController
             // check order module
             if (Pi::service('module')->isActive('order') && !empty($data)) {
                 // Find event
-                $event = Pi::api('event', 'event')->getEvent(intval($data['id']), 'id', 'full');
+                $event = Pi::api('event', 'event')->getEventSingle(intval($data['id']), 'id', 'full');
                 // Check event
                 if (!$event || $event['status'] != 1) {
                     $this->getResponse()->setStatusCode(404);

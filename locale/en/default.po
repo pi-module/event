@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-13 12:47+0430\n"
+"POT-Creation-Date: 2016-06-19 12:09+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,18 +30,18 @@ msgstr ""
 msgid "Add / edit event"
 msgstr ""
 
-#: src/Api/Event.php:183
+#: src/Api/Event.php:224
 msgid "free!"
 msgstr ""
 
-#: src/Api/Event.php:256 template/front/event-detail.phtml:6
-#: template/front/event-detail.phtml:156 template/front/event-detail.phtml:262
+#: src/Api/Event.php:289 template/front/event-detail.phtml:6
+#: template/front/event-detail.phtml:158 template/front/event-detail.phtml:264
 #: template/front/event-list.phtml:41 template/front/order-detail.phtml:16
 msgid "From"
 msgstr ""
 
-#: src/Api/Event.php:256 template/front/event-detail.phtml:8
-#: template/front/event-detail.phtml:158 template/front/event-detail.phtml:265
+#: src/Api/Event.php:289 template/front/event-detail.phtml:8
+#: template/front/event-detail.phtml:160 template/front/event-detail.phtml:267
 #: template/front/event-list.phtml:43 template/front/order-detail.phtml:18
 msgid "to"
 msgstr ""
@@ -124,13 +124,13 @@ msgstr ""
 msgid "The category not found."
 msgstr ""
 
-#: src/Controller/Front/CategoryController.php:56
+#: src/Controller/Front/CategoryController.php:59
 #, php-format
 msgid "Event list on %s"
 msgstr ""
 
-#: src/Controller/Front/CategoryController.php:60
-#: src/Controller/Front/IndexController.php:45
+#: src/Controller/Front/CategoryController.php:63
+#: src/Controller/Front/IndexController.php:48
 msgid "Toman"
 msgstr ""
 
@@ -139,7 +139,7 @@ msgstr ""
 msgid "The event not found."
 msgstr ""
 
-#: src/Controller/Front/IndexController.php:41
+#: src/Controller/Front/IndexController.php:44
 msgid "Event list"
 msgstr ""
 
@@ -210,8 +210,8 @@ msgid "Order module not installed"
 msgstr ""
 
 #: src/Form/EventForm.php:50 template/admin/event-index.phtml:18
-#: template/front/event-angular.phtml:91 template/front/event-angular.phtml:148
-#: template/front/manage-index.phtml:21
+#: template/front/event-angular.phtml:132
+#: template/front/event-angular.phtml:205 template/front/manage-index.phtml:21
 msgid "Title"
 msgstr ""
 
@@ -288,18 +288,18 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: src/Form/EventForm.php:238 template/front/event-detail.phtml:199
+#: src/Form/EventForm.php:238 template/front/event-detail.phtml:201
 #: template/front/order-detail.phtml:43
 msgid "Address"
 msgstr ""
 
-#: src/Form/EventForm.php:249 template/front/event-detail.phtml:185
+#: src/Form/EventForm.php:249 template/front/event-detail.phtml:187
 #: template/front/order-detail.phtml:27
 msgid "Organizer name"
 msgstr ""
 
-#: src/Form/EventForm.php:260 template/front/event-detail.phtml:191
-#: template/front/event-detail.phtml:192 template/front/order-detail.phtml:33
+#: src/Form/EventForm.php:260 template/front/event-detail.phtml:193
+#: template/front/event-detail.phtml:194 template/front/order-detail.phtml:33
 #: template/front/order-detail.phtml:35
 msgid "Organizer Website"
 msgstr ""
@@ -364,11 +364,11 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#: src/Form/EventForm.php:409 template/front/event-angular.phtml:110
+#: src/Form/EventForm.php:409 template/front/event-angular.phtml:151
 msgid "Category"
 msgstr ""
 
-#: src/Form/EventForm.php:425 template/front/event-angular.phtml:122
+#: src/Form/EventForm.php:425 template/front/event-angular.phtml:163
 msgid "Location"
 msgstr ""
 
@@ -405,8 +405,8 @@ msgstr ""
 msgid "Just event images"
 msgstr ""
 
-#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:136
-#: template/front/event-detail.phtml:137
+#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:138
+#: template/front/event-detail.phtml:139
 msgid "Register to the event"
 msgstr ""
 
@@ -493,64 +493,70 @@ msgstr ""
 msgid "Sitemap"
 msgstr ""
 
-#: template/front/event-angular.phtml:87
+#: template/front/event-angular.phtml:128
 msgid "Search on this group"
 msgstr ""
 
-#: template/front/event-angular.phtml:95
+#: template/front/event-angular.phtml:136
 msgid "Event time"
 msgstr ""
 
-#: template/front/event-angular.phtml:97 template/front/event-angular.phtml:112
-#: template/front/event-angular.phtml:124
+#: template/front/event-angular.phtml:138
+#: template/front/event-angular.phtml:153
+#: template/front/event-angular.phtml:165
+#: template/front/event-angular.phtml:179
 msgid "All"
 msgstr ""
 
-#: template/front/event-angular.phtml:98
+#: template/front/event-angular.phtml:139
 msgid "This week"
 msgstr ""
 
-#: template/front/event-angular.phtml:99
+#: template/front/event-angular.phtml:140
 msgid "Next week"
 msgstr ""
 
-#: template/front/event-angular.phtml:100
+#: template/front/event-angular.phtml:141
 msgid "This month"
 msgstr ""
 
-#: template/front/event-angular.phtml:101
+#: template/front/event-angular.phtml:142
 msgid "Next month"
 msgstr ""
 
-#: template/front/event-angular.phtml:102
+#: template/front/event-angular.phtml:143
 msgid "Next two months"
 msgstr ""
 
-#: template/front/event-angular.phtml:103
+#: template/front/event-angular.phtml:144
 msgid "Next three months"
 msgstr ""
 
-#: template/front/event-angular.phtml:104
+#: template/front/event-angular.phtml:145
 msgid "Next months"
 msgstr ""
 
-#: template/front/event-angular.phtml:105
+#: template/front/event-angular.phtml:146
 msgid "Expired"
 msgstr ""
 
-#: template/front/event-angular.phtml:140
+#: template/front/event-angular.phtml:177
+msgid "Price"
+msgstr ""
+
+#: template/front/event-angular.phtml:197
 msgid "Sort by"
 msgstr ""
 
-#: template/front/event-angular.phtml:141
+#: template/front/event-angular.phtml:198
 msgid "Time"
 msgstr ""
 
-#: template/front/event-angular.phtml:144
+#: template/front/event-angular.phtml:201
 msgid "Hits"
 msgstr ""
 
-#: template/front/event-angular.phtml:151
+#: template/front/event-angular.phtml:208
 msgid "Default"
 msgstr ""
 
@@ -559,36 +565,36 @@ msgstr ""
 msgid "Participate/Register to %s"
 msgstr ""
 
-#: template/front/event-detail.phtml:119 template/front/event-detail.phtml:130
-#: template/front/event-detail.phtml:142
+#: template/front/event-detail.phtml:120 template/front/event-detail.phtml:132
+#: template/front/event-detail.phtml:144
 msgid "Start From"
 msgstr ""
 
-#: template/front/event-detail.phtml:153
+#: template/front/event-detail.phtml:155
 msgid "Key Event Elements"
 msgstr ""
 
-#: template/front/event-detail.phtml:164 template/front/order-detail.phtml:21
+#: template/front/event-detail.phtml:166 template/front/order-detail.phtml:21
 msgid "On"
 msgstr ""
 
-#: template/front/event-detail.phtml:171
+#: template/front/event-detail.phtml:173
 msgid "Related locations"
 msgstr ""
 
-#: template/front/event-detail.phtml:207
+#: template/front/event-detail.phtml:209
 msgid "Nearby recommended professionals"
 msgstr ""
 
-#: template/front/event-detail.phtml:239
+#: template/front/event-detail.phtml:241
 msgid "Share if you like"
 msgstr ""
 
-#: template/front/event-detail.phtml:254
+#: template/front/event-detail.phtml:256
 msgid "Related events"
 msgstr ""
 
-#: template/front/event-detail.phtml:288
+#: template/front/event-detail.phtml:290
 msgid "Related items"
 msgstr ""
 
