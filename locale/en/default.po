@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-19 12:09+0430\n"
+"POT-Creation-Date: 2016-06-19 12:35+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,13 +36,13 @@ msgstr ""
 
 #: src/Api/Event.php:289 template/front/event-detail.phtml:6
 #: template/front/event-detail.phtml:158 template/front/event-detail.phtml:264
-#: template/front/event-list.phtml:41 template/front/order-detail.phtml:16
+#: template/front/order-detail.phtml:16
 msgid "From"
 msgstr ""
 
 #: src/Api/Event.php:289 template/front/event-detail.phtml:8
 #: template/front/event-detail.phtml:160 template/front/event-detail.phtml:267
-#: template/front/event-list.phtml:43 template/front/order-detail.phtml:18
+#: template/front/order-detail.phtml:18
 msgid "to"
 msgstr ""
 
@@ -211,7 +211,7 @@ msgstr ""
 
 #: src/Form/EventForm.php:50 template/admin/event-index.phtml:18
 #: template/front/event-angular.phtml:132
-#: template/front/event-angular.phtml:205 template/front/manage-index.phtml:21
+#: template/front/event-angular.phtml:201 template/front/manage-index.phtml:21
 msgid "Title"
 msgstr ""
 
@@ -504,7 +504,7 @@ msgstr ""
 #: template/front/event-angular.phtml:138
 #: template/front/event-angular.phtml:153
 #: template/front/event-angular.phtml:165
-#: template/front/event-angular.phtml:179
+#: template/front/event-angular.phtml:177
 msgid "All"
 msgstr ""
 
@@ -540,23 +540,23 @@ msgstr ""
 msgid "Expired"
 msgstr ""
 
-#: template/front/event-angular.phtml:177
+#: template/front/event-angular.phtml:175
 msgid "Price"
 msgstr ""
 
-#: template/front/event-angular.phtml:197
+#: template/front/event-angular.phtml:193
 msgid "Sort by"
 msgstr ""
 
-#: template/front/event-angular.phtml:198
+#: template/front/event-angular.phtml:194
 msgid "Time"
 msgstr ""
 
-#: template/front/event-angular.phtml:201
+#: template/front/event-angular.phtml:197
 msgid "Hits"
 msgstr ""
 
-#: template/front/event-angular.phtml:208
+#: template/front/event-angular.phtml:204
 msgid "Default"
 msgstr ""
 
