@@ -116,6 +116,7 @@ class Event extends Standard
                 }
             }
         } elseif (isset($parts[0])) {
+            $parts[0] = urldecode($parts[0]);
             $categorySlug = Pi::registry('categoryRoute', 'event')->read();
             if (in_array($parts[0], $categorySlug)) {
                 $matches['controller'] = 'category';
