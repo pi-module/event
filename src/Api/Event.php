@@ -63,15 +63,17 @@ class Event extends AbstractApi
             $listEventId[$singleStory['id']] = $singleStory['id'];
         }
         // Get list of extra information
-        $whereExtra = array('id' => $listEventId);
-        $select = Pi::model('extra', $this->getModule())->select()->where($whereExtra);
-        $rowSet = Pi::model('extra', $this->getModule())->selectWith($select);
-        foreach ($rowSet as $row) {
-            $listExtra[$row->id] = $this->canonizeEvent($row);
-        }
-        // Join extra information to event
-        foreach ($listStory as $event) {
-            $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+        if (!empty($listEventId)) {
+            $whereExtra = array('id' => $listEventId);
+            $select = Pi::model('extra', $this->getModule())->select()->where($whereExtra);
+            $rowSet = Pi::model('extra', $this->getModule())->selectWith($select);
+            foreach ($rowSet as $row) {
+                $listExtra[$row->id] = $this->canonizeEvent($row);
+            }
+            // Join extra information to event
+            foreach ($listStory as $event) {
+                $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+            }
         }
         return $listEvent;
     }
