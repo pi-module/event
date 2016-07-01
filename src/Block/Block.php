@@ -25,7 +25,6 @@ class Block
         $block = array_merge($block, $options);
         $where = array(
             'status' => 1,
-            //'type' => 'event',
         );
 
         /* $eventModel = Pi::model('extra', 'event');
@@ -72,17 +71,21 @@ class Block
             $block['resources'][$row['id']] = array();
         }
 
-        /* if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
+        $where = array(
+            'status' => 1,
+        );
+        
+        if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
             $table = 'link';
             $where['topic'] = $block['topic-id'];
             $where['story'] = $list;
         } else {
             $table = 'story';
             $where['id'] = $list;
-        } */
+        }
 
-        $table = 'story';
-        $where['id'] = $list;
+        //$table = 'story';
+        //$where['id'] = $list;
 
         $order = array('time_publish ASC', 'id ASC');
 
@@ -98,6 +101,7 @@ class Block
             'controller' => 'index',
             'action' => 'index',
         )));
+
         // Language
         _b('free!');
         _b('Toman');

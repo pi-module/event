@@ -20,7 +20,12 @@ return array(
             'topic-id' => array(
                 'title' => _a('Category'),
                 'description' => '',
-                'edit' => 'Module\News\Form\Element\Topic',
+                'edit' => array(
+                    'type' => 'Module\News\Form\Element\Topic',
+                    'options' => array(
+                        'type' => 'event',
+                    ),
+                ),
                 'filter' => 'string',
                 'value' => 0,
             ),
@@ -72,6 +77,13 @@ return array(
                 'edit' => 'checkbox',
                 'filter' => 'number_int',
                 'value' => 0,
+            ),
+            'link-blockmore' => array(
+                'title' => _a('Set more link'),
+                'description' => '',
+                'edit' => 'text',
+                'filter' => 'string',
+                'value' => '',
             ),
             'block-effect' => array(
                 'title' => _a('Use block effects'),
