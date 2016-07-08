@@ -146,7 +146,7 @@ a.item-ribbon:hover {
 }
 
 /* top description*/
-.event-width-description {
+.category-width-description {
     position: absolute;
     background: rgba(255, 255, 255, 0.6);
     padding: 15px;
@@ -157,6 +157,6 @@ a.item-ribbon:hover {
     border-radius: 4px;
 }
 
-.event-width-image {
+.category-width-image {
     margin-bottom: 15px;
 }

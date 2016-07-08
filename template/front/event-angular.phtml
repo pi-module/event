@@ -77,20 +77,20 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     <div class="col-sm-12 col-md-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
             <?php if (!empty($config['image_homepage'])) { ?>
-                <div class="event-width-description">
-                    <h1><?php echo $this->escape($title); ?></h1>
+                <div class="category-width-description">
+                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($title); ?></h1>
                     <?php if (!empty($config['text_description_index'])) { ?>
                         <div class="clearfix"><?php echo $config['text_description_index']; ?></div>
                     <?php } ?>
                 </div>
                 <?php if (!empty($config['image_homepage'])) { ?>
-                    <div class="event-width-image">
-                        <img class="img-responsive" srcset="<?php echo $config['image_homepage']; ?>"
+                    <div class="category-width-image">
+                        <img class="img-responsive" src="<?php echo $config['image_homepage']; ?>"
                              alt="<?php echo $this->escape($title); ?>">
                     </div>
                 <?php } else { ?>
                     <div class="page-header">
-                        <h1><?php echo $this->escape($title); ?></h1>
+                        <h1 class="p-name" itemprop="name"><?php echo $this->escape($title); ?></h1>
                     </div>
                     <?php if (!empty($config['text_description_index'])) { ?>
                         <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
@@ -99,26 +99,23 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
             <?php if (!empty($category['largeUrl'])) { ?>
-                <div class="event-width-description">
-                    <h1><?php echo $this->escape($category['title']); ?></h1>
+                <div class="category-width-description">
+                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($category['title']); ?></h1>
                     <?php if (!empty($category['text_summary'])) { ?>
                         <div class="clearfix"><?php echo $category['text_summary']; ?></div>
                     <?php } ?>
                 </div>
-                <div class="event-width-image">
-                    <img class="img-responsive" srcset="<?php echo $category['largeUrl']; ?>"
+                <div class="category-width-image">
+                    <img class="img-responsive" src="<?php echo $category['largeUrl']; ?>"
                          alt="<?php echo $this->escape($category['title']); ?>">
                 </div>
-                <?php if (!empty($category['text_description'])) { ?>
-                    <div class="clearfix well"><?php echo $category['text_description']; ?></div>
-                <?php } ?>
             <?php } else { ?>
                 <div class="page-header">
-                    <h1><?php echo $this->escape($category['title']); ?></h1>
+                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($category['title']); ?></h1>
                 </div>
-                <?php if (!empty($category['text_summary'])) { ?>
-                    <div class="clearfix well"><?php echo $category['text_summary']; ?></div>
-                <?php } ?>
+            <?php } ?>
+            <?php if (!empty($category['text_description'])) { ?>
+                <div class="clearfix well"><?php echo $category['text_description']; ?></div>
             <?php } ?>
         <?php } ?>
     </div>
