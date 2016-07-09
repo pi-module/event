@@ -344,7 +344,7 @@ class EventForm extends BaseForm
             ));
         }
         // Check topic
-        if ($this->option['use_topic']) {
+        if ($this->option['use_news_topic']) {
             $this->add(array(
                 'name' => 'extra_topic',
                 'type' => 'fieldset',
@@ -402,36 +402,40 @@ class EventForm extends BaseForm
                 ));
             }
             // guide_category
-            $this->add(array(
-                'name' => 'guide_category',
-                'type' => 'Module\Guide\Form\Element\Category',
-                'options' => array(
-                    'label' => __('Category'),
-                    'category' => array(0 => ''),
-                    'module' => 'guide',
-                    'type' => 'external',
-                    'status' => 1,
-                ),
-                'attributes' => array(
-                    'size' => 5,
-                    'multiple' => 1,
-                )
-            ));
+            if ($this->option['use_guide_category']) {
+                $this->add(array(
+                    'name' => 'guide_category',
+                    'type' => 'Module\Guide\Form\Element\Category',
+                    'options' => array(
+                        'label' => __('Category'),
+                        'category' => array(0 => ''),
+                        'module' => 'guide',
+                        'type' => 'external',
+                        'status' => 1,
+                    ),
+                    'attributes' => array(
+                        'size' => 5,
+                        'multiple' => 1,
+                    )
+                ));
+            }
             // guide_location
-            $this->add(array(
-                'name' => 'guide_location',
-                'type' => 'Module\Guide\Form\Element\Location',
-                'options' => array(
-                    'label' => __('Location'),
-                    'module' => 'guide',
-                    'type' => 'external',
-                    'status' => 1,
-                ),
-                'attributes' => array(
-                    'size' => 5,
-                    'multiple' => 1,
-                )
-            ));
+            if ($this->option['use_guide_location']) {
+                $this->add(array(
+                    'name' => 'guide_location',
+                    'type' => 'Module\Guide\Form\Element\Location',
+                    'options' => array(
+                        'label' => __('Location'),
+                        'module' => 'guide',
+                        'type' => 'external',
+                        'status' => 1,
+                    ),
+                    'attributes' => array(
+                        'size' => 5,
+                        'multiple' => 1,
+                    )
+                ));
+            }
             // guide_item
             if (!isset($this->option['item']) || !$this->option['item']) {
                 $this->add(array(

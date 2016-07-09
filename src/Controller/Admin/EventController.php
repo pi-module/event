@@ -102,7 +102,9 @@ class EventController extends ActionController
         // Set option
         $option = array(
             'side' => 'admin',
-            'use_topic' => $config['use_topic'],
+            'use_news_topic' => $config['use_news_topic'],
+            'use_guide_category' => $config['use_guide_category'],
+            'use_guide_location' => $config['use_guide_location'],
             'order_active' => $config['order_active'],
         );
         // Find event
@@ -167,7 +169,7 @@ class EventController extends ActionController
                 $row->assign($values);
                 $row->save();
                 // Check topic
-                if (!$config['use_topic']) {
+                if (!$config['use_news_topic']) {
                     $values['topic'] = array();
                 }
                 // Set link array
@@ -196,14 +198,14 @@ class EventController extends ActionController
                         'name' => 'guide',
                         'controller' => array(),
                     );
-                    if (isset($values['guide_category']) && !empty($values['guide_category'])) {
+                    if ($config['use_guide_category'] && isset($values['guide_category']) && !empty($values['guide_category'])) {
                         $link['module']['guide']['controller']['category'] = array(
                             'name' => 'category',
                             'topic' => Json::decode($values['guide_category'], true),
                         );
                     }
 
-                    if (isset($values['guide_location']) && !empty($values['guide_location'])) {
+                    if ($config['use_guide_location'] && isset($values['guide_location']) && !empty($values['guide_location'])) {
                         $link['module']['guide']['controller']['location'] = array(
                             'name' => 'location',
                             'topic' => Json::decode($values['guide_location'], true),

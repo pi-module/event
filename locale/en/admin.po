@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-19 12:09+0430\n"
+"POT-Creation-Date: 2016-07-09 10:09+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -28,39 +28,43 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: config/block.php:28
+#: config/block.php:33
 msgid "Number"
 msgstr ""
 
-#: config/block.php:35
+#: config/block.php:40
 msgid "Show time"
 msgstr ""
 
-#: config/block.php:42
+#: config/block.php:47
 msgid "Show category"
 msgstr ""
 
-#: config/block.php:49
+#: config/block.php:54
 msgid "Show price"
 msgstr ""
 
-#: config/block.php:56
+#: config/block.php:61
 msgid "Show hits"
 msgstr ""
 
-#: config/block.php:63
+#: config/block.php:68
 msgid "Show summary"
 msgstr ""
 
-#: config/block.php:70
+#: config/block.php:75
 msgid "Show more link"
 msgstr ""
 
-#: config/block.php:77
+#: config/block.php:82
+msgid "Set more link"
+msgstr ""
+
+#: config/block.php:89
 msgid "Use block effects"
 msgstr ""
 
-#: config/block.php:78
+#: config/block.php:90
 msgid "Use block effects or set custom effect on theme"
 msgstr ""
 
@@ -96,7 +100,7 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: config/config.php:48 config/config.php:86
+#: config/config.php:48 config/config.php:102
 msgid "Perpage"
 msgstr ""
 
@@ -104,67 +108,75 @@ msgstr ""
 msgid "Use news topics"
 msgstr ""
 
-#: config/config.php:65
-msgid "Select location level for show on filter form"
-msgstr ""
-
-#: config/config.php:71
-msgid "level 1"
-msgstr ""
-
-#: config/config.php:72
-msgid "level 2"
-msgstr ""
-
-#: config/config.php:73
-msgid "level 3"
+#: config/config.php:66
+msgid "Use guide category"
 msgstr ""
 
 #: config/config.php:74
+msgid "Use guide location"
+msgstr ""
+
+#: config/config.php:81
+msgid "Select location level for show on filter form"
+msgstr ""
+
+#: config/config.php:87
+msgid "level 1"
+msgstr ""
+
+#: config/config.php:88
+msgid "level 2"
+msgstr ""
+
+#: config/config.php:89
+msgid "level 3"
+msgstr ""
+
+#: config/config.php:90
 msgid "level 4"
 msgstr ""
 
-#: config/config.php:75
+#: config/config.php:91
 msgid "level 5"
 msgstr ""
 
-#: config/config.php:94
+#: config/config.php:110
 msgid "Show related event"
 msgstr ""
 
-#: config/config.php:102
+#: config/config.php:118
 msgid "Set wide image for homepage"
 msgstr ""
 
-#: config/config.php:110
+#: config/config.php:126
 msgid "Price filter"
 msgstr ""
 
-#: config/config.php:111
+#: config/config.php:127
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr ""
 
-#: config/config.php:118
+#: config/config.php:134
 msgid "Social sharing items"
 msgstr ""
 
-#: config/config.php:132
+#: config/config.php:148
 msgid "Manage event by users"
 msgstr ""
 
-#: config/config.php:140
+#: config/config.php:156
 msgid "Auto approval user events"
 msgstr ""
 
-#: config/config.php:149
+#: config/config.php:165
 msgid "Active order"
 msgstr ""
 
-#: config/config.php:157
+#: config/config.php:173
 msgid "Show free word for free events"
 msgstr ""
 
-#: config/config.php:166
+#: config/config.php:182
 msgid "Description for index page"
 msgstr ""
 

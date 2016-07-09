@@ -52,7 +52,7 @@ return array(
             'value' => 10
         ),
         // News
-        'use_topic' => array(
+        'use_news_topic' => array(
             'category' => 'news',
             'title' => _a('Use news topics'),
             'description' => '',
@@ -61,6 +61,22 @@ return array(
             'value' => 1
         ),
         // Guide
+        'use_guide_category' => array(
+            'category' => 'news',
+            'title' => _a('Use guide category'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
+        'use_guide_location' => array(
+            'category' => 'news',
+            'title' => _a('Use guide location'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
         'filter_location_level' => array(
             'title' => _a('Select location level for show on filter form'),
             'description' => '',

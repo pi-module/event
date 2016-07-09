@@ -132,7 +132,7 @@ class Event extends AbstractApi
         // Set list
         $list = array();
         // Check guide module install
-        if (Pi::service('module')->isActive('guide')) {
+        if ($config['use_guide_location'] && Pi::service('module')->isActive('guide')) {
             $listLocation = Pi::api('location', 'guide')->locationListByLevel($config['filter_location_level']);
             foreach ($listLocation as $location) {
                 $list[] = array(
@@ -153,7 +153,7 @@ class Event extends AbstractApi
         // Set list
         $list = array();
         // Check guide module install
-        if (Pi::service('module')->isActive('guide')) {
+        if ($config['use_guide_category'] && Pi::service('module')->isActive('guide')) {
             $listGuide = Pi::api('category', 'guide')->categoryList();
             foreach ($listGuide as $category) {
                 $list[] = array(
@@ -164,7 +164,7 @@ class Event extends AbstractApi
             }
         }
         // Check news module use topic
-        if ($config['use_topic']) {
+        if ($config['use_news_topic']) {
             $listNews = Pi::api('topic', 'news')->getTopicList();
             foreach ($listNews as $topic) {
                 $list[] = array(

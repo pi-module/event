@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-06-19 12:06+0430\n"
+"POT-Creation-Date: 2016-07-09 10:08+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -28,41 +28,46 @@ msgstr "فهرست رویداد های نزدیک"
 msgid "Category"
 msgstr "شاخه"
 
-#: config/block.php:28
+#: config/block.php:33
 msgid "Number"
 msgstr "تعداد"
 
-#: config/block.php:35
+#: config/block.php:40
 msgid "Show time"
 msgstr "نمایش زمان"
 
-#: config/block.php:42
+#: config/block.php:47
 msgid "Show category"
 msgstr "نمایش شاخه"
 
-#: config/block.php:49
+#: config/block.php:54
 msgid "Show price"
 msgstr "نمایش قیمت"
 
-#: config/block.php:56
+#: config/block.php:61
 msgid "Show hits"
 msgstr "نمایش بازدید"
 
-#: config/block.php:63
+#: config/block.php:68
 msgid "Show summary"
 msgstr "نمایش خلاصه"
 
-#: config/block.php:70
+#: config/block.php:75
 msgid "Show more link"
 msgstr "نمایش لینک ادامه"
 
-#: config/block.php:77
+#: config/block.php:82
+msgid "Set more link"
+msgstr "درج لینک ادامه"
+
+#: config/block.php:89
 msgid "Use block effects"
 msgstr " استفاده از افکت های بلاک"
 
-#: config/block.php:78
+#: config/block.php:90
 msgid "Use block effects or set custom effect on theme"
-msgstr "ستفاده از افکت های جاوا اسکریپت یا سی اس اس بلاک یا شخصی سازی آن در قالب"
+msgstr ""
+"ستفاده از افکت های جاوا اسکریپت یا سی اس اس بلاک یا شخصی سازی آن در قالب"
 
 #: config/comment.php:15
 msgid "Event comments"
@@ -96,7 +101,7 @@ msgstr "مدیریت درج رویداد توسط کاربر"
 msgid "Order"
 msgstr "سفارش"
 
-#: config/config.php:48 config/config.php:86
+#: config/config.php:48 config/config.php:102
 msgid "Perpage"
 msgstr "تعداد در صفحه"
 
@@ -104,67 +109,77 @@ msgstr "تعداد در صفحه"
 msgid "Use news topics"
 msgstr "استفاده از موضوع های ماژول اخبار"
 
-#: config/config.php:65
+#: config/config.php:66
+msgid "Use guide category"
+msgstr "استفاده از شاخه های ماژول مدیریت اماکن"
+
+#: config/config.php:74
+msgid "Use guide location"
+msgstr "استفاده از مکان ماژول مدیریت اماکن"
+
+#: config/config.php:81
 msgid "Select location level for show on filter form"
 msgstr "انتخاب سطح مکان برای نمایش در فرم"
 
-#: config/config.php:71
+#: config/config.php:87
 msgid "level 1"
 msgstr "سطح ۱"
 
-#: config/config.php:72
+#: config/config.php:88
 msgid "level 2"
 msgstr "سطح ۲"
 
-#: config/config.php:73
+#: config/config.php:89
 msgid "level 3"
 msgstr "سطح ۳"
 
-#: config/config.php:74
+#: config/config.php:90
 msgid "level 4"
 msgstr "سطح ۴"
 
-#: config/config.php:75
+#: config/config.php:91
 msgid "level 5"
 msgstr "سطح ۵"
 
-#: config/config.php:94
+#: config/config.php:110
 msgid "Show related event"
 msgstr "نمایش رویداد های مشابه"
 
-#: config/config.php:102
+#: config/config.php:118
 msgid "Set wide image for homepage"
 msgstr "تنظیم عکس عریض برای صفحه اول"
 
-#: config/config.php:110
+#: config/config.php:126
 msgid "Price filter"
 msgstr "فیلتر قیمت"
 
-#: config/config.php:111
+#: config/config.php:127
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
-msgstr "روش ورود اطلاعات ، از علامت های | و - و , باید استفاده شود ، به طور مثال : 0-500000,بین ۰ تا ۵۰.۰۰۰ تومان|500000-2000000,بین ۵۰.۰۰۰ تا ۲۰۰.۰۰۰ تومان|"
+msgstr ""
+"روش ورود اطلاعات ، از علامت های | و - و , باید استفاده شود ، به طور مثال : "
+"0-500000,بین ۰ تا ۵۰.۰۰۰ تومان|500000-2000000,بین ۵۰.۰۰۰ تا ۲۰۰.۰۰۰ تومان|"
 
-#: config/config.php:118
+#: config/config.php:134
 msgid "Social sharing items"
 msgstr "موارد اشتراک گذاری در شبکه های اجتماعی"
 
-#: config/config.php:132
+#: config/config.php:148
 msgid "Manage event by users"
 msgstr "مدیریت رویداد ها توسط کاربر"
 
-#: config/config.php:140
+#: config/config.php:156
 msgid "Auto approval user events"
 msgstr "تایید خودکار رویداد های درج شده توسط کاربر"
 
-#: config/config.php:149
+#: config/config.php:165
 msgid "Active order"
 msgstr "فعال سازی ثبت نام در رویداد"
 
-#: config/config.php:157
+#: config/config.php:173
 msgid "Show free word for free events"
 msgstr "نمایش کلمه رایگان برای رویداد های رایگان"
 
-#: config/config.php:166
+#: config/config.php:182
 msgid "Description for index page"
 msgstr "متن توضیحات صفحه اول ماژول"
 

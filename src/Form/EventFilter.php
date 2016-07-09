@@ -101,7 +101,7 @@ class EventFilter extends InputFilter
             ),
         ));
         // Check topic
-        if ($option['use_topic']) {
+        if ($option['use_news_topic']) {
             // topic
             $this->add(array(
                 'name' => 'topic',
@@ -228,15 +228,19 @@ class EventFilter extends InputFilter
                 ));
             }
             // category
-            $this->add(array(
-                'name' => 'guide_category',
-                'required' => false,
-            ));
+            if ($option['use_guide_category']) {
+                $this->add(array(
+                    'name' => 'guide_category',
+                    'required' => false,
+                ));
+            }
             // location
-            $this->add(array(
-                'name' => 'guide_location',
-                'required' => false,
-            ));
+            if ($option['use_guide_location']) {
+                $this->add(array(
+                    'name' => 'guide_location',
+                    'required' => false,
+                ));
+            }
             // item
             if (!isset($option['item']) || !$option['item']) {
                 $this->add(array(
