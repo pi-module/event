@@ -165,7 +165,7 @@ class Event extends AbstractApi
         }
         // Check news module use topic
         if ($config['use_news_topic']) {
-            $listNews = Pi::api('topic', 'news')->getTopicList();
+            $listNews = Pi::api('topic', 'news')->getTopicList('event');
             foreach ($listNews as $topic) {
                 $list[] = array(
                     'id' => $topic['id'],
