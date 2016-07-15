@@ -302,25 +302,37 @@ class Event extends AbstractApi
 
         if ($event['time_start'] >= $time['thisWeek'] && $event['time_start'] < $time['nextWeek']) {
             $timeLevel .= ' thisWeek';
+        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['thisWeek']) {
+            $timeLevel .= ' thisWeek';
         }
 
         if ($event['time_start'] >= $time['nextWeek'] && $event['time_start'] < $time['nextTwoWeek']) {
+            $timeLevel .= ' nextWeek';
+        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['nextTwoWeek']) {
             $timeLevel .= ' nextWeek';
         }
 
         if ($event['time_start'] >= $time['thisMonth'] && $event['time_start'] < $time['nextMonth']) {
             $timeLevel .= ' thisMonth';
+        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['nextMonth']) {
+            $timeLevel .= ' thisMonth';
         }
 
         if ($event['time_start'] >= $time['nextMonth'] && $event['time_start'] < $time['nextTwoMonth']) {
+            $timeLevel .= ' nextMonth';
+        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['nextTwoMonth']) {
             $timeLevel .= ' nextMonth';
         }
 
         if ($event['time_start'] >= $time['nextTwoMonth'] && $event['time_start'] < $time['nextThreeMonth']) {
             $timeLevel .= ' nextTwoMonth';
+        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['nextThreeMonth']) {
+            $timeLevel .= ' nextTwoMonth';
         }
 
         if ($event['time_start'] >= $time['nextThreeMonth'] && $event['time_start'] < $time['nextFourMonth']) {
+            $timeLevel .= ' nextThreeMonth';
+        } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['nextFourMonth']) {
             $timeLevel .= ' nextThreeMonth';
         }
 
