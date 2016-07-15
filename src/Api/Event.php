@@ -336,7 +336,7 @@ class Event extends AbstractApi
             $timeLevel .= ' nextThreeMonth';
         }
 
-        if (empty($timeLevel)) {
+        if (empty($timeLevel) || $event['time_start'] >= $time['nextFourMonth'] || ($event['time_end'] > 0 && $event['time_end'] > $time['nextFourMonth'])) {
             $timeLevel .= ' nextAllMonth';
         }
 
