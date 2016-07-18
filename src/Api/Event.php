@@ -84,7 +84,16 @@ class Event extends AbstractApi
         $listExtra = array();
         $listEventId = array();
         // Get related story list from news story table
-        $listStory = Pi::api('api', 'news')->getStoryRelated($id, $topic, 'event');
+        $order = array('time_publish DESC', 'id DESC');
+        $where = array(
+            'status' => 1,
+            'story != ?' => $id,
+            'topic' => $topic,
+            'type' => 'event',
+            'module' => 'guide',
+            'controller' => 'category',
+        );
+        $listStory = Pi::api('api', 'news')->getStoryRelatedgetStoryRelated($where, $order);
         // Set extra id array
         foreach ($listStory as $singleStory) {
             $listEventId[$singleStory['id']] = $singleStory['id'];
