@@ -93,7 +93,7 @@ class Event extends AbstractApi
             'module' => 'guide',
             'controller' => 'category',
         );
-        $listStory = Pi::api('api', 'news')->getStoryRelatedgetStoryRelated($where, $order);
+        $listStory = Pi::api('api', 'news')->getStoryRelated($where, $order);
         // Set extra id array
         foreach ($listStory as $singleStory) {
             $listEventId[$singleStory['id']] = $singleStory['id'];
