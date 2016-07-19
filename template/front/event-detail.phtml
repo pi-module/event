@@ -270,7 +270,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
                                     <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
                                         <span class="eventSingleTime dt-start"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
-                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
+                                        <meta itemprop="endStart" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
                                     <?php } ?>
                                 </div>
                                 <div class="eventList-title">
