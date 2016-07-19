@@ -94,6 +94,7 @@ class Event extends AbstractApi
             'controller' => 'category',
         );
         $listStory = Pi::api('api', 'news')->getStoryRelated($where, $order);
+
         // Set extra id array
         foreach ($listStory as $singleStory) {
             $listEventId[$singleStory['id']] = $singleStory['id'];
@@ -109,11 +110,16 @@ class Event extends AbstractApi
             }
             // Join extra information to event
             foreach ($listStory as $event) {
-                if (($listExtra[$event['id']]['time_end'] == 0 && $listExtra[$event['id']]['time_start'] > strtotime("-1 day")) || ($listExtra[$event['id']]['time_end'] > strtotime("-1 day"))) {
+                //if (($listExtra[$event['id']]['time_end'] == 0 && $listExtra[$event['id']]['time_start'] > strtotime("-1 day")) || ($listExtra[$event['id']]['time_end'] > strtotime("-1 day"))) {
                     $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
-                }
+                //}
             }
         }
+
+        echo '<pre>';
+        print_r($listEvent);
+        echo '</pre>';
+
         return $listEvent;
     }
 

@@ -261,13 +261,16 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                 <div class="eventList-time small">
                                     <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
                                         <span class="eventSingleTime dt-start">
-                                            <?php _e('From') ?> <span itemprop="startDate"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
+                                            <?php _e('From') ?> <?php echo $this->escape($relatedEvent['time_start_view']); ?>
                                         </span>
                                         <span class="eventSingleTime dt-end">
-                                            <?php _e('to') ?> <span itemprop="endDate"><?php echo $this->escape($relatedEvent['time_end_view']); ?></span>
+                                            <?php _e('to') ?> <?php echo $this->escape($relatedEvent['time_end_view']); ?>
                                         </span>
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
+                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
                                     <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
-                                            <span class="eventSingleTime dt-start" itemprop="startDate"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
+                                        <span class="eventSingleTime dt-start"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
+                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
                                     <?php } ?>
                                 </div>
                                 <div class="eventList-title">

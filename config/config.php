@@ -62,7 +62,7 @@ return array(
         ),
         // Guide
         'use_guide_category' => array(
-            'category' => 'news',
+            'category' => 'guide',
             'title' => _a('Use guide category'),
             'description' => '',
             'edit' => 'checkbox',
@@ -70,7 +70,7 @@ return array(
             'value' => 1
         ),
         'use_guide_location' => array(
-            'category' => 'news',
+            'category' => 'guide',
             'title' => _a('Use guide location'),
             'description' => '',
             'edit' => 'checkbox',
