@@ -105,13 +105,29 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
-        'show_related' => array(
+        'related_event' => array(
             'category' => 'view',
             'title' => _a('Show related event'),
             'description' => '',
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        'related_event_type' => array(
+            'title' => _a('Related event type'),
+            'description' => '',
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'event' => _a('By event module topics'),
+                        'guide' => _a('By guide module categories'),
+                    ),
+                ),
+            ),
+            'filter' => 'text',
+            'value' => 'event',
+            'category' => 'view',
         ),
         'image_homepage' => array(
             'category' => 'view',

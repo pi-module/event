@@ -80,21 +80,39 @@ class Event extends AbstractApi
 
     public function getEventRelated($id, $topic)
     {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+        // Set array
         $listEvent = array();
         $listExtra = array();
         $listEventId = array();
         // Get related story list from news story table
         $order = array('time_publish DESC', 'id DESC');
-        $where = array(
-            'status' => 1,
-            'story != ?' => $id,
-            'topic' => $topic,
-            'type' => 'event',
-            'module' => 'guide',
-            'controller' => 'category',
-        );
-        $listStory = Pi::api('api', 'news')->getStoryRelated($where, $order);
+        // Set related event module
+        switch ($config['related_event_type']) {
+            case 'event':
+                $where = array(
+                    'status' => 1,
+                    'story != ?' => $id,
+                    'topic' => $topic,
+                    'type' => 'event',
+                    'module' => 'event',
+                    'controller' => 'topic',
+                );
+                break;
 
+            case 'guide':
+                $where = array(
+                    'status' => 1,
+                    'story != ?' => $id,
+                    'topic' => $topic,
+                    'type' => 'event',
+                    'module' => 'guide',
+                    'controller' => 'category',
+                );
+                break;
+        }
+        $listStory = Pi::api('api', 'news')->getStoryRelated($where, $order);
         // Set extra id array
         foreach ($listStory as $singleStory) {
             $listEventId[$singleStory['id']] = $singleStory['id'];
@@ -115,11 +133,6 @@ class Event extends AbstractApi
                 //}
             }
         }
-
-        echo '<pre>';
-        print_r($listEvent);
-        echo '</pre>';
-
         return $listEvent;
     }
 

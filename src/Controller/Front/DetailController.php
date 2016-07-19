@@ -86,7 +86,7 @@ class DetailController extends ActionController
         $form->setAttribute('action', $event['eventOrder']);
         $form->setData($event);
         // Related
-        if ($config['show_related'] && !empty($eventTopic)) {
+        if ($config['related_event'] && !empty($eventTopic)) {
             $eventTopic = array_unique($eventTopic);
             $relatedEvents = Pi::api('event', 'event')->getEventRelated($event['id'], $eventTopic);
             $this->view()->assign('relatedEvents', $relatedEvents);
