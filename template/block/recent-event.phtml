@@ -45,7 +45,7 @@
                                         <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
                                             <li><i class="fa fa-folder"></i></li>
                                             <?php foreach ($event['topics'] as $eventTopic) { ?>
-                                                <li class="p-category" itemprop="about">
+                                                <li class="p-category">
                                                     <a title="<?php echo $this->escape($eventTopic['title']); ?>"
                                                        href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape($eventTopic['title']); ?></a>
                                                 </li>
@@ -68,6 +68,8 @@
                                             <?php echo $event['text_summary']; ?>
                                         </div>
                                     </div>
+                                <?php } elseif (!empty($event['text_summary'])) { ?>
+                                    <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>" />
                                 <?php } ?>
                             </div>
                         </div>

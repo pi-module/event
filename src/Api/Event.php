@@ -284,6 +284,11 @@ class Event extends AbstractApi
             }
             $extra['topics'] = $topicList;
         }
+        // Check guide module
+        if (Pi::service('module')->isActive('guide') && !empty($extra['guide_location'])) {
+            $locationList = Pi::registry('locationList', 'guide')->read();
+            $extra['locationInfo'] = $locationList[$extra['guide_location'][0]];
+        }
         return $extra;
     }
 

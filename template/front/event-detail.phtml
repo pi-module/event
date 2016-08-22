@@ -51,6 +51,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
 }
 ?>
 <div class="clearfix h-event single-event" itemscope itemtype="http://schema.org/Event">
+    <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
     <div class="page-header p-name" itemprop="name">
         <h1>
             <?php echo $this->escape($event['title']); ?>
@@ -65,7 +66,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php } ?>
             <?php if (!empty($event['guideCategoryInfo'])) { ?>
                 <?php foreach ($event['guideCategoryInfo'] as $guideCategoryInfo) { ?>
-                    <li class="p-category" itemprop="about">
+                    <li class="p-category">
                         <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>" href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
                             <?php echo $this->escape($guideCategoryInfo['title']); ?>
                         </a>
@@ -74,7 +75,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php } ?>
             <?php if (!empty($event['topics'])) { ?>
                 <?php foreach ($event['topics'] as $eventTopic) { ?>
-                    <li class="p-category" itemprop="about">
+                    <li class="p-category">
                         <a title="<?php echo $this->escape($eventTopic['title']); ?>" href="<?php echo $this->escape($eventTopic['url']); ?>">
                             <?php echo $this->escape($eventTopic['title']); ?>
                         </a>
@@ -173,7 +174,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                         <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
                         <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
                             <li>
-                                <a title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
+                                <a itemprop="location" title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
                                    href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
                                     <?php echo $this->escape($guideLocationInfo['title']); ?>
                                 </a>
@@ -231,6 +232,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                     </h3>
                                 </div>
                             </div>
+                            <meta itemprop="location" content="<?php echo $this->escape($guideItemInfo['locationInfo']['title']); ?>" />
                         <?php } ?>
                     </div>
                 </div>
@@ -315,6 +317,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                 </h3>
                             </div>
                         </div>
+                        <meta itemprop="location" content="<?php echo $this->escape($guideItemInfo['locationInfo']['title']); ?>" />
                     <?php } ?>
                 </div>
             </div>
