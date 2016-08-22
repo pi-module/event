@@ -233,6 +233,12 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                 </div>
                             </div>
                             <meta itemprop="location" content="<?php echo $this->escape($guideItemInfo['locationInfo']['title']); ?>" />
+                            <?php if (!empty($guideItemInfo['time_start']) && !empty($guideItemInfo['time_end'])) { ?>
+                                <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
+                                <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_end'])); ?>" />
+                            <?php } elseif (!empty($guideItemInfo['time_start'])) { ?>
+                                <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
+                            <?php } ?>
                         <?php } ?>
                     </div>
                 </div>
@@ -318,6 +324,12 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                             </div>
                         </div>
                         <meta itemprop="location" content="<?php echo $this->escape($guideItemInfo['locationInfo']['title']); ?>" />
+                        <?php if (!empty($guideItemInfo['time_start']) && !empty($guideItemInfo['time_end'])) { ?>
+                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
+                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_end'])); ?>" />
+                        <?php } elseif (!empty($guideItemInfo['time_start'])) { ?>
+                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
+                        <?php } ?>
                     <?php } ?>
                 </div>
             </div>
