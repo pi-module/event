@@ -167,6 +167,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                             <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
                         </li>
                         <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                     <?php } ?>
                 </ul>
                 <?php if (!empty($event['guideLocationInfo'])) { ?>
@@ -281,6 +282,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
                                     <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
                                         <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
+                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
                                     <?php } ?>
                                     <span itemprop="location" itemscope itemtype="http://schema.org/Place">
                                         <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
