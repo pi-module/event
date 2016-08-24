@@ -173,11 +173,13 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     <ul class="list-inline">
                         <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
                         <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
-                            <li>
-                                <a itemprop="location" title="<?php echo $this->escape($guideLocationInfo['title']); ?>"
-                                   href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
-                                    <?php echo $this->escape($guideLocationInfo['title']); ?>
+                            <li itemprop="location" itemscope itemtype="http://schema.org/Place">
+                                <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
+                                    <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
                                 </a>
+                                <span itemprop="address" itemscope itemtype="http://schema.org/Text">
+                                    <meta content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
+                                </span>
                             </li>
                         <?php } ?>
                     </ul>
@@ -232,13 +234,6 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                     </h3>
                                 </div>
                             </div>
-                            <meta itemprop="location" content="<?php echo $this->escape($guideItemInfo['locationInfo']['title']); ?>" />
-                            <?php if (!empty($guideItemInfo['time_start']) && !empty($guideItemInfo['time_end'])) { ?>
-                                <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
-                                <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_end'])); ?>" />
-                            <?php } elseif (!empty($guideItemInfo['time_start'])) { ?>
-                                <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
-                            <?php } ?>
                         <?php } ?>
                     </div>
                 </div>
@@ -274,12 +269,28 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <span class="eventSingleTime dt-end">
                                             <?php _e('to') ?> <?php echo $this->escape($relatedEvent['time_end_view']); ?>
                                         </span>
+                                    <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
+                                        <span class="eventSingleTime dt-start"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
+                                    <?php } ?>
+
+                                    <?php $summary = !empty($relatedEvent['text_summary']) ? $relatedEvent['text_summary'] : $relatedEvent['title']; ?>
+                                    <meta itemprop="description" content="<?php echo $this->escape($summary); ?>" />
+                                    <meta itemprop="image" content="<?php echo $this->escape($relatedEvent['locationInfo']['largeUrl']); ?>" />
+                                    <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
                                         <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
                                         <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
                                     <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
-                                        <span class="eventSingleTime dt-start"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
-                                        <meta itemprop="endStart" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
                                     <?php } ?>
+                                    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+                                        <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
+                                            <span itemprop="name"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
+                                        </a>
+                                        <span itemprop="address" itemscope itemtype="http://schema.org/Text">
+                                            <meta content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
+                                        </span>
+                                    </span>
+
                                 </div>
                                 <div class="eventList-title">
                                     <strong>
@@ -323,13 +334,6 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                 </h3>
                             </div>
                         </div>
-                        <meta itemprop="location" content="<?php echo $this->escape($guideItemInfo['locationInfo']['title']); ?>" />
-                        <?php if (!empty($guideItemInfo['time_start']) && !empty($guideItemInfo['time_end'])) { ?>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
-                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_end'])); ?>" />
-                        <?php } elseif (!empty($guideItemInfo['time_start'])) { ?>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $guideItemInfo['time_start'])); ?>" />
-                        <?php } ?>
                     <?php } ?>
                 </div>
             </div>
