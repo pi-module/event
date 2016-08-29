@@ -192,6 +192,14 @@ return array(
             'filter' => 'number_int',
             'value' => 1
         ),
+        'order_discount' => array(
+            'category' => 'order',
+            'title' => _a('Active discount system'),
+            'description' => _a('Discount percent for each rule on each event'),
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
         // head_meta
         'text_description_index' => array(
             'category' => 'head_meta',

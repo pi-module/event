@@ -115,19 +115,25 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                 <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                         <?php if ($event['register_can']) { ?>
-                            <div class="clearfix text-center">
-                                <ul class="list-inline">
-                                    <li class="clearfix event-minPrice-title">
-                                        <?php _e('Start From') ?> :
-                                    </li>
-                                    <li class="clearfix event-minPrice-text">
-                                        <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
-                                    </li>
-                                </ul>
-                                <div class="clearfix">
-                                    <?php echo $this->form($form, 'inline'); ?>
+                            <?php if ($event['register_stock'] > 0) { ?>
+                                <div class="clearfix text-center">
+                                    <ul class="list-inline">
+                                        <li class="clearfix event-minPrice-title">
+                                            <?php _e('Start From') ?> :
+                                        </li>
+                                        <li class="clearfix event-minPrice-text">
+                                            <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix">
+                                        <?php echo $this->form($form, 'inline'); ?>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } else { ?>
+                                <div class="event-minPrice-title">
+                                    <?php echo $this->escape($event['register_price_view']); ?>
+                                </div>
+                            <?php } ?>
                         <?php } elseif (!empty($event['offer_url'])) { ?>
                             <div class="event-minPrice-title">
                                 <?php _e('Start From') ?> :

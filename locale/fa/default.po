@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-07-09 10:07+0430\n"
+"POT-Creation-Date: 2016-08-29 12:19+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-Basepath: ../..\n"
@@ -30,18 +30,23 @@ msgstr "فهرست سفارش ها"
 msgid "Add / edit event"
 msgstr "ثبت / ویرایش رویداد"
 
-#: src/Api/Event.php:226
+#: src/Api/Event.php:272
+#, php-format
+msgid "Out of stock ( %s )"
+msgstr "ظرفیت تکمیل ( %s )"
+
+#: src/Api/Event.php:274
 msgid "free!"
 msgstr "رایگان !"
 
-#: src/Api/Event.php:291 template/front/event-detail.phtml:6
-#: template/front/event-detail.phtml:158 template/front/event-detail.phtml:264
+#: src/Api/Event.php:347 template/front/event-detail.phtml:6
+#: template/front/event-detail.phtml:165 template/front/event-detail.phtml:274
 #: template/front/order-detail.phtml:16
 msgid "From"
 msgstr "از"
 
-#: src/Api/Event.php:291 template/front/event-detail.phtml:8
-#: template/front/event-detail.phtml:160 template/front/event-detail.phtml:267
+#: src/Api/Event.php:347 template/front/event-detail.phtml:8
+#: template/front/event-detail.phtml:167 template/front/event-detail.phtml:277
 #: template/front/order-detail.phtml:18
 msgid "to"
 msgstr "تا"
@@ -58,16 +63,16 @@ msgstr "صحیح نیست\t"
 msgid "Not set"
 msgstr "تنظیم نشده"
 
-#: src/Controller/Admin/EventController.php:155
-#: src/Controller/Admin/EventController.php:165
+#: src/Controller/Admin/EventController.php:168
+#: src/Controller/Admin/EventController.php:178
 msgid "Error on save story data on event module."
 msgstr "خطا در ذخیره اطلاعات مطلب در ماژول رویداد."
 
-#: src/Controller/Admin/EventController.php:245
+#: src/Controller/Admin/EventController.php:258
 msgid "Event data saved successfully."
 msgstr "ویرایش رویداد با موفقیت انجام شد"
 
-#: src/Controller/Admin/EventController.php:259
+#: src/Controller/Admin/EventController.php:278
 #: src/Controller/Front/ManageController.php:117
 #: template/admin/event-index.phtml:5 template/admin/event-index.phtml:7
 msgid "Add event"
@@ -294,18 +299,18 @@ msgstr "حذف تصویر"
 msgid "Image"
 msgstr "تصویر"
 
-#: src/Form/EventForm.php:238 template/front/event-detail.phtml:201
+#: src/Form/EventForm.php:238 template/front/event-detail.phtml:211
 #: template/front/order-detail.phtml:43
 msgid "Address"
 msgstr "آدرس"
 
-#: src/Form/EventForm.php:249 template/front/event-detail.phtml:187
+#: src/Form/EventForm.php:249 template/front/event-detail.phtml:197
 #: template/front/order-detail.phtml:27
 msgid "Organizer name"
 msgstr "نام سازمان دهنده"
 
-#: src/Form/EventForm.php:260 template/front/event-detail.phtml:193
-#: template/front/event-detail.phtml:194 template/front/order-detail.phtml:33
+#: src/Form/EventForm.php:260 template/front/event-detail.phtml:203
+#: template/front/event-detail.phtml:204 template/front/order-detail.phtml:33
 #: template/front/order-detail.phtml:35
 msgid "Organizer Website"
 msgstr "وب سایت سازمان دهنده"
@@ -346,59 +351,67 @@ msgstr "کد تخفیف"
 msgid "Pay full price"
 msgstr "پرداخت هزینه کامل"
 
-#: src/Form/EventForm.php:352
+#: src/Form/EventForm.php:354
+msgid "Discount options"
+msgstr "گزینه تخفیف"
+
+#: src/Form/EventForm.php:369
+msgid "Number and between 1 to 99"
+msgstr "عدد بین ۱ تا ۹۹"
+
+#: src/Form/EventForm.php:380
 msgid "Topic options"
 msgstr "گزینه های شاخه"
 
-#: src/Form/EventForm.php:360
+#: src/Form/EventForm.php:388
 msgid "Topic"
 msgstr "شاخه"
 
-#: src/Form/EventForm.php:371
+#: src/Form/EventForm.php:399
 msgid "Main topic"
 msgstr "شاخه اصلی"
 
-#: src/Form/EventForm.php:380
+#: src/Form/EventForm.php:408
 msgid "Just use for breadcrumbs and mobile apps"
 msgstr "فقط برای ناوبری و نرم افزار موبایل استفاده می شود"
 
-#: src/Form/EventForm.php:390
+#: src/Form/EventForm.php:418
 msgid "Guide options"
 msgstr "گزینه های ماژول Guide"
 
-#: src/Form/EventForm.php:399
+#: src/Form/EventForm.php:427
 msgid "Owner"
 msgstr "سازنده"
 
-#: src/Form/EventForm.php:410 template/front/event-angular.phtml:148
+#: src/Form/EventForm.php:438 template/front/event-angular.phtml:148
 msgid "Category"
 msgstr "شاخه"
 
-#: src/Form/EventForm.php:428 template/front/event-angular.phtml:160
+#: src/Form/EventForm.php:456 template/front/event-angular.phtml:160
 msgid "Location"
 msgstr "منطقه"
 
-#: src/Form/EventForm.php:445
+#: src/Form/EventForm.php:473
 msgid "Item"
 msgstr "اماکن"
 
-#: src/Form/EventForm.php:463
+#: src/Form/EventForm.php:491
 msgid "SEO options"
 msgstr "گزینه های سئو"
 
-#: src/Form/EventForm.php:470
+#: src/Form/EventForm.php:498
 msgid "SEO Title"
 msgstr "عنوان متا ( Meta Title )"
 
-#: src/Form/EventForm.php:483
+#: src/Form/EventForm.php:511
 msgid "SEO Keywords"
 msgstr "کلمات کلیدی متا ( Meta Keywords ) "
 
-#: src/Form/EventForm.php:496
+#: src/Form/EventForm.php:524
 msgid "SEO Description"
 msgstr "توضیح متا ( Meta Description ) "
 
-#: src/Form/EventForm.php:511 src/Form/RegenerateImageForm.php:43
+#: src/Form/EventForm.php:539 src/Form/RegenerateImageForm.php:43
 #: src/Form/SitemapForm.php:43
 msgid "Submit"
 msgstr "ارسال"
@@ -411,8 +424,8 @@ msgstr "انتخاب برای تولید تصویر"
 msgid "Just event images"
 msgstr "فقط تصاویر رویداد"
 
-#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:138
-#: template/front/event-detail.phtml:139
+#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:145
+#: template/front/event-detail.phtml:146
 msgid "Register to the event"
 msgstr "ثبت نام در رویداد"
 
@@ -566,41 +579,41 @@ msgstr "بازدید"
 msgid "Default"
 msgstr "پیشفرض"
 
-#: template/front/event-detail.phtml:100
+#: template/front/event-detail.phtml:101
 #, php-format
 msgid "Participate/Register to %s"
 msgstr "شرکت / ثبت نام در %s"
 
-#: template/front/event-detail.phtml:120 template/front/event-detail.phtml:132
-#: template/front/event-detail.phtml:144
+#: template/front/event-detail.phtml:122 template/front/event-detail.phtml:139
+#: template/front/event-detail.phtml:151
 msgid "Start From"
 msgstr "شروع از"
 
-#: template/front/event-detail.phtml:155
+#: template/front/event-detail.phtml:162
 msgid "Key Event Elements"
 msgstr "اطلاعات اصلی رویداد"
 
-#: template/front/event-detail.phtml:166 template/front/order-detail.phtml:21
+#: template/front/event-detail.phtml:173 template/front/order-detail.phtml:21
 msgid "On"
 msgstr "در"
 
-#: template/front/event-detail.phtml:173
+#: template/front/event-detail.phtml:181
 msgid "Related locations"
 msgstr "منطقه های مرتبط"
 
-#: template/front/event-detail.phtml:209
+#: template/front/event-detail.phtml:219
 msgid "Nearby recommended professionals"
 msgstr "مکان های تجاری پیشنهادی نزدیک"
 
-#: template/front/event-detail.phtml:241
+#: template/front/event-detail.phtml:251
 msgid "Share if you like"
 msgstr "اشتراک گذاری در شبکه های اجتماعی"
 
-#: template/front/event-detail.phtml:256
+#: template/front/event-detail.phtml:266
 msgid "Related events"
 msgstr "رویداد های مشابه"
 
-#: template/front/event-detail.phtml:290
+#: template/front/event-detail.phtml:319
 msgid "Related items"
 msgstr "اماکن مرتبط"
 

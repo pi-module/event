@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-07-09 10:09+0430\n"
+"POT-Creation-Date: 2016-08-29 12:20+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -144,39 +144,59 @@ msgstr ""
 msgid "Show related event"
 msgstr ""
 
-#: config/config.php:118
-msgid "Set wide image for homepage"
+#: config/config.php:117
+msgid "Related event type"
 msgstr ""
 
-#: config/config.php:126
-msgid "Price filter"
+#: config/config.php:123
+msgid "By event module topics"
 msgstr ""
 
-#: config/config.php:127
-msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
+#: config/config.php:124
+msgid "By guide module categories"
 msgstr ""
 
 #: config/config.php:134
+msgid "Set wide image for homepage"
+msgstr ""
+
+#: config/config.php:142
+msgid "Price filter"
+msgstr ""
+
+#: config/config.php:143
+msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
+msgstr ""
+
+#: config/config.php:150
 msgid "Social sharing items"
 msgstr ""
 
-#: config/config.php:148
+#: config/config.php:164
 msgid "Manage event by users"
 msgstr ""
 
-#: config/config.php:156
+#: config/config.php:172
 msgid "Auto approval user events"
 msgstr ""
 
-#: config/config.php:165
+#: config/config.php:181
 msgid "Active order"
 msgstr ""
 
-#: config/config.php:173
+#: config/config.php:189
 msgid "Show free word for free events"
 msgstr ""
 
-#: config/config.php:182
+#: config/config.php:197
+msgid "Active discount system"
+msgstr ""
+
+#: config/config.php:198
+msgid "Discount percent for each rule on each event"
+msgstr ""
+
+#: config/config.php:206
 msgid "Description for index page"
 msgstr ""
 

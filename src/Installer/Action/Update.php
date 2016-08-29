@@ -64,5 +64,21 @@ class Update extends BasicUpdate
                 );
             }
         }
+
+        // Update to version 0.4.1
+        if (version_compare($moduleVersion, '0.4.1', '<')) {
+            // Alter table field `register_discount`
+            $sql = sprintf("ALTER TABLE %s ADD `register_discount` TEXT", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }
     }
 }

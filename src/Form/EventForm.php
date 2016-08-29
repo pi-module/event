@@ -343,6 +343,34 @@ class EventForm extends BaseForm
                 ),
             ));
         }
+
+        // order_discount
+        if ($this->option['order_active'] && $this->option['order_discount']) {
+            // extra_product
+            $this->add(array(
+                'name' => 'extra_discount',
+                'type' => 'fieldset',
+                'options' => array(
+                    'label' => __('Discount options'),
+                ),
+            ));
+            // Get role list
+            $roles = Pi::service('registry')->Role->read('front');
+            unset($roles['webmaster']);
+            unset($roles['guest']);
+            foreach ($roles as $name => $role) {
+                $this->add(array(
+                    'name' => $name,
+                    'options' => array(
+                        'label' => $role['title'],
+                    ),
+                    'attributes' => array(
+                        'type' => 'text',
+                        'description' => __('Number and between 1 to 99'),
+                    )
+                ));
+            }
+        }
         // Check topic
         if ($this->option['use_news_topic']) {
             $this->add(array(

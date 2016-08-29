@@ -236,23 +236,46 @@ class Event extends AbstractApi
         if (is_object($extra)) {
             $extra = $extra->toArray();
         }
+        // Make register_discount
+        $extra['register_discount'] = json::decode($extra['register_discount'], true);
         // Set register_details
         $extra['register_details'] = Pi::service('markup')->render($extra['register_details'], 'html', 'html');
         // Set time
         $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], array('pattern' => 'yyyy-MM-dd'));
         $extra['time_end_view'] = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], array('pattern' => 'yyyy-MM-dd'));
-        // register_price
+        // Set register_price
         if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
-            $configSystem = Pi::service('registry')->config->read('system');
-            if (Pi::service('module')->isActive('order')) {
-                $extra['register_price_view'] = Pi::api('api', 'order')->viewPrice($extra['register_price']);
+            $uid = Pi::user()->getId();
+            $roles = Pi::user()->getRole($uid);
+            if (!empty($extra['register_discount'])) {
+                foreach ($extra['register_discount'] as $role => $percent) {
+                    if (isset($percent) && $percent > 0 && in_array($role, $roles)) {
+                        $price = ($extra['register_price'] - ($extra['register_price'] * ($percent / 100)));
+                    }
+                }
             } else {
-                $extra['register_price_view'] = _currency($extra['register_price']);
+                $price = $extra['register_price'];
             }
-            $extra['price_currency'] = empty($configSystem['number_currency']) ? 'USD' : $configSystem['number_currency'];
+            if (Pi::service('module')->isActive('order')) {
+                $priceView = Pi::api('api', 'order')->viewPrice($price);
+            } else {
+                $priceView = _currency($price);
+            }
+        } else {
+            $price = 0;
+            $priceView = _currency($price);
+        }
+        // Set order
+        if ($price > 0 && $extra['register_stock'] > 0) {
+            $extra['register_price_view'] = $priceView;
+        } elseif ($price > 0 && $extra['register_stock'] == 0) {
+            $extra['register_price_view'] = sprintf(__('Out of stock ( %s )'), $priceView);
         } else {
             $extra['register_price_view'] = __('free!');
         }
+        // Set currency
+        $configSystem = Pi::service('registry')->config->read('system');
+        $extra['price_currency'] = empty($configSystem['number_currency']) ? 'USD' : $configSystem['number_currency'];
         // canonize guide module details
         $extra['guide_category'] = Json::decode($extra['guide_category'], true);
         $extra['guide_location'] = Json::decode($extra['guide_location'], true);

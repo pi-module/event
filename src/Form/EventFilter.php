@@ -218,6 +218,24 @@ class EventFilter extends InputFilter
                 ),
             ));
         }
+        // order_discount
+        if ($option['order_active'] && $option['order_discount']) {
+            // Get role list
+            $roles = Pi::service('registry')->Role->read('front');
+            unset($roles['webmaster']);
+            unset($roles['guest']);
+            foreach ($roles as $name => $role) {
+                $this->add(array(
+                    'name' => $name,
+                    'required' => false,
+                    'filters' => array(
+                        array(
+                            'name' => 'StringTrim',
+                        ),
+                    ),
+                ));
+            }
+        }
         // guide option
         if (Pi::service('module')->isActive('guide') && $option['side'] == 'admin') {
             // owner

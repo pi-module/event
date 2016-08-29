@@ -106,6 +106,7 @@ class EventController extends ActionController
             'use_guide_category' => $config['use_guide_category'],
             'use_guide_location' => $config['use_guide_location'],
             'order_active' => $config['order_active'],
+            'order_discount' => $config['order_discount'],
         );
         // Find event
         if ($id) {
@@ -146,6 +147,18 @@ class EventController extends ActionController
                 $values['guide_category'] = Json::encode($values['guide_category']);
                 $values['guide_location'] = Json::encode($values['guide_location']);
                 $values['guide_item'] = Json::encode($values['guide_item']);
+                // Set register_discount
+                $discount = array();
+                if ($config['order_discount']) {
+                    // Get role list
+                    $roles = Pi::service('registry')->Role->read('front');
+                    unset($roles['webmaster']);
+                    unset($roles['guest']);
+                    foreach ($roles as $name => $role) {
+                        $discount[$name] = $values[$name];
+                    }
+                }
+                $values['register_discount'] = Json::encode($discount);
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
                     $story = Pi::api('api', 'news')->editStory($values);
@@ -247,6 +260,12 @@ class EventController extends ActionController
             }
         } else {
             if ($id) {
+                // Make discount
+                if ($config['order_discount']) {
+                    foreach ($event['register_discount'] as $name => $value) {
+                        $event[$name] = $value;
+                    }
+                }
                 // Set time
                 $event['time_start'] = ($event['time_start']) ? date('Y-m-d', $event['time_start']) : date('Y-m-d');
                 $event['time_end'] = ($event['time_end']) ? date('Y-m-d', $event['time_end']) : '';
