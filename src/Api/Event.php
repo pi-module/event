@@ -248,27 +248,26 @@ class Event extends AbstractApi
             $uid = Pi::user()->getId();
             $roles = Pi::user()->getRole($uid);
             if (!empty($extra['register_discount'])) {
+                $price = $extra['register_price'];
                 foreach ($extra['register_discount'] as $role => $percent) {
                     if (isset($percent) && $percent > 0 && in_array($role, $roles)) {
                         $price = ($extra['register_price'] - ($extra['register_price'] * ($percent / 100)));
                     }
                 }
-            } else {
-                $price = $extra['register_price'];
+                $extra['register_price'] = $price;
             }
             if (Pi::service('module')->isActive('order')) {
-                $priceView = Pi::api('api', 'order')->viewPrice($price);
+                $priceView = Pi::api('api', 'order')->viewPrice($extra['register_price']);
             } else {
-                $priceView = _currency($price);
+                $priceView = _currency($extra['register_price']);
             }
         } else {
-            $price = 0;
-            $priceView = _currency($price);
+            $priceView = _currency($extra['register_price']);
         }
         // Set order
-        if ($price > 0 && $extra['register_stock'] > 0) {
+        if ($extra['register_price'] > 0 && $extra['register_stock'] > 0) {
             $extra['register_price_view'] = $priceView;
-        } elseif ($price > 0 && $extra['register_stock'] == 0) {
+        } elseif ($extra['register_price'] > 0 && $extra['register_stock'] == 0) {
             $extra['register_price_view'] = sprintf(__('Out of stock ( %s )'), $priceView);
         } else {
             $extra['register_price_view'] = __('free!');
