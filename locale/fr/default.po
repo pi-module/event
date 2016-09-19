@@ -440,7 +440,7 @@ msgstr "Seulement les descriptions d'évènements (table Story du module News)"
 
 #: template/admin/event-index.phtml:14
 msgid "List of events"
-msgstr "Listes des évènements"
+msgstr "Les évènements incontournables à ne surtout pas manquer !"
 
 #: template/admin/event-index.phtml:17 template/admin/order-index.phtml:6
 #: template/front/manage-index.phtml:20 template/front/manage-order.phtml:13
