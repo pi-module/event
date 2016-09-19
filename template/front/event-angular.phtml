@@ -83,18 +83,16 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         <div class="clearfix"><?php echo $config['text_description_index']; ?></div>
                     <?php } ?>
                 </div>
-                <?php if (!empty($config['image_homepage'])) { ?>
-                    <div class="category-width-image">
-                        <img class="img-responsive" src="<?php echo $config['image_homepage']; ?>"
-                             alt="<?php echo $this->escape($title); ?>">
-                    </div>
-                <?php } else { ?>
-                    <div class="page-header">
-                        <h1 class="p-name" itemprop="name"><?php echo $this->escape($title); ?></h1>
-                    </div>
-                    <?php if (!empty($config['text_description_index'])) { ?>
-                        <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
-                    <?php } ?>
+                <div class="category-width-image">
+                    <img class="img-responsive" src="<?php echo $config['image_homepage']; ?>"
+                         alt="<?php echo $this->escape($title); ?>">
+                </div>
+            <?php } else { ?>
+                <div class="page-header">
+                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($title); ?></h1>
+                </div>
+                <?php if (!empty($config['text_description_index'])) { ?>
+                    <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
                 <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
