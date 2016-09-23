@@ -231,6 +231,15 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                             <?php if ($guideItemInfo['ribbon']) { ?>
                                                 <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
                                             <?php } ?>
+                                            <?php if (!empty($guideItemInfo['min_price'])) { ?>
+                                                <div class="item-price">
+                                                    <ul class="list-unstyled">
+                                                        <li class="item-price-from"><?php _e('Min price from'); ?></li>
+                                                        <li class="item-price-price"><?php echo $this->escape($guideItemInfo['min_price_view']); ?></li>
+                                                        <li class="item-price-service"><?php echo $this->escape($guideItemInfo['main_service']); ?></li>
+                                                    </ul>
+                                                </div>
+                                            <?php } ?>
                                         </a>
                                     <?php } ?>
                                     <h3 class="p-name">
@@ -330,6 +339,15 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                              alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                         <?php if ($guideItemInfo['ribbon']) { ?>
                                             <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
+                                        <?php } ?>
+                                        <?php if (!empty($guideItemInfo['min_price'])) { ?>
+                                            <div class="item-price">
+                                                <ul class="list-unstyled">
+                                                    <li class="item-price-from"><?php _e('Min price from'); ?></li>
+                                                    <li class="item-price-price"><?php echo $this->escape($guideItemInfo['min_price_view']); ?></li>
+                                                    <li class="item-price-service"><?php echo $this->escape($guideItemInfo['main_service']); ?></li>
+                                                </ul>
+                                            </div>
                                         <?php } ?>
                                     </a>
                                 <?php } ?>

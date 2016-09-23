@@ -113,6 +113,34 @@ a.item-ribbon:hover {
     -ms-transform: rotate(45deg);
 }
 
+/* min price */
+.item-price {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    transform: translate(0%, -5%);
+    padding: 4px 10px;
+    width: auto;
+    font-size: 1em;
+}
+
+.item-price .item-price-from {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+.item-price .item-price-price {
+    font-size: 1.4em;
+    font-weight: normal;
+}
+
+.item-price .item-price-service {
+    font-size: 1em;
+    font-weight: normal;
+}
+
 /* ajax loading spinner */
 .ajax-spinner {
     position:absolute;
