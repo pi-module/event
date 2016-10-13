@@ -33,7 +33,7 @@ msgstr "Ajouter / Editer l'évènement"
 #: src/Api/Event.php:271
 #, php-format
 msgid "Out of stock ( %s )"
-msgstr "Hors stock ( %s )"
+msgstr "Epuisé ( %s )"
 
 #: src/Api/Event.php:273
 msgid "free!"
