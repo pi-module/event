@@ -149,7 +149,7 @@ msgstr "L'évènement n'a pas été trouvé."
 
 #: src/Controller/Front/IndexController.php:44
 msgid "Event list"
-msgstr "Liste des Evènements/Manifestations incontournables à ne pas manquer"
+msgstr "Les évènements & manifestations incontournables à ne pas manquer"
 
 #: src/Controller/Front/ManageController.php:33
 #: src/Controller/Front/ManageController.php:93
