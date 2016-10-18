@@ -265,12 +265,21 @@ class Event extends AbstractApi
             $priceView = _currency($extra['register_price']);
         }
         // Set order
-        if ($extra['register_price'] > 0 && $extra['register_stock'] > 0) {
-            $extra['register_price_view'] = $priceView;
-        } elseif ($extra['register_price'] > 0 && $extra['register_stock'] == 0) {
-            $extra['register_price_view'] = sprintf(__('Out of stock ( %s )'), $priceView);
+        $config = Pi::service('registry')->config->read($this->getModule());
+        if ($config['order_active']) {        
+            if (($extra['register_price'] > 0 && $extra['register_stock'] > 0)) {
+                $extra['register_price_view'] = $priceView;
+            } elseif ($extra['register_price'] > 0 && $extra['register_stock'] == 0) {
+                $extra['register_price_view'] = sprintf(__('Out of stock ( %s )'), $priceView);
+            } else {
+                $extra['register_price_view'] = __('free!');
+            } 
         } else {
-            $extra['register_price_view'] = __('free!');
+            if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
+                $extra['register_price_view'] = _currency($extra['register_price']);
+            }  else {
+                $extra['register_price_view'] = __('free!');
+            } 
         }
         // Set currency
         $configSystem = Pi::service('registry')->config->read('system');
