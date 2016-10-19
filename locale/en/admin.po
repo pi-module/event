@@ -236,3 +236,7 @@ msgstr ""
 #: config/permission.php:17
 msgid "Global public resource"
 msgstr ""
+
+#: config/config.php:198
+msgid "Manage event registration, stock management and activate orders"
+msgstr ""
