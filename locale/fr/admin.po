@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-09-19 09:51+0200\n"
+"POT-Creation-Date: 2016-10-20 11:30+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -185,6 +185,12 @@ msgstr "Auto-approbation des évènements utilisateurs"
 #: config/config.php:181
 msgid "Active order"
 msgstr "Activer l'inscription"
+
+#: config/config.php:182
+msgid "Manage event registration, ticket stock and activate orders"
+msgstr ""
+"Gérer les inscriptions aux évènements, le stock de tickets et activer les "
+"commandes"
 
 #: config/config.php:189
 msgid "Show free word for free events"
