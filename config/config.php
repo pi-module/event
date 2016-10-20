@@ -179,7 +179,7 @@ return array(
         'order_active' => array(
             'category' => 'order',
             'title' => _a('Active order'),
-            'description' => '',
+            'description' => _a('Manage event registration, stock management and activate orders'),
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1

@@ -106,11 +106,14 @@ class EventForm extends BaseForm
                     'todayBtn' => true,
                     'todayHighlight' => true,
                     'weekStart' => 1,
+                    'zIndexOffset' => 10000
+                    
                 ),
             ),
             'attributes' => array(
                 'required' => true,
                 'value' => date('Y-m-d'),
+                'class' => 'event-time-start',
             )
         ));
         // time_end
@@ -125,10 +128,13 @@ class EventForm extends BaseForm
                     'todayBtn' => true,
                     'todayHighlight' => true,
                     'weekStart' => 1,
+                    'zIndexOffset' => 10000
+                    
                 ),
             ),
             'attributes' => array(
                 'required' => false,
+                'class' => 'event-time-end',
             )
         ));
         // extra
