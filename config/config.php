@@ -97,6 +97,22 @@ return array(
             'category' => 'guide',
         ),
         // View
+        'view_list_type' => array(
+            'title' => _a('Event list type'),
+            'description' => '',
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'line' => _a('Line : each event on one line'),
+                        'box' => _a('Box : each event as box and 3 box on one line'),
+                    ),
+                ),
+            ),
+            'filter' => 'text',
+            'value' => 'event',
+            'category' => 'view',
+        ),
         'view_perpage' => array(
             'category' => 'view',
             'title' => _a('Perpage'),
