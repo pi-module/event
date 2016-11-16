@@ -188,3 +188,5 @@ a.item-ribbon:hover {
 .category-width-image {
     margin-bottom: 15px;
 }
+
+.event-item-related .center-block {float:none}
