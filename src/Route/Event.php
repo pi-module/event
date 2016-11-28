@@ -62,8 +62,8 @@ class Event extends Standard
                     case 'manage':
                         if (isset($parts[1]) && $parts[1] == 'update') {
                             $matches['action'] = 'update';
-                            if (isset($parts[2]) && is_numeric($parts[2])) {
-                                $matches['id'] = intval($parts[2]);
+                            if (isset($parts[2]) && $parts[2] == 'id') {
+                                $matches['id'] = intval($parts[3]);
                             } elseif (isset($parts[2]) && $parts[2] == 'item') {
                                 $matches['item'] = intval($parts[3]);
                             }
