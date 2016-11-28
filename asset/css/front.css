@@ -188,3 +188,8 @@ a.item-ribbon:hover {
 .category-width-image {
     margin-bottom: 15px;
 }
+
+.table.table-striped .btn-success.btn-xs:focus,
+.table.table-striped .btn-success.btn-xs {
+    padding: 1px 5px;
+}
