@@ -39,35 +39,28 @@ class ManageController extends ActionController
         // Check owner
         if (Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
-            $where = array('guide_owner' => $owner['id']);
-        } else {
-            $where = array('uid' => Pi::user()->getId());
-        }
-        // Get ids
-        $select = $this->getModel('extra')->select()->where($where);
-        $rowset = $this->getModel('extra')->selectWith($select);
-        $ids = array();
-        foreach ($rowset as $row) {
-            $ids[$row->id] = $row->id;
-        }
-        // Set info
-        $listEvent = array();
-        if (!empty($ids)) {
             $where = array(
-                'type' => 'event',
-                'id' => $ids,
+                'guide_owner' => $owner['id'],
             );
-            $order = array('time_publish DESC', 'id DESC');
-            // Get list of event
-            $listEvent = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'light', 'story');
+        } else {
+            $where = array(
+                'uid' => Pi::user()->getId(),
+            );
         }
+
+        $order = array('time_start DESC', 'id DESC');
+
+        // Get ids
+        $select = $this->getModel('extra')->select();
+        $select = $select->where($where)->order($order);
+        $rowset = $this->getModel('extra')->selectWith($select);
 
         // Set view
         $this->view()->setTemplate('manage-index');
         $this->view()->assign('title', __('List of your events'));
         $this->view()->assign('owner', $owner);
         $this->view()->assign('config', $config);
-        $this->view()->assign('events', $listEvent);
+        $this->view()->assign('events', $rowset);
         // Language
         __('Search');
     }
@@ -99,8 +92,10 @@ class ManageController extends ActionController
         }
         // Get user
         $uid = Pi::user()->getId();
+
         // Find event
         if ($id) {
+
             $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
             if ($event['image']) {
                 $option['thumbUrl'] = $event['thumbUrl'];
