@@ -61,6 +61,7 @@ class ManageController extends ActionController
             // Get list of event
             $listEvent = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'light', 'story');
         }
+
         // Set view
         $this->view()->setTemplate('manage-index');
         $this->view()->assign('title', __('List of your events'));

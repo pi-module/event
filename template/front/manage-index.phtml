@@ -39,19 +39,21 @@
                             <td><?php echo $this->escape($event['time_start_view']); ?></td>
                             <td><?php echo $this->escape($event['time_end_view']); ?></td>
                             <td>
-                                <?php if ($event['status'] == 1) { ?>
-                                    <a class="btn btn-success btn-xs" title="<?php _e('View'); ?>"
-                                       href="<?php echo $this->escape($event['eventUrl']); ?>" target="_blank"><i
-                                            class="fa fa-eye"></i> <?php _e('View'); ?></a>
-                                <?php } ?>
-                                <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
-                                   href="<?php echo $this->url('', array('action' => 'update', 'id' => $event['id'])); ?>"><i
-                                        class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
-                                <?php if ($config['order_active']) { ?>
-                                <a class="btn btn-primary btn-xs" title="<?php _e('List of orders'); ?>"
-                                   href="<?php echo $this->url('', array('action' => 'order', 'id' => $event['id'])); ?>"><i
-                                        class="fa fa-shopping-cart"></i> <?php _e('List of orders'); ?></a>
-                                <?php } ?>
+                                <div class="text-nowrap">
+                                    <?php if ($event['status'] == 1) { ?>
+                                        <a class="btn btn-success btn-xs" title="<?php _e('View'); ?>"
+                                           href="<?php echo $this->escape($event['eventUrl']); ?>" target="_blank"><i
+                                                class="fa fa-eye"></i> <?php _e('View'); ?></a>
+                                    <?php } ?>
+                                    <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
+                                       href="<?php echo $this->url('', array('action' => 'update', 'id' => $event['id'])); ?>"><i
+                                            class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                                    <?php if ($config['order_active']) { ?>
+                                    <a class="btn btn-primary btn-xs" title="<?php _e('List of orders'); ?>"
+                                       href="<?php echo $this->url('', array('action' => 'order', 'id' => $event['id'])); ?>"><i
+                                            class="fa fa-shopping-cart"></i> <?php _e('List of orders'); ?></a>
+                                    <?php } ?>
+                                </div>
                             </td>
                         </tr>
                     <?php } ?>
