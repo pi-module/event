@@ -200,54 +200,85 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                     </ul>
                 </div>
                 <div class="clearfix">
-                    <div
-                        dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
-                        class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
-                        <div class="row">
-                            <div class="col-md-3 event-single-image" ng-if="event.image">
-                                <div class="text-center">
-                                    <a itemprop="url" title="{{event.title}}"
-                                       href="{{event.eventUrl}}">
-                                        <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
-                                             src="{{event.thumbUrl}}"
-                                             alt="{{event.title}}"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-9 event-single-body">
-                                <div class="p-name clearfix" itemprop="name">
-                                    <h2 class="event-single-title">
+                    <?php if ($config['view_list_type'] == 'line') { ?>
+                        <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                             class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                            <div class="row">
+                                <div class="col-md-3 event-single-image" ng-if="event.image">
+                                    <div class="text-center">
                                         <a itemprop="url" title="{{event.title}}"
                                            href="{{event.eventUrl}}">
-                                            {{event.title}}
+                                            <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
+                                                 src="{{event.thumbUrl}}"
+                                                 alt="{{event.title}}"/>
                                         </a>
-                                    </h2>
+                                    </div>
                                 </div>
-                                <div class="event-single-information small">
-                                    <ul class="clearfix list-inline event-time">
-                                        <li ng-if="event.time_view">
-                                            <i class="fa fa-clock-o"></i> {{event.time_view}}
-                                            <meta ng-if="event.time_start_view" itemprop="startDate"
-                                                  content="{{event.time_start_view}}"/>
-                                            <meta ng-if="event.time_end_view" itemprop="endDate"
-                                                  content="{{event.time_end_view}}"/>
-                                        </li>
-                                        <li ng-if="event.register_price" class="p-price" itemprop="price"
-                                            content="{{event.register_price}}">
-                                            <i class="fa fa-money"></i> {{event.register_price_view}}
-                                        </li>
-                                        <meta ng-if="event.register_price" itemprop="priceCurrency"
-                                              content="{{event.price_currency}}"/>
-                                        <li><i class="fa fa-eye"></i> {{event.hits}}</li>
-                                    </ul>
-                                </div>
-                                <div class="event-single-summery clearfix p-summary" itemprop="description"
-                                     ng-if="event.text_summary">
-                                    {{event.text_summary}}
+                                <div class="col-md-9 event-single-body">
+                                    <div class="p-name clearfix" itemprop="name">
+                                        <h2 class="event-single-title">
+                                            <a itemprop="url" title="{{event.title}}"
+                                               href="{{event.eventUrl}}">
+                                                {{event.title}}
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div class="event-single-information small">
+                                        <ul class="clearfix list-inline event-time">
+                                            <li ng-if="event.time_view">
+                                                <i class="fa fa-clock-o"></i> {{event.time_view}}
+                                                <meta ng-if="event.time_start_view" itemprop="startDate"
+                                                      content="{{event.time_start_view}}"/>
+                                                <meta ng-if="event.time_end_view" itemprop="endDate"
+                                                      content="{{event.time_end_view}}"/>
+                                            </li>
+                                            <li ng-if="event.register_price" class="p-price" itemprop="price"
+                                                content="{{event.register_price}}">
+                                                <i class="fa fa-money"></i> {{event.register_price_view}}
+                                            </li>
+                                            <meta ng-if="event.register_price" itemprop="priceCurrency"
+                                                  content="{{event.price_currency}}"/>
+                                            <li><i class="fa fa-eye"></i> {{event.hits}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="event-single-summery clearfix p-summary" itemprop="description"
+                                         ng-if="event.text_summary">
+                                        {{event.text_summary}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <?php } elseif ($config['view_list_type'] == 'box') { ?>
+                        <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                             class="col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                            <div class="thumbnail">
+                                <div class="event-single-image" ng-if="event.image">
+                                    <div class="text-center">
+                                        <a itemprop="url" title="{{event.title}}"
+                                           href="{{event.eventUrl}}">
+                                            <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
+                                                 src="{{event.thumbUrl}}"
+                                                 alt="{{event.title}}"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="caption">
+                                    <div class="p-name clearfix" itemprop="name">
+                                        <h2 class="event-single-title">
+                                            <a itemprop="url" title="{{event.title}}"
+                                               href="{{event.eventUrl}}">
+                                                {{event.title}}
+                                            </a>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <meta ng-if="event.time_start_view" itemprop="startDate"  content="{{event.time_start_view}}"/>
+                                <meta ng-if="event.time_end_view" itemprop="endDate" content="{{event.time_end_view}}"/>
+                                <meta ng-if="event.register_price" itemprop="price" content="{{event.register_price}}"/>
+                                <meta ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}"/>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
             <div class="paginator">
