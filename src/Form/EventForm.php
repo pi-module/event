@@ -470,24 +470,37 @@ class EventForm extends BaseForm
                     )
                 ));
             }
+
+        }
+
+        // extra guide
+        if (Pi::service('module')->isActive('guide')) {
             // guide_item
             if (!isset($this->option['item']) || !$this->option['item']) {
-                $this->add(array(
-                    'name' => 'guide_item',
-                    'type' => 'Module\Guide\Form\Element\Item',
-                    'options' => array(
-                        'label' => __('Item'),
-                        'module' => 'guide',
-                        'owner' => isset($this->option['owner']) ? $this->option['owner'] : '',
-                        'status' => 1,
+                $this->add(
+                    array(
+                        'name' => 'guide_item',
+                        'type' => 'Module\Guide\Form\Element\Item',
+                        'options' => array(
+                            'label' => __('Item'),
+                            'module' => 'guide',
+                            'owner' => isset($this->option['owner']) ? $this->option['owner'] : '',
+                            'status' => 1,
+                            'priority' => 10000000,
+                        ),
+                        'attributes' => array(
+                            'size' => 5,
+                            'multiple' => 1,
+                            'priority' => 10000000,
+                        )
                     ),
-                    'attributes' => array(
-                        'size' => 5,
-                        'multiple' => 1,
+                    array(
+                        'priority' => 10000000,
                     )
-                ));
+                );
             }
         }
+
         // extra
         if ($this->option['side'] == 'admin') {
             $this->add(array(
