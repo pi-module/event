@@ -57,7 +57,7 @@ class ManageController extends ActionController
 
         // Set view
         $this->view()->setTemplate('manage-index');
-        $this->view()->assign('title', __('List of your events'));
+        $this->view()->assign('title', __('All your events'));
         $this->view()->assign('owner', $owner);
         $this->view()->assign('config', $config);
         $this->view()->assign('events', $rowset);
