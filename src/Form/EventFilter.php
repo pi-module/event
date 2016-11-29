@@ -259,6 +259,9 @@ class EventFilter extends InputFilter
                     'required' => false,
                 ));
             }
+        }
+
+        if (Pi::service('module')->isActive('guide')){
             // item
             if (!isset($option['item']) || !$option['item']) {
                 $this->add(array(

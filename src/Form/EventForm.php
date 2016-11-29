@@ -486,16 +486,11 @@ class EventForm extends BaseForm
                             'module' => 'guide',
                             'owner' => isset($this->option['owner']) ? $this->option['owner'] : '',
                             'status' => 1,
-                            'priority' => 10000000,
                         ),
                         'attributes' => array(
                             'size' => 5,
                             'multiple' => 1,
-                            'priority' => 10000000,
                         )
-                    ),
-                    array(
-                        'priority' => 10000000,
                     )
                 );
             }

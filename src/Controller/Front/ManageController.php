@@ -122,9 +122,11 @@ class ManageController extends ActionController
                 return;
             }
             // Check item
-            $item = Pi::api('item', 'guide')->getItemLight($item);
-            $option['item'] = $item['id'];
-            $title = sprintf(__('Add event to %s'), $item['title']);
+            if($item){
+                $item = Pi::api('item', 'guide')->getItemLight($item);
+                $option['item'] = $item['id'];
+                $title = sprintf(__('Add event to %s'), $item['title']);
+            }
         }
         // Set form
         $form = new EventForm('event', $option);
@@ -159,8 +161,8 @@ class ManageController extends ActionController
                 if (isset($owner) && isset($owner['id'])) {
                     $values['guide_owner'] = $owner['id'];
                 }
-                $values['guide_category'] = Json::encode($values['guide_category']);
-                $values['guide_location'] = Json::encode($values['guide_location']);
+                $values['guide_category'] = isset($values['guide_category']) ? Json::encode($values['guide_category']) : null;
+                $values['guide_location'] = isset($values['guide_location']) ? Json::encode($values['guide_location']) : null;
                 $values['guide_item'] = !empty($item) ? Json::encode(array($item['id'])) : Json::encode($values['guide_item']);
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
