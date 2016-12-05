@@ -259,9 +259,6 @@ class EventFilter extends InputFilter
                     'required' => false,
                 ));
             }
-        }
-
-        if (Pi::service('module')->isActive('guide')){
             // item
             if (!isset($option['item']) || !$option['item']) {
                 $this->add(array(
@@ -270,6 +267,7 @@ class EventFilter extends InputFilter
                 ));
             }
         }
+
         // Seo options
         if ($option['side'] == 'admin') {
             // seo_title

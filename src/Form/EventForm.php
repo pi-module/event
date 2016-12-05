@@ -471,10 +471,6 @@ class EventForm extends BaseForm
                 ));
             }
 
-        }
-
-        // extra guide
-        if (Pi::service('module')->isActive('guide')) {
             // guide_item
             if (!isset($this->option['item']) || !$this->option['item']) {
                 $this->add(

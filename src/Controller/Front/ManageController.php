@@ -110,7 +110,11 @@ class ManageController extends ActionController
             return;
         }
         // Set title
-        $title = __('Add event');
+        if($id){
+            $title = __('Update event');
+        }else{
+            $title = __('Add event');
+        }
         // Check event guide owner
         if (Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
@@ -163,7 +167,14 @@ class ManageController extends ActionController
                 }
                 $values['guide_category'] = isset($values['guide_category']) ? Json::encode($values['guide_category']) : '';
                 $values['guide_location'] = isset($values['guide_location']) ? Json::encode($values['guide_location']) : '';
-                $values['guide_item'] = !empty($item) ? Json::encode(array($item['id'])) : Json::encode($values['guide_item']);
+
+                if(!empty($item)){
+                    $values['guide_item'] = Json::encode(array($item['id']));
+                }
+                else if(isset($values['guide_item'])){
+                    $values['guide_item'] = Json::encode($values['guide_item']);
+                }
+
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
                     $story = Pi::api('api', 'news')->editStory($values);
