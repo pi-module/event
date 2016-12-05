@@ -200,7 +200,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                     </ul>
                 </div>
                 <div class="clearfix">
-                    <?php if ($config['view_list_type'] == 'line') { ?>
+                    <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                             <div class="row">
@@ -248,7 +248,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                                 </div>
                             </div>
                         </div>
-                    <?php } elseif ($config['view_list_type'] == 'box') { ?>
+                    <?php } elseif (isset($config['view_list_type']) && $config['view_list_type'] == 'box') { ?>
                         <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                             <div class="thumbnail">
