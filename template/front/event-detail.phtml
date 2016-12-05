@@ -220,13 +220,13 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     </div>
                     <div class="thumbnails row">
                         <?php foreach ($event['guideItemInfo']['commercial'] as $guideItemInfo) { ?>
-                            <div class="event-item-box h-review col-sm-8 col-md-8">
+                            <div class="center-block event-item-box h-review col-sm-9 col-md-9">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['image']) { ?>
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
+                                                 src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
                                                  alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                             <?php if ($guideItemInfo['ribbon']) { ?>
                                                 <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
@@ -335,7 +335,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                     <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                        href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                         <img class="img-responsive u-photo"
-                                             src="<?php echo $this->escape($guideItemInfo['itemimageUrl']); ?>"
+                                             src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
                                              alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                         <?php if ($guideItemInfo['ribbon']) { ?>
                                             <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
