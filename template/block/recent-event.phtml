@@ -3,31 +3,103 @@
 } ?>
 <div class="event-block">
     <?php if (!empty($block['resources'])) { ?>
-        <div class="recent-event-list clearfix">
+        <?php if ($block['list-type'] == 'vertical') { ?>
+            <div class="recent-event-list recent-event-list-vertical clearfix">
             <?php foreach ($block['resources'] as $event) { ?>
-                <?php if (!empty($event)) { ?>
-                    <div class="recent-event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <?php if ($event['image']) { ?>
+                <div class="recent-event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <?php if ($event['image']) { ?>
+                                <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
+                                   href="<?php echo $this->escape($event['eventUrl']); ?>">
+                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                         src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                         alt="<?php echo $this->escape($event['title']); ?>"/>
+                                </a>
+                            <?php } ?>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="recent-event-single-title p-name" itemprop="name">
+                                <h3 class="clearfix">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
-                                        <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                             src="<?php echo $this->escape($event['thumbUrl']); ?>"
-                                             alt="<?php echo $this->escape($event['title']); ?>"/>
+                                        <?php echo $this->escape($event['title']); ?>
                                     </a>
-                                <?php } ?>
+                                </h3>
                             </div>
-                            <div class="col-md-8">
-                                <div class="recent-event-single-title p-name" itemprop="name">
-                                    <h3 class="clearfix">
-                                        <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
-                                           href="<?php echo $this->escape($event['eventUrl']); ?>">
-                                            <?php echo $this->escape($event['title']); ?>
-                                        </a>
-                                    </h3>
+                            <div class="recent-event-single-information small">
+                                <ul class="clearfix list-inline event-time">
+                                    <?php if ($block['show-time']) { ?>
+                                        <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                                            <li><i class="fa fa-clock-o"></i> <strong><?php echo _b('From') ?></strong></li>
+                                            <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
+                                            <li><strong><?php echo _b('to') ?></strong></li>
+                                            <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
+                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                                        <?php } elseif (!empty($event['time_start'])) { ?>
+                                            <li class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
+                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                        <?php } ?>
+                                    <?php } ?>
+                                    <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
+                                        <li><i class="fa fa-folder"></i></li>
+                                        <?php foreach ($event['topics'] as $eventTopic) { ?>
+                                            <li class="p-category">
+                                                <a title="<?php echo $this->escape($eventTopic['title']); ?>"
+                                                   href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape($eventTopic['title']); ?></a>
+                                            </li>
+                                        <?php } ?>
+                                    <?php } ?>
+                                    <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
+                                        <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                                            <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                                        </li>
+                                        <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                                    <?php } ?>
+                                    <?php if ($block['show-hits']) { ?>
+                                        <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($event['hits'])); ?></li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                            <?php if (!empty($event['text_summary']) && $block['show-summary']) { ?>
+                                <div class="col-md-12 clearfix">
+                                    <div class="event-single-summery p-summary" itemprop="description">
+                                        <?php echo $event['text_summary']; ?>
+                                    </div>
                                 </div>
-                                <div class="recent-event-single-information small">
+                            <?php } elseif (!empty($event['text_summary'])) { ?>
+                                <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>" />
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php } elseif ($block['list-type'] == 'horizontal') { ?>
+            <div class="recent-event-list recent-event-list-horizontal row clearfix">
+                <?php foreach ($block['resources'] as $event) { ?>
+                    <div class="recent-event-single clearfix h-event col-md-3" itemscope itemtype="http://schema.org/Event">
+                        <?php if ($event['image']) { ?>
+                            <div class="recent-event-single-image">
+                                <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
+                                   href="<?php echo $this->escape($event['eventUrl']); ?>">
+                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                         src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                         alt="<?php echo $this->escape($event['title']); ?>"/>
+                                </a>
+                            </div>
+                        <?php } ?>
+                        <div class="recent-event-single-title p-name" itemprop="name">
+                            <h3 class="clearfix">
+                                <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
+                                   href="<?php echo $this->escape($event['eventUrl']); ?>">
+                                    <?php echo $this->escape($event['title']); ?>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="recent-event-single-information">
+                            <ul class="clearfix list-unstayled event-time">
+                                <li>
                                     <ul class="clearfix list-inline event-time">
                                         <?php if ($block['show-time']) { ?>
                                             <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
@@ -42,46 +114,47 @@
                                                 <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                                             <?php } ?>
                                         <?php } ?>
-                                        <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
-                                            <li><i class="fa fa-folder"></i></li>
-                                            <?php foreach ($event['topics'] as $eventTopic) { ?>
-                                                <li class="p-category">
-                                                    <a title="<?php echo $this->escape($eventTopic['title']); ?>"
-                                                       href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape($eventTopic['title']); ?></a>
-                                                </li>
-                                            <?php } ?>
-                                        <?php } ?>
-                                        <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
-                                            <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
-                                                <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
-                                            </li>
-                                            <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
-                                        <?php } ?>
-                                        <?php if ($block['show-hits']) { ?>
-                                            <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($event['hits'])); ?></li>
-                                        <?php } ?>
                                     </ul>
-                                </div>
-                                <?php if (!empty($event['text_summary']) && $block['show-summary']) { ?>
-                                    <div class="col-md-12 clearfix">
-                                        <div class="event-single-summery p-summary" itemprop="description">
-                                            <?php echo $event['text_summary']; ?>
-                                        </div>
-                                    </div>
-                                <?php } elseif (!empty($event['text_summary'])) { ?>
-                                    <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>" />
+                                </li>
+                                <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
+                                    <li><i class="fa fa-folder"></i></li>
+                                    <?php foreach ($event['topics'] as $eventTopic) { ?>
+                                        <li class="p-category">
+                                            <a title="<?php echo $this->escape($eventTopic['title']); ?>"
+                                               href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape($eventTopic['title']); ?></a>
+                                        </li>
+                                    <?php } ?>
                                 <?php } ?>
-                            </div>
+                                <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
+                                    <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                                        <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                                    </li>
+                                    <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                                <?php } ?>
+                                <?php if ($block['show-hits']) { ?>
+                                    <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($event['hits'])); ?></li>
+                                <?php } ?>
+                            </ul>
                         </div>
+                        <?php if (!empty($event['text_summary']) && $block['show-summary']) { ?>
+                            <div class="col-md-12 clearfix">
+                                <div class="event-single-summery p-summary" itemprop="description">
+                                    <?php echo $event['text_summary']; ?>
+                                </div>
+                            </div>
+                        <?php } elseif (!empty($event['text_summary'])) { ?>
+                            <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>" />
+                        <?php } ?>
                     </div>
                 <?php } ?>
-            <?php } ?>
-            <?php if ($block['show-morelink']) { ?>
-                <div class="recent-event-more clearfix">
-                    <a title="<?php echo _b('More events'); ?>"
-                       href="<?php echo $this->escape($block['morelink']); ?>"><?php echo _b('More events'); ?></a>
-                </div>
-            <?php } ?>
+            </div>
+        <?php } ?>
+        <?php if ($block['show-morelink']) { ?>
+            <div class="recent-event-more clearfix">
+                <a title="<?php echo _b('More events'); ?>"
+                   href="<?php echo $this->escape($block['morelink']); ?>"><?php echo _b('More events'); ?></a>
+            </div>
+        <?php } ?>
         </div>
     <?php } else { ?>
         <p><?php echo _b('No event actually or to come') ?></p>

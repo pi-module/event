@@ -71,6 +71,21 @@ return array(
                 'filter' => 'number_int',
                 'value' => 1,
             ),
+            'list-type' => array(
+                'title' => _a('Event list type'),
+                'description' => '',
+                'edit' => array(
+                    'type' => 'select',
+                    'options' => array(
+                        'options' => array(
+                            'vertical' => _a('Vertical'),
+                            'horizontal' => _a('Horizontal'),
+                        ),
+                    ),
+                ),
+                'filter' => 'text',
+                'value' => 'vertical',
+            ),
             'show-morelink' => array(
                 'title' => _a('Show more link'),
                 'description' => '',
