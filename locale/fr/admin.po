@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-10-20 11:30+0200\n"
+"POT-Creation-Date: 2016-12-07 11:08+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -52,19 +52,31 @@ msgstr "Afficher les hits"
 msgid "Show summary"
 msgstr "Afficher le résumé"
 
-#: config/block.php:75
+#: config/block.php:75 config/config.php:101
+msgid "Event list type"
+msgstr "Mode affichage en liste"
+
+#: config/block.php:81
+msgid "Vertical"
+msgstr "Vertical"
+
+#: config/block.php:82
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: config/block.php:90
 msgid "Show more link"
 msgstr "Afficher le lien Plus"
 
-#: config/block.php:82
+#: config/block.php:97
 msgid "Set more link"
 msgstr "Définir l'url du lien Plus"
 
-#: config/block.php:89
+#: config/block.php:104
 msgid "Use block effects"
 msgstr "Utiliser les effets pour les blocs"
 
-#: config/block.php:90
+#: config/block.php:105
 msgid "Use block effects or set custom effect on theme"
 msgstr ""
 "Utiliser les effets pour les blocs ou définir un effet personnalisé dans le "
@@ -102,7 +114,7 @@ msgstr "Gérer"
 msgid "Order"
 msgstr "Commander"
 
-#: config/config.php:48 config/config.php:102
+#: config/config.php:48 config/config.php:118
 msgid "Perpage"
 msgstr "Par page"
 
@@ -142,69 +154,77 @@ msgstr "niveau 4"
 msgid "level 5"
 msgstr "niveau 5"
 
-#: config/config.php:110
+#: config/config.php:107
+msgid "Line : each event on one line"
+msgstr "Ligne : un évènement par ligne"
+
+#: config/config.php:108
+msgid "Box : each event as box and 3 box on one line"
+msgstr "Box : 3 évènements par ligne"
+
+#: config/config.php:126
 msgid "Show related event"
 msgstr "Afficher les évènements relatifs"
 
-#: config/config.php:117
+#: config/config.php:133
 msgid "Related event type"
 msgstr "Type Evènements Relatifs"
 
-#: config/config.php:123
+#: config/config.php:139
 msgid "By event module topics"
 msgstr "Par Sujets du module News"
 
-#: config/config.php:124
+#: config/config.php:140
 msgid "By guide module categories"
 msgstr "Par catégorie du module Guide"
 
-#: config/config.php:134
+#: config/config.php:150
 msgid "Set wide image for homepage"
 msgstr "Définir l'image large pour la page Index"
 
-#: config/config.php:142
+#: config/config.php:158
 msgid "Price filter"
 msgstr "Filtre sur le Prix"
 
-#: config/config.php:143
+#: config/config.php:159
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr "Règle de saisie : 100-200, Entre 100 à 200|200, Entre 200 et 300|"
 
-#: config/config.php:150
+#: config/config.php:166
 msgid "Social sharing items"
 msgstr "Réseaux sociaux"
 
-#: config/config.php:164
+#: config/config.php:180
 msgid "Manage event by users"
 msgstr "Gestion des évènements par les utilisateurs"
 
-#: config/config.php:172
+#: config/config.php:188
 msgid "Auto approval user events"
 msgstr "Auto-approbation des évènements utilisateurs"
 
-#: config/config.php:181
+#: config/config.php:197
 msgid "Active order"
 msgstr "Activer l'inscription"
 
-#: config/config.php:182
+#: config/config.php:198
 msgid "Manage event registration, ticket stock and activate orders"
 msgstr ""
 "Gérer les inscriptions aux évènements, le stock de tickets et activer les "
 "commandes"
 
-#: config/config.php:189
+#: config/config.php:205
 msgid "Show free word for free events"
 msgstr "Afficher le mot \"gratuit\" pour les évènements gratuits"
 
-#: config/config.php:197
+#: config/config.php:213
 msgid "Active discount system"
 msgstr "Activer le système de Remise"
 
-#: config/config.php:198
+#: config/config.php:214
 msgid "Discount percent for each rule on each event"
 msgstr "Pourcentage de réduction pour chaque règle et chaque évènement"
 
-#: config/config.php:206
+#: config/config.php:222
 msgid "Description for index page"
 msgstr "Description pour la page Index"
 
