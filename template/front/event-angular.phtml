@@ -39,7 +39,6 @@ app.directive('postRender', function ($timeout) {
     link: function ($scope, element, attrs) {
       $scope.$on('dataloaded', function () {
         $timeout(function () { 
-            console.log('hit');
           $('.event-list').imagesLoaded().then(function(){
                 $('.event-list .event-single .thumbnail').matchHeight();
             });
