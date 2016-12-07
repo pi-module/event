@@ -192,3 +192,9 @@ a.item-ribbon:hover {
 .event-item-related .center-block {
     float: none;
 }
+
+
+.table.table-striped .btn-success.btn-xs:focus,
+.table.table-striped .btn-success.btn-xs {
+    padding: 1px 5px;
+}

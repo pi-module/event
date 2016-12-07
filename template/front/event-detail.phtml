@@ -84,143 +84,257 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php } ?>
         </ul>
     </div>
-    <div class="clearfix row">
-        <div class="col-md-8 event-single-main">
-            <?php if (!empty($event['text_summary'])) { ?>
-                <div class="clearfix event-single-main-box p-summary" itemprop="description">
-                    <?php echo $event['text_summary']; ?>
-                </div>
-            <?php } ?>
-            <?php if (!empty($event['text_description'])) { ?>
-                <div class="clearfix event-single-main-box p-summary" itemprop="description">
-                    <?php echo $event['text_description']; ?>
-                </div>
-            <?php } ?>
-            <?php if (!empty($event['register_details'])) { ?>
-                <div class="clearfix event-single-main-box" itemprop="description">
-                    <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
-                    <?php echo $event['register_details']; ?>
-                </div>
-            <?php } ?>
-        </div>
-        <div class="col-md-4 event-single-sidebar">
-            <div class="event-image-main clearfix u-photo gallery">
-                <a href="<?php echo $this->escape($event['largeUrl']); ?>"
-                   title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                    <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['mediumUrl']); ?>"
-                         alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
-                </a>
+    <div class="clearfix ">
+        <div class="stickyContainer row">
+            <div class="col-md-8 event-single-main">
+                <?php if (!empty($event['text_summary'])) { ?>
+                    <div class="clearfix event-single-main-box p-summary" itemprop="description">
+                        <?php echo $event['text_summary']; ?>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($event['text_description'])) { ?>
+                    <div class="clearfix event-single-main-box p-summary" itemprop="description">
+                        <?php echo $event['text_description']; ?>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($event['register_details'])) { ?>
+                    <div class="clearfix event-single-main-box" itemprop="description">
+                        <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
+                        <?php echo $event['register_details']; ?>
+                    </div>
+                <?php } ?>
             </div>
-            <?php if ($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) { ?>
-                <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                    <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
-                        <?php if ($event['register_can']) { ?>
-                            <?php if ($event['register_stock'] > 0) { ?>
-                                <div class="clearfix text-center">
-                                    <ul class="list-inline">
-                                        <li class="clearfix event-minPrice-title">
-                                            <?php _e('Start From') ?> :
-                                        </li>
-                                        <li class="clearfix event-minPrice-text">
-                                            <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix">
-                                        <?php echo $this->form($form, 'inline'); ?>
+            <div class="col-md-4 event-single-sidebar rightSidebar">
+                <?php include $this->template('front/partial/sticky'); ?>
+                <div class="event-image-main clearfix u-photo gallery">
+                    <a href="<?php echo $this->escape($event['largeUrl']); ?>"
+                       title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
+                        <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['mediumUrl']); ?>"
+                             alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
+                    </a>
+                </div>
+                <?php if ($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) { ?>
+                    <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                            <?php if ($event['register_can']) { ?>
+                                <?php if ($event['register_stock'] > 0) { ?>
+                                    <div class="clearfix text-center">
+                                        <ul class="list-inline">
+                                            <li class="clearfix event-minPrice-title">
+                                                <?php _e('Start From') ?> :
+                                            </li>
+                                            <li class="clearfix event-minPrice-text">
+                                                <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix">
+                                            <?php echo $this->form($form, 'inline'); ?>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php } else { ?>
+                                <?php } else { ?>
+                                    <div class="event-minPrice-title">
+                                        <?php echo $this->escape($event['register_price_view']); ?>
+                                    </div>
+                                <?php } ?>
+                            <?php } elseif (!empty($event['offer_url'])) { ?>
                                 <div class="event-minPrice-title">
+                                    <?php _e('Start From') ?> :
+                                </div>
+                                <div class="event-minPrice-text">
+                                    <?php echo $this->escape($event['register_price_view']); ?>
+                                </div>
+                                <div class="event-offerUrl-btn" itemprop="url">
+                                    <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                        <?php _e('Register to the event') ?>
+                                    </a>
+                                </div>
+                            <?php } elseif ($config['order_free']) { ?>
+                                <div class="event-minPrice-title">
+                                    <?php _e('Start From') ?> :
+                                </div>
+                                <div class="event-minPrice-text">
                                     <?php echo $this->escape($event['register_price_view']); ?>
                                 </div>
                             <?php } ?>
-                        <?php } elseif (!empty($event['offer_url'])) { ?>
-                            <div class="event-minPrice-title">
-                                <?php _e('Start From') ?> :
-                            </div>
-                            <div class="event-minPrice-text">
-                                <?php echo $this->escape($event['register_price_view']); ?>
-                            </div>
-                            <div class="event-offerUrl-btn" itemprop="url">
-                                <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
-                                    <?php _e('Register to the event') ?>
-                                </a>
-                            </div>
-                        <?php } elseif ($config['order_free']) { ?>
-                            <div class="event-minPrice-title">
-                                <?php _e('Start From') ?> :
-                            </div>
-                            <div class="event-minPrice-text">
-                                <?php echo $this->escape($event['register_price_view']); ?>
-                            </div>
-                        <?php } ?>
+                        </div>
+                        <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     </div>
-                    <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
-                </div>
-            <?php } ?>
-            <div class="well clearfix eventTime">
-                <h2><?php _e('Key Event Elements'); ?></h2>
-                <ul class="list-inline">
-                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                        <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
-                        <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
-                        <li><?php _e('to') ?></li>
-                        <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
-                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
-                    <?php } elseif (!empty($event['time_start'])) { ?>
-                        <li class="event-single-time dt-start">
-                            <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
-                        </li>
-                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                    <?php } ?>
-                </ul>
-                <?php if (!empty($event['guideLocationInfo'])) { ?>
+                <?php } ?>
+                <div class="well clearfix eventTime">
+                    <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">
-                        <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
-                        <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
-                            <li itemprop="location" itemscope itemtype="http://schema.org/Place">
-                                <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
-                                    <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
-                                </a>
-                                <span itemprop="address" itemscope itemtype="http://schema.org/Text">
+                        <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                            <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
+                            <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
+                            <li><?php _e('to') ?></li>
+                            <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
+                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                        <?php } elseif (!empty($event['time_start'])) { ?>
+                            <li class="event-single-time dt-start">
+                                <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
+                            </li>
+                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <?php } ?>
+                    </ul>
+                    <?php if (!empty($event['guideLocationInfo'])) { ?>
+                        <ul class="list-inline">
+                            <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
+                            <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
+                                <li itemprop="location" itemscope itemtype="http://schema.org/Place">
+                                    <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
+                                        <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
+                                    </a>
+                                    <span itemprop="address" itemscope itemtype="http://schema.org/Text">
                                     <meta content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
                                 </span>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
+                    <ul class="list-unstyled">
+                        <?php if (!empty($event['organizer_name'])) { ?>
+                            <li itemscope itemtype="http://schema.org/Organization">
+                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
+                            </li>
+                        <?php } ?>
+                        <?php if (!empty($event['source_url'])) { ?>
+                            <li class="u-url" itemprop="url">
+                                <i class="fa fa-external-link"></i>
+                                <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
+                                    <?php _e('Organizer Website') ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (!empty($event['address'])) { ?>
+                            <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                                <i class="fa fa-location-arrow"></i>
+                                <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
                             </li>
                         <?php } ?>
                     </ul>
+                </div>
+                <?php if (!empty($event['guideItemInfo']['commercial'])) { ?>
+                    <div class="event-item-related clearfix">
+                        <div class="page-header">
+                            <h2><?php _e('Nearby recommended professionals'); ?></h2>
+                        </div>
+                        <div class="thumbnails row">
+                            <?php foreach ($event['guideItemInfo']['commercial'] as $guideItemInfo) { ?>
+                                <div class="center-block event-item-box h-review col-sm-9 col-md-9">
+                                    <div class="thumbnail p-item h-card">
+                                        <?php if ($guideItemInfo['image']) { ?>
+                                            <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                               href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                                <img class="img-responsive u-photo"
+                                                     src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
+                                                     alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                                <?php if ($guideItemInfo['ribbon']) { ?>
+                                                    <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
+                                                <?php } ?>
+                                                <?php if (!empty($guideItemInfo['min_price'])) { ?>
+                                                    <div class="item-price">
+                                                        <ul class="list-unstyled">
+                                                            <li class="item-price-from"><?php _e('Min price from'); ?></li>
+                                                            <li class="item-price-price"><?php echo $this->escape($guideItemInfo['min_price_view']); ?></li>
+                                                            <li class="item-price-service"><?php echo $this->escape($guideItemInfo['main_service']); ?></li>
+                                                        </ul>
+                                                    </div>
+                                                <?php } ?>
+                                            </a>
+                                        <?php } ?>
+                                        <h3 class="p-name">
+                                            <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                               href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                                <?php echo $this->escape($guideItemInfo['title']); ?>
+                                            </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
                 <?php } ?>
-                <ul class="list-unstyled">
-                    <?php if (!empty($event['organizer_name'])) { ?>
-                        <li itemscope itemtype="http://schema.org/Organization">
-                            <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
-                        </li>
-                    <?php } ?>
-                    <?php if (!empty($event['source_url'])) { ?>
-                        <li class="u-url" itemprop="url">
-                            <i class="fa fa-external-link"></i>
-                            <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
-                                <?php _e('Organizer Website') ?>
-                            </a>
-                        </li>
-                    <?php } ?>
-                    <?php if (!empty($event['address'])) { ?>
-                        <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                            <i class="fa fa-location-arrow"></i>
-                            <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
-                        </li>
-                    <?php } ?>
-                </ul>
+                <?php if ($config['social_sharing']) { ?>
+                    <div class="clearfix">
+                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
+                            <strong><?php _e('Share if you like'); ?></strong>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
+                            <?php echo $this->socialSharing(
+                                $config['social_sharing'],
+                                $title,
+                                $event['eventUrl'],
+                                $event['largeUrl']
+                            ); ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if (isset($relatedEvents) && !empty($relatedEvents)) { ?>
+                    <div class="event-related clearfix">
+                        <div class="page-header">
+                            <h2><?php _e('Related events'); ?></h2>
+                        </div>
+                        <ul class="list-unstyled">
+                            <?php foreach ($relatedEvents as $relatedEvent) { ?>
+                                <li itemscope itemtype="http://schema.org/Event">
+                                    <div class="eventList-time small">
+                                        <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
+                                            <span class="eventSingleTime dt-start">
+                                            <?php _e('From') ?> <?php echo $this->escape($relatedEvent['time_start_view']); ?>
+                                        </span>
+                                            <span class="eventSingleTime dt-end">
+                                            <?php _e('to') ?> <?php echo $this->escape($relatedEvent['time_end_view']); ?>
+                                        </span>
+                                        <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
+                                            <span class="eventSingleTime dt-start"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
+                                        <?php } ?>
+
+                                        <?php $summary = !empty($relatedEvent['text_summary']) ? $relatedEvent['text_summary'] : $relatedEvent['title']; ?>
+                                        <meta itemprop="description" content="<?php echo $this->escape($summary); ?>" />
+                                        <meta itemprop="image" content="<?php echo $this->escape($relatedEvent['locationInfo']['largeUrl']); ?>" />
+                                        <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
+                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
+                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
+                                        <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
+                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
+                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
+                                        <?php } ?>
+                                        <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+                                        <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
+                                            <span itemprop="name"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
+                                        </a>
+                                        <span itemprop="address" itemscope itemtype="http://schema.org/Text">
+                                            <meta content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
+                                        </span>
+                                    </span>
+                                    </div>
+                                    <div class="eventList-title">
+                                        <strong>
+                                            <a itemprop="url" title="<?php echo $this->escape($relatedEvent['title']); ?>"
+                                               href="<?php echo $this->escape($relatedEvent['eventUrl']); ?>">
+                                                <span itemprop="name"><?php echo $this->escape($relatedEvent['title']); ?></span>
+                                            </a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                <?php } ?>
             </div>
-            <?php if (!empty($event['guideItemInfo']['commercial'])) { ?>
-                <div class="event-item-related clearfix">
+        </div>
+
+        <?php if (!empty($event['guideItemInfo']['free'])) { ?>
+            <div class="row">
+                <div class="col-md-12 event-item-related clearfix">
                     <div class="page-header">
-                        <h2><?php _e('Nearby recommended professionals'); ?></h2>
+                        <h2><?php _e('Related items'); ?></h2>
                     </div>
                     <div class="thumbnails row">
-                        <?php foreach ($event['guideItemInfo']['commercial'] as $guideItemInfo) { ?>
-                            <div class="center-block event-item-box h-review col-sm-9 col-md-9">
+                        <?php foreach ($event['guideItemInfo']['free'] as $guideItemInfo) { ?>
+                            <div class="event-item-box h-review col-sm-4 col-md-3">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['image']) { ?>
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
@@ -252,114 +366,6 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                             </div>
                         <?php } ?>
                     </div>
-                </div>
-            <?php } ?>
-            <?php if ($config['social_sharing']) { ?>
-                <div class="clearfix">
-                    <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
-                        <strong><?php _e('Share if you like'); ?></strong>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
-                        <?php echo $this->socialSharing(
-                            $config['social_sharing'],
-                            $title,
-                            $event['eventUrl'],
-                            $event['largeUrl']
-                        ); ?>
-                    </div>
-                </div>
-            <?php } ?>
-            <?php if (isset($relatedEvents) && !empty($relatedEvents)) { ?>
-                <div class="event-related clearfix">
-                    <div class="page-header">
-                        <h2><?php _e('Related events'); ?></h2>
-                    </div>
-                    <ul class="list-unstyled">
-                        <?php foreach ($relatedEvents as $relatedEvent) { ?>
-                            <li itemscope itemtype="http://schema.org/Event">
-                                <div class="eventList-time small">
-                                    <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
-                                        <span class="eventSingleTime dt-start">
-                                            <?php _e('From') ?> <?php echo $this->escape($relatedEvent['time_start_view']); ?>
-                                        </span>
-                                        <span class="eventSingleTime dt-end">
-                                            <?php _e('to') ?> <?php echo $this->escape($relatedEvent['time_end_view']); ?>
-                                        </span>
-                                    <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
-                                        <span class="eventSingleTime dt-start"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
-                                    <?php } ?>
-
-                                    <?php $summary = !empty($relatedEvent['text_summary']) ? $relatedEvent['text_summary'] : $relatedEvent['title']; ?>
-                                    <meta itemprop="description" content="<?php echo $this->escape($summary); ?>" />
-                                    <meta itemprop="image" content="<?php echo $this->escape($relatedEvent['locationInfo']['largeUrl']); ?>" />
-                                    <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
-                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
-                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
-                                    <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
-                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
-                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
-                                    <?php } ?>
-                                    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
-                                        <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
-                                            <span itemprop="name"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
-                                        </a>
-                                        <span itemprop="address" itemscope itemtype="http://schema.org/Text">
-                                            <meta content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
-                                        </span>
-                                    </span>
-                                </div>
-                                <div class="eventList-title">
-                                    <strong>
-                                        <a itemprop="url" title="<?php echo $this->escape($relatedEvent['title']); ?>"
-                                           href="<?php echo $this->escape($relatedEvent['eventUrl']); ?>">
-                                            <span itemprop="name"><?php echo $this->escape($relatedEvent['title']); ?></span>
-                                        </a>
-                                    </strong>
-                                </div>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </div>
-            <?php } ?>
-        </div>
-        <?php if (!empty($event['guideItemInfo']['free'])) { ?>
-            <div class="col-md-12 event-item-related clearfix">
-                <div class="page-header">
-                    <h2><?php _e('Related items'); ?></h2>
-                </div>
-                <div class="thumbnails row">
-                    <?php foreach ($event['guideItemInfo']['free'] as $guideItemInfo) { ?>
-                        <div class="event-item-box h-review col-sm-4 col-md-3">
-                            <div class="thumbnail p-item h-card">
-                                <?php if ($guideItemInfo['image']) { ?>
-                                    <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
-                                       href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                        <img class="img-responsive u-photo"
-                                             src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
-                                             alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
-                                        <?php if ($guideItemInfo['ribbon']) { ?>
-                                            <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
-                                        <?php } ?>
-                                        <?php if (!empty($guideItemInfo['min_price'])) { ?>
-                                            <div class="item-price">
-                                                <ul class="list-unstyled">
-                                                    <li class="item-price-from"><?php _e('Min price from'); ?></li>
-                                                    <li class="item-price-price"><?php echo $this->escape($guideItemInfo['min_price_view']); ?></li>
-                                                    <li class="item-price-service"><?php echo $this->escape($guideItemInfo['main_service']); ?></li>
-                                                </ul>
-                                            </div>
-                                        <?php } ?>
-                                    </a>
-                                <?php } ?>
-                                <h3 class="p-name">
-                                    <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
-                                       href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                        <?php echo $this->escape($guideItemInfo['title']); ?>
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    <?php } ?>
                 </div>
             </div>
         <?php } ?>

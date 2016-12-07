@@ -267,6 +267,7 @@ class EventFilter extends InputFilter
                 ));
             }
         }
+
         // Seo options
         if ($option['side'] == 'admin') {
             // seo_title
