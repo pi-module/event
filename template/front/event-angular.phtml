@@ -1,13 +1,62 @@
 <?php
+
+// Load Match Height plugin
+$this->footScript()->appendFile($this->assetModule('js/jquery.matchHeight.js'));
+
 // Load angular custom js
 $script = <<<'EOT'
+
+$.fn.imagesLoaded = function () {
+
+    // get all the images (excluding those with no src attribute)
+    var $imgs = this.find('img[src!=""]');
+    // if there's no images, just return an already resolved promise
+    if (!$imgs.length) {return $.Deferred().resolve().promise();}
+
+    // for each image, add a deferred object to the array which resolves when the image is loaded (or if loading fails)
+    var dfds = [];  
+    $imgs.each(function(){
+
+        var dfd = $.Deferred();
+        dfds.push(dfd);
+        var img = new Image();
+        img.onload = function(){dfd.resolve();}
+        img.onerror = function(){dfd.resolve();}
+        img.src = this.src;
+
+    });
+
+    // return a master promise object which will resolve when all the deferred objects have resolved
+    // IE - when all the images are loaded
+    return $.when.apply($,dfds);
+}
+
 var app = angular.module('event', ['angularUtils.directives.dirPagination']);
+
+app.directive('postRender', function ($timeout) {
+  return {
+    controller: 'listdata',
+    link: function ($scope, element, attrs) {
+      $scope.$on('dataloaded', function () {
+        $timeout(function () { 
+            console.log('hit');
+          $('.event-list').imagesLoaded().then(function(){
+                $('.event-list .event-single .thumbnail').matchHeight();
+            });
+        }, 0, false);
+      })
+    }
+  };
+});
+
 app.controller('listdata',function($scope, $http){
     $scope.events = [];
     $('.ajax-spinner').show();
     $http.get("%s").success(function(response){
         $scope.events = response;
         $('.ajax-spinner').hide();
+        
+        $scope.$broadcast('dataloaded');
     });
     $scope.sortKey = "%s";
     $scope.reverse = true;
@@ -74,7 +123,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     <div class="ajax-spinner">
         <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader"/>
     </div>
-    <div class="col-sm-12 col-md-12">
+    <div class="col-sm-12 col-md-12" post-render>
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
             <?php if (!empty($config['image_homepage'])) { ?>
                 <div class="category-width-description">
