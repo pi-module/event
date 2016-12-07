@@ -35,8 +35,21 @@ class DetailController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+
         // Update Hits
-        Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+        if(!isset($_SESSION['hits_events'][$event['id']])){
+            if(!isset($_SESSION['hits_events'])){
+                $_SESSION['hits_events'] = array();
+            }
+
+            $_SESSION['hits_events'][$event['id']] = false;
+        }
+
+        if(!$_SESSION['hits_events'][$event['id']]){
+            Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+            $_SESSION['hits_events'][$event['id']] = true;
+        }
+
         // Set event topic
         $eventTopic = array();
         if (!empty($event['topic'])) {
