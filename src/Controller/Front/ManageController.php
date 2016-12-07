@@ -39,34 +39,28 @@ class ManageController extends ActionController
         // Check owner
         if (Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
-            $where = array('guide_owner' => $owner['id']);
-        } else {
-            $where = array('uid' => Pi::user()->getId());
-        }
-        // Get ids
-        $select = $this->getModel('extra')->select()->where($where);
-        $rowset = $this->getModel('extra')->selectWith($select);
-        $ids = array();
-        foreach ($rowset as $row) {
-            $ids[$row->id] = $row->id;
-        }
-        // Set info
-        $listEvent = array();
-        if (!empty($ids)) {
             $where = array(
-                'type' => 'event',
-                'id' => $ids,
+                'guide_owner' => $owner['id'],
             );
-            $order = array('time_publish DESC', 'id DESC');
-            // Get list of event
-            $listEvent = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'light', 'story');
+        } else {
+            $where = array(
+                'uid' => Pi::user()->getId(),
+            );
         }
+
+        $order = array('time_start DESC', 'id DESC');
+
+        // Get ids
+        $select = $this->getModel('extra')->select();
+        $select = $select->where($where)->order($order);
+        $rowset = $this->getModel('extra')->selectWith($select);
+
         // Set view
         $this->view()->setTemplate('manage-index');
-        $this->view()->assign('title', __('List of your events'));
+        $this->view()->assign('title', __('All your events'));
         $this->view()->assign('owner', $owner);
         $this->view()->assign('config', $config);
-        $this->view()->assign('events', $listEvent);
+        $this->view()->assign('events', $rowset);
         // Language
         __('Search');
     }
@@ -98,8 +92,10 @@ class ManageController extends ActionController
         }
         // Get user
         $uid = Pi::user()->getId();
+
         // Find event
         if ($id) {
+
             $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
             if ($event['image']) {
                 $option['thumbUrl'] = $event['thumbUrl'];
@@ -114,7 +110,11 @@ class ManageController extends ActionController
             return;
         }
         // Set title
-        $title = __('Add event');
+        if($id){
+            $title = __('Update event');
+        }else{
+            $title = __('Add event');
+        }
         // Check event guide owner
         if (Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
@@ -126,9 +126,11 @@ class ManageController extends ActionController
                 return;
             }
             // Check item
-            $item = Pi::api('item', 'guide')->getItemLight($item);
-            $option['item'] = $item['id'];
-            $title = sprintf(__('Add event to %s'), $item['title']);
+            if($item){
+                $item = Pi::api('item', 'guide')->getItemLight($item);
+                $option['item'] = $item['id'];
+                $title = sprintf(__('Add event to %s'), $item['title']);
+            }
         }
         // Set form
         $form = new EventForm('event', $option);
@@ -163,9 +165,16 @@ class ManageController extends ActionController
                 if (isset($owner) && isset($owner['id'])) {
                     $values['guide_owner'] = $owner['id'];
                 }
-                $values['guide_category'] = Json::encode($values['guide_category']);
-                $values['guide_location'] = Json::encode($values['guide_location']);
-                $values['guide_item'] = !empty($item) ? Json::encode(array($item['id'])) : Json::encode($values['guide_item']);
+                $values['guide_category'] = isset($values['guide_category']) ? Json::encode($values['guide_category']) : '';
+                $values['guide_location'] = isset($values['guide_location']) ? Json::encode($values['guide_location']) : '';
+
+                if(!empty($item)){
+                    $values['guide_item'] = Json::encode(array($item['id']));
+                }
+                else if(isset($values['guide_item'])){
+                    $values['guide_item'] = Json::encode($values['guide_item']);
+                }
+
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
                     $story = Pi::api('api', 'news')->editStory($values);
