@@ -33,17 +33,16 @@ $.fn.imagesLoaded = function () {
 
 var app = angular.module('event', ['angularUtils.directives.dirPagination']);
 
-app.directive('postRender', function ($timeout) {
+app.directive('onFinishRender', function ($timeout) {
   return {
-    controller: 'listdata',
-    link: function ($scope, element, attrs) {
-      $scope.$on('dataloaded', function () {
-        $timeout(function () { 
-          $('.event-list').imagesLoaded().then(function(){
-                $('.event-list .event-single .thumbnail').matchHeight();
+    restrict: 'A',
+    priority: Number.MIN_SAFE_INTEGER,
+    link: function ($scope, element, attr) {         
+//        if ($scope.$last === true) {
+            $timeout(function () {
+                $scope.$emit(attr.onFinishRender);
             });
-        }, 0, false);
-      })
+//        }
     }
   };
 });
@@ -54,8 +53,6 @@ app.controller('listdata',function($scope, $http){
     $http.get("%s").success(function(response){
         $scope.events = response;
         $('.ajax-spinner').hide();
-        
-        $scope.$broadcast('dataloaded');
     });
     $scope.sortKey = "%s";
     $scope.reverse = true;
@@ -63,6 +60,11 @@ app.controller('listdata',function($scope, $http){
         $scope.sortKey = keyname;
         $scope.reverse = !$scope.reverse;
     }
+    $scope.$on('dirPaginateFinished', function(dirPaginateFinishedEvent) {        
+        $('.event-list').imagesLoaded().then(function(){
+            $('.event-list .event-single .thumbnail').matchHeight();
+        });
+    });
 });
 EOT;
 $script = sprintf(
@@ -122,7 +124,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     <div class="ajax-spinner">
         <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader"/>
     </div>
-    <div class="col-sm-12 col-md-12" post-render>
+    <div class="col-sm-12 col-md-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
             <?php if (!empty($config['image_homepage'])) { ?>
                 <div class="category-width-description">
@@ -247,7 +249,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                 </div>
-                <div class="clearfix">
+                <div class="clearfix" post-render>
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
@@ -297,7 +299,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                             </div>
                         </div>
                     <?php } elseif (isset($config['view_list_type']) && $config['view_list_type'] == 'box') { ?>
-                        <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                        <div on-finish-render="dirPaginateFinished" dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                             <div class="thumbnail">
                                 <div class="event-single-image" ng-if="event.image">
