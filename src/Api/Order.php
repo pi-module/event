@@ -15,7 +15,6 @@ namespace Module\Event\Api;
 use Pi;
 use Pi\Application\Api\AbstractApi;
 use Zend\Db\Sql\Predicate\Expression;
-use Zend\Json\Json;
 use Zend\Math\Rand;
 
 /*
@@ -45,7 +44,7 @@ class Order extends AbstractApi
             }
             // Get event
             $event = Pi::api('event', 'event')->getEventSingle($order['module_item'], 'id', 'light');
-            $setting = Json::decode($event['setting'], true);
+            $setting = json_decode($event['setting'], true);
             // Update sales
             Pi::model('extra', $this->getModule())->update(
                 array('register_sales' => ($event['register_sales'] + $number)),
@@ -74,7 +73,7 @@ class Order extends AbstractApi
                 'code_public' => $code['public'],
                 'code_private' => $code['private'],
                 'status' => 1,
-                'extra' => Json::encode($setting['action']),
+                'extra' => json_encode($setting['action']),
             );
             $row = Pi::model('order', $this->getModule())->createRow();
             $row->assign($values);

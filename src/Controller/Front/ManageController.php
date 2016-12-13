@@ -17,7 +17,6 @@ use Pi\Filter;
 use Pi\Mvc\Controller\ActionController;
 use Module\Event\Form\EventForm;
 use Module\Event\Form\EventFilter;
-use Zend\Json\Json;
 
 class ManageController extends ActionController
 {
@@ -165,14 +164,14 @@ class ManageController extends ActionController
                 if (isset($owner) && isset($owner['id'])) {
                     $values['guide_owner'] = $owner['id'];
                 }
-                $values['guide_category'] = isset($values['guide_category']) ? Json::encode($values['guide_category']) : '';
-                $values['guide_location'] = isset($values['guide_location']) ? Json::encode($values['guide_location']) : '';
+                $values['guide_category'] = isset($values['guide_category']) ? json_encode($values['guide_category']) : '';
+                $values['guide_location'] = isset($values['guide_location']) ? json_encode($values['guide_location']) : '';
 
                 if(!empty($item)){
-                    $values['guide_item'] = Json::encode(array($item['id']));
+                    $values['guide_item'] = json_encode(array($item['id']));
                 }
                 else if(isset($values['guide_item'])){
-                    $values['guide_item'] = Json::encode($values['guide_item']);
+                    $values['guide_item'] = json_encode($values['guide_item']);
                 }
 
                 // Save values on news story table and event extra table
@@ -230,21 +229,21 @@ class ManageController extends ActionController
                     if ($config['use_guide_category'] && isset($values['guide_category']) && !empty($values['guide_category'])) {
                         $link['module']['guide']['controller']['category'] = array(
                             'name' => 'category',
-                            'topic' => Json::decode($values['guide_category'], true),
+                            'topic' => json_decode($values['guide_category'], true),
                         );
                     }
 
                     if ($config['use_guide_location'] && isset($values['guide_location']) && !empty($values['guide_location'])) {
                         $link['module']['guide']['controller']['location'] = array(
                             'name' => 'location',
-                            'topic' => Json::decode($values['guide_location'], true),
+                            'topic' => json_decode($values['guide_location'], true),
                         );
                     }
 
                     if (isset($values['guide_item']) && !empty($values['guide_item'])) {
                         $link['module']['guide']['controller']['item'] = array(
                             'name' => 'item',
-                            'topic' => Json::decode($values['guide_item'], true),
+                            'topic' => json_decode($values['guide_item'], true),
                         );
                     }
 

@@ -15,7 +15,6 @@ namespace Module\Event\Controller\Front;
 
 use Pi;
 use Pi\Mvc\Controller\ActionController;
-use Zend\Json\Json;
 use Zend\Db\Sql\Predicate\Expression;
 
 class JsonController extends IndexController

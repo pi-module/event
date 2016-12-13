@@ -17,7 +17,6 @@ use Pi\Filter;
 use Pi\Mvc\Controller\ActionController;
 use Module\Event\Form\SitemapForm;
 use Module\Event\Form\RegenerateImageForm;
-use Zend\Json\Json;
 
 class ToolsController extends ActionController
 {
@@ -50,9 +49,9 @@ class ToolsController extends ActionController
                     // Set id
                     $event['id'] = $story['id'];
                     // Set guide module info
-                    $event['guide_category'] = Json::encode(array($event['category']));
-                    $event['guide_location'] = Json::encode(array($event['location']));
-                    $event['guide_item'] = Json::encode(array($event['item']));
+                    $event['guide_category'] = json_encode(array($event['category']));
+                    $event['guide_location'] = json_encode(array($event['location']));
+                    $event['guide_item'] = json_encode(array($event['item']));
                     $event['guide_owner'] = $event['owner'];
                     // Set extra fields
                     $event['register_details'] = $event['registration_details'];
@@ -150,21 +149,21 @@ class ToolsController extends ActionController
                     if (isset($event['guide_category']) && !empty($event['guide_category'])) {
                         $link['module']['guide']['controller']['category'] = array(
                             'name' => 'category',
-                            'topic' => Json::decode($event['guide_category'], true),
+                            'topic' => json_decode($event['guide_category'], true),
                         );
                     }
 
                     if (isset($event['guide_location']) && !empty($event['guide_location'])) {
                         $link['module']['guide']['controller']['location'] = array(
                             'name' => 'location',
-                            'topic' => Json::decode($event['guide_location'], true),
+                            'topic' => json_decode($event['guide_location'], true),
                         );
                     }
 
                     if (isset($event['guide_item']) && !empty($event['guide_item'])) {
                         $link['module']['guide']['controller']['item'] = array(
                             'name' => 'item',
-                            'topic' => Json::decode($event['guide_item'], true),
+                            'topic' => json_decode($event['guide_item'], true),
                         );
                     }
                     if (isset($event['guide_owner']) && !empty($event['guide_owner'])) {

@@ -14,7 +14,6 @@ namespace Module\Event\Api;
 
 use Pi;
 use Pi\Application\Api\AbstractApi;
-use Zend\Json\Json;
 
 /*
  * Pi::api('event', 'event')->getEventSingle($parameter, $field, $type);
@@ -237,7 +236,7 @@ class Event extends AbstractApi
             $extra = $extra->toArray();
         }
         // Make register_discount
-        $extra['register_discount'] = json::decode($extra['register_discount'], true);
+        $extra['register_discount'] = json_decode($extra['register_discount'], true);
         // Set register_details
         $extra['register_details'] = Pi::service('markup')->render($extra['register_details'], 'html', 'html');
         // Set time
@@ -285,9 +284,9 @@ class Event extends AbstractApi
         $configSystem = Pi::service('registry')->config->read('system');
         $extra['price_currency'] = empty($configSystem['number_currency']) ? 'USD' : $configSystem['number_currency'];
         // canonize guide module details
-        $extra['guide_category'] = Json::decode($extra['guide_category'], true);
-        $extra['guide_location'] = Json::decode($extra['guide_location'], true);
-        $extra['guide_item'] = Json::decode($extra['guide_item'], true);
+        $extra['guide_category'] = json_decode($extra['guide_category'], true);
+        $extra['guide_location'] = json_decode($extra['guide_location'], true);
+        $extra['guide_item'] = json_decode($extra['guide_item'], true);
         // Set event url
         $extra['eventUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $this->getModule(),

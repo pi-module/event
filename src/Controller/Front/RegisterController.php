@@ -14,7 +14,6 @@ namespace Module\Event\Controller\Front;
 
 use Pi;
 use Pi\Mvc\Controller\ActionController;
-use Zend\Json\Json;
 
 class RegisterController extends ActionController
 {
@@ -85,7 +84,7 @@ class RegisterController extends ActionController
                     'vat_price' => 0,
                     'number' => $number,
                     'title' => $event['title'],
-                    'extra' => json::encode($extra),
+                    'extra' => json_encode($extra),
                 );
                 // Set order array
                 $order = array();

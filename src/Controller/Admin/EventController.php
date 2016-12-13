@@ -19,7 +19,6 @@ use Module\Event\Form\EventForm;
 use Module\Event\Form\EventFilter;
 use Module\News\Form\StorySearchForm;
 use Module\News\Form\StorySearchFilter;
-use Zend\Json\Json;
 
 class EventController extends ActionController
 {
@@ -144,9 +143,9 @@ class EventController extends ActionController
                 // Set type
                 $values['type'] = 'event';
                 // Set guide module info
-                $values['guide_category'] = Json::encode($values['guide_category']);
-                $values['guide_location'] = Json::encode($values['guide_location']);
-                $values['guide_item'] = Json::encode($values['guide_item']);
+                $values['guide_category'] = json_encode($values['guide_category']);
+                $values['guide_location'] = json_encode($values['guide_location']);
+                $values['guide_item'] = json_encode($values['guide_item']);
                 // Set register_discount
                 $discount = array();
                 if ($config['order_discount']) {
@@ -158,7 +157,7 @@ class EventController extends ActionController
                         $discount[$name] = $values[$name];
                     }
                 }
-                $values['register_discount'] = Json::encode($discount);
+                $values['register_discount'] = json_encode($discount);
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
                     $story = Pi::api('api', 'news')->editStory($values);
@@ -214,21 +213,21 @@ class EventController extends ActionController
                     if ($config['use_guide_category'] && isset($values['guide_category']) && !empty($values['guide_category'])) {
                         $link['module']['guide']['controller']['category'] = array(
                             'name' => 'category',
-                            'topic' => Json::decode($values['guide_category'], true),
+                            'topic' => json_decode($values['guide_category'], true),
                         );
                     }
 
                     if ($config['use_guide_location'] && isset($values['guide_location']) && !empty($values['guide_location'])) {
                         $link['module']['guide']['controller']['location'] = array(
                             'name' => 'location',
-                            'topic' => Json::decode($values['guide_location'], true),
+                            'topic' => json_decode($values['guide_location'], true),
                         );
                     }
 
                     if (isset($values['guide_item']) && !empty($values['guide_item'])) {
                         $link['module']['guide']['controller']['item'] = array(
                             'name' => 'item',
-                            'topic' => Json::decode($values['guide_item'], true),
+                            'topic' => json_decode($values['guide_item'], true),
                         );
                     }
 
