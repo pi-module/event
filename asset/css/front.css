@@ -111,6 +111,7 @@ a.item-ribbon:hover {
     -moz-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
+    z-index:1;
 }
 
 /* min price */
