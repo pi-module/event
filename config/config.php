@@ -110,7 +110,7 @@ return array(
                 ),
             ),
             'filter' => 'text',
-            'value' => 'event',
+            'value' => 'line',
             'category' => 'view',
         ),
         'view_perpage' => array(
