@@ -164,8 +164,13 @@ class ManageController extends ActionController
                 if (isset($owner) && isset($owner['id'])) {
                     $values['guide_owner'] = $owner['id'];
                 }
-                $values['guide_category'] = isset($values['guide_category']) ? json_encode($values['guide_category']) : '';
-                $values['guide_location'] = isset($values['guide_location']) ? json_encode($values['guide_location']) : '';
+                if(isset($values['guide_category'])){
+                    $values['guide_category'] = Json::encode($values['guide_category']);
+                }
+
+                if(isset($values['guide_location'])){
+                    $values['guide_location'] = Json::encode($values['guide_location']);
+                }
 
                 if(!empty($item)){
                     $values['guide_item'] = json_encode(array($item['id']));

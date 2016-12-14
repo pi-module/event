@@ -43,7 +43,7 @@
                                 <div class="text-nowrap">
                                     <?php if ($event['status'] == 1) { ?>
                                         <a class="btn btn-success btn-xs" title="<?php _e('View'); ?>"
-                                           href="<?php echo $this->escape($event['eventUrl']); ?>" target="_blank"><i
+                                           href="<?php echo $this->escape( Pi::url(Pi::service('url')->assemble('event', array('module' => 'event','controller' => 'index','slug' => $event['slug'])))); ?>" target="_blank"><i
                                                 class="fa fa-eye"></i> <?php _e('View'); ?></a>
                                     <?php } ?>
                                     <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
