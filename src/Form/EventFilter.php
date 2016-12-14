@@ -219,7 +219,7 @@ class EventFilter extends InputFilter
             ));
         }
         // order_discount
-        if ($option['order_active'] && $option['order_discount']) {
+        if (isset($option['order_active']) && $option['order_active'] && isset($option['order_discount']) && $option['order_discount']) {
             // Get role list
             $roles = Pi::service('registry')->Role->read('front');
             unset($roles['webmaster']);
