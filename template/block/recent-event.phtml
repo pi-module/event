@@ -79,6 +79,21 @@
             <div class="recent-event-list recent-event-list-horizontal row clearfix">
                 <?php foreach ($block['resources'] as $event) { ?>
                     <div class="recent-event-single clearfix h-event col-md-3" itemscope itemtype="http://schema.org/Event">
+                        <?php if ($block['show-time']) { ?>
+                            <div class="event-time clearfix">
+                                <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                                    <span><i class="fa fa-clock-o"></i> <strong><?php echo _b('From') ?></strong></span>
+                                    <span class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></span>
+                                    <span><strong><?php echo _b('to') ?></strong></span>
+                                    <span class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></span>
+                                    <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                    <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                                <?php } elseif (!empty($event['time_start'])) { ?>
+                                    <span class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></span>
+                                    <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
                         <?php if ($event['image']) { ?>
                             <div class="recent-event-single-image">
                                 <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
@@ -99,21 +114,6 @@
                                 </h3>
                             </div>
                             <div class="recent-event-single-information">
-                                <?php if ($block['show-time']) { ?>
-                                    <div class="event-time clearfix">
-                                        <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                            <span><i class="fa fa-clock-o"></i> <strong><?php echo _b('From') ?></strong></span>
-                                            <span class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></span>
-                                            <span><strong><?php echo _b('to') ?></strong></span>
-                                            <span class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></span>
-                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
-                                        <?php } elseif (!empty($event['time_start'])) { ?>
-                                            <span class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></span>
-                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                                        <?php } ?>
-                                    </div>
-                                <?php } ?>
                                 <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
                                     <div class="event-category clearfix">
                                         <span><i class="fa fa-folder"></i></span>
