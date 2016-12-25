@@ -99,8 +99,8 @@
                                 </h3>
                             </div>
                             <div class="recent-event-single-information">
-                                <div class="event-time clearfix">
-                                    <?php if ($block['show-time']) { ?>
+                                <?php if ($block['show-time']) { ?>
+                                    <div class="event-time clearfix">
                                         <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
                                             <span><i class="fa fa-clock-o"></i> <strong><?php echo _b('From') ?></strong></span>
                                             <span class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></span>
@@ -112,8 +112,8 @@
                                             <span class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></span>
                                             <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                                         <?php } ?>
-                                    <?php } ?>
-                                </div>
+                                    </div>
+                                <?php } ?>
                                 <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
                                     <div class="event-category clearfix">
                                         <span><i class="fa fa-folder"></i></span>
