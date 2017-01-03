@@ -202,8 +202,8 @@ class EventForm extends BaseForm
         if ($this->thumbUrl) {
             $this->add(array(
                 'name' => 'imageview',
-                'type' => 'Module\News\Form\Element\Image',
-                'options' => array(//'label' => __('Image'),
+                'type' => 'Module\Event\Form\Element\ImageCrop',
+                'options' => array('label' => __('Uploaded image'),
                 ),
                 'attributes' => array(
                     'src' => $this->thumbUrl,
@@ -236,7 +236,27 @@ class EventForm extends BaseForm
                     'description' => '',
                 )
             ));
+
+            $this->add(array(
+                'name' => 'imageview',
+                'type' => 'Module\Event\Form\Element\ImageCrop', // Zend\Form\Element\Image
+                'options' => array(
+                    'label' => __('Uploaded image'),
+                ),
+                'attributes' => array(
+                    'src' => ' ',
+                ),
+            ));
         }
+
+        $this->add(array(
+            'name' => 'cropping',
+            'type' => 'text',
+            'options' => array(
+                'label' => __('Cropping data'),
+            ),
+        ));
+
         // address
         $this->add(array(
             'name' => 'address',

@@ -97,6 +97,14 @@ class ManageController extends ActionController
 
             $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
             if ($event['image']) {
+
+                $event['thumbUrl'] = Pi::url(
+                    sprintf('upload/%s/original/%s/%s',
+                        'event/image',
+                        $event['path'],
+                        $event['image']
+                    ));
+
                 $option['thumbUrl'] = $event['thumbUrl'];
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
             }
@@ -145,9 +153,10 @@ class ManageController extends ActionController
             $form->setInputFilter(new EventFilter($option));
             $form->setData($data);
             if ($form->isValid()) {
+
                 $values = $form->getData();
                 // upload image
-                $image = Pi::api('api', 'news')->uploadImage($file, 'event-', 'event/image');
+                $image = Pi::api('api', 'news')->uploadImage($file, 'event-', 'event/image', $values['cropping']);
                 $values = array_merge($values, $image);
                 if (!isset($values['image'])) {
                     $values['image'] = '';
@@ -181,7 +190,7 @@ class ManageController extends ActionController
 
                 // Save values on news story table and event extra table
                 if (!empty($values['id'])) {
-                    $story = Pi::api('api', 'news')->editStory($values);
+                    $story = Pi::api('api', 'news')->editStory($values, true);
                     if (isset($story) && !empty($story)) {
                         $row = $this->getModel('extra')->find($story['id']);
                     } else {
@@ -190,7 +199,7 @@ class ManageController extends ActionController
                     }
                 } else {
                     $values['uid'] = Pi::user()->getId();
-                    $story = Pi::api('api', 'news')->addStory($values);
+                    $story = Pi::api('api', 'news')->addStory($values, true);
                     if (isset($story) && !empty($story)) {
                         $row = $this->getModel('extra')->createRow();
                         $values['id'] = $story['id'];
@@ -199,8 +208,10 @@ class ManageController extends ActionController
                         $this->jump(array('action' => 'index'), $message, 'error');
                     }
                 }
+
                 $row->assign($values);
                 $row->save();
+
                 // Check topic
                 if (!$config['use_news_topic']) {
                     $values['topic'] = array();

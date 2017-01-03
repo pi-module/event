@@ -474,7 +474,7 @@ class Event extends AbstractApi
     public function regenerateImage()
     {
         // Set info
-        $columns = array('id', 'image', 'path');
+        $columns = array('id', 'image', 'path', 'cropping');
         $where = array('type' => array(
             'event'
         ));
@@ -516,7 +516,7 @@ class Event extends AbstractApi
                         }
                     }
                     // regenerate
-                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image');
+                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image', $row->cropping);
                 }
             }
         }

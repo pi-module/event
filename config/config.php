@@ -24,6 +24,7 @@ return array(
             'title' => _a('Guide module'),
             'name' => 'guide'
         ),
+
         array(
             'title' => _a('View'),
             'name' => 'view'
@@ -153,6 +154,7 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
+
         'price_filter' => array(
             'category' => 'view',
             'title' => _a('Price filter'),
