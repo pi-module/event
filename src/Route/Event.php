@@ -68,10 +68,10 @@ class Event extends Standard
                                 $matches['item'] = intval($parts[3]);
                             }
                         } elseif (isset($parts[1]) && $parts[1] == 'remove'
-                            && isset($parts[2]) && is_numeric($parts[2])
+                            && isset($parts[3]) && is_numeric($parts[3])
                         ) {
                             $matches['action'] = 'remove';
-                            $matches['id'] = intval($parts[2]);
+                            $matches['id'] = intval($parts[3]);
                         } elseif (isset($parts[1]) && $parts[1] == 'order'
                             && isset($parts[2]) && is_numeric($parts[2])
                         ) {
