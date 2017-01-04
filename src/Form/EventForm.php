@@ -198,56 +198,28 @@ class EventForm extends BaseForm
                 )
             ));
         }
-        // Image
-        if ($this->thumbUrl) {
-            $this->add(array(
-                'name' => 'imageview',
-                'type' => 'Module\Event\Form\Element\ImageCrop',
-                'options' => array('label' => __('Uploaded image'),
-                ),
-                'attributes' => array(
-                    'src' => $this->thumbUrl,
-                ),
-            ));
-            $this->add(array(
-                'name' => 'remove',
-                'type' => 'Module\News\Form\Element\Remove',
-                'options' => array(
-                    'label' => __('Remove image'),
-                ),
-                'attributes' => array(
-                    'link' => $this->removeUrl,
-                ),
-            ));
-            $this->add(array(
-                'name' => 'image',
-                'attributes' => array(
-                    'type' => 'hidden',
-                ),
-            ));
-        } else {
-            $this->add(array(
-                'name' => 'image',
-                'options' => array(
-                    'label' => __('Image'),
-                ),
-                'attributes' => array(
-                    'type' => 'file',
-                    'description' => '',
-                )
-            ));
 
-            $this->add(array(
-                'name' => 'imageview',
-                'type' => 'Module\Event\Form\Element\ImageCrop', // Zend\Form\Element\Image
-                'options' => array(
-                    'label' => __('Uploaded image'),
-                ),
-                'attributes' => array(
-                    'src' => ' ',
-                ),
-            ));
-        }
+        $this->add(array(
+            'name' => 'image',
+            'options' => array(
+                'label' => __($this->thumbUrl ? "Change image" : "Image"),
+            ),
+            'attributes' => array(
+                'type' => 'file',
+                'description' => '',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'imageview',
+            'type' => 'Module\Event\Form\Element\ImageCrop', // Zend\Form\Element\Image
+            'options' => array(
+                'label' => __('Uploaded image'),
+            ),
+            'attributes' => array(
+                'src' => $this->thumbUrl ?: ' ',
+            ),
+        ));
 
         $this->add(array(
             'name' => 'cropping',
