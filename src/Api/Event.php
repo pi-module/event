@@ -485,7 +485,7 @@ class Event extends AbstractApi
             if (!empty($row->image) && !empty($row->path)) {
                 // Set image original path
                 $original = Pi::path(
-                    sprintf('upload/event/image/large/%s/%s',
+                    sprintf('upload/event/image/original/%s/%s',
                         $row->path,
                         $row->image
                     ));
