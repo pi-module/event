@@ -51,6 +51,8 @@
         var minCropWidth = minCropRealWidth * targetElementWidth / targetElement.naturalWidth;
         var minCropHeight = minCropRealHeight * targetElementHeight / targetElement.naturalHeight;
 
+        console.log('MIN CROP : ' + minCropWidth + '*' + minCropHeight);
+
         cropper = new Cropper(targetElement, {
             aspectRatio: 3 / 2,
             viewMode: 1,
@@ -64,14 +66,13 @@
             toggleDragModeOnDblclick: false
         });
 
-        document.cropper = cropper;
         return cropper;
     }
 
     function updateCropValue(cropper, croppingInputElement, triggerchange){
         var cropData = JSON.stringify(cropper.getData(true));
         croppingInputElement.val(cropData);
-        console.log('CROP : ' + cropData);
+        console.log('CROP VALUE : ' + cropData);
 
         if(triggerchange){
             croppingInputElement.change();
@@ -79,87 +80,83 @@
     }
 
     function parseCrop(){
-        var imageViewCollection = $('.imageview').not('.cropped');
+        if(isCropEnabled){
+            var formgroupPreview = $('.form-group[data-name="imageview"]');
 
-        imageViewCollection.each(function(){
+            $('.imageview').each(function(){
 
-            $(this).load(function() {
+
                 var imageView = $(this);
-                var formgroupPreview = $('.form-group[data-name="imageview"]');
-                var cropper = null;
                 var currentSrc = imageView.attr('src').trim();
-                var croppingInputElement = $('input[name="'+ imageView.data('rel') +'"]');
-
-                imageView.addClass('cropped');
-
-                if(croppingInputElement.hasClass('ajaxUpdate')){
-                    croppingInputElement.on('change', function(){
-                        var croppingValue = $(this).val();
-                        var idValue = $(this).data('id');
-                        var urlUpdate = ajaxCroppingUpdateUrl;
-
-                        urlUpdate = urlUpdate.replace('ID_VALUE', idValue);
-                        urlUpdate = urlUpdate.replace('CROPPING_VALUE', encodeURI(croppingValue));
-
-                        $.get(urlUpdate, function( data ) {
-                            console.log(urlUpdate)
-                        });
-
-                    });
-                }
 
                 if(imageView.prop("tagName") == 'INPUT' && imageView.attr('type') == 'image'){
                     var id = imageView.attr('id');
-                    imageView.replaceWith('<div><img id="' + id + '" class="imageview img-thumbnail cropped item-img" data-rel="' + imageView.data('rel') + '" style="max-width:100%;" src="'+currentSrc+'"></div>');
-                    imageView = $('#' + id);
+                    imageView.replaceWith('<div><img id="' + id + '" class="imageview img-thumbnail item-img" data-rel="' + imageView.data('rel') + '" style="max-width:100%;" src="'+currentSrc+'"></div>');
                 }
+            });
 
-                $( "#book" ).load(function() {
-                    // Handler for .load() called.
-                });
+            $('input[name="image"]').change(function(){
+                var reader  = new FileReader();
+
+                $('input[name="cropping"]').val('').change();
+
+                reader.addEventListener("load", function () {
+                    $('#imageview_0').attr('src', reader.result);
+                }, false);
+
+                var file = $(this).prop('files')[0];
+
+                if (file) {
+                    formgroupPreview.show();
+                    reader.readAsDataURL(file);
+                }
+            });
 
 
+            var imageViewCollection = $('.imageview').not('.cropped');
 
+            imageViewCollection.each(function(){
+                var imageView = $(this);
+                var currentSrc = imageView.attr('src').trim();
+
+                imageView.addClass('cropped');
+                imageView.parent().width(imageView.parent().parent().width());
 
                 if(!currentSrc){
                     formgroupPreview.hide();
                 }
 
-                if(isCropEnabled){
-                    if(currentSrc){
-                        imageView.parent().width(imageView.outerWidth());
-                        cropper = initCrop(imageView, croppingInputElement);
+                $(this).load(function() {
+                    var imageView = $(this);
+                    var cropper = imageView.data('cropper');
+                    var currentSrc = imageView.attr('src').trim();
+                    var croppingInputElement = $('input[name="'+ imageView.data('rel') +'"]');
+
+
+                    if (typeof cropper != 'undefined') {
+                        cropper.destroy();
                     }
 
-                    $('input[name="image"]').change(function(){
-                        var reader  = new FileReader();
+                    if(croppingInputElement.hasClass('ajaxUpdate')){
+                        croppingInputElement.on('change', function(){
+                            var croppingValue = $(this).val();
+                            var idValue = $(this).data('id');
+                            var urlUpdate = ajaxCroppingUpdateUrl;
 
-                        croppingInputElement.val('').change();
+                            urlUpdate = urlUpdate.replace('ID_VALUE', idValue);
+                            urlUpdate = urlUpdate.replace('CROPPING_VALUE', encodeURI(croppingValue));
 
-                        reader.addEventListener("load", function () {
-                            if (cropper != null) {
-                                cropper.replace(reader.result);
-                            } else {
-                                imageView.attr('src', reader.result);
-                                imageView.parent().width(imageView.outerWidth());
+                            $.get(urlUpdate, function( data ) {
+                                console.log(urlUpdate)
+                            });
+                        });
+                    }
 
-                                cropper = initCrop(imageView, croppingInputElement);
-                            }
-                        }, false);
-
-                        var file = $(this).prop('files')[0];
-
-                        if (file) {
-                            formgroupPreview.show();
-                            reader.readAsDataURL(file);
-                        }
-                    });
-                }
+                    if(currentSrc) {
+                        imageView.data('cropper', initCrop(imageView, croppingInputElement));
+                    }
+                });
             });
-
-            if($(this).outerWidth()){
-                $(this).load();
-            }
-        });
+        }
     }
 </script>
