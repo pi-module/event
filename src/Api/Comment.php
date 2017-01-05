@@ -44,7 +44,7 @@ class Comment extends AbstractComment
                 'title' => $event[$id]['title'],
                 'url' => $event[$id]['eventUrl'],
                 'uid' => $event[$id]['uid'],
-//                'time' => $event[$id]['time_create'],
+                'time' => $event[$id]['time_start'],
             );
         }
 
