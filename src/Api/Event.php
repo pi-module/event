@@ -71,7 +71,9 @@ class Event extends AbstractApi
             }
             // Join extra information to event
             foreach ($listStory as $event) {
-                $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                if(isset($listExtra[$event['id']]) && is_array($listExtra[$event['id']])){
+                    $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                }
             }
         }
         return $listEvent;
