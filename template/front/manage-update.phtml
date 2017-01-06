@@ -7,6 +7,16 @@ $this->jQuery();
 $this->backbone();
 $this->js($this->assetModule('script/system-msg.js', 'system'));
 ?>
+
+<?php $currentFlashMessages = $this->flashMessenger()->renderCurrent(); ?>
+<?php if(trim($currentFlashMessages)) : ?>
+    <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <div><?php echo $currentFlashMessages; ?></div>
+    </div>
+    <?php $this->flashMessenger()->clearMessages() ?>
+<?php endif; ?>
+
 <div id="event-form" class="clearfix">
     <div class="guide-manage clearfix">
         <div class="col-md-3">
@@ -19,6 +29,12 @@ $this->js($this->assetModule('script/system-msg.js', 'system'));
             </div>
             <div id="event-form">
                 <?php echo $this->form($form); ?>
+                <?php include $this->template('front/partial/crop'); ?>
+                <script>
+                    jQuery(document).ready(function(){
+                        parseCrop();
+                    });
+                </script>
             </div>
         </div>
     </div>

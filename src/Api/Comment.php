@@ -36,13 +36,15 @@ class Comment extends AbstractComment
         // Set options
         $event = Pi::api('event', 'event')->getListFromId($items);
 
+
+
         foreach ($items as $id) {
             $result[$id] = array(
                 'id' => $event[$id]['id'],
                 'title' => $event[$id]['title'],
                 'url' => $event[$id]['eventUrl'],
                 'uid' => $event[$id]['uid'],
-                'time' => $event[$id]['time_create'],
+                'time' => $event[$id]['time_start'],
             );
         }
 

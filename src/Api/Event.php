@@ -71,7 +71,9 @@ class Event extends AbstractApi
             }
             // Join extra information to event
             foreach ($listStory as $event) {
-                $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                if(isset($listExtra[$event['id']]) && is_array($listExtra[$event['id']])){
+                    $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                }
             }
         }
         return $listEvent;
@@ -474,7 +476,7 @@ class Event extends AbstractApi
     public function regenerateImage()
     {
         // Set info
-        $columns = array('id', 'image', 'path');
+        $columns = array('id', 'image', 'path', 'cropping');
         $where = array('type' => array(
             'event'
         ));
@@ -485,7 +487,7 @@ class Event extends AbstractApi
             if (!empty($row->image) && !empty($row->path)) {
                 // Set image original path
                 $original = Pi::path(
-                    sprintf('upload/event/image/large/%s/%s',
+                    sprintf('upload/event/image/original/%s/%s',
                         $row->path,
                         $row->image
                     ));
@@ -516,7 +518,7 @@ class Event extends AbstractApi
                         }
                     }
                     // regenerate
-                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image');
+                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image', $row->cropping);
                 }
             }
         }

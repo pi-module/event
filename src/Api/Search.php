@@ -66,7 +66,7 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected function buildUrl(array $item)
+    protected function buildUrl(array $item, $table = '')
     {
         $link = Pi::url(Pi::service('url')->assemble('event', array(
             'module' => $this->getModule(),
@@ -80,7 +80,7 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected function buildImage(array $item)
+    protected function buildImage(array $item, $table = '')
     {
         $image = '';
         if (isset($item['image']) && !empty($item['image'])) {
