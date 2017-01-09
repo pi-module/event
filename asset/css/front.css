@@ -77,7 +77,7 @@
 .item-ribbon {
     position: relative;
     color: #434443;
-    display: inline-block;
+    display: block;
     padding: 0;
     overflow: hidden;
     font-weight: 700;
