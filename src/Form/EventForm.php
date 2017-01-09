@@ -343,7 +343,7 @@ class EventForm extends BaseForm
         }
 
         // order_discount
-        if ($this->option['order_active'] && $this->option['order_discount']) {
+        if ($this->option['order_active'] && isset($this->option['order_discount']) && $this->option['order_discount']) {
             // extra_product
             $this->add(array(
                 'name' => 'extra_discount',
