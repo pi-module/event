@@ -120,6 +120,7 @@
                 var currentSrc = imageView.attr('src').trim();
 
                 imageView.addClass('cropped');
+                imageView.parent().parent().removeClass('col-sm-5').addClass('col-sm-9').next().remove();
                 imageView.parent().width(imageView.parent().parent().width());
 
                 if(!currentSrc){
