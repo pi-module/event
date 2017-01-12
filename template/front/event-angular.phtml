@@ -1,8 +1,5 @@
 <?php
 
-// Load Match Height plugin
-$this->footScript()->appendFile($this->assetModule('js/jquery.matchHeight-min.js'));
-
 // Load angular custom js
 $script = <<<'EOT'
 
@@ -62,7 +59,7 @@ app.controller('listdata',function($scope, $http){
     }
     $scope.$on('dirPaginateFinished', function(dirPaginateFinishedEvent) {        
         $('.event-list').imagesLoaded().then(function(){
-            $('.event-list .event-single .thumbnail').matchHeight();
+            // Callback in the future
         });
     });
 });
@@ -249,7 +246,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                 </div>
-                <div class="clearfix" post-render>
+                <div class="clearfix match-height-list" post-render>
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
@@ -300,7 +297,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         </div>
                     <?php } elseif (isset($config['view_list_type']) && $config['view_list_type'] == 'box') { ?>
                         <div on-finish-render="dirPaginateFinished" dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
-                             class="col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                             class="col-xs-12 col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                             <div class="thumbnail">
                                 <div class="event-single-image" ng-if="event.image">
                                     <div class="text-center">
