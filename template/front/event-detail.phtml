@@ -49,6 +49,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
     $this->headMeta('summary_large_image', 'twitter:card');
     $this->headMeta($this->escape($event['largeUrl']), 'twitter:image');
 }
+
+$this->sticky();
 ?>
 <div class="clearfix h-event single-event" itemscope itemtype="http://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
@@ -85,7 +87,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
         </ul>
     </div>
     <div class="clearfix ">
-        <div class="stickyContainer row">
+        <div class="row" id="sticky-container">
             <div class="col-md-8 event-single-main">
                 <?php if (!empty($event['text_summary'])) { ?>
                     <div class="clearfix event-single-main-box p-summary" itemprop="description">
@@ -104,8 +106,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     </div>
                 <?php } ?>
             </div>
-            <div class="col-md-4 event-single-sidebar rightSidebar">
-                <?php include $this->template('front/partial/sticky'); ?>
+            <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
                 <div class="event-image-main clearfix u-photo gallery">
                     <a href="<?php echo $this->escape($event['largeUrl']); ?>"
                        title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
