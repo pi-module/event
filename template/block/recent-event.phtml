@@ -8,7 +8,7 @@
             <?php foreach ($block['resources'] as $event) { ?>
                 <div class="recent-event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 eventImage">
                             <?php if ($event['image']) { ?>
                                 <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                    href="<?php echo $this->escape($event['eventUrl']); ?>">
@@ -157,13 +157,13 @@
                 <?php } ?>
             </div>
         <?php } ?>
+        </div>
         <?php if ($block['show-morelink']) { ?>
             <div class="recent-event-more clearfix">
                 <a class="pull-right" title="<?php echo _b('More events'); ?>"
                    href="<?php echo $this->escape($block['morelink']); ?>"><?php echo _b('More events'); ?></a>
             </div>
         <?php } ?>
-        </div>
     <?php } else { ?>
         <p><?php echo _b('No event actually or to come') ?></p>
     <?php } ?>

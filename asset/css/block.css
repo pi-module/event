@@ -6,9 +6,17 @@
 
 .recent-event-single h3 {
     padding: 1px;
-    margin: 1px;
+    margin-top: 0px;
 }
 
 .recent-event-single img {
     padding-top: 2px;
+}
+
+.event-block .eventImage{
+    padding-right:0;
+}
+
+.event-block .recent-event-more {
+    margin-top: 10px;
 }
