@@ -246,7 +246,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                 </div>
-                <div class="clearfix match-height-list" post-render>
+                <div class="clearfix <?php echo (isset($config['view_list_type']) && $config['view_list_type'] == 'box') ? 'match-height-list' : '' ?>" post-render>
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
