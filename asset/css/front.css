@@ -199,3 +199,13 @@ a.item-ribbon:hover {
 .table.table-striped .btn-success.btn-xs {
     padding: 1px 5px;
 }
+
+.itemUnderHead{
+    margin-bottom:20px;
+}
+
+.itemUnderHead:after{
+    content:'';
+    display:block;
+    clear:both;
+}
