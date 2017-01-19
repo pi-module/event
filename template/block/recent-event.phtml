@@ -35,11 +35,8 @@
                                             <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
                                             <li><strong><?php echo _b('to') ?></strong></li>
                                             <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
-                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
                                         <?php } elseif (!empty($event['time_start'])) { ?>
                                             <li class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
-                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                                         <?php } ?>
                                     <?php } ?>
                                     <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
@@ -55,12 +52,25 @@
                                         <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                                             <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
                                         </li>
-                                        <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                                     <?php } ?>
                                     <?php if ($block['show-hits']) { ?>
                                         <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($event['hits'])); ?></li>
                                     <?php } ?>
                                 </ul>
+
+                                <?php /** META ITEMPROPS */ ?>
+                                <?php if ($block['show-time']) { ?>
+                                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                                    <?php } elseif (!empty($event['time_start'])) { ?>
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                    <?php } ?>
+                                <?php } ?>
+                                <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
+                                    <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                                <?php } ?>
+
                             </div>
                             <?php if (!empty($event['text_summary']) && $block['show-summary']) { ?>
                                 <div class="col-md-12 clearfix">
