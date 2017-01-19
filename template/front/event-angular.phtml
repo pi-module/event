@@ -251,7 +251,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                             <div class="row">
-                                <div class="col-md-3 event-single-image" ng-if="event.image">
+                                <div class="col-xs-3 event-single-image" ng-if="event.image">
                                     <div class="text-center">
                                         <a itemprop="url" title="{{event.title}}"
                                            href="{{event.eventUrl}}">
@@ -261,7 +261,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-md-9 event-single-body">
+                                <div class="col-xs-9 event-single-body">
                                     <div class="p-name clearfix" itemprop="name">
                                         <h2 class="event-single-title">
                                             <a itemprop="url" title="{{event.title}}"

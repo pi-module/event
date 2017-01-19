@@ -43,7 +43,7 @@ class JsonController extends IndexController
         $events = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'full', 'story');
         $listEvent = array();
         foreach ($events as $event) {
-            $listEvent[] = Pi::api('event', 'event')->canonizeEventJson($event, $time);
+            $listEvent[] = Pi::api('event', 'event')->canonizeEventJson($event, $time, true);
         }
         // Set view
         return $listEvent;
