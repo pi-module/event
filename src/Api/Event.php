@@ -331,7 +331,7 @@ class Event extends AbstractApi
         return $extra;
     }
 
-    public function canonizeEventJson($event, $time)
+    public function canonizeEventJson($event, $time, $largeThumb = false)
     {
         // Get config
         if(!isset($this->config)){
@@ -433,7 +433,7 @@ class Event extends AbstractApi
             'id' => $event['id'],
             'title' => $event['title'],
             'image' => $event['image'],
-            'thumbUrl' => $event['thumbUrl'],
+            'thumbUrl' => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
             'eventUrl' => $event['eventUrl'],
             'subtitle' => $event['subtitle'],
             'register_price' => $event['register_price'],
