@@ -169,16 +169,21 @@ $this->sticky();
                             <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
                             <li><?php _e('to') ?></li>
                             <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
                         <?php } elseif (!empty($event['time_start'])) { ?>
                             <li class="event-single-time dt-start">
                                 <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
                             </li>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                         <?php } ?>
                     </ul>
+
+                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                    <?php } elseif (!empty($event['time_start'])) { ?>
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                    <?php } ?>
+
                     <?php if (!empty($event['guideLocationInfo'])) { ?>
                         <ul class="list-inline">
                             <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
@@ -187,9 +192,7 @@ $this->sticky();
                                     <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
                                         <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
                                     </a>
-                                    <span itemprop="address" itemscope itemtype="http://schema.org/Text">
-                                    <meta content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
-                                </span>
+                                    <meta itemprop="address" itemscope itemtype="http://schema.org/Text" content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
                                 </li>
                             <?php } ?>
                         </ul>
@@ -306,9 +309,7 @@ $this->sticky();
                                         <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
                                             <span itemprop="name"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
                                         </a>
-                                        <span itemprop="address" itemscope itemtype="http://schema.org/Text">
-                                            <meta content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
-                                        </span>
+                                        <meta itemprop="address" itemscope itemtype="http://schema.org/Text" content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
                                     </span>
                                     </div>
                                     <div class="eventList-title">
