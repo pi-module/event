@@ -233,3 +233,13 @@ a.item-ribbon:hover {
         left: 0; top: 0;
     }
 }
+
+.wide-header-content .category-width-description-wrapper,
+.wide-header-content .guide-width-description-wrapper{
+    position:relative;
+}
+
+.wide-header-content .category-width-description-wrapper .guide-width-description,
+.wide-header-content .guide-width-description-wrapper .guide-width-description{
+    margin-right:15px;
+}
