@@ -233,3 +233,10 @@ a.item-ribbon:hover {
         left: 0; top: 0;
     }
 }
+
+@media (min-width: 1200px) {
+    #pi-event.userSection .container {
+        max-width: 1600px;
+        width: auto;
+    }
+}
