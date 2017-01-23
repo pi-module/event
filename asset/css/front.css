@@ -243,3 +243,10 @@ a.item-ribbon:hover {
 .wide-header-content .guide-width-description-wrapper .guide-width-description{
     margin-right:15px;
 }
+
+@media (min-width: 1200px) {
+    #pi-event.userSection .container {
+        max-width: 1600px;
+        width: auto;
+    }
+}
