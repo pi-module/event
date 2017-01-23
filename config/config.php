@@ -98,6 +98,15 @@ return array(
             'category' => 'guide',
         ),
         // View
+        'wide_content' => array(
+            'category' => 'view',
+            'title' => _a('Active wide front image for this module'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 0
+        ),
+
         'view_list_type' => array(
             'title' => _a('Event list type'),
             'description' => '',
