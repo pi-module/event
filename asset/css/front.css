@@ -247,7 +247,7 @@ a.item-ribbon:hover {
 
 @media (min-width: 1200px) {
     #pi-event.userSection .container {
-        max-width: 1600px;
+        max-width: none;
         width: auto;
     }
 }
