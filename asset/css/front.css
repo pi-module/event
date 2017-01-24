@@ -239,6 +239,7 @@ a.item-ribbon:hover {
     position:relative;
 }
 
+.wide-header-content .guide-width-description-wrapper .category-width-description,
 .wide-header-content .category-width-description-wrapper .guide-width-description,
 .wide-header-content .guide-width-description-wrapper .guide-width-description{
     margin-right:15px;
