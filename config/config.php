@@ -98,6 +98,33 @@ return array(
             'category' => 'guide',
         ),
         // View
+        'text_summary_index' => array(
+            'category' => 'view',
+            'title' => _a('Summary for index page'),
+            'description' => '',
+            'edit' => 'textarea',
+            'filter' => 'string',
+            'value' => ''
+        ),
+
+        'text_description_index' => array(
+            'category' => 'view',
+            'title' => _a('Description for index page'),
+            'description' => '',
+            'edit' => 'textarea',
+            'filter' => 'string',
+            'value' => ''
+        ),
+
+        'wide_content' => array(
+            'category' => 'view',
+            'title' => _a('Active wide front image for this module'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 0
+        ),
+
         'view_list_type' => array(
             'title' => _a('Event list type'),
             'description' => '',
@@ -217,15 +244,6 @@ return array(
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
-        ),
-        // head_meta
-        'text_description_index' => array(
-            'category' => 'head_meta',
-            'title' => _a('Description for index page'),
-            'description' => '',
-            'edit' => 'textarea',
-            'filter' => 'string',
-            'value' => ''
         ),
     ),
 );

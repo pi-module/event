@@ -124,22 +124,20 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     <div class="col-sm-12 col-md-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
             <?php if (!empty($config['image_homepage'])) { ?>
-                <div class="category-width-description">
-                    <h1 class="p-name"><?php echo $this->escape($title); ?></h1>
-                    <?php if (!empty($config['text_description_index'])) { ?>
-                        <div class="clearfix"><?php echo $config['text_description_index']; ?></div>
-                    <?php } ?>
-                </div>
-                <div class="category-width-image">
-                    <img class="img-responsive" src="<?php echo $config['image_homepage']; ?>"
-                         alt="<?php echo $this->escape($title); ?>">
-                </div>
+
+                <?php
+                    ob_start();
+                    include('partial/category-wide-header.phtml');
+                    $wideContent = ob_get_clean();
+                    echo $this->wideContent($wideContent, $module);
+                ?>
+
             <?php } else { ?>
                 <div class="page-header">
                     <h1 class="p-name"><?php echo $this->escape($title); ?></h1>
                 </div>
-                <?php if (!empty($config['text_description_index'])) { ?>
-                    <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
+                <?php if (!empty($config['text_summary_index'])) { ?>
+                    <div class="clearfix well"><?php echo $config['text_summary_index']; ?></div>
                 <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
@@ -225,6 +223,14 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                     </div>
                 <?php } ?>
             </form>
+        </div>
+
+        <div class="clearfix">
+            <div class="well small">
+                <?php if (!empty($config['text_description_index'])) { ?>
+                    <?php echo $config['text_description_index']; ?>
+                <?php } ?>
+            </div>
         </div>
     </div>
     <div class="col-sm-12 col-md-9" data-ng-controller="listdata">
