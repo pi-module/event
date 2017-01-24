@@ -245,9 +245,7 @@ a.item-ribbon:hover {
     margin-right:15px;
 }
 
-@media (min-width: 1200px) {
-    #pi-event.userSection .container {
-        max-width: none;
-        width: auto;
-    }
+#pi-event.userSection .container {
+    max-width: none;
+    width: auto;
 }
