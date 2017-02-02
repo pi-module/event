@@ -20,7 +20,10 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected $table = 'story';
+    protected $table = array(
+        'story',
+        'topic',
+    );
 
     /**
      * {@inheritDoc}
@@ -35,44 +38,54 @@ class Search extends AbstractSearch
      * {@inheritDoc}
      */
     protected $meta = array(
-        'id' => 'id',
-        'title' => 'title',
-        'text_summary' => 'content',
-        'time_create' => 'time',
-        'uid' => 'uid',
-        'slug' => 'slug',
-        'image' => 'image',
-        'path' => 'path',
+        'id'            => 'id',
+        'title'         => 'title',
+        'text_summary'  => 'content',
+        'time_create'   => 'time',
+        'slug'          => 'slug',
+        'image'         => 'image',
+        'path'          => 'path',
     );
 
     /**
      * {@inheritDoc}
      */
     protected $condition = array(
-        'status' => 1,
-        'type' => 'event',
+        'status'  => 1,
+        'type'    => 'event',
     );
 
     /**
      * {@inheritDoc}
      */
-    protected function getModel()
+    protected function getModel($table)
     {
-        $model = Pi::model('story', 'news');
-
+        $model = Pi::model($table, 'news');
         return $model;
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function buildUrl(array $item)
+    protected function buildUrl(array $item, $table = '')
     {
-        $link = Pi::url(Pi::service('url')->assemble('event', array(
-            'module' => $this->getModule(),
-            'controller' => 'detail',
-            'slug' => $item['slug'],
-        )));
+        switch ($table) {
+            case 'story':
+                $link = Pi::url(Pi::service('url')->assemble('event', array(
+                    'module'      => $this->getModule(),
+                    'controller'  => 'detail',
+                    'slug'        => $item['slug'],
+                )));
+                break;
+
+            case 'topic':
+                $link = Pi::url(Pi::service('url')->assemble('event', array(
+                    'module'      => $this->getModule(),
+                    'controller'  => 'category',
+                    'slug'        => $item['slug'],
+                )));
+                break;
+        }
 
         return $link;
     }
@@ -80,7 +93,7 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected function buildImage(array $item)
+    protected function buildImage(array $item, $table = '')
     {
         $image = '';
         if (isset($item['image']) && !empty($item['image'])) {
