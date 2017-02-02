@@ -77,7 +77,7 @@
 .item-ribbon {
     position: relative;
     color: #434443;
-    display: inline-block;
+    display: block;
     padding: 0;
     overflow: hidden;
     font-weight: 700;
@@ -198,4 +198,54 @@ a.item-ribbon:hover {
 .table.table-striped .btn-success.btn-xs:focus,
 .table.table-striped .btn-success.btn-xs {
     padding: 1px 5px;
+}
+
+.itemUnderHead{
+    margin-bottom:20px;
+}
+
+.itemUnderHead:after{
+    content:'';
+    display:block;
+    clear:both;
+}
+
+@media screen and (max-width: 991px) {
+    .col-xs-3.event-single-image{
+        padding-right:0;
+    }
+
+    .event-single-main-box iframe{
+        max-width:100%;
+    }
+
+    .event-single-main-box .iframe-wrapper {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 51%;
+    }
+
+    .event-single-main-box .iframe-wrapper iframe {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0; top: 0;
+    }
+}
+
+.wide-header-content .category-width-description-wrapper,
+.wide-header-content .guide-width-description-wrapper{
+    position:relative;
+}
+
+.wide-header-content .guide-width-description-wrapper .category-width-description,
+.wide-header-content .category-width-description-wrapper .guide-width-description,
+.wide-header-content .guide-width-description-wrapper .guide-width-description{
+    margin-right:15px;
+}
+
+#pi-event.userSection .container {
+    max-width: none;
+    width: auto;
 }

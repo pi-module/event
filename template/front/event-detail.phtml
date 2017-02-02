@@ -49,6 +49,8 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
     $this->headMeta('summary_large_image', 'twitter:card');
     $this->headMeta($this->escape($event['largeUrl']), 'twitter:image');
 }
+
+$this->sticky();
 ?>
 <div class="clearfix h-event single-event" itemscope itemtype="http://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
@@ -57,7 +59,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
             <?php echo $this->escape($event['title']); ?>
         </h1>
     </div>
-    <div class="clearfix small">
+    <div class="clearfix small itemUnderHead">
         <ul class="text-muted list-inline text-right pull-right">
             <li><i class="fa fa-calendar"></i> <?php echo $this->escape($event['time_update_view']); ?></li>
             <li><i class="fa fa-eye"></i> <?php echo _number($this->escape($event['hits'])); ?></li>
@@ -85,7 +87,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
         </ul>
     </div>
     <div class="clearfix ">
-        <div class="stickyContainer row">
+        <div class="row" id="sticky-container">
             <div class="col-md-8 event-single-main">
                 <?php if (!empty($event['text_summary'])) { ?>
                     <div class="clearfix event-single-main-box p-summary" itemprop="description">
@@ -104,8 +106,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                     </div>
                 <?php } ?>
             </div>
-            <div class="col-md-4 event-single-sidebar rightSidebar">
-                <?php include $this->template('front/partial/sticky'); ?>
+            <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
                 <div class="event-image-main clearfix u-photo gallery">
                     <a href="<?php echo $this->escape($event['largeUrl']); ?>"
                        title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
@@ -168,16 +169,21 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                             <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
                             <li><?php _e('to') ?></li>
                             <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
                         <?php } elseif (!empty($event['time_start'])) { ?>
                             <li class="event-single-time dt-start">
                                 <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
                             </li>
-                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                         <?php } ?>
                     </ul>
+
+                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                    <?php } elseif (!empty($event['time_start'])) { ?>
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                    <?php } ?>
+
                     <?php if (!empty($event['guideLocationInfo'])) { ?>
                         <ul class="list-inline">
                             <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
@@ -186,9 +192,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                     <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
                                         <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
                                     </a>
-                                    <span itemprop="address" itemscope itemtype="http://schema.org/Text">
-                                    <meta content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
-                                </span>
+                                    <meta itemprop="address" itemscope itemtype="http://schema.org/Text" content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
                                 </li>
                             <?php } ?>
                         </ul>
@@ -305,9 +309,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
                                         <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
                                             <span itemprop="name"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
                                         </a>
-                                        <span itemprop="address" itemscope itemtype="http://schema.org/Text">
-                                            <meta content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
-                                        </span>
+                                        <meta itemprop="address" itemscope itemtype="http://schema.org/Text" content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
                                     </span>
                                     </div>
                                     <div class="eventList-title">
@@ -371,3 +373,9 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
         <?php } ?>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('iframe').wrap('<div class="iframe-wrapper">');
+    });
+</script>

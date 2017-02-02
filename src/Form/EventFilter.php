@@ -125,6 +125,13 @@ class EventFilter extends InputFilter
             'name' => 'image',
             'required' => false,
         ));
+
+        // cropping
+        $this->add(array(
+            'name' => 'cropping',
+            'required' => false,
+        ));
+
         // address
         $this->add(array(
             'name' => 'address',

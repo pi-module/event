@@ -1,0 +1,164 @@
+<?php
+    $this->css($this->assetModule('css/cropper.min.css'));
+    $this->js($this->assetModule('js/cropper.min.js'));
+
+    $config = Pi::service('registry')->config->read($module);
+    $newsConfig = Pi::service('registry')->config->read('news');
+    $isCropEnabled = isset($newsConfig['image_crop']) && $newsConfig['image_crop'] == 1;
+
+    $ajaxCroppingUpdateUrl = Pi::url($this->url('', array(
+        'controller' => $controller,
+        'action' => 'updatecrop',
+            'id' => 'ID_VALUE'
+    ))) . '?cropping=CROPPING_VALUE';
+
+
+    $minCropRealWidth = (int) $newsConfig['image_largew'];
+    $minCropRealHeight = (int) $newsConfig['image_largeh'];
+?>
+<script>
+    var isCropEnabled = <?php echo $isCropEnabled ? '1' : '0' ?>;
+    var ajaxCroppingUpdateUrl = '<?php echo $ajaxCroppingUpdateUrl ?>';
+    var minCropRealWidth = <?php echo $minCropRealWidth ?>;
+    var minCropRealHeight = <?php echo $minCropRealHeight ?>;
+
+    function initCrop(element, croppingInputElement){
+        var targetElement = element.get(0);
+        var targetElementWidth = element.outerWidth();
+        var targetElementHeight = element.outerHeight();
+
+        targetElement.addEventListener('ready', function () {
+            var currentCropValue= croppingInputElement.val();
+            var currentCrop = null;
+
+            this.cropper.crop();
+
+            if(currentCropValue){
+                currentCrop = JSON.parse(currentCropValue);
+                this.cropper.setData(currentCrop);
+                console.log('set crop to ');
+                console.log(currentCropValue);
+            }
+            else {
+                updateCropValue(this.cropper, croppingInputElement, true);
+            }
+        });
+
+        targetElement.addEventListener('cropend', function () {
+            updateCropValue(this.cropper, croppingInputElement, true);
+        });
+
+        var minCropWidth = minCropRealWidth * targetElementWidth / targetElement.naturalWidth;
+        var minCropHeight = minCropRealHeight * targetElementHeight / targetElement.naturalHeight;
+
+        console.log('MIN CROP : ' + minCropWidth + '*' + minCropHeight);
+
+        cropper = new Cropper(targetElement, {
+            minContainerWidth: 180,
+            aspectRatio: 3 / 2,
+            viewMode: 1,
+            rotatable: false,
+            responsive: false,
+            minCropBoxWidth: minCropWidth,
+            minCropBoxHeight: minCropHeight,
+            autoCrop: false,
+            zoomable: false,
+            autoCropArea : 1,
+            toggleDragModeOnDblclick: false
+        });
+
+        return cropper;
+    }
+
+    function updateCropValue(cropper, croppingInputElement, triggerchange){
+        var cropData = JSON.stringify(cropper.getData(true));
+        croppingInputElement.val(cropData);
+        console.log('CROP VALUE : ' + cropData);
+
+        if(triggerchange){
+            croppingInputElement.change();
+        }
+    }
+
+    function parseCrop(){
+        if(isCropEnabled){
+            var formgroupPreview = $('.form-group[data-name="imageview"]');
+
+            $('.imageview').each(function(){
+
+
+                var imageView = $(this);
+                var currentSrc = imageView.attr('src').trim();
+
+                if(imageView.prop("tagName") == 'INPUT' && imageView.attr('type') == 'image'){
+                    var id = imageView.attr('id');
+                    imageView.replaceWith('<div><img id="' + id + '" class="imageview img-thumbnail item-img" data-rel="' + imageView.data('rel') + '" style="max-width:100%;" src="'+currentSrc+'"></div>');
+                }
+            });
+
+            $('input[name="image"]').change(function(){
+                var reader  = new FileReader();
+
+                $('input[name="cropping"]').val('').change();
+
+                reader.addEventListener("load", function () {
+                    $('#imageview_0').attr('src', reader.result);
+                }, false);
+
+                var file = $(this).prop('files')[0];
+
+                if (file) {
+                    formgroupPreview.show();
+                    reader.readAsDataURL(file);
+                }
+            });
+
+
+            var imageViewCollection = $('.imageview').not('.cropped');
+
+            imageViewCollection.each(function(){
+                var imageView = $(this);
+                var currentSrc = imageView.attr('src').trim();
+
+                imageView.addClass('cropped');
+                imageView.not('.attachement').parent().parent().removeClass('col-sm-5').addClass('col-sm-9').next().remove();
+                imageView.parent().width(imageView.parent().parent().width());
+
+                if(!currentSrc){
+                    formgroupPreview.hide();
+                }
+
+                $(this).load(function() {
+                    var imageView = $(this);
+                    var cropper = imageView.data('cropper');
+                    var currentSrc = imageView.attr('src').trim();
+                    var croppingInputElement = $('input[name="'+ imageView.data('rel') +'"]');
+
+
+                    if (typeof cropper != 'undefined') {
+                        cropper.destroy();
+                    }
+
+                    if(croppingInputElement.hasClass('ajaxUpdate')){
+                        croppingInputElement.on('change', function(){
+                            var croppingValue = $(this).val();
+                            var idValue = $(this).data('id');
+                            var urlUpdate = ajaxCroppingUpdateUrl;
+
+                            urlUpdate = urlUpdate.replace('ID_VALUE', idValue);
+                            urlUpdate = urlUpdate.replace('CROPPING_VALUE', encodeURI(croppingValue));
+
+                            $.get(urlUpdate, function( data ) {
+                                console.log(urlUpdate)
+                            });
+                        });
+                    }
+
+                    if(currentSrc) {
+                        imageView.data('cropper', initCrop(imageView, croppingInputElement));
+                    }
+                });
+            });
+        }
+    }
+</script>

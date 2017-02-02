@@ -71,7 +71,9 @@ class Event extends AbstractApi
             }
             // Join extra information to event
             foreach ($listStory as $event) {
-                $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                if(isset($listExtra[$event['id']]) && is_array($listExtra[$event['id']])){
+                    $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                }
             }
         }
         return $listEvent;
@@ -233,6 +235,7 @@ class Event extends AbstractApi
         }
         // object to array
         if (is_object($extra)) {
+            /* @var $extra \Pi\Db\RowGateway\RowGateway */
             $extra = $extra->toArray();
         }
         // Make register_discount
@@ -264,21 +267,24 @@ class Event extends AbstractApi
             $priceView = _currency($extra['register_price']);
         }
         // Set order
-        $config = Pi::service('registry')->config->read($this->getModule());
-        if ($config['order_active']) {        
+        if(!isset($this->config)){
+            $this->config = Pi::service('registry')->config->read($this->getModule());
+        }
+
+        if ($this->config['order_active']) {
             if (($extra['register_price'] > 0 && $extra['register_stock'] > 0)) {
                 $extra['register_price_view'] = $priceView;
             } elseif ($extra['register_price'] > 0 && $extra['register_stock'] == 0) {
                 $extra['register_price_view'] = sprintf(__('Out of stock ( %s )'), $priceView);
             } else {
                 $extra['register_price_view'] = __('free!');
-            } 
+            }
         } else {
             if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
                 $extra['register_price_view'] = _currency($extra['register_price']);
             }  else {
                 $extra['register_price_view'] = __('free!');
-            } 
+            }
         }
         // Set currency
         $configSystem = Pi::service('registry')->config->read('system');
@@ -316,16 +322,22 @@ class Event extends AbstractApi
         }
         // Check guide module
         if (Pi::service('module')->isActive('guide') && !empty($extra['guide_location'])) {
-            $locationList = Pi::registry('locationList', 'guide')->read();
-            $extra['locationInfo'] = $locationList[$extra['guide_location'][0]];
+
+            if(!isset($this->locationList)){
+                $this->locationList = Pi::registry('locationList', 'guide')->read();
+            }
+            $extra['locationInfo'] = $this->locationList[$extra['guide_location'][0]];
         }
         return $extra;
     }
 
-    public function canonizeEventJson($event, $time)
+    public function canonizeEventJson($event, $time, $largeThumb = false)
     {
         // Get config
-        $config = Pi::service('registry')->config->read($this->getModule());
+        if(!isset($this->config)){
+            $this->config = Pi::service('registry')->config->read($this->getModule());
+        }
+
         // Set text_summary
         $event['text_summary'] = Pi::service('markup')->render($event['text_summary'], 'html', 'html');
         $event['text_summary'] = strip_tags($event['text_summary'], "<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
@@ -405,8 +417,8 @@ class Event extends AbstractApi
 
         // Check price filter
         $event['price_filter'] = '';
-        if (!empty($config['price_filter'])) {
-            $priceFilter = explode("|", $config['price_filter']);
+        if (!empty($this->config['price_filter'])) {
+            $priceFilter = explode("|", $this->config['price_filter']);
             foreach ($priceFilter as $priceFilterSingle) {
                 $priceFilterSingle = explode(",", $priceFilterSingle);
                 $priceFilterSinglePrice = explode("-", $priceFilterSingle[0]);
@@ -421,7 +433,7 @@ class Event extends AbstractApi
             'id' => $event['id'],
             'title' => $event['title'],
             'image' => $event['image'],
-            'thumbUrl' => $event['thumbUrl'],
+            'thumbUrl' => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
             'eventUrl' => $event['eventUrl'],
             'subtitle' => $event['subtitle'],
             'register_price' => $event['register_price'],
@@ -474,7 +486,7 @@ class Event extends AbstractApi
     public function regenerateImage()
     {
         // Set info
-        $columns = array('id', 'image', 'path');
+        $columns = array('id', 'image', 'path', 'cropping');
         $where = array('type' => array(
             'event'
         ));
@@ -485,7 +497,7 @@ class Event extends AbstractApi
             if (!empty($row->image) && !empty($row->path)) {
                 // Set image original path
                 $original = Pi::path(
-                    sprintf('upload/event/image/large/%s/%s',
+                    sprintf('upload/event/image/original/%s/%s',
                         $row->path,
                         $row->image
                     ));
@@ -516,7 +528,7 @@ class Event extends AbstractApi
                         }
                     }
                     // regenerate
-                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image');
+                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image', $row->cropping);
                 }
             }
         }

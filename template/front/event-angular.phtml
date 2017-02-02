@@ -1,8 +1,5 @@
 <?php
 
-// Load Match Height plugin
-$this->footScript()->appendFile($this->assetModule('js/jquery.matchHeight-min.js'));
-
 // Load angular custom js
 $script = <<<'EOT'
 
@@ -62,7 +59,7 @@ app.controller('listdata',function($scope, $http){
     }
     $scope.$on('dirPaginateFinished', function(dirPaginateFinishedEvent) {        
         $('.event-list').imagesLoaded().then(function(){
-            $('.event-list .event-single .thumbnail').matchHeight();
+            // Callback in the future
         });
     });
 });
@@ -122,33 +119,31 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
 ?>
 <div class="clearfix row">
     <div class="ajax-spinner">
-        <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader"/>
+        <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader" alt="" />
     </div>
     <div class="col-sm-12 col-md-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
             <?php if (!empty($config['image_homepage'])) { ?>
-                <div class="category-width-description">
-                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($title); ?></h1>
-                    <?php if (!empty($config['text_description_index'])) { ?>
-                        <div class="clearfix"><?php echo $config['text_description_index']; ?></div>
-                    <?php } ?>
-                </div>
-                <div class="category-width-image">
-                    <img class="img-responsive" src="<?php echo $config['image_homepage']; ?>"
-                         alt="<?php echo $this->escape($title); ?>">
-                </div>
+
+                <?php
+                    ob_start();
+                    include('partial/category-wide-header.phtml');
+                    $wideContent = ob_get_clean();
+                    echo $this->wideContent($wideContent, $module);
+                ?>
+
             <?php } else { ?>
                 <div class="page-header">
-                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($title); ?></h1>
+                    <h1 class="p-name"><?php echo $this->escape($title); ?></h1>
                 </div>
-                <?php if (!empty($config['text_description_index'])) { ?>
-                    <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
+                <?php if (!empty($config['text_summary_index'])) { ?>
+                    <div class="clearfix well"><?php echo $config['text_summary_index']; ?></div>
                 <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
             <?php if (!empty($category['largeUrl'])) { ?>
                 <div class="category-width-description">
-                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($category['title']); ?></h1>
+                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
                     <?php if (!empty($category['text_summary'])) { ?>
                         <div class="clearfix"><?php echo $category['text_summary']; ?></div>
                     <?php } ?>
@@ -159,7 +154,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 </div>
             <?php } else { ?>
                 <div class="page-header">
-                    <h1 class="p-name" itemprop="name"><?php echo $this->escape($category['title']); ?></h1>
+                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
                 </div>
             <?php } ?>
             <?php if (!empty($category['text_description'])) { ?>
@@ -175,11 +170,11 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
             <form>
                 <div class="form-group">
                     <label><?php _e('Title'); ?></label>
-                    <input type="text" ng-model="filterTitle" class="form-control">
+                    <input type="text" data-ng-model="filterTitle" class="form-control">
                 </div>
                 <div class="form-group">
                     <label><?php _e('Event time'); ?></label>
-                    <select ng-model="filterTime" class="form-control">
+                    <select data-ng-model="filterTime" class="form-control">
                         <option value=""><?php _e('All'); ?></option>
                         <option value="thisWeek"><?php _e('This week'); ?></option>
                         <option value="nextWeek"><?php _e('Next week'); ?></option>
@@ -194,7 +189,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <?php if (isset($categoryList) && !empty($categoryList) && $isCategoryPage == 0) { ?>
                     <div class="form-group">
                         <label><?php _e('Category'); ?></label>
-                        <select ng-model="filterCategory" class="form-control">
+                        <select data-ng-model="filterCategory" class="form-control">
                             <option value=""><?php _e('All'); ?></option>
                             <?php foreach ($categoryList as $category) { ?>
                                 <option
@@ -206,7 +201,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <?php if (isset($locationList) && !empty($locationList)) { ?>
                     <div class="form-group">
                         <label><?php _e('Location'); ?></label>
-                        <select ng-model="filterLocation" class="form-control">
+                        <select data-ng-model="filterLocation" class="form-control">
                             <option value=""><?php _e('All'); ?></option>
                             <?php foreach ($locationList as $location) { ?>
                                 <option
@@ -218,7 +213,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <?php if (isset($priceFilterList) && !empty($priceFilterList)) { ?>
                     <div class="form-group">
                         <label><?php _e('Price'); ?></label>
-                        <select ng-model="filterPrice" class="form-control">
+                        <select data-ng-model="filterPrice" class="form-control">
                             <option value=""><?php _e('All'); ?></option>
                             <?php foreach ($priceFilterList as $priceFilter) { ?>
                                 <option
@@ -229,85 +224,94 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <?php } ?>
             </form>
         </div>
+
+        <div class="clearfix">
+            <div class="well small">
+                <?php if (!empty($config['text_description_index'])) { ?>
+                    <?php echo $config['text_description_index']; ?>
+                <?php } ?>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-12 col-md-9" ng-controller="listdata">
+    <div class="col-sm-12 col-md-9" data-ng-controller="listdata">
         <div class="clearfix">
             <div class="event-list clearfix">
                 <div class="clearfix event-sort">
                     <ul class="list-inline">
                         <li><?php _e('Sort by'); ?> :</li>
-                        <li class="event-sort-type" ng-click="sort('time_publish')"><?php _e('Time'); ?> <i
-                                class="fa sort-icon" ng-show="sortKey=='time_publish'"
-                                ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sort('hits')"><?php _e('Hits'); ?> <i class="fa sort-icon"
-                                                                                                    ng-show="sortKey=='hits'"
-                                                                                                    ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i>
+                        <li class="event-sort-type" data-ng-click="sort('time_publish')"><?php _e('Time'); ?> <i
+                                class="fa sort-icon" data-ng-show="sortKey=='time_publish'"
+                                data-ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" data-ng-click="sort('hits')"><?php _e('Hits'); ?> <i class="fa sort-icon"
+                                                                                                         data-ng-show="sortKey=='hits'"
+                                                                                                         data-ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i>
                         </li>
-                        <li class="event-sort-type" ng-click="sort('title')"><?php _e('Title'); ?> <i
-                                class="fa sort-icon" ng-show="sortKey=='title'"
-                                ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
-                        <li class="event-sort-type" ng-click="sortKey=''"><?php _e('Default'); ?></li>
+                        <li class="event-sort-type" data-ng-click="sort('title')"><?php _e('Title'); ?> <i
+                                class="fa sort-icon" data-ng-show="sortKey=='title'"
+                                data-ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
+                        <li class="event-sort-type" data-ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                 </div>
-                <div class="clearfix" post-render>
+                <div class="clearfix <?php echo (isset($config['view_list_type']) && $config['view_list_type'] == 'box') ? 'match-height-list' : '' ?>">
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
-                        <div dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                        <div data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                             <div class="row">
-                                <div class="col-md-3 event-single-image" ng-if="event.image">
+                                <div class="col-xs-3 event-single-image" data-ng-if="event.image">
                                     <div class="text-center">
                                         <a itemprop="url" title="{{event.title}}"
-                                           href="{{event.eventUrl}}">
+                                           data-ng-href="{{event.eventUrl}}">
                                             <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
-                                                 src="{{event.thumbUrl}}"
+                                                 src="#"
+                                                 data-ng-src="{{event.thumbUrl}}"
                                                  alt="{{event.title}}"/>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-md-9 event-single-body">
+                                <div class="col-xs-9 event-single-body">
                                     <div class="p-name clearfix" itemprop="name">
                                         <h2 class="event-single-title">
                                             <a itemprop="url" title="{{event.title}}"
-                                               href="{{event.eventUrl}}">
+                                               data-ng-href="{{event.eventUrl}}">
                                                 {{event.title}}
                                             </a>
                                         </h2>
                                     </div>
                                     <div class="event-single-information small">
                                         <ul class="clearfix list-inline event-time">
-                                            <li ng-if="event.time_view">
+                                            <li data-ng-if="event.time_view">
                                                 <i class="fa fa-clock-o"></i> {{event.time_view}}
-                                                <meta ng-if="event.time_start_view" itemprop="startDate"
+                                                <meta data-ng-if="event.time_start_view" itemprop="startDate"
                                                       content="{{event.time_start_view}}"/>
-                                                <meta ng-if="event.time_end_view" itemprop="endDate"
+                                                <meta data-ng-if="event.time_end_view" itemprop="endDate"
                                                       content="{{event.time_end_view}}"/>
                                             </li>
-                                            <li ng-if="event.register_price" class="p-price" itemprop="price"
+                                            <li data-ng-if="event.register_price" class="p-price" itemprop="price"
                                                 content="{{event.register_price}}">
                                                 <i class="fa fa-money"></i> {{event.register_price_view}}
                                             </li>
-                                            <meta ng-if="event.register_price" itemprop="priceCurrency"
-                                                  content="{{event.price_currency}}"/>
                                             <li><i class="fa fa-eye"></i> {{event.hits}}</li>
                                         </ul>
+                                        <meta data-ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}"/>
                                     </div>
                                     <div class="event-single-summery clearfix p-summary" itemprop="description"
-                                         ng-if="event.text_summary">
+                                         data-ng-if="event.text_summary">
                                         {{event.text_summary}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     <?php } elseif (isset($config['view_list_type']) && $config['view_list_type'] == 'box') { ?>
-                        <div on-finish-render="dirPaginateFinished" dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
-                             class="col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                        <div data-on-finish-render="dirPaginateFinished" data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                             class="col-xs-12 col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
                             <div class="thumbnail">
-                                <div class="event-single-image" ng-if="event.image">
+                                <div class="event-single-image" data-ng-if="event.image">
                                     <div class="text-center">
                                         <a itemprop="url" title="{{event.title}}"
-                                           href="{{event.eventUrl}}">
+                                           data-ng-href="{{event.eventUrl}}">
                                             <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
-                                                 src="{{event.thumbUrl}}"
+                                                 src="#"
+                                                 data-ng-src="{{event.thumbUrl}}"
                                                  alt="{{event.title}}"/>
                                         </a>
                                     </div>
@@ -316,16 +320,16 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                                     <div class="p-name clearfix" itemprop="name">
                                         <h2 class="event-single-title">
                                             <a itemprop="url" title="{{event.title}}"
-                                               href="{{event.eventUrl}}">
+                                               data-ng-href="{{event.eventUrl}}">
                                                 {{event.title}}
                                             </a>
                                         </h2>
                                     </div>
                                 </div>
-                                <meta ng-if="event.time_start_view" itemprop="startDate"  content="{{event.time_start_view}}"/>
-                                <meta ng-if="event.time_end_view" itemprop="endDate" content="{{event.time_end_view}}"/>
-                                <meta ng-if="event.register_price" itemprop="price" content="{{event.register_price}}"/>
-                                <meta ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}"/>
+                                <meta data-ng-if="event.time_start_view" itemprop="startDate"  content="{{event.time_start_view}}"/>
+                                <meta data-ng-if="event.time_end_view" itemprop="endDate" content="{{event.time_end_view}}"/>
+                                <meta data-ng-if="event.register_price" itemprop="price" content="{{event.register_price}}"/>
+                                <meta data-ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}"/>
                             </div>
                         </div>
                     <?php } ?>
