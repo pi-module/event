@@ -58,6 +58,14 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
+    protected $order = array(
+        'time_publish DESC',
+        'id DESC'
+    );
+
+    /**
+     * {@inheritDoc}
+     */
     protected function getModel($table)
     {
         $model = Pi::model($table, 'news');
