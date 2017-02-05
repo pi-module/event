@@ -66,7 +66,7 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected function getModel($table)
+    protected function getModel($table = '')
     {
         $model = Pi::model($table, 'news');
         return $model;
