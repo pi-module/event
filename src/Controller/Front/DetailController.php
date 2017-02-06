@@ -68,6 +68,9 @@ class DetailController extends ActionController
                 );
                 foreach ($event['guide_item'] as $item) {
                     $guideItem = Pi::api('item', 'guide')->getItem($item);
+                    if (Pi::api('item', 'guide')->IsExpired($guideItem)) {
+                        continue;         
+                    }
                     if (isset($guideItem) && !empty($guideItem) && $guideItem['status'] == 1) {
                         if (in_array($guideItem['item_type'], array('commercial', 'person'))) {
                             $event['guideItemInfo']['commercial'][$item] = $guideItem;
