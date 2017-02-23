@@ -7,7 +7,7 @@
             <div class="recent-event-list recent-event-list-vertical clearfix">
             <?php foreach ($block['resources'] as $event) { ?>
                 <?php if (!empty($event)) { ?>
-                    <div class="recent-event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                    <div class="recent-event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
                         <div class="row">
                             <div class="col-xs-4 eventImage">
                                 <?php if ($event['image']) { ?>
@@ -91,7 +91,7 @@
             <div class="recent-event-list recent-event-list-horizontal row clearfix">
                 <?php foreach ($block['resources'] as $event) { ?>
                     <?php if (!empty($event)) { ?>
-                        <div class="recent-event-single clearfix h-event col-md-3" itemscope itemtype="http://schema.org/Event">
+                        <div class="recent-event-single clearfix h-event col-md-3" itemscope itemtype="https://schema.org/Event">
                             <?php if ($block['show-time']) { ?>
                                 <div class="event-time clearfix">
                                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
