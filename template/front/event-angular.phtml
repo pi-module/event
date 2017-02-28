@@ -255,7 +255,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <div class="clearfix <?php echo (isset($config['view_list_type']) && $config['view_list_type'] == 'box') ? 'match-height-list' : '' ?>">
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
-                             class="event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                             class="event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
                             <div class="row">
                                 <div class="col-xs-3 event-single-image" data-ng-if="event.image">
                                     <div class="text-center">
@@ -303,7 +303,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         </div>
                     <?php } elseif (isset($config['view_list_type']) && $config['view_list_type'] == 'box') { ?>
                         <div data-on-finish-render="dirPaginateFinished" data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
-                             class="col-xs-12 col-md-4 event-single clearfix h-event" itemscope itemtype="http://schema.org/Event">
+                             class="col-xs-12 col-md-4 event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
                             <div class="thumbnail">
                                 <div class="event-single-image" data-ng-if="event.image">
                                     <div class="text-center">

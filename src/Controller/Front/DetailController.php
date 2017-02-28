@@ -28,6 +28,11 @@ class DetailController extends ActionController
         $config = Pi::service('registry')->config->read($module);
         // Find event
         $event = Pi::api('event', 'event')->getEventSingle($slug, 'slug', 'full');
+
+        if($slug != $event['slug']){
+            return $this->redirect()->toRoute('', array('slug' => $event['slug']))->setStatusCode(301);
+        }
+
         // Check event
         if (!$event || $event['status'] != 1) {
             $this->getResponse()->setStatusCode(404);
