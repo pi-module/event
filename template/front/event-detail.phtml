@@ -52,7 +52,7 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
 
 $this->sticky();
 ?>
-<div class="clearfix h-event single-event" itemscope itemtype="http://schema.org/Event">
+<div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
     <div class="page-header p-name" itemprop="name">
         <h1>
@@ -115,7 +115,7 @@ $this->sticky();
                     </a>
                 </div>
                 <?php if ($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) { ?>
-                    <div class="clearfix well" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
                                 <?php if ($event['register_stock'] > 0) { ?>
@@ -192,18 +192,18 @@ $this->sticky();
                         <ul class="list-inline">
                             <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
                             <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
-                                <li itemprop="location" itemscope itemtype="http://schema.org/Place">
+                                <li itemprop="location" itemscope itemtype="https://schema.org/Place">
                                     <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
                                         <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
                                     </a>
-                                    <meta itemprop="address" itemscope itemtype="http://schema.org/Text" content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
+                                    <meta itemprop="address" itemscope itemtype="https://schema.org/Text" content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
                                 </li>
                             <?php } ?>
                         </ul>
                     <?php } ?>
                     <ul class="list-unstyled">
                         <?php if (!empty($event['organizer_name'])) { ?>
-                            <li itemscope itemtype="http://schema.org/Organization">
+                            <li itemscope itemtype="https://schema.org/Organization">
                                 <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
                             </li>
                         <?php } ?>
@@ -216,7 +216,7 @@ $this->sticky();
                             </li>
                         <?php } ?>
                         <?php if (!empty($event['address'])) { ?>
-                            <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                            <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                 <i class="fa fa-location-arrow"></i>
                                 <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
                             </li>
@@ -286,7 +286,7 @@ $this->sticky();
                         </div>
                         <ul class="list-unstyled">
                             <?php foreach ($relatedEvents as $relatedEvent) { ?>
-                                <li itemscope itemtype="http://schema.org/Event">
+                                <li itemscope itemtype="https://schema.org/Event">
                                     <div class="eventList-time small">
                                         <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
                                             <span class="eventSingleTime dt-start">
@@ -309,11 +309,11 @@ $this->sticky();
                                             <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
                                             <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
                                         <?php } ?>
-                                        <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+                                        <span itemprop="location" itemscope itemtype="https://schema.org/Place">
                                         <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
                                             <span itemprop="name"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
                                         </a>
-                                        <meta itemprop="address" itemscope itemtype="http://schema.org/Text" content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
+                                        <meta itemprop="address" itemscope itemtype="https://schema.org/Text" content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
                                     </span>
                                     </div>
                                     <div class="eventList-title">
