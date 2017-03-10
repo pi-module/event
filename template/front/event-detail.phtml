@@ -145,7 +145,7 @@ $this->sticky();
                                     <?php echo $this->escape($event['register_price_view']); ?>
                                 </div>
                                 <div class="event-offerUrl-btn" itemprop="url">
-                                    <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                    <a class="btn btn-success btn-lg btn-group-justified <?php echo $ended ? 'disabled' : '' ?>" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                         <?php _e('Register to the event') ?>
                                     </a>
                                 </div>
@@ -175,7 +175,11 @@ $this->sticky();
                             </li>
                         <?php } ?>
                     </ul>
-
+                    <?php if ($ended) { ?>  
+                        <ul class="list-inline">
+                            <li class="ended"><?php _e("Ended"); ?></li>                    
+                        </ul>  
+                    <?php } ?>
                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
                         <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                         <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
@@ -203,7 +207,7 @@ $this->sticky();
                                 <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
                             </li>
                         <?php } ?>
-                        <?php if (!empty($event['source_url'])) { ?>
+                        <?php if (!empty($event['source_url']) && !$ended) { ?>
                             <li class="u-url" itemprop="url">
                                 <i class="fa fa-external-link"></i>
                                 <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">

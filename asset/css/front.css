@@ -249,3 +249,8 @@ a.item-ribbon:hover {
     max-width: none;
     width: auto;
 }
+.ended {
+    color:#EB4079;
+    font-weight: 600;
+    margin-left:18px
+}
