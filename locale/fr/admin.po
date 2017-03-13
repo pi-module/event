@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-12-07 11:08+0100\n"
+"POT-Creation-Date: 2017-03-13 14:53+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -52,7 +52,7 @@ msgstr "Afficher les hits"
 msgid "Show summary"
 msgstr "Afficher le résumé"
 
-#: config/block.php:75 config/config.php:101
+#: config/block.php:75 config/config.php:129
 msgid "Event list type"
 msgstr "Mode affichage en liste"
 
@@ -98,135 +98,143 @@ msgstr "Module News"
 msgid "Guide module"
 msgstr "Module Guide"
 
-#: config/config.php:28
+#: config/config.php:29
 msgid "View"
 msgstr "Voir"
 
-#: config/config.php:32
+#: config/config.php:33
 msgid "Social"
 msgstr "Social"
 
-#: config/config.php:36 config/page.php:35 config/permission.php:24
+#: config/config.php:37 config/page.php:35 config/permission.php:24
 msgid "Manage"
 msgstr "Gérer"
 
-#: config/config.php:40
+#: config/config.php:41
 msgid "Order"
 msgstr "Commander"
 
-#: config/config.php:48 config/config.php:118
+#: config/config.php:49 config/config.php:146
 msgid "Perpage"
 msgstr "Par page"
 
-#: config/config.php:57
+#: config/config.php:58
 msgid "Use news topics"
 msgstr "Utiliser les catégories du module News"
 
-#: config/config.php:66
+#: config/config.php:67
 msgid "Use guide category"
 msgstr "Utiliser les Catégories du module Guide"
 
-#: config/config.php:74
+#: config/config.php:75
 msgid "Use guide location"
 msgstr "Utiliser les Lieux du module Guide"
 
-#: config/config.php:81
+#: config/config.php:82
 msgid "Select location level for show on filter form"
 msgstr "Sélectionner le niveau Lieux à afficher dans le bloc recherche"
 
-#: config/config.php:87
+#: config/config.php:88
 msgid "level 1"
 msgstr "niveau 1"
 
-#: config/config.php:88
+#: config/config.php:89
 msgid "level 2"
 msgstr "niveau 2"
 
-#: config/config.php:89
+#: config/config.php:90
 msgid "level 3"
 msgstr "niveau 3"
 
-#: config/config.php:90
+#: config/config.php:91
 msgid "level 4"
 msgstr "niveau 4"
 
-#: config/config.php:91
+#: config/config.php:92
 msgid "level 5"
 msgstr "niveau 5"
 
-#: config/config.php:107
+#: config/config.php:103
+msgid "Summary for index page"
+msgstr "Texte d'introduction pour la page Index (Summary)"
+
+#: config/config.php:112
+msgid "Description for index page"
+msgstr "Description pour la page Index"
+
+#: config/config.php:121
+msgid "Active wide front image for this module"
+msgstr "Activer la front wide image pour ce module"
+
+#: config/config.php:135
 msgid "Line : each event on one line"
 msgstr "Ligne : un évènement par ligne"
 
-#: config/config.php:108
+#: config/config.php:136
 msgid "Box : each event as box and 3 box on one line"
 msgstr "Box : 3 évènements par ligne"
 
-#: config/config.php:126
+#: config/config.php:154
 msgid "Show related event"
 msgstr "Afficher les évènements relatifs"
 
-#: config/config.php:133
+#: config/config.php:161
 msgid "Related event type"
 msgstr "Type Evènements Relatifs"
 
-#: config/config.php:139
+#: config/config.php:167
 msgid "By event module topics"
 msgstr "Par Sujets du module News"
 
-#: config/config.php:140
+#: config/config.php:168
 msgid "By guide module categories"
 msgstr "Par catégorie du module Guide"
 
-#: config/config.php:150
+#: config/config.php:178
 msgid "Set wide image for homepage"
 msgstr "Définir l'image large pour la page Index"
 
-#: config/config.php:158
+#: config/config.php:187
 msgid "Price filter"
 msgstr "Filtre sur le Prix"
 
-#: config/config.php:159
+#: config/config.php:188
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr "Règle de saisie : 100-200, Entre 100 à 200|200, Entre 200 et 300|"
 
-#: config/config.php:166
+#: config/config.php:195
 msgid "Social sharing items"
 msgstr "Réseaux sociaux"
 
-#: config/config.php:180
+#: config/config.php:209
 msgid "Manage event by users"
 msgstr "Gestion des évènements par les utilisateurs"
 
-#: config/config.php:188
+#: config/config.php:217
 msgid "Auto approval user events"
 msgstr "Auto-approbation des évènements utilisateurs"
 
-#: config/config.php:197
+#: config/config.php:226
 msgid "Active order"
 msgstr "Activer l'inscription"
 
-#: config/config.php:198
+#: config/config.php:227
 msgid "Manage event registration, ticket stock and activate orders"
 msgstr ""
 "Gérer les inscriptions aux évènements, le stock de tickets et activer les "
 "commandes"
 
-#: config/config.php:205
+#: config/config.php:234
 msgid "Show free word for free events"
 msgstr "Afficher le mot \"gratuit\" pour les évènements gratuits"
 
-#: config/config.php:213
+#: config/config.php:242
 msgid "Active discount system"
 msgstr "Activer le système de Remise"
 
-#: config/config.php:214
+#: config/config.php:243
 msgid "Discount percent for each rule on each event"
 msgstr "Pourcentage de réduction pour chaque règle et chaque évènement"
-
-#: config/config.php:222
-msgid "Description for index page"
-msgstr "Description pour la page Index"
 
 #: config/module.php:16 config/navigation.php:29 config/page.php:56
 #: config/permission.php:33

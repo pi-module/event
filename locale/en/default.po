@@ -643,3 +643,7 @@ msgstr ""
 #: template/front/order-detail.phtml:36
 msgid "Visit"
 msgstr ""
+
+#: template/front/event-detail.phtml:61
+msgid "Ended"
+msgstr ""

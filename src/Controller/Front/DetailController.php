@@ -112,6 +112,10 @@ class DetailController extends ActionController
             $relatedEvents = Pi::api('event', 'event')->getEventRelated($event['id'], $eventTopic);
             $this->view()->assign('relatedEvents', $relatedEvents);
         }
+        $ended = false;
+        if (($event['time_end'] == 0 && $event['time_start'] < time()) || ($event['time_end'] < time())) {
+            $ended = true;
+        } 
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');
@@ -120,5 +124,6 @@ class DetailController extends ActionController
         $this->view()->assign('event', $event);
         $this->view()->assign('config', $config);
         $this->view()->assign('form', $form);
+        $this->view()->assign('ended', $ended);
     }
 }
