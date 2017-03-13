@@ -252,5 +252,10 @@ a.item-ribbon:hover {
 .ended {
     color:#EB4079;
     font-weight: 600;
-    margin-left:18px
+}
+.ended span {font-size:16px}
+
+.event-single-sidebar .fa {
+    width:14px;
+    text-align:center;
 }
