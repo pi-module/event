@@ -113,7 +113,7 @@ class DetailController extends ActionController
             $this->view()->assign('relatedEvents', $relatedEvents);
         }
         $ended = false;
-        if (($event['time_end'] == 0 && $event['time_start'] < time()) || ($event['time_end'] < time())) {
+        if (($event['time_end'] == 0 && $event['time_start'] < time()) || ($event['time_end'] > 0 && $event['time_end'] < time())) {
             $ended = true;
         } 
         // Set view
