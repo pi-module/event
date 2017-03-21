@@ -161,6 +161,14 @@ class EventFilter extends InputFilter
                     'name' => 'StringTrim',
                 ),
             ),
+            'validators' => array(
+                array(
+                    'name'    => 'Uri',
+                    'options' => array(
+                        'allowRelative' => false
+                    ),
+                ),
+            ),
         ));
         // offer_url
         $this->add(array(
@@ -169,6 +177,14 @@ class EventFilter extends InputFilter
             'filters' => array(
                 array(
                     'name' => 'StringTrim',
+                ),
+            ),
+            'validators' => array(
+                array(
+                    'name'    => 'Uri',
+                    'options' => array(
+                        'allowRelative' => false
+                    ),
                 ),
             ),
         ));
