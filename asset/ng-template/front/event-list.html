@@ -1,0 +1,87 @@
+<div class="clearfix pi-item-list">
+    <div class="col-xs-3">
+        <div class="pi-item-search-form clearfix well well-sm">
+            <div class="page-header">
+                <h3>{{'SEARCH' | translate}}</h3>
+            </div>
+            <form id="list-filter" ng-submit="filterAction()">
+                <div class="form-group">
+                    <label>{{'TITLE' | translate}}</label>
+                    <input type="text" class="form-control" ng-model="filter.title" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-info" ng-click="filterAction()">
+                        <i class="fa fa-search"></i> {{'SEARCH' | translate}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-xs-9">
+        <div class="clearfix">
+            <div class="page-header">
+                <h1>{{condition.title}}</h1>
+            </div>
+            <div ng-show="events.length">
+                <div class="row">
+                    <div ng-repeat="event in events">
+                        <div class="row">
+                            <div class="col-xs-3 event-single-image" data-ng-if="event.image">
+                                <div class="text-center">
+                                    <a itemprop="url" title="{{event.title}}"
+                                       data-ng-href="{{event.eventUrl}}">
+                                        <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
+                                             src="#"
+                                             data-ng-src="{{event.thumbUrl}}"
+                                             alt="{{event.title}}"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xs-9 event-single-body">
+                                <div class="p-name clearfix" itemprop="name">
+                                    <h2 class="event-single-title">
+                                        <a itemprop="url" title="{{event.title}}"
+                                           data-ng-href="{{event.eventUrl}}">
+                                            {{event.title}}
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="event-single-information small">
+                                    <ul class="clearfix list-inline event-time">
+                                        <li data-ng-if="event.time_view">
+                                            <i class="fa fa-clock-o"></i> {{event.time_view}}
+                                            <meta data-ng-if="event.time_start_view" itemprop="startDate"
+                                                  content="{{event.time_start_view}}"/>
+                                            <meta data-ng-if="event.time_end_view" itemprop="endDate"
+                                                  content="{{event.time_end_view}}"/>
+                                        </li>
+                                        <li data-ng-if="event.register_price" class="p-price" itemprop="price"
+                                            content="{{event.register_price}}">
+                                            <i class="fa fa-money"></i> {{event.register_price_view}}
+                                        </li>
+                                        <li><i class="fa fa-eye"></i> {{event.hits}}</li>
+                                    </ul>
+                                    <meta data-ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}"/>
+                                </div>
+                                <div class="event-single-summery clearfix p-summary" itemprop="description"
+                                     data-ng-if="event.text_summary">
+                                    {{event.text_summary}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pi-paginator">
+                    <pagination ng-if="paginator.count > paginator.limit"
+                                total-items="paginator.count" page="paginator.page" max-size="10"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                                boundary-links="true" items-per-page="paginator.limit">
+                    </pagination>
+                </div>
+            </div>
+            <div class="alert alert-info" ng-if="!events.length">
+                {{'NONE_EVENT' | translate}}
+            </div>
+        </div>
+    </div>
+</div>

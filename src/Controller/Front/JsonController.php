@@ -195,6 +195,8 @@ class JsonController extends IndexController
         if ($hasSearchResult) {
             $event = Pi::api('event', 'event')->getEventList($whereLink, $order, $offset, $limit, 'full', 'link');
             $count = Pi::api('api', 'news')->getStoryCount($whereLink, 'link');
+
+            $event = array_values($event);
         }
 
         // Set result

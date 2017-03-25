@@ -1,0 +1,119 @@
+<?php
+// Load header files
+$this->jQuery();
+$this->angular(array(
+    'angular-route.js',
+    'ui-bootstrap-custom-tpls-0.7.0.js',
+    'pi.js',
+    'i18n'
+));
+$this->css(array(
+    $this->assetModule('css/front.css'),
+));
+
+// Set Open Graph tags for meta
+$this->doctype('HTML5');
+if (isset($category['title']) && !empty($category['title'])) {
+    $this->headMeta($this->escape($category['title']), 'og:title', 'property');
+} elseif (isset($title) && !empty($title)) {
+    $this->headMeta($this->escape($title), 'og:title', 'property');
+}
+if (isset($category['topicUrl']) && !empty($category['topicUrl'])) {
+    $this->headMeta($this->escape($category['topicUrl']), 'og:url', 'property');
+} else{
+    $this->headMeta(Pi::url($this->url('', array('module' => 'event'))), 'og:url', 'property');
+}
+if (isset($category['text_summary']) && !empty($category['text_summary'])) {
+    $this->headMeta(_strip($category['text_summary']), 'og:description', 'property');
+} elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
+    $this->headMeta(_strip($config['text_description_index']), 'og:description', 'property');
+}
+if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
+    $this->headMeta($this->escape($category['largeUrl']), 'og:image', 'property');
+} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+    $this->headMeta($this->escape($config['image_homepage']), 'og:image', 'property');
+}
+
+// Set twitter for meta
+if (isset($category['title']) && !empty($category['title'])) {
+    $this->headMeta($this->escape($category['title']), 'twitter:title');
+} elseif (isset($title) && !empty($title)) {
+    $this->headMeta($this->escape($title), 'twitter:title');
+}
+if (isset($category['text_summary']) && !empty($category['text_summary'])) {
+    $this->headMeta(_strip($category['text_summary']), 'twitter:description');
+} elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
+    $this->headMeta(_strip($config['text_description_index']), 'twitter:description');
+}
+if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
+    $this->headMeta($this->escape($category['largeUrl']), 'twitter:image');
+} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+    $this->headMeta($this->escape($config['image_homepage']), 'twitter:image');
+}
+?>
+<div class="row clearfix pi-item-angular">
+    <div class="ajax-spinner">
+        <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader" alt="" />
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
+            <?php if (!empty($config['image_homepage'])) { ?>
+
+                <?php
+                ob_start();
+                include('partial/category-wide-header.phtml');
+                $wideContent = ob_get_clean();
+                echo $this->wideContent($wideContent, $module);
+                ?>
+
+            <?php } else { ?>
+                <div class="page-header">
+                    <h1 class="p-name"><?php echo $this->escape($title); ?></h1>
+                </div>
+                <?php if (!empty($config['text_summary_index'])) { ?>
+                    <div class="clearfix well"><?php echo $config['text_summary_index']; ?></div>
+                <?php } ?>
+            <?php } ?>
+        <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
+            <?php if (!empty($category['largeUrl'])) { ?>
+                <div class="category-width-description">
+                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
+                    <?php if (!empty($category['text_summary'])) { ?>
+                        <div class="clearfix"><?php echo $category['text_summary']; ?></div>
+                    <?php } ?>
+                </div>
+                <div class="category-width-image">
+                    <img class="img-responsive" src="<?php echo $category['largeUrl']; ?>"
+                         alt="<?php echo $this->escape($category['title']); ?>">
+                </div>
+            <?php } else { ?>
+                <div class="page-header">
+                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
+                </div>
+            <?php } ?>
+            <?php if (!empty($category['text_description'])) { ?>
+                <div class="clearfix well"><?php echo $category['text_description']; ?></div>
+            <?php } ?>
+        <?php } ?>
+    </div>
+    <div ng-view></div>
+</div>
+<script>
+    angular
+        .module('event', ['ngRoute', 'ui.bootstrap', 'pi'])
+        .constant('config', {
+            pageType: '<?php echo $pageType; ?>',
+            urlRoot: '<?php echo Pi::url($this->url('', array('controller' => 'json', 'action' => 'var'))); ?>'.replace(/var\/?$/, ''),
+            assetRoot: '<?php echo $this->assetModule('ng-template/front/', '', false); ?>',
+            categorySlug: '<?php echo isset($category) ? $category['slug'] : '' ?>',
+            tagTerm: '<?php echo isset($tag) ? $tag : '' ?>',
+            t: {
+                SEARCH: '<?php _e('Search on this group'); ?>',
+                TITLE: '<?php _e('Title'); ?>',
+                ALL: '<?php _e('All'); ?>',
+                CLOSE: '<?php _e('Close'); ?>',
+                NONE_EVENT: '<?php _e('No event'); ?>',
+            },
+        });
+</script>
+<script src="<?php echo $this->assetModule('js/event-list.js'); ?>"></script>

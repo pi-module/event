@@ -23,28 +23,39 @@ class IndexController extends ActionController
         $module = $this->params('module');
         // Get config
         $config = Pi::service('registry')->config->read($module);
-        // Set filter url
-        $filterUrl = Pi::url($this->url('', array(
-            'controller' => 'json',
-            'action' => 'filterIndex'
-        )));
-        // Get location list
-        $locationList = Pi::api('event', 'event')->getLocationList();
-        // Get category list
-        $categoryList = Pi::api('event', 'event')->getCategoryList();
-        // Get price filter list
-        $priceFilterList = Pi::api('event', 'event')->getPriceFilterList();
-        // Set view
-        $this->view()->setTemplate('event-angular');
-        $this->view()->assign('config', $config);
-        $this->view()->assign('filterUrl', $filterUrl);
-        $this->view()->assign('locationList', $locationList);
-        $this->view()->assign('categoryList', $categoryList);
-        $this->view()->assign('priceFilterList', $priceFilterList);
-        $this->view()->assign('title', __('Event list'));
-        $this->view()->assign('isHomepage', 1);
-        $this->view()->assign('isCategoryPage', 0);
-        // Language
-        __('Toman');
+        // Check homepage type
+        switch ($config['view_template']) {
+            default:
+            case 'angular':
+                // Set filter url
+                $filterUrl = Pi::url($this->url('', array(
+                    'controller' => 'json',
+                    'action' => 'filterIndex'
+                )));
+                // Get location list
+                $locationList = Pi::api('event', 'event')->getLocationList();
+                // Get category list
+                $categoryList = Pi::api('event', 'event')->getCategoryList();
+                // Get price filter list
+                $priceFilterList = Pi::api('event', 'event')->getPriceFilterList();
+                // Set view
+                $this->view()->setTemplate('event-angular');
+                $this->view()->assign('config', $config);
+                $this->view()->assign('filterUrl', $filterUrl);
+                $this->view()->assign('locationList', $locationList);
+                $this->view()->assign('categoryList', $categoryList);
+                $this->view()->assign('priceFilterList', $priceFilterList);
+                $this->view()->assign('title', __('Event list'));
+                $this->view()->assign('isHomepage', 1);
+                $this->view()->assign('isCategoryPage', 0);
+                // Language
+                __('Toman');
+                break;
+            case 'angularnew':
+                $this->view()->setTemplate('event-angular-new');
+                $this->view()->assign('config', $config);
+                $this->view()->assign('pageType', 'all');
+                break;
+        }
     }
 }
