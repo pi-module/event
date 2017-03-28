@@ -28,7 +28,8 @@ class JsonController extends IndexController
         $favourite = $this->params('favourite');
         $recommended = $this->params('recommended');
         $limit = $this->params('limit');
-        $order = $this->params('order');
+        //$order = $this->params('order');
+        $time = $this->params('time');
 
         // Set has search result
         $hasSearchResult = true;
@@ -72,6 +73,7 @@ class JsonController extends IndexController
         // Set page title
         $pageTitle = __('List of events');
 
+        // Set order
         $order = array('time_publish DESC', 'id DESC');
         $orderExtra = array('time_start DESC', 'id DESC');
 
@@ -123,7 +125,12 @@ class JsonController extends IndexController
 
         // Set event ID list
         $checkTitle = false;
-        $eventIDList = array();
+        $checkTime = false;
+        $eventIDList = array(
+            'title' => array(),
+            'time' => array(),
+        );
+
 
         // Check title from event table
         if (isset($title) && !empty($title)) {
@@ -144,7 +151,84 @@ class JsonController extends IndexController
             })->order($orderExtra);
             $rowset = $this->getModel('extra')->selectWith($select);
             foreach ($rowset as $row) {
-                $eventIDList[$row->id] = $row->id;
+                $eventIDList['title'][$row->id] = $row->id;
+            }
+        }
+
+
+        // Check time
+        $timeArray = array(
+            'thisWeek',
+            'nextWeek',
+            'thisMonth',
+            'nextMonth',
+            'nextTwoMonth',
+            'nextThreeMonth',
+            'nextAllMonth',
+            'expired',
+        );
+        $time = (in_array($time, $timeArray)) ? $time : '';
+        if (!empty($time)) {
+            // Get time
+            $timeList = Pi::api('time', 'event')->makeTime();
+            // Set time where query
+            switch ($time) {
+                case 'expired':
+                    $whereExtra1 = array('time_end' => 0, 'time_start < ?' => $timeList['expired']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_end < ?' => $timeList['expired']);
+                    break;
+                    
+                case 'thisWeek':
+                    $whereExtra1 = array('time_start >= ?' => $timeList['thisWeek'], 'time_start < ?' => $timeList['nextWeek']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['thisWeek'], 'time_end > ?' => $timeList['thisWeek']);
+                    break;
+
+                case 'nextWeek':
+                    $whereExtra1 = array('time_start >= ?' => $timeList['nextWeek'], 'time_start < ?' => $timeList['nextTwoWeek']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextWeek'], 'time_end > ?' => $timeList['nextWeek']);
+                    break;
+
+                case 'thisMonth':
+                    $whereExtra1 = array('time_start >= ?' => $timeList['thisMonth'], 'time_start < ?' => $timeList['nextMonth']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['thisMonth'], 'time_end > ?' => $timeList['thisMonth']);
+                    break;
+
+                case 'nextMonth':
+                    $whereExtra1 = array('time_start >= ?' => $timeList['nextMonth'], 'time_start < ?' => $timeList['nextTwoMonth']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextMonth'], 'time_end > ?' => $timeList['nextMonth']);
+                    break;
+
+                case 'nextTwoMonth':
+                    $whereExtra1 = array('time_start >= ?' => $timeList['nextTwoMonth'], 'time_start < ?' => $timeList['nextThreeMonth']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextTwoMonth'], 'time_end > ?' => $timeList['nextTwoMonth']);
+                    break;
+
+                case 'nextThreeMonth':
+                    $whereExtra1 = array('time_start >= ?' => $timeList['nextThreeMonth'], 'time_start < ?' => $timeList['nextFourMonth']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextThreeMonth'], 'time_end > ?' => $timeList['nextThreeMonth']);
+                    break;
+
+                case 'nextAllMonth':
+                    $whereExtra1 = array('time_start >= ?' => $timeList['nextFourMonth'],);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_end > ?' => $timeList['nextFourMonth']);
+                    break;
+            }
+
+            // Make query
+            $checkTime = true;
+            $columns = array('id');
+            $select = $this->getModel('extra')->select()->columns($columns)->where(function ($where) use ($whereExtra1, $whereExtra2) {
+                $whereMain = clone $where;
+                $where1 = clone $where;
+                $where2 = clone $where;
+                $whereMain->equalTo('status', 1);
+                $where1->addPredicates($whereExtra1);
+                $where2->addPredicates($whereExtra2);
+                $where->addPredicate($whereMain)->addPredicate($where1)->orPredicate($where2);
+            })->order($orderExtra);
+            $rowset = $this->getModel('extra')->selectWith($select);
+            foreach ($rowset as $row) {
+                $eventIDList['time'][$row->id] = $row->id;
             }
         }
 
@@ -164,6 +248,27 @@ class JsonController extends IndexController
         if ($checkTitle) {
             if (!empty($eventIDList)) {
                 $whereLink['story'] = $eventIDList;
+            } else {
+                $hasSearchResult = false;
+            }
+        }
+
+        // Set story on where link from title and time
+        if ($checkTitle && $checkTime) {
+            if (!empty($eventIDList['title']) && !empty($eventIDList['time'])) {
+                $whereLink['story'] = array_intersect($eventIDList['title'], $eventIDList['time']);
+            } else {
+                $hasSearchResult = false;
+            }
+        } elseif ($checkTitle) {
+            if (!empty($eventIDList['title'])) {
+                $whereLink['story'] = $eventIDList['title'];
+            } else {
+                $hasSearchResult = false;
+            }
+        } elseif ($checkTime) {
+            if (!empty($eventIDList['time'])) {
+                $whereLink['story'] = $eventIDList['time'];
             } else {
                 $hasSearchResult = false;
             }

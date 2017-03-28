@@ -9,6 +9,20 @@
                     <label>{{'TITLE' | translate}}</label>
                     <input type="text" class="form-control" ng-model="filter.title" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
                 </div>
+                <div class="form-group">
+                    <label>{{'TIME_SELECT' | translate}}</label>
+                    <select class="form-control" ng-model="filter.time" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
+                        <option value="">{{'ALL' | translate}}</option>
+                        <option value="thisWeek">{{'TIME_THIS_WEEK' | translate}}</option>
+                        <option value="nextWeek">{{'TIME_NEXT_WEEK' | translate}}</option>
+                        <option value="thisMonth">{{'TIME_THIS_MONTH' | translate}}</option>
+                        <option value="nextMonth">{{'TIME_NEXT_MONTH' | translate}}</option>
+                        <option value="nextTwoMonth">{{'TIME_NEXT_TWO_MONTH' | translate}}</option>
+                        <option value="nextThreeMonth">{{'TIME_NEXT_THREE_MONTH' | translate}}</option>
+                        <option value="nextAllMonth">{{'TIME_NEXT_MONTHS' | translate}}</option>
+                        <option value="expired">{{'TIME_NEXT_EXPIRED' | translate}}</option>
+                    </select>
+                </div>
                 <div class="text-center">
                     <button class="btn btn-info" ng-click="filterAction()">
                         <i class="fa fa-search"></i> {{'SEARCH' | translate}}

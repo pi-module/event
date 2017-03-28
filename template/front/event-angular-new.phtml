@@ -58,14 +58,12 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     <div class="col-sm-12 col-md-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
             <?php if (!empty($config['image_homepage'])) { ?>
-
                 <?php
                 ob_start();
                 include('partial/category-wide-header.phtml');
                 $wideContent = ob_get_clean();
                 echo $this->wideContent($wideContent, $module);
                 ?>
-
             <?php } else { ?>
                 <div class="page-header">
                     <h1 class="p-name"><?php echo $this->escape($title); ?></h1>
@@ -113,6 +111,15 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 ALL: '<?php _e('All'); ?>',
                 CLOSE: '<?php _e('Close'); ?>',
                 NONE_EVENT: '<?php _e('No event'); ?>',
+                TIME_SELECT: '<?php _e('Event time'); ?>',
+                TIME_THIS_WEEK: '<?php _e('This week'); ?>',
+                TIME_NEXT_WEEK: '<?php _e('Next week'); ?>',
+                TIME_THIS_MONTH: '<?php _e('This month'); ?>',
+                TIME_NEXT_MONTH: '<?php _e('Next month'); ?>',
+                TIME_NEXT_TWO_MONTH: '<?php _e('Next two months'); ?>',
+                TIME_NEXT_THREE_MONTH: '<?php _e('Next three months'); ?>',
+                TIME_NEXT_MONTHS: '<?php _e('Next months'); ?>',
+                TIME_NEXT_EXPIRED: '<?php _e('Expired'); ?>',
             },
         });
 </script>

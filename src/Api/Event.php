@@ -370,7 +370,7 @@ class Event extends AbstractApi
         // Set time level
         $timeLevel = '';
         if ($event['time_end'] == 0 && $event['time_start'] < $time['expired']) {
-            $timeLevel = 'expired';
+            $timeLevel = ' expired';
         } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['expired']) {
             $timeLevel .= ' expired';
         }
