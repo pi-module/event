@@ -314,6 +314,7 @@ class JsonController extends IndexController
             ),
             'condition' => array(
                 'title' => $pageTitle,
+                'description' => $config['text_description_index'],
             ),
         );
 
