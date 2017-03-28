@@ -30,6 +30,8 @@ class JsonController extends IndexController
         $limit = $this->params('limit');
         //$order = $this->params('order');
         $time = $this->params('time');
+        //$categorySelect = $this->params('categorySelect');
+        //$locationSelect = $this->params('locationSelect');
 
         // Set has search result
         $hasSearchResult = true;
@@ -76,6 +78,28 @@ class JsonController extends IndexController
         // Set order
         $order = array('time_publish DESC', 'id DESC');
         $orderExtra = array('time_start DESC', 'id DESC');
+
+        // Get location list
+        $locationList = Pi::api('event', 'event')->getLocationList();
+        if (!empty($locationList)) {
+            $locationAll[] = array(
+                'id' => 0,
+                'title' => __('All'),
+                'value' => '',
+            );
+            $locationList = array_merge($locationAll, $locationList);
+        }
+
+        // Get category list
+        $categoryList = Pi::api('event', 'event')->getCategoryList();
+        if (!empty($categoryList)) {
+            $categoryAll[] = array(
+                'id' => 0,
+                'title' => __('All'),
+                'value' => '',
+            );
+            $categoryList = array_merge($categoryAll, $categoryList);
+        }
 
         // Get category information from model
         if (!empty($category)) {
@@ -131,7 +155,6 @@ class JsonController extends IndexController
             'time' => array(),
         );
 
-
         // Check title from event table
         if (isset($title) && !empty($title)) {
             $checkTitle = true;
@@ -154,7 +177,6 @@ class JsonController extends IndexController
                 $eventIDList['title'][$row->id] = $row->id;
             }
         }
-
 
         // Check time
         $timeArray = array(
@@ -315,6 +337,8 @@ class JsonController extends IndexController
             'condition' => array(
                 'title' => $pageTitle,
                 'description' => $config['text_description_index'],
+                'locationList' => $locationList,
+                'categoryList' => $categoryList,
             ),
         );
 

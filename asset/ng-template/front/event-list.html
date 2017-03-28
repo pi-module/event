@@ -23,6 +23,22 @@
                         <option value="expired">{{'TIME_NEXT_EXPIRED' | translate}}</option>
                     </select>
                 </div>
+                <div class="form-group" ng-if="condition.categoryList">
+                    <label>{{'CATEGORY' | translate}}</label>
+                    <select class="form-control" ng-model="filter.categorySelect" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
+                        <option ng-repeat="categorySingle in condition.categoryList" value="{{categorySingle.value}}">
+                            {{categorySingle.title}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group" ng-if="condition.locationList">
+                    <label>{{'LOCATION' | translate}}</label>
+                    <select class="form-control" ng-model="filter.locationSelect" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
+                        <option ng-repeat="locationSingle in condition.locationList"  value="{{locationSingle.value}}">
+                            {{locationSingle.title}}
+                        </option>
+                    </select>
+                </div>
                 <div class="text-center">
                     <button class="btn btn-info" ng-click="filterAction()">
                         <i class="fa fa-search"></i> {{'SEARCH' | translate}}
