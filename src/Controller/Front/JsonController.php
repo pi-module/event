@@ -26,7 +26,7 @@ class JsonController extends IndexController
         $category = $this->params('category');
         $tag = $this->params('tag');
         $favourite = $this->params('favourite');
-        $recommended = $this->params('recommended');
+        //$recommended = $this->params('recommended');
         $limit = $this->params('limit');
         //$order = $this->params('order');
         $time = $this->params('time');
@@ -35,6 +35,9 @@ class JsonController extends IndexController
 
         // Set has search result
         $hasSearchResult = true;
+
+        // Set table
+        $table = 'story';
 
         // Clean title
         if (Pi::service('module')->isActive('search') && isset($title) && !empty($title)) {
@@ -64,13 +67,13 @@ class JsonController extends IndexController
         );
 
         // Set where link
-        $whereLink = array(
+        $whereEvent = array(
             'status' => 1,
             'type' => 'event'
         );
-        if (!empty($recommended) && $recommended == 1) {
-            $whereLink['recommended'] = 1;
-        }
+        /* if (!empty($recommended) && $recommended == 1) {
+            $whereEvent['recommended'] = 1;
+        } */
 
         // Set page title
         $pageTitle = __('List of events');
@@ -111,6 +114,8 @@ class JsonController extends IndexController
             }
             // Set page title
             $pageTitle = sprintf(__('List of events on %s category'), $category['title']);
+            // Set table
+            $table = 'link';
         }
 
         // Get tag list
@@ -199,7 +204,7 @@ class JsonController extends IndexController
                     $whereExtra1 = array('time_end' => 0, 'time_start < ?' => $timeList['expired']);
                     $whereExtra2 = array('time_end > ?' => 0, 'time_end < ?' => $timeList['expired']);
                     break;
-                    
+
                 case 'thisWeek':
                     $whereExtra1 = array('time_start >= ?' => $timeList['thisWeek'], 'time_start < ?' => $timeList['nextWeek']);
                     $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['thisWeek'], 'time_end > ?' => $timeList['thisWeek']);
@@ -263,13 +268,13 @@ class JsonController extends IndexController
 
         // Set category on where link
         if (isset($categoryIDList) && !empty($categoryIDList)) {
-            $whereLink['category'] = $categoryIDList;
+            $whereEvent['topic'] = $categoryIDList;
         }
 
         // Set event on where link from title and attribute
         if ($checkTitle) {
             if (!empty($eventIDList)) {
-                $whereLink['story'] = $eventIDList;
+                $whereStoryId = $eventIDList;
             } else {
                 $hasSearchResult = false;
             }
@@ -278,19 +283,19 @@ class JsonController extends IndexController
         // Set story on where link from title and time
         if ($checkTitle && $checkTime) {
             if (!empty($eventIDList['title']) && !empty($eventIDList['time'])) {
-                $whereLink['story'] = array_intersect($eventIDList['title'], $eventIDList['time']);
+                $whereStoryId = array_intersect($eventIDList['title'], $eventIDList['time']);
             } else {
                 $hasSearchResult = false;
             }
         } elseif ($checkTitle) {
             if (!empty($eventIDList['title'])) {
-                $whereLink['story'] = $eventIDList['title'];
+                $whereStoryId = $eventIDList['title'];
             } else {
                 $hasSearchResult = false;
             }
         } elseif ($checkTime) {
             if (!empty($eventIDList['time'])) {
-                $whereLink['story'] = $eventIDList['time'];
+                $whereStoryId = $eventIDList['time'];
             } else {
                 $hasSearchResult = false;
             }
@@ -298,10 +303,10 @@ class JsonController extends IndexController
 
         // Set favourite events on where link
         if (!empty($favourite) && $favourite == 1 && isset($eventIDFavourite)) {
-            if (isset($whereLink['story']) && !empty($whereLink['story'])) {
-                $whereLink['story'] = array_intersect($eventIDFavourite, $whereLink['story']);
-            } elseif (!empty($whereLink['story'])) {
-                $whereLink['story'] = $eventIDFavourite;
+            if (isset($whereStoryId) && !empty($whereStoryId)) {
+                $whereStoryId = array_intersect($eventIDFavourite, $whereStoryId);
+            } elseif (!empty($whereStoryId)) {
+                $whereStoryId = $eventIDFavourite;
             } else {
                 $hasSearchResult = false;
             }
@@ -309,10 +314,10 @@ class JsonController extends IndexController
 
         // Set tag events on where link
         if (!empty($tag) && isset($eventIDTag)) {
-            if (isset($whereLink['story']) && !empty($whereLink['story'])) {
-                $whereLink['story'] = array_intersect($eventIDTag, $whereLink['story']);
-            } elseif (!empty($whereLink['story'])) {
-                $whereLink['story'] = $eventIDTag;
+            if (isset($whereStoryId) && !empty($whereStoryId)) {
+                $whereStoryId = array_intersect($eventIDTag, $whereStoryId);
+            } elseif (!empty($whereStoryId)) {
+                $whereStoryId = $eventIDTag;
             } else {
                 $hasSearchResult = false;
             }
@@ -320,9 +325,21 @@ class JsonController extends IndexController
 
         // Check has Search Result
         if ($hasSearchResult) {
-            $event = Pi::api('event', 'event')->getEventList($whereLink, $order, $offset, $limit, 'full', 'link');
-            $count = Pi::api('api', 'news')->getStoryCount($whereLink, 'link');
+            // Set story id list
+            if (isset($whereStoryId)) {
+                switch ($table) {
+                    case 'story':
+                        $whereEvent['id'] = $whereStoryId;
+                        break;
 
+                    case 'link':
+                        $whereEvent['story'] = $whereStoryId;
+                        break;
+                }
+            }
+            // Get event
+            $event = Pi::api('event', 'event')->getEventList($whereEvent, $order, $offset, $limit, 'full', $table);
+            $count = Pi::api('api', 'news')->getStoryCount($whereEvent, $table);
             $event = array_values($event);
         }
 
@@ -339,6 +356,7 @@ class JsonController extends IndexController
                 'description' => $config['text_description_index'],
                 'locationList' => $locationList,
                 'categoryList' => $categoryList,
+                'table' => $table,
             ),
         );
 
