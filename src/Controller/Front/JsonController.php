@@ -185,6 +185,8 @@ class JsonController extends IndexController
 
         // Check time
         $timeArray = array(
+            'active',
+            'expired',
             'thisWeek',
             'nextWeek',
             'thisMonth',
@@ -192,7 +194,6 @@ class JsonController extends IndexController
             'nextTwoMonth',
             'nextThreeMonth',
             'nextAllMonth',
-            'expired',
         );
         $time = (in_array($time, $timeArray)) ? $time : '';
         if (!empty($time)) {
@@ -200,6 +201,11 @@ class JsonController extends IndexController
             $timeList = Pi::api('time', 'event')->makeTime();
             // Set time where query
             switch ($time) {
+                case 'active':
+                    $whereExtra1 = array('time_end' => 0, 'time_start > ?' => $timeList['expired']);
+                    $whereExtra2 = array('time_end > ?' => 0, 'time_end > ?' => $timeList['expired']);
+                    break;
+
                 case 'expired':
                     $whereExtra1 = array('time_end' => 0, 'time_start < ?' => $timeList['expired']);
                     $whereExtra2 = array('time_end > ?' => 0, 'time_end < ?' => $timeList['expired']);
