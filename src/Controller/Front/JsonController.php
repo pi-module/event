@@ -41,9 +41,9 @@ class JsonController extends IndexController
 
         // Clean title
         if (Pi::service('module')->isActive('search') && isset($title) && !empty($title)) {
-            $title = Pi::api('api', 'search')->parseQuery($title);
+            $title = Pi::api('api', 'search')->parseQuery(urldecode($title));
         } elseif (isset($title) && !empty($title)) {
-            $title = _strip($title);
+            $title = _strip(urldecode($title));
         } else {
             $title = '';
         }
@@ -51,8 +51,8 @@ class JsonController extends IndexController
         // Clean params
         $paramsClean = array();
         foreach ($_GET as $key => $value) {
-            $key = _strip($key);
-            $value = _strip($value);
+            $key = _strip(urldecode($key));
+            $value = _strip(urldecode($value));
             $paramsClean[$key] = $value;
         }
 
@@ -107,7 +107,7 @@ class JsonController extends IndexController
         // Get category information from model
         if (!empty($category)) {
             // Get category
-            $category = Pi::api('topic', 'news')->getTopicFull($category, 'slug');
+            $category = Pi::api('topic', 'news')->getTopicFull(urldecode($category), 'slug');
             // Check category
             if (!$category || $category['status'] != 1) {
                 return $result;
@@ -126,7 +126,7 @@ class JsonController extends IndexController
                 return $result;
             }
             // Get id from tag module
-            $tagList = Pi::service('tag')->getList($tag, $module);
+            $tagList = Pi::service('tag')->getList(urldecode($tag), $module);
             foreach ($tagList as $tagSingle) {
                 $eventIDTag[] = $tagSingle['item'];
             }
