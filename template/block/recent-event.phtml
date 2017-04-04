@@ -1,6 +1,7 @@
 <?php if ($block['block-effect']) {
     $this->css($this->assetModule('css/block.css', 'event'));
 } ?>
+
 <div class="event-block">
     <?php if (!empty($block['resources'])) { ?>
         <?php if ($block['list-type'] == 'vertical') { ?>
@@ -12,9 +13,9 @@
                             <div class="col-xs-4 eventImage">
                                 <?php if ($event['image']) { ?>
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
-                                       href="<?php echo $this->escape($event['eventUrl']); ?>">
+                                       href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(1024, 768); ?>">
                                         <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                             src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                             src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(600, 400); ?>"
                                              alt="<?php echo $this->escape($event['title']); ?>"/>
                                     </a>
                                 <?php } ?>
