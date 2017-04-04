@@ -428,6 +428,9 @@ class Event extends AbstractApi
             }
         }
 
+        $event['thumbUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(150, 100);
+        $event['mediumUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(320, 240);
+
         // Set single event array
         $eventSingle = array(
             'id' => $event['id'],

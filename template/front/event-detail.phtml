@@ -110,7 +110,7 @@ $this->sticky();
                 <div class="event-image-main clearfix u-photo gallery">
                     <a href="<?php echo $this->escape($event['largeUrl']); ?>"
                        title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                        <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['mediumUrl']); ?>"
+                        <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(400, 300); ?>"
                              alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                     </a>
                 </div>
@@ -236,7 +236,7 @@ $this->sticky();
                                             <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                                href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                                 <img class="img-responsive u-photo"
-                                                     src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
+                                                     src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->thumb(400, 300); ?>"
                                                      alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                                 <?php if ($guideItemInfo['ribbon']) { ?>
                                                     <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
@@ -346,7 +346,7 @@ $this->sticky();
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
+                                                 src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->thumb(400, 300); ?>"
                                                  alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                             <?php if ($guideItemInfo['ribbon']) { ?>
                                                 <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
