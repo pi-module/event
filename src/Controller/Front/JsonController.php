@@ -311,7 +311,7 @@ class JsonController extends IndexController
         if (!empty($favourite) && $favourite == 1 && isset($eventIDFavourite)) {
             if (isset($whereStoryId) && !empty($whereStoryId)) {
                 $whereStoryId = array_intersect($eventIDFavourite, $whereStoryId);
-            } elseif (!empty($whereStoryId)) {
+            } elseif (!isset($whereStoryId) || empty($whereStoryId)) {
                 $whereStoryId = $eventIDFavourite;
             } else {
                 $hasSearchResult = false;
@@ -322,7 +322,7 @@ class JsonController extends IndexController
         if (!empty($tag) && isset($eventIDTag)) {
             if (isset($whereStoryId) && !empty($whereStoryId)) {
                 $whereStoryId = array_intersect($eventIDTag, $whereStoryId);
-            } elseif (!empty($whereStoryId)) {
+            } elseif (!isset($whereStoryId) || empty($whereStoryId)) {
                 $whereStoryId = $eventIDTag;
             } else {
                 $hasSearchResult = false;
