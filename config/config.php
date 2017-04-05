@@ -98,6 +98,25 @@ return array(
             'category' => 'guide',
         ),
         // View
+
+        'view_template' => array(
+            'title' => _a('View template'),
+            'description' =>  _a('Temporary config to finish new angular js template'),
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'angular' => _a('Angular'),
+                        'angularnew' => _a('New angular'),
+                    ),
+                ),
+            ),
+            'filter' => 'text',
+            'value' => 'angular',
+            'category' => 'view',
+        ),
+
+
         'text_summary_index' => array(
             'category' => 'view',
             'title' => _a('Summary for index page'),
