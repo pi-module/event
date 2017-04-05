@@ -486,57 +486,6 @@ class Event extends AbstractApi
         }
     }
 
-    public function regenerateImage()
-    {
-        // Set info
-        $columns = array('id', 'image', 'path', 'cropping');
-        $where = array('type' => array(
-            'event'
-        ));
-        $order = array('id ASC');
-        $select = Pi::model('story', 'news')->select()->columns($columns)->where($where)->order($order);
-        $rowset = Pi::model('story', 'news')->selectWith($select);
-        foreach ($rowset as $row) {
-            if (!empty($row->image) && !empty($row->path)) {
-                // Set image original path
-                $original = Pi::path(
-                    sprintf('upload/event/image/original/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Set image large path
-                $images['large'] = Pi::path(
-                    sprintf('upload/event/image/large/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Set image medium path
-                $images['medium'] = Pi::path(
-                    sprintf('upload/event/image/medium/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Set image thumb path
-                $images['thumb'] = Pi::path(
-                    sprintf('upload/event/image/thumb/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Check original exist of not
-                if (file_exists($original)) {
-                    // Remove old images
-                    foreach ($images as $image) {
-                        if (file_exists($image)) {
-                            Pi::service('file')->remove($image);
-                        }
-                    }
-                    // regenerate
-                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image', $row->cropping);
-                }
-            }
-        }
-    }
-
     public function migrateMedia(){
         if (Pi::service("module")->isActive("media")) {
             // Get config

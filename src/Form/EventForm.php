@@ -207,36 +207,6 @@ class EventForm extends BaseForm
             ),
         ));
 
-        $this->add(array(
-            'name' => 'image',
-            'options' => array(
-                'label' => __($this->thumbUrl ? "Change image" : "Image"),
-            ),
-            'attributes' => array(
-                'type' => 'file',
-                'description' => '',
-            )
-        ));
-
-        $this->add(array(
-            'name' => 'imageview',
-            'type' => 'Module\Event\Form\Element\ImageCrop', // Zend\Form\Element\Image
-            'options' => array(
-                'label' => __('Uploaded image'),
-            ),
-            'attributes' => array(
-                'src' => $this->thumbUrl ?: ' ',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'cropping',
-            'type' => 'hidden',
-            'options' => array(
-                'label' => __('Cropping data'),
-            ),
-        ));
-
         // address
         $this->add(array(
             'name' => 'address',
