@@ -71,6 +71,9 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <?php if (!empty($config['text_summary_index'])) { ?>
                     <div class="clearfix well"><?php echo $config['text_summary_index']; ?></div>
                 <?php } ?>
+                <?php if (!empty($config['text_description_index'])) { ?>
+                    <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
+                <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
             <?php if (!empty($category['largeUrl'])) { ?>
