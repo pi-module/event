@@ -65,7 +65,7 @@ class Update extends BasicUpdate
         }
 
         // Update to version 0.4.1
-        if (version_compare($moduleVersion, '0.4.1', '<')) {
+        if (version_compare($moduleVersion, '2.0.0', '<')) {
             // Alter table field `register_discount`
             $sql = sprintf("ALTER TABLE %s ADD `register_discount` TEXT", $extraTable);
             try {
@@ -80,7 +80,7 @@ class Update extends BasicUpdate
             }
         }
 
-        if (version_compare($moduleVersion, '0.5.1', '<')) {
+        if (version_compare($moduleVersion, '2.0.1', '<')) {
             Pi::api('event', 'event')->migrateMedia();
         }
     }
