@@ -80,7 +80,7 @@ class Update extends BasicUpdate
             }
         }
 
-        if (version_compare($moduleVersion, '2.0.0', '<')) {
+        if (version_compare($moduleVersion, '2.0.1', '<')) {
             Pi::api('event', 'event')->migrateMedia();
         }
     }
