@@ -41,6 +41,10 @@ return array(
             'title' => _a('Order'),
             'name' => 'order'
         ),
+        array(
+            'title' => _a('Vote'),
+            'name' => 'vote'
+        ),
     ),
     'item' => array(
         // Admin
@@ -260,6 +264,15 @@ return array(
             'category' => 'order',
             'title' => _a('Active discount system'),
             'description' => _a('Discount percent for each rule on each event'),
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
+        // Vote
+        'vote_bar' => array(
+            'category' => 'vote',
+            'title' => _a('Use vote system'),
+            'description' => '',
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1

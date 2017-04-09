@@ -223,6 +223,14 @@ $this->sticky();
                         <?php } ?>
                     </ul>
                 </div>
+
+                <?php if (!empty($vote)) { ?>
+                    <div class="well clearfix eventTime">
+                        <h2><?php _e('Vote to this event'); ?></h2>
+                        <?php include $this->template('votebar', 'front', 'vote'); ?>
+                    </div>
+                <?php } ?>
+
                 <?php if (!empty($event['guideItemInfo']['commercial'])) { ?>
                     <div class="event-item-related clearfix">
                         <div class="page-header">

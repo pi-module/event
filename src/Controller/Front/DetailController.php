@@ -116,7 +116,23 @@ class DetailController extends ActionController
         $today = strtotime('today');
         if (($event['time_end'] == 0 && $event['time_start'] < $today) || ($event['time_end'] > 0 && $event['time_end'] < $today)) {
             $ended = true;
-        } 
+        }
+        // Set vote
+        if ($config['vote_bar'] && Pi::service('module')->isActive('vote')) {
+            $vote = array();
+            $vote['point'] = $event['point'];
+            $vote['count'] = $event['count'];
+            $vote['item'] = $event['id'];
+            $vote['table'] = 'story';
+            $vote['module'] = 'news';
+            $vote['type'] = 'star';
+            $scoreList = Pi::registry('scoreList', 'vote')->read();
+            if (isset($scoreList[$module])) {
+                $vote['score'] = $scoreList[$module];
+                $vote['points'] = Pi::api('vote', 'vote')->getVoteScore('news', 'story', $event['id']);
+            }
+            $this->view()->assign('vote', $vote);
+        }
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');
