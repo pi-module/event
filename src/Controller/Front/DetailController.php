@@ -133,6 +133,14 @@ class DetailController extends ActionController
             }
             $this->view()->assign('vote', $vote);
         }
+        // favourite
+        if ($config['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
+            $favourite['is'] = Pi::api('favourite', 'favourite')->loadFavourite('news', 'story', $event['id']);
+            $favourite['item'] = $event['id'];
+            $favourite['table'] = 'story';
+            $favourite['module'] = 'news';
+            $this->view()->assign('favourite', $favourite);
+        }
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');

@@ -45,6 +45,10 @@ return array(
             'title' => _a('Vote'),
             'name' => 'vote'
         ),
+        array(
+            'title' => _a('Favourite'),
+            'name' => 'favourite'
+        ),
     ),
     'item' => array(
         // Admin
@@ -272,6 +276,15 @@ return array(
         'vote_bar' => array(
             'category' => 'vote',
             'title' => _a('Use vote system'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
+        // favourite
+        'favourite_bar' => array(
+            'category' => 'favourite',
+            'title' => _a('Use favourite system'),
             'description' => '',
             'edit' => 'checkbox',
             'filter' => 'number_int',
