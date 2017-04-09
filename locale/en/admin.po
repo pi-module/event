@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-08-29 12:20+0430\n"
+"POT-Creation-Date: 2017-04-09 09:48+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -52,19 +52,31 @@ msgstr ""
 msgid "Show summary"
 msgstr ""
 
-#: config/block.php:75
-msgid "Show more link"
+#: config/block.php:75 config/config.php:148
+msgid "Event list type"
+msgstr ""
+
+#: config/block.php:81
+msgid "Vertical"
 msgstr ""
 
 #: config/block.php:82
-msgid "Set more link"
-msgstr ""
-
-#: config/block.php:89
-msgid "Use block effects"
+msgid "Horizontal"
 msgstr ""
 
 #: config/block.php:90
+msgid "Show more link"
+msgstr ""
+
+#: config/block.php:97
+msgid "Set more link"
+msgstr ""
+
+#: config/block.php:104
+msgid "Use block effects"
+msgstr ""
+
+#: config/block.php:105
 msgid "Use block effects or set custom effect on theme"
 msgstr ""
 
@@ -84,120 +96,156 @@ msgstr ""
 msgid "Guide module"
 msgstr ""
 
-#: config/config.php:28
+#: config/config.php:29
 msgid "View"
 msgstr ""
 
-#: config/config.php:32
+#: config/config.php:33
 msgid "Social"
 msgstr ""
 
-#: config/config.php:36 config/page.php:35 config/permission.php:24
+#: config/config.php:37 config/page.php:35 config/permission.php:24
 msgid "Manage"
 msgstr ""
 
-#: config/config.php:40
+#: config/config.php:41
 msgid "Order"
 msgstr ""
 
-#: config/config.php:48 config/config.php:102
+#: config/config.php:49 config/config.php:165
 msgid "Perpage"
 msgstr ""
 
-#: config/config.php:57
+#: config/config.php:58
 msgid "Use news topics"
 msgstr ""
 
-#: config/config.php:66
+#: config/config.php:67
 msgid "Use guide category"
 msgstr ""
 
-#: config/config.php:74
+#: config/config.php:75
 msgid "Use guide location"
 msgstr ""
 
-#: config/config.php:81
+#: config/config.php:82
 msgid "Select location level for show on filter form"
 msgstr ""
 
-#: config/config.php:87
+#: config/config.php:88
 msgid "level 1"
 msgstr ""
 
-#: config/config.php:88
+#: config/config.php:89
 msgid "level 2"
 msgstr ""
 
-#: config/config.php:89
+#: config/config.php:90
 msgid "level 3"
 msgstr ""
 
-#: config/config.php:90
+#: config/config.php:91
 msgid "level 4"
 msgstr ""
 
-#: config/config.php:91
+#: config/config.php:92
 msgid "level 5"
 msgstr ""
 
+#: config/config.php:103
+msgid "View template"
+msgstr ""
+
+#: config/config.php:104
+msgid "Temporary config to finish new angular js template"
+msgstr ""
+
+#: config/config.php:109
+msgid "Angular"
+msgstr ""
+
 #: config/config.php:110
+msgid "New angular"
+msgstr ""
+
+#: config/config.php:122
+msgid "Summary for index page"
+msgstr ""
+
+#: config/config.php:131
+msgid "Description for index page"
+msgstr ""
+
+#: config/config.php:140
+msgid "Active wide front image for this module"
+msgstr ""
+
+#: config/config.php:154
+msgid "Line : each event on one line"
+msgstr ""
+
+#: config/config.php:155
+msgid "Box : each event as box and 3 box on one line"
+msgstr ""
+
+#: config/config.php:173
 msgid "Show related event"
 msgstr ""
 
-#: config/config.php:117
+#: config/config.php:180
 msgid "Related event type"
 msgstr ""
 
-#: config/config.php:123
+#: config/config.php:186
 msgid "By event module topics"
 msgstr ""
 
-#: config/config.php:124
+#: config/config.php:187
 msgid "By guide module categories"
 msgstr ""
 
-#: config/config.php:134
+#: config/config.php:197
 msgid "Set wide image for homepage"
 msgstr ""
 
-#: config/config.php:142
+#: config/config.php:206
 msgid "Price filter"
 msgstr ""
 
-#: config/config.php:143
+#: config/config.php:207
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr ""
 
-#: config/config.php:150
+#: config/config.php:214
 msgid "Social sharing items"
 msgstr ""
 
-#: config/config.php:164
+#: config/config.php:228
 msgid "Manage event by users"
 msgstr ""
 
-#: config/config.php:172
+#: config/config.php:236
 msgid "Auto approval user events"
 msgstr ""
 
-#: config/config.php:181
+#: config/config.php:245
 msgid "Active order"
 msgstr ""
 
-#: config/config.php:189
+#: config/config.php:246
+msgid "Manage event registration, ticket stock and activate orders"
+msgstr ""
+
+#: config/config.php:253
 msgid "Show free word for free events"
 msgstr ""
 
-#: config/config.php:197
+#: config/config.php:261
 msgid "Active discount system"
 msgstr ""
 
-#: config/config.php:198
+#: config/config.php:262
 msgid "Discount percent for each rule on each event"
-msgstr ""
-
-#: config/config.php:206
-msgid "Description for index page"
 msgstr ""
 
 #: config/module.php:16 config/navigation.php:29 config/page.php:56
@@ -235,8 +283,4 @@ msgstr ""
 
 #: config/permission.php:17
 msgid "Global public resource"
-msgstr ""
-
-#: config/config.php:198
-msgid "Manage event registration, stock management and activate orders"
 msgstr ""
