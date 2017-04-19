@@ -40,18 +40,13 @@
                         </option>
                     </select>
                 </div>
-                <div class="text-center">
-                    <button class="btn btn-info" ng-click="filterAction()">
-                        <i class="fa fa-search"></i> {{'SEARCH' | translate}}
-                    </button>
-                </div>
             </form>
         </div>
-        <div class="clearfix" data-ng-if="condition.description">
+        <!-- <div class="clearfix" data-ng-if="condition.description">
             <div class="well small">
                 {{condition.description}}
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="col-xs-9">
         <div class="clearfix">
@@ -60,7 +55,7 @@
             </div>
             <div ng-show="events.length">
                 <div class="row">
-                    <div ng-repeat="event in events">
+                    <div ng-repeat="event in events" class="event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
                         <div class="row">
                             <div class="col-xs-3 event-single-image" data-ng-if="event.image">
                                 <div class="text-center">

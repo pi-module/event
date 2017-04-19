@@ -26,10 +26,11 @@ class JsonController extends IndexController
         $category = $this->params('category');
         $tag = $this->params('tag');
         $favourite = $this->params('favourite');
-        //$recommended = $this->params('recommended');
         $limit = $this->params('limit');
-        //$order = $this->params('order');
         $time = $this->params('time');
+
+        //$recommended = $this->params('recommended');
+        //$order = $this->params('order');
         //$categorySelect = $this->params('categorySelect');
         //$locationSelect = $this->params('locationSelect');
 
@@ -169,9 +170,9 @@ class JsonController extends IndexController
                 $whereMain = clone $where;
                 $whereKey = clone $where;
                 $whereMain->equalTo('status', 1);
-                if (!empty($recommended) && $recommended == 1) {
-                    $whereMain->equalTo('recommended', 1);
-                }
+                //if (!empty($recommended) && $recommended == 1) {
+                //    $whereMain->equalTo('recommended', 1);
+                //}
                 foreach ($titles as $title) {
                     $whereKey->like('title', '%' . $title . '%')->and;
                 }
@@ -359,7 +360,7 @@ class JsonController extends IndexController
             ),
             'condition' => array(
                 'title' => $pageTitle,
-                'description' => $config['text_description_index'],
+                //'description' => $config['text_description_index'],
                 'locationList' => $locationList,
                 'categoryList' => $categoryList,
                 'table' => $table,
