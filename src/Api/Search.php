@@ -43,7 +43,7 @@ class Search extends AbstractSearch
         'text_summary'  => 'content',
         'time_create'   => 'time',
         'slug'          => 'slug',
-        'image'         => 'image',
+        'main_image'    => 'main_image',
         'path'          => 'path',
     );
 
@@ -103,15 +103,6 @@ class Search extends AbstractSearch
      */
     protected function buildImage(array $item, $table = '')
     {
-        $image = '';
-        if (isset($item['image']) && !empty($item['image'])) {
-            $image = Pi::url(
-                sprintf('upload/event/image/thumb/%s/%s',
-                    $item['path'],
-                    $item['image']
-                ));
-        }
-
-        return $image;
+        return (string) Pi::api('doc','media')->getSingleLinkUrl($item['main_image'])->thumb(150, 100);
     }
 }

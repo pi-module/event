@@ -15,12 +15,15 @@ return array(
     'meta' => array(
         'title' => _a('Event'),
         'description' => _a('Manage events'),
-        'version' => '0.5.1',
+        'version' => '2.0.1',
         'license' => 'New BSD',
         'logo' => 'image/logo.png',
         'readme' => 'docs/readme.txt',
         'demo' => 'http://pialog',
         'icon' => 'fa-calendar',
+    ),
+    'dependency'    => array(
+        'media',
     ),
     // Author information
     'author' => array(

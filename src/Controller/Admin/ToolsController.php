@@ -16,7 +16,6 @@ use Pi;
 use Pi\Filter;
 use Pi\Mvc\Controller\ActionController;
 use Module\Event\Form\SitemapForm;
-use Module\Event\Form\RegenerateImageForm;
 
 class ToolsController extends ActionController
 {
@@ -224,27 +223,6 @@ class ToolsController extends ActionController
         $this->view()->setTemplate('tools-sitemap');
         $this->view()->assign('form', $form);
         $this->view()->assign('title', __('Rebuild sitemap links'));
-        $this->view()->assign('message', $message);
-    }
-
-    public function imageAction()
-    {
-        $form = new RegenerateImageForm('image');
-        $message = __('Regenerate all images by new setting. Please make backup from youe files on upload folder , before use this tools');
-        if ($this->request->isPost()) {
-            // Set form date
-            $values = $this->request->getPost()->toArray();
-            switch ($values['type']) {
-                case '1':
-                    Pi::api('event', 'event')->regenerateImage();
-                    break;
-            }
-            $message = __('Regenerate images finished');
-        }
-        // Set view
-        $this->view()->setTemplate('tools-image');
-        $this->view()->assign('form', $form);
-        $this->view()->assign('title', __('Regenerate images'));
         $this->view()->assign('message', $message);
     }
 }

@@ -120,6 +120,14 @@ class EventFilter extends InputFilter
                 'required' => true,
             ));
         }
+
+
+        // image
+        $this->add(array(
+            'name' => 'main_image',
+            'required' => false,
+        ));
+
         // image
         $this->add(array(
             'name' => 'image',
