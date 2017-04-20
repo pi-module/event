@@ -148,7 +148,7 @@ class JsonController extends IndexController
                 return $result;
             }
             // Get id from favourite module
-            $eventIDFavourite = Pi::api('favourite', 'favourite')->userFavourite($uid, $module);
+            $eventIDFavourite = Pi::api('favourite', 'favourite')->userFavourite($uid, 'news');
             // Set page title
             $pageTitle = ('All favourite events by you');
         }

@@ -161,6 +161,24 @@ $this->sticky();
                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     </div>
                 <?php } ?>
+                <?php if (!empty($favourite)) { ?>
+                    <div class="well clearfix eventFavourite">
+                        <div class="row">
+                            <h4 class="col-md-9">
+                                <?php _e('You love this event ?'); ?>
+                            </h4>
+                            <div class="col-md-3">
+                                <?php include $this->template('favouritebar', 'front', 'favourite'); ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($vote)) { ?>
+                    <div class="well clearfix eventVote">
+                        <h2><?php _e('Vote to this event'); ?></h2>
+                        <?php include $this->template('votebar', 'front', 'vote'); ?>
+                    </div>
+                <?php } ?>
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">

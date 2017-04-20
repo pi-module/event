@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-08-29 12:18+0430\n"
+"POT-Creation-Date: 2017-04-09 09:48+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -52,19 +52,31 @@ msgstr "نمایش بازدید"
 msgid "Show summary"
 msgstr "نمایش خلاصه"
 
-#: config/block.php:75
+#: config/block.php:75 config/config.php:148
+msgid "Event list type"
+msgstr "نوع نمایش فهرست رویداد ها"
+
+#: config/block.php:81
+msgid "Vertical"
+msgstr "عمودی"
+
+#: config/block.php:82
+msgid "Horizontal"
+msgstr "افقی"
+
+#: config/block.php:90
 msgid "Show more link"
 msgstr "نمایش لینک ادامه"
 
-#: config/block.php:82
+#: config/block.php:97
 msgid "Set more link"
 msgstr "درج لینک ادامه"
 
-#: config/block.php:89
+#: config/block.php:104
 msgid "Use block effects"
 msgstr " استفاده از افکت های بلاک"
 
-#: config/block.php:90
+#: config/block.php:105
 msgid "Use block effects or set custom effect on theme"
 msgstr ""
 "ستفاده از افکت های جاوا اسکریپت یا سی اس اس بلاک یا شخصی سازی آن در قالب"
@@ -85,123 +97,159 @@ msgstr "ماژول اخبار"
 msgid "Guide module"
 msgstr "ماژول مدیریت اماکن"
 
-#: config/config.php:28
+#: config/config.php:29
 msgid "View"
 msgstr "نمایش"
 
-#: config/config.php:32
+#: config/config.php:33
 msgid "Social"
 msgstr "شبکه های اجتماعی"
 
-#: config/config.php:36 config/page.php:35 config/permission.php:24
+#: config/config.php:37 config/page.php:35 config/permission.php:24
 msgid "Manage"
 msgstr "مدیریت درج رویداد توسط کاربر"
 
-#: config/config.php:40
+#: config/config.php:41
 msgid "Order"
 msgstr "سفارش"
 
-#: config/config.php:48 config/config.php:102
+#: config/config.php:49 config/config.php:165
 msgid "Perpage"
 msgstr "تعداد در صفحه"
 
-#: config/config.php:57
+#: config/config.php:58
 msgid "Use news topics"
 msgstr "استفاده از موضوع های ماژول اخبار"
 
-#: config/config.php:66
+#: config/config.php:67
 msgid "Use guide category"
 msgstr "استفاده از شاخه های ماژول مدیریت اماکن"
 
-#: config/config.php:74
+#: config/config.php:75
 msgid "Use guide location"
 msgstr "استفاده از مکان ماژول مدیریت اماکن"
 
-#: config/config.php:81
+#: config/config.php:82
 msgid "Select location level for show on filter form"
 msgstr "انتخاب سطح مکان برای نمایش در فرم"
 
-#: config/config.php:87
+#: config/config.php:88
 msgid "level 1"
 msgstr "سطح ۱"
 
-#: config/config.php:88
+#: config/config.php:89
 msgid "level 2"
 msgstr "سطح ۲"
 
-#: config/config.php:89
+#: config/config.php:90
 msgid "level 3"
 msgstr "سطح ۳"
 
-#: config/config.php:90
+#: config/config.php:91
 msgid "level 4"
 msgstr "سطح ۴"
 
-#: config/config.php:91
+#: config/config.php:92
 msgid "level 5"
 msgstr "سطح ۵"
 
+#: config/config.php:103
+msgid "View template"
+msgstr "انتخاب تمپلیت"
+
+#: config/config.php:104
+msgid "Temporary config to finish new angular js template"
+msgstr "تنظیم انتخاب تمپلیت تا تکمیل روش نمایش جدید ( موقتی )"
+
+#: config/config.php:109
+msgid "Angular"
+msgstr "Angular"
+
 #: config/config.php:110
+msgid "New angular"
+msgstr "New angular"
+
+#: config/config.php:122
+msgid "Summary for index page"
+msgstr "خلاصه برای صفحه اول"
+
+#: config/config.php:131
+msgid "Description for index page"
+msgstr "متن توضیحات صفحه اول ماژول"
+
+#: config/config.php:140
+msgid "Active wide front image for this module"
+msgstr "فعال کردن تصویر عریض برای صفحات این ماژول"
+
+#: config/config.php:154
+msgid "Line : each event on one line"
+msgstr "خطی : هر رویداد در یک خط"
+
+#: config/config.php:155
+msgid "Box : each event as box and 3 box on one line"
+msgstr "باکس : هر سه رویداد در یک خط"
+
+#: config/config.php:173
 msgid "Show related event"
 msgstr "نمایش رویداد های مشابه"
 
-#: config/config.php:117
+#: config/config.php:180
 msgid "Related event type"
 msgstr "نوع رویداد های مشابه"
 
-#: config/config.php:123
+#: config/config.php:186
 msgid "By event module topics"
 msgstr "بر اساس شاخه ماژول رویداد"
 
-#: config/config.php:124
+#: config/config.php:187
 msgid "By guide module categories"
 msgstr "براساس شاخه ماژول معرفی امکان"
 
-#: config/config.php:134
+#: config/config.php:197
 msgid "Set wide image for homepage"
 msgstr "تنظیم عکس عریض برای صفحه اول"
 
-#: config/config.php:142
+#: config/config.php:206
 msgid "Price filter"
 msgstr "فیلتر قیمت"
 
-#: config/config.php:143
+#: config/config.php:207
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr ""
 "روش ورود اطلاعات ، از علامت های | و - و , باید استفاده شود ، به طور مثال : "
 "0-500000,بین ۰ تا ۵۰.۰۰۰ تومان|500000-2000000,بین ۵۰.۰۰۰ تا ۲۰۰.۰۰۰ تومان|"
 
-#: config/config.php:150
+#: config/config.php:214
 msgid "Social sharing items"
 msgstr "موارد اشتراک گذاری در شبکه های اجتماعی"
 
-#: config/config.php:164
+#: config/config.php:228
 msgid "Manage event by users"
 msgstr "مدیریت رویداد ها توسط کاربر"
 
-#: config/config.php:172
+#: config/config.php:236
 msgid "Auto approval user events"
 msgstr "تایید خودکار رویداد های درج شده توسط کاربر"
 
-#: config/config.php:181
+#: config/config.php:245
 msgid "Active order"
 msgstr "فعال سازی ثبت نام در رویداد"
 
-#: config/config.php:189
+#: config/config.php:246
+msgid "Manage event registration, ticket stock and activate orders"
+msgstr "مدیریت ثبت رویداد، ارسال درخواست پشتیبانی و سفارش"
+
+#: config/config.php:253
 msgid "Show free word for free events"
 msgstr "نمایش کلمه رایگان برای رویداد های رایگان"
 
-#: config/config.php:197
+#: config/config.php:261
 msgid "Active discount system"
 msgstr "فعال سازی سیستم تخفیف"
 
-#: config/config.php:198
+#: config/config.php:262
 msgid "Discount percent for each rule on each event"
 msgstr "تخفیف درصدی برای هر گروه کاربری در هر رویداد"
-
-#: config/config.php:206
-msgid "Description for index page"
-msgstr "متن توضیحات صفحه اول ماژول"
 
 #: config/module.php:16 config/navigation.php:29 config/page.php:56
 #: config/permission.php:33
