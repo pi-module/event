@@ -79,5 +79,9 @@ class Update extends BasicUpdate
                 return false;
             }
         }
+
+        if (version_compare($moduleVersion, '2.0.1', '<')) {
+            Pi::api('event', 'event')->migrateMedia();
+        }
     }
 }
