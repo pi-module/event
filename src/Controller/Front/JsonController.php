@@ -370,6 +370,74 @@ class JsonController extends IndexController
         return $result;
     }
 
+    public function eventSingleAction()
+    {
+        // Get info from url
+        $id = $this->params('id');
+        $slug = $this->params('slug');
+        // Get
+        if (!empty($slug)) {
+            $singleEvent = Pi::api('event', 'event')->getEventSingle($slug, 'slug');
+        } elseif (!empty($id)) {
+            $singleEvent = Pi::api('event', 'event')->getEventSingle($id);
+        } else {
+            return false;
+        }
+
+        // Set text_summary
+        $singleEvent['text_summary'] = Pi::service('markup')->render($singleEvent['text_summary'], 'html', 'html');
+        $singleEvent['text_summary'] = strip_tags($singleEvent['text_summary'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
+        $singleEvent['text_summary'] = str_replace("<p>&nbsp;</p>", "", $singleEvent['text_summary']);
+        // Set text_description
+        $singleEvent['text_description'] = Pi::service('markup')->render($singleEvent['text_description'], 'html', 'html');
+        $singleEvent['text_description'] = strip_tags($singleEvent['text_description'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
+        $singleEvent['text_description'] = str_replace("<p>&nbsp;</p>", "", $singleEvent['text_description']);
+        // Set register_details
+        $singleEvent['register_details'] = Pi::service('markup')->render($singleEvent['register_details'], 'html', 'html');
+        $singleEvent['register_details'] = strip_tags($singleEvent['register_details'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
+        $singleEvent['register_details'] = str_replace("<p>&nbsp;</p>", "", $singleEvent['register_details']);
+        // Set time
+        if (!empty($singleEvent['time_start']) && !empty($singleEvent['time_end'])) {
+            $singleEvent['time_view'] = sprintf('%s %s %s %s', _b('From'), $singleEvent['time_start_view'], _b('to'), $singleEvent['time_end_view']);
+        } elseif (!empty($singleEvent['time_start'])) {
+            $singleEvent['time_view'] = $singleEvent['time_start_view'];
+        }
+
+        // Set event
+        $event = array();
+        $event[] = array(
+            'id' => $singleEvent['id'],
+            'title' => $singleEvent['title'],
+            'text_summary' => $singleEvent['text_summary'],
+            'text_description' => $singleEvent['text_description'],
+            'register_details' => $singleEvent['register_details'],
+            'time_update' => $singleEvent['time_update'],
+            'time_start' => $singleEvent['time_start'],
+            'time_end' => $singleEvent['time_end'],
+            'time_view' => $singleEvent['time_view'],
+            'hits' => $singleEvent['hits'],
+            'recommended' => $singleEvent['recommended'],
+            'favourite' => $singleEvent['favourite'],
+            'largeUrl' => $singleEvent['largeUrl'],
+            'mediumUrl' => $singleEvent['mediumUrl'],
+            'thumbUrl' => $singleEvent['thumbUrl'],
+            'image' => $singleEvent['image'],
+            'eventUrl' => $singleEvent['eventUrl'],
+            'source_url' => $singleEvent['source_url'],
+            'organizer_name' => $singleEvent['organizer_name'],
+            'address' => $singleEvent['address'],
+            'offer_url' => $singleEvent['offer_url'],
+            'price' => isset($singleEvent['register_price_view']) ? $singleEvent['register_price_view'] : $singleEvent['price_view'],
+            'subtitle' => $singleEvent['subtitle'],
+            'register_price' => $singleEvent['register_price'],
+            'register_price_view' => $singleEvent['register_price_view'],
+            'price_currency' => $singleEvent['price_currency'],
+            'originalUrl' => isset($singleEvent['originalUrl']) ? $singleEvent['originalUrl'] : '',
+        );
+
+        return $event;
+    }
+
     public function filterIndexAction()
     {
         // Get time
