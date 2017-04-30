@@ -16,7 +16,6 @@ return array(
         'title' => _a('Event'),
         'description' => _a('Manage events'),
         'version' => '2.0.2',
-
         'license' => 'New BSD',
         'logo' => 'image/logo.png',
         'readme' => 'docs/readme.txt',
@@ -24,6 +23,7 @@ return array(
         'icon' => 'fa-calendar',
     ),
     'dependency'    => array(
+        'news',
         'media',
     ),
     // Author information
