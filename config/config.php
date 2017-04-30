@@ -217,6 +217,14 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
+        'view_days' => array(
+            'category' => 'view',
+            'title' => _a('Show days'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),

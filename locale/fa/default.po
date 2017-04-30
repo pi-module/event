@@ -436,7 +436,7 @@ msgstr "ارسال"
 #: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:148
 #: template/front/event-detail.phtml:149
 msgid "Register to the event"
-msgstr "ثبت نام در رویداد"
+msgstr "ثبت نام"
 
 #: src/Form/SitemapForm.php:32
 msgid "Select for rebuild"

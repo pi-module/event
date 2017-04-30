@@ -114,7 +114,7 @@ $this->sticky();
                              alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                     </a>
                 </div>
-                <?php if ($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) { ?>
+                <?php if (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
                     <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
@@ -161,35 +161,20 @@ $this->sticky();
                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     </div>
                 <?php } ?>
-                <?php if (!empty($favourite)) { ?>
-                    <div class="well clearfix eventFavourite">
-                        <div class="row">
-                            <h4 class="col-md-9">
-                                <?php _e('You love this event ?'); ?>
-                            </h4>
-                            <div class="col-md-3">
-                                <?php include $this->template('favouritebar', 'front', 'favourite'); ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-                <?php if (!empty($vote)) { ?>
-                    <div class="well clearfix eventVote">
-                        <h2><?php _e('Vote to this event'); ?></h2>
-                        <?php include $this->template('votebar', 'front', 'vote'); ?>
-                    </div>
-                <?php } ?>
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">
+                        <?php if ($config['view_days']) { ?>
+                            <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
+                        <?php } ?>
                         <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                            <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
+                            <li><?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('From') ?></li>
                             <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
                             <li><?php _e('to') ?></li>
                             <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
                         <?php } elseif (!empty($event['time_start'])) { ?>
                             <li class="event-single-time dt-start">
-                                <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
+                                <?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
                             </li>
                         <?php } ?>
                     </ul>
@@ -241,6 +226,24 @@ $this->sticky();
                         <?php } ?>
                     </ul>
                 </div>
+                <?php if (!empty($favourite)) { ?>
+                    <div class="well clearfix eventFavourite">
+                        <div class="row">
+                            <h4 class="col-md-9">
+                                <?php _e('You love this event ?'); ?>
+                            </h4>
+                            <div class="col-md-3">
+                                <?php include $this->template('favouritebar', 'front', 'favourite'); ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($vote)) { ?>
+                    <div class="well clearfix eventVote">
+                        <h2><?php _e('Vote to this event'); ?></h2>
+                        <?php include $this->template('votebar', 'front', 'vote'); ?>
+                    </div>
+                <?php } ?>
                 <?php if (!empty($event['guideItemInfo']['commercial'])) { ?>
                     <div class="event-item-related clearfix">
                         <div class="page-header">
@@ -349,7 +352,6 @@ $this->sticky();
                 <?php } ?>
             </div>
         </div>
-
         <?php if (!empty($event['guideItemInfo']['free'])) { ?>
             <div class="row">
                 <div class="col-md-12 event-item-related clearfix">
@@ -395,7 +397,6 @@ $this->sticky();
         <?php } ?>
     </div>
 </div>
-
 <script>
     $(document).ready(function(){
         $('iframe').wrap('<div class="iframe-wrapper">');

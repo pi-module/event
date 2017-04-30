@@ -105,6 +105,8 @@ class Block
         // Language
         _b('free!');
         _b('Toman');
+        _b('%s days');
+        _b('1 days');
         // return
         return $block;
     }
