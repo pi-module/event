@@ -328,6 +328,13 @@ class Event extends AbstractApi
             }
             $extra['locationInfo'] = $this->locationList[$extra['guide_location'][0]];
         }
+        // Number of days
+        if ($extra['time_end'] > 0) {
+            $days = ceil(($extra['time_end'] - $extra['time_start']) / 86400) + 1;
+            $extra['days'] = sprintf(__('%s days'), $days);
+        } else {
+            $extra['days'] = __('1 days');
+        }
         return $extra;
     }
 
@@ -428,6 +435,14 @@ class Event extends AbstractApi
             }
         }
 
+        // Number of days
+        if ($event['time_end'] > 0) {
+            $days = ceil(($event['time_end'] - $event['time_start']) / 86400) + 1;
+            $event['days'] = sprintf(__('%s days'), $days);
+        } else {
+            $event['days'] = __('1 days');
+        }
+
         $event['thumbUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(150, 100);
         $event['mediumUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(320, 240);
 
@@ -456,6 +471,7 @@ class Event extends AbstractApi
             'time_level' => $timeLevel,
             'category' => implode(' ', $categoryList),
             'location' => implode(' ', $locationList),
+            'days' => $event['days'],
         );
 
         return $eventSingle;

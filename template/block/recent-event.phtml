@@ -13,7 +13,7 @@
                             <div class="col-xs-4 eventImage">
                                 <?php if ($event['image']) { ?>
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
-                                       href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(1024, 768); ?>">
+                                       href="<?php echo $this->escape($event['eventUrl']); ?>">
                                         <img itemprop="image" class="img-responsive img-rounded u-photo"
                                              src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(600, 400); ?>"
                                              alt="<?php echo $this->escape($event['title']); ?>"/>
@@ -31,14 +31,23 @@
                                 </div>
                                 <div class="recent-event-single-information small">
                                     <ul class="clearfix list-inline event-time">
+                                        <?php if ($block['show-days']) { ?>
+                                            <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
+                                        <?php } ?>
                                         <?php if ($block['show-time']) { ?>
                                             <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                                <li><i class="fa fa-clock-o"></i> <strong><?php echo _b('From') ?></strong></li>
+                                                <li>
+                                                    <?php if (!$block['show-days']) { ?><i class="fa fa-clock-o"></i> <?php } ?>
+                                                    <strong><?php echo _b('From') ?></strong>
+                                                </li>
                                                 <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
                                                 <li><strong><?php echo _b('to') ?></strong></li>
                                                 <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
                                             <?php } elseif (!empty($event['time_start'])) { ?>
-                                                <li class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></li>
+                                                <li class="event-single-time dt-start">
+                                                    <?php if ($block['show-days']) { ?><i class="fa fa-clock-o"></i> <?php } ?>
+                                                    <?php echo $this->escape($event['time_start_view']); ?>
+                                                </li>
                                             <?php } ?>
                                         <?php } ?>
                                         <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
@@ -112,8 +121,8 @@
                                 <div class="recent-event-single-image">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
-                                        <img itemprop="image" class="img-responsive u-photo"
-                                             src="<?php echo $this->escape($event['thumbUrl']); ?>"
+                                        <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                             src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(600, 400); ?>"
                                              alt="<?php echo $this->escape($event['title']); ?>"/>
                                     </a>
                                 </div>
@@ -171,6 +180,7 @@
                     <?php } ?>
                 <?php } ?>
             </div>
+        <?php } elseif ($block['list-type'] == 'table') { ?>
         <?php } ?>
         </div>
         <?php if ($block['show-morelink']) { ?>

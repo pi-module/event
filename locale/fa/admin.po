@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-04-09 09:48+0430\n"
+"POT-Creation-Date: 2017-04-30 10:37+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -52,31 +52,39 @@ msgstr "نمایش بازدید"
 msgid "Show summary"
 msgstr "نمایش خلاصه"
 
-#: config/block.php:75 config/config.php:148
+#: config/block.php:75
+msgid "Show days"
+msgstr "نمایش تعداد روز"
+
+#: config/block.php:82 config/config.php:156
 msgid "Event list type"
 msgstr "نوع نمایش فهرست رویداد ها"
 
-#: config/block.php:81
+#: config/block.php:88
 msgid "Vertical"
 msgstr "عمودی"
 
-#: config/block.php:82
+#: config/block.php:89
 msgid "Horizontal"
 msgstr "افقی"
 
 #: config/block.php:90
+msgid "Table"
+msgstr "جدولی"
+
+#: config/block.php:98
 msgid "Show more link"
 msgstr "نمایش لینک ادامه"
 
-#: config/block.php:97
+#: config/block.php:105
 msgid "Set more link"
 msgstr "درج لینک ادامه"
 
-#: config/block.php:104
+#: config/block.php:112
 msgid "Use block effects"
 msgstr " استفاده از افکت های بلاک"
 
-#: config/block.php:105
+#: config/block.php:113
 msgid "Use block effects or set custom effect on theme"
 msgstr ""
 "ستفاده از افکت های جاوا اسکریپت یا سی اس اس بلاک یا شخصی سازی آن در قالب"
@@ -113,143 +121,159 @@ msgstr "مدیریت درج رویداد توسط کاربر"
 msgid "Order"
 msgstr "سفارش"
 
-#: config/config.php:49 config/config.php:165
+#: config/config.php:45
+msgid "Vote"
+msgstr "رای"
+
+#: config/config.php:49
+msgid "Favourite"
+msgstr "علاقه مندی"
+
+#: config/config.php:57 config/config.php:173
 msgid "Perpage"
 msgstr "تعداد در صفحه"
 
-#: config/config.php:58
+#: config/config.php:66
 msgid "Use news topics"
 msgstr "استفاده از موضوع های ماژول اخبار"
 
-#: config/config.php:67
+#: config/config.php:75
 msgid "Use guide category"
 msgstr "استفاده از شاخه های ماژول مدیریت اماکن"
 
-#: config/config.php:75
+#: config/config.php:83
 msgid "Use guide location"
 msgstr "استفاده از مکان ماژول مدیریت اماکن"
 
-#: config/config.php:82
+#: config/config.php:90
 msgid "Select location level for show on filter form"
 msgstr "انتخاب سطح مکان برای نمایش در فرم"
 
-#: config/config.php:88
+#: config/config.php:96
 msgid "level 1"
 msgstr "سطح ۱"
 
-#: config/config.php:89
+#: config/config.php:97
 msgid "level 2"
 msgstr "سطح ۲"
 
-#: config/config.php:90
+#: config/config.php:98
 msgid "level 3"
 msgstr "سطح ۳"
 
-#: config/config.php:91
+#: config/config.php:99
 msgid "level 4"
 msgstr "سطح ۴"
 
-#: config/config.php:92
+#: config/config.php:100
 msgid "level 5"
 msgstr "سطح ۵"
 
-#: config/config.php:103
+#: config/config.php:111
 msgid "View template"
 msgstr "انتخاب تمپلیت"
 
-#: config/config.php:104
+#: config/config.php:112
 msgid "Temporary config to finish new angular js template"
 msgstr "تنظیم انتخاب تمپلیت تا تکمیل روش نمایش جدید ( موقتی )"
 
-#: config/config.php:109
+#: config/config.php:117
 msgid "Angular"
 msgstr "Angular"
 
-#: config/config.php:110
+#: config/config.php:118
 msgid "New angular"
 msgstr "New angular"
 
-#: config/config.php:122
+#: config/config.php:130
 msgid "Summary for index page"
 msgstr "خلاصه برای صفحه اول"
 
-#: config/config.php:131
+#: config/config.php:139
 msgid "Description for index page"
 msgstr "متن توضیحات صفحه اول ماژول"
 
-#: config/config.php:140
+#: config/config.php:148
 msgid "Active wide front image for this module"
 msgstr "فعال کردن تصویر عریض برای صفحات این ماژول"
 
-#: config/config.php:154
+#: config/config.php:162
 msgid "Line : each event on one line"
 msgstr "خطی : هر رویداد در یک خط"
 
-#: config/config.php:155
+#: config/config.php:163
 msgid "Box : each event as box and 3 box on one line"
 msgstr "باکس : هر سه رویداد در یک خط"
 
-#: config/config.php:173
+#: config/config.php:181
 msgid "Show related event"
 msgstr "نمایش رویداد های مشابه"
 
-#: config/config.php:180
+#: config/config.php:188
 msgid "Related event type"
 msgstr "نوع رویداد های مشابه"
 
-#: config/config.php:186
+#: config/config.php:194
 msgid "By event module topics"
 msgstr "بر اساس شاخه ماژول رویداد"
 
-#: config/config.php:187
+#: config/config.php:195
 msgid "By guide module categories"
 msgstr "براساس شاخه ماژول معرفی امکان"
 
-#: config/config.php:197
+#: config/config.php:205
 msgid "Set wide image for homepage"
 msgstr "تنظیم عکس عریض برای صفحه اول"
 
-#: config/config.php:206
+#: config/config.php:214
 msgid "Price filter"
 msgstr "فیلتر قیمت"
 
-#: config/config.php:207
+#: config/config.php:215
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr ""
 "روش ورود اطلاعات ، از علامت های | و - و , باید استفاده شود ، به طور مثال : "
 "0-500000,بین ۰ تا ۵۰.۰۰۰ تومان|500000-2000000,بین ۵۰.۰۰۰ تا ۲۰۰.۰۰۰ تومان|"
 
-#: config/config.php:214
+#: config/config.php:222
 msgid "Social sharing items"
 msgstr "موارد اشتراک گذاری در شبکه های اجتماعی"
 
-#: config/config.php:228
+#: config/config.php:236
 msgid "Manage event by users"
 msgstr "مدیریت رویداد ها توسط کاربر"
 
-#: config/config.php:236
+#: config/config.php:244
 msgid "Auto approval user events"
 msgstr "تایید خودکار رویداد های درج شده توسط کاربر"
 
-#: config/config.php:245
+#: config/config.php:253
 msgid "Active order"
 msgstr "فعال سازی ثبت نام در رویداد"
 
-#: config/config.php:246
+#: config/config.php:254
 msgid "Manage event registration, ticket stock and activate orders"
 msgstr "مدیریت ثبت رویداد، ارسال درخواست پشتیبانی و سفارش"
 
-#: config/config.php:253
+#: config/config.php:261
 msgid "Show free word for free events"
 msgstr "نمایش کلمه رایگان برای رویداد های رایگان"
 
-#: config/config.php:261
+#: config/config.php:269
 msgid "Active discount system"
 msgstr "فعال سازی سیستم تخفیف"
 
-#: config/config.php:262
+#: config/config.php:270
 msgid "Discount percent for each rule on each event"
 msgstr "تخفیف درصدی برای هر گروه کاربری در هر رویداد"
+
+#: config/config.php:278
+msgid "Use vote system"
+msgstr "استفاده از سیستم رای"
+
+#: config/config.php:287
+msgid "Use favourite system"
+msgstr "استفاده از سیستم مورد علاقه"
 
 #: config/module.php:16 config/navigation.php:29 config/page.php:56
 #: config/permission.php:33
