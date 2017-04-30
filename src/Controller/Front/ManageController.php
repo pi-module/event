@@ -24,6 +24,11 @@ class ManageController extends ActionController
     {
         // Get info from url
         $module = $this->params('module');
+        $allowed = 0;
+        $where = array();
+        $events = array();
+        // Get user
+        $uid = Pi::user()->getId();
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // check
@@ -38,28 +43,40 @@ class ManageController extends ActionController
         // Check owner
         if (Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
-            $where = array(
-                'guide_owner' => $owner['id'],
-            );
+            if (isset($owner['id']) && $owner['id'] > 0) {
+                $where = array(
+                    'guide_owner' => $owner['id'],
+                );
+                $allowed = 1;
+                // Set view
+                $this->view()->assign('owner', $owner);
+            }
         } else {
-            $where = array(
-                'uid' => Pi::user()->getId(),
-            );
+            $roles = Pi::user()->getRole($uid, 'front');
+            if (in_array($config['manage_role'], $roles)) {
+                $where = array(
+                    'uid' => $uid,
+                );
+                $allowed = 1;
+            }
         }
 
-        $order = array('time_start DESC', 'id DESC');
-
-        // Get ids
-        $select = $this->getModel('extra')->select();
-        $select = $select->where($where)->order($order);
-        $rowset = $this->getModel('extra')->selectWith($select);
+        // Get event list
+        if ($allowed) {
+            $order = array('time_start DESC', 'id DESC');
+            $select = $this->getModel('extra')->select()->where($where)->order($order);
+            $rowset = $this->getModel('extra')->selectWith($select);
+            foreach ($rowset as $row) {
+                $events[$row->id] = $row->toArray();
+            }
+        }
 
         // Set view
         $this->view()->setTemplate('manage-index');
         $this->view()->assign('title', __('All your events'));
-        $this->view()->assign('owner', $owner);
         $this->view()->assign('config', $config);
-        $this->view()->assign('events', $rowset);
+        $this->view()->assign('events', $events);
+        $this->view()->assign('allowed', $allowed);
         // Language
         __('Search');
     }
@@ -72,14 +89,8 @@ class ManageController extends ActionController
         $item = $this->params('item');
         // Get config
         $config = Pi::service('registry')->config->read($module);
-        // Set option
-        $option = array(
-            'side' => 'front',
-            'use_news_topic' => $config['use_news_topic'],
-            'use_guide_category' => $config['use_guide_category'],
-            'use_guide_location' => $config['use_guide_location'],
-            'order_active' => $config['order_active'],
-        );
+        // Get user
+        $uid = Pi::user()->getId();
         // check
         if (!$config['manage_active']) {
             $this->getResponse()->setStatusCode(401);
@@ -89,12 +100,35 @@ class ManageController extends ActionController
         } else {
             Pi::service('authentication')->requireLogin();
         }
-        // Get user
-        $uid = Pi::user()->getId();
-
+        // Check allowed
+        $allowed = 0;
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = $this->canonizeGuideOwner();
+            if (isset($owner['id']) && $owner['id'] > 0) {
+                $allowed = 1;
+            }
+        } else {
+            $roles = Pi::user()->getRole($uid, 'front');
+            if (in_array($config['manage_role'], $roles)) {
+                $allowed = 1;
+            }
+        }
+        if (!$allowed) {
+            $this->getResponse()->setStatusCode(403);
+            $this->terminate(__('You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
+        // Set option
+        $option = array(
+            'side' => 'front',
+            'use_news_topic' => $config['use_news_topic'],
+            'use_guide_category' => $config['use_guide_category'],
+            'use_guide_location' => $config['use_guide_location'],
+            'order_active' => $config['order_active'],
+        );
         // Find event
         if ($id) {
-
             $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
             if ($event['image']) {
 
@@ -330,6 +364,8 @@ class ManageController extends ActionController
         $id = $this->params('id');
         // Get config
         $config = Pi::service('registry')->config->read($module);
+        // Get user
+        $uid = Pi::user()->getId();
         // check
         if (!$config['manage_active']) {
             $this->getResponse()->setStatusCode(401);
@@ -339,8 +375,25 @@ class ManageController extends ActionController
         } else {
             Pi::service('authentication')->requireLogin();
         }
-        // Get user
-        $uid = Pi::user()->getId();
+        // Check allowed
+        $allowed = 0;
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = $this->canonizeGuideOwner();
+            if (isset($owner['id']) && $owner['id'] > 0) {
+                $allowed = 1;
+            }
+        } else {
+            $roles = Pi::user()->getRole($uid, 'front');
+            if (in_array($config['manage_role'], $roles)) {
+                $allowed = 1;
+            }
+        }
+        if (!$allowed) {
+            $this->getResponse()->setStatusCode(403);
+            $this->terminate(__('You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
         // Find event
         $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
         // Check event uid
@@ -373,6 +426,8 @@ class ManageController extends ActionController
         $id = $this->params('id');
         // Get config
         $config = Pi::service('registry')->config->read($module);
+        // Get user
+        $uid = Pi::user()->getId();
         // check
         if (!$config['manage_active']) {
             $this->getResponse()->setStatusCode(401);
@@ -382,8 +437,25 @@ class ManageController extends ActionController
         } else {
             Pi::service('authentication')->requireLogin();
         }
-        // Get user
-        $uid = Pi::user()->getId();
+        // Check allowed
+        $allowed = 0;
+        if (Pi::service('module')->isActive('guide')) {
+            $owner = $this->canonizeGuideOwner();
+            if (isset($owner['id']) && $owner['id'] > 0) {
+                $allowed = 1;
+            }
+        } else {
+            $roles = Pi::user()->getRole($uid, 'front');
+            if (in_array($config['manage_role'], $roles)) {
+                $allowed = 1;
+            }
+        }
+        if (!$allowed) {
+            $this->getResponse()->setStatusCode(403);
+            $this->terminate(__('You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        }
         // Find event
         $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
         // Check event uid

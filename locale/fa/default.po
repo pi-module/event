@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-04-30 10:40+0430\n"
+"POT-Creation-Date: 2017-04-30 12:28+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,8 +21,8 @@ msgstr ""
 msgid "Manage events"
 msgstr "مدیریت رویداد ها"
 
-#: src/Api/Breadcrumbs.php:86 template/front/manage-index.phtml:54
-#: template/front/manage-index.phtml:56
+#: src/Api/Breadcrumbs.php:86 template/front/manage-index.phtml:55
+#: template/front/manage-index.phtml:57
 msgid "List of orders"
 msgstr "فهرست سفارش ها"
 
@@ -49,13 +49,13 @@ msgid "1 days"
 msgstr "۱ روزه"
 
 #: src/Api/Event.php:373 template/front/event-detail.phtml:6
-#: template/front/event-detail.phtml:186 template/front/event-detail.phtml:311
+#: template/front/event-detail.phtml:171 template/front/event-detail.phtml:314
 #: template/front/order-detail.phtml:16
 msgid "From"
 msgstr "از"
 
 #: src/Api/Event.php:373 template/front/event-detail.phtml:8
-#: template/front/event-detail.phtml:188 template/front/event-detail.phtml:314
+#: template/front/event-detail.phtml:173 template/front/event-detail.phtml:317
 #: template/front/order-detail.phtml:18
 msgid "to"
 msgstr "تا"
@@ -82,7 +82,7 @@ msgid "Event data saved successfully."
 msgstr "ویرایش رویداد با موفقیت انجام شد"
 
 #: src/Controller/Admin/EventController.php:302
-#: src/Controller/Front/ManageController.php:123
+#: src/Controller/Front/ManageController.php:157
 #: template/admin/event-index.phtml:5 template/admin/event-index.phtml:7
 msgid "Add event"
 msgstr "رویداد جدید"
@@ -120,7 +120,7 @@ msgid "Recent events"
 msgstr "رویداد های جدید"
 
 #: src/Controller/Front/CategoryController.php:32
-#: src/Controller/Front/JsonController.php:469
+#: src/Controller/Front/JsonController.php:476
 msgid "The category not found."
 msgstr "شاخه یافت نشد"
 
@@ -158,55 +158,67 @@ msgstr "فهرست رویداد ها"
 msgid "All"
 msgstr "همه"
 
-#: src/Controller/Front/JsonController.php:117
+#: src/Controller/Front/JsonController.php:124
 #, php-format
 msgid "List of events on %s category"
 msgstr "تمام رویداد های شاخه %s"
 
-#: src/Controller/Front/JsonController.php:135
+#: src/Controller/Front/JsonController.php:142
 #, php-format
 msgid "All events from %s"
 msgstr "تمام رویداد ها از %s"
 
-#: src/Controller/Front/ManageController.php:32
-#: src/Controller/Front/ManageController.php:86
-#: src/Controller/Front/ManageController.php:336
-#: src/Controller/Front/ManageController.php:379
+#: src/Controller/Front/ManageController.php:37
+#: src/Controller/Front/ManageController.php:97
+#: src/Controller/Front/ManageController.php:372
+#: src/Controller/Front/ManageController.php:434
 msgid "Owner dashboard is inactive"
 msgstr "داشبورد سازنده رویداد غیر فعال است"
 
-#: src/Controller/Front/ManageController.php:59
+#: src/Controller/Front/ManageController.php:76
 msgid "All your events"
 msgstr "تمام رویداد های شما"
 
-#: src/Controller/Front/ManageController.php:64
+#: src/Controller/Front/ManageController.php:81
 msgid "Search"
 msgstr "جستجو"
 
-#: src/Controller/Front/ManageController.php:115
-#: src/Controller/Front/ManageController.php:131
-#: src/Controller/Front/ManageController.php:349
-#: src/Controller/Front/ManageController.php:359
-#: src/Controller/Front/ManageController.php:392
+#: src/Controller/Front/ManageController.php:118
+#: src/Controller/Front/ManageController.php:393
+#: src/Controller/Front/ManageController.php:455
+#: template/front/manage-index.phtml:75
+msgid ""
+"You are not allowed to submit new event, please contact to website admin and "
+"complete your registration, after that you allowed to submit events"
+msgstr ""
+"شما هنوز دسترسی برای ارسال رویداد جدیدی را ندارید، لطفا با مدیر وب سایت تماس "
+"بگیرید تا ثبت نمام شما نهایی شود و دسترسی ارسال رویداد برای شما فعال شود، "
+"بعد از آن می توانید رویداد جدیدی ثبت نمایید."
+
+#: src/Controller/Front/ManageController.php:149
+#: src/Controller/Front/ManageController.php:165
 #: src/Controller/Front/ManageController.php:402
+#: src/Controller/Front/ManageController.php:412
+#: src/Controller/Front/ManageController.php:464
+#: src/Controller/Front/ManageController.php:474
 msgid "Its not your event"
 msgstr "این رویداد متعلق به شما نیست"
 
-#: src/Controller/Front/ManageController.php:121
+#: src/Controller/Front/ManageController.php:155
 msgid "Update event"
 msgstr "به روز رسانی رویداد ها"
 
-#: src/Controller/Front/ManageController.php:139
+#: src/Controller/Front/ManageController.php:173
 #, php-format
 msgid "Add event to %s"
 msgstr "درج رویداد در %s"
 
-#: src/Controller/Front/ManageController.php:211
-#: src/Controller/Front/ManageController.php:221
+#: src/Controller/Front/ManageController.php:245
+#: src/Controller/Front/ManageController.php:255
 msgid "Error on save story data on news module."
 msgstr "خطا در ثبت اطلاعات در ماژول اخبار"
 
-#: src/Controller/Front/ManageController.php:304
+#: src/Controller/Front/ManageController.php:338
 msgid ""
 "Thanks for contributing ! Event data saved successfully and was published on "
 "public side"
@@ -214,7 +226,7 @@ msgstr ""
 "با تشکر از مشارکت شما ! اطلاعات رویداد با موفقیت ذخیره شد و در وب سایت منتشر "
 "شد"
 
-#: src/Controller/Front/ManageController.php:306
+#: src/Controller/Front/ManageController.php:340
 msgid ""
 "Thanks for contributing ! Event data saved successfully and we will be "
 "validate it soon"
@@ -245,7 +257,7 @@ msgstr "ماژول سفارش ثبت نشده است"
 #: src/Form/EventForm.php:50 template/admin/event-index.phtml:18
 #: template/front/event-angular-new.phtml:113
 #: template/front/event-angular.phtml:172
-#: template/front/event-angular.phtml:249 template/front/manage-index.phtml:23
+#: template/front/event-angular.phtml:249 template/front/manage-index.phtml:24
 msgid "Title"
 msgstr "عنوان"
 
@@ -290,12 +302,12 @@ msgid "Status"
 msgstr "وضعیت"
 
 #: src/Form/EventForm.php:189 template/admin/event-index.phtml:66
-#: template/front/manage-index.phtml:64
+#: template/front/manage-index.phtml:65
 msgid "Published"
 msgstr "منتشر شده"
 
 #: src/Form/EventForm.php:190 template/admin/event-index.phtml:67
-#: template/front/manage-index.phtml:65
+#: template/front/manage-index.phtml:66
 msgid "Pending review"
 msgstr "در انتظار تایید"
 
@@ -315,18 +327,18 @@ msgstr "حذف"
 msgid "Main image"
 msgstr "تصویر اصلی"
 
-#: src/Form/EventForm.php:214 template/front/event-detail.phtml:239
+#: src/Form/EventForm.php:214 template/front/event-detail.phtml:224
 #: template/front/order-detail.phtml:43
 msgid "Address"
 msgstr "آدرس"
 
-#: src/Form/EventForm.php:225 template/front/event-detail.phtml:225
+#: src/Form/EventForm.php:225 template/front/event-detail.phtml:210
 #: template/front/order-detail.phtml:27
 msgid "Organizer name"
 msgstr "نام سازمان دهنده"
 
-#: src/Form/EventForm.php:236 template/front/event-detail.phtml:231
-#: template/front/event-detail.phtml:232 template/front/order-detail.phtml:33
+#: src/Form/EventForm.php:236 template/front/event-detail.phtml:216
+#: template/front/event-detail.phtml:217 template/front/order-detail.phtml:33
 #: template/front/order-detail.phtml:35
 msgid "Organizer Website"
 msgstr "وب سایت سازمان دهنده"
@@ -447,21 +459,21 @@ msgid "Just events from news story table"
 msgstr "فقط رویداد های مربوط به جدول اخبار"
 
 #: template/admin/event-index.phtml:17 template/admin/order-index.phtml:6
-#: template/front/manage-index.phtml:22 template/front/manage-order.phtml:13
+#: template/front/manage-index.phtml:23 template/front/manage-order.phtml:15
 msgid "ID"
 msgstr "شناسه"
 
-#: template/admin/event-index.phtml:19 template/front/manage-index.phtml:26
+#: template/admin/event-index.phtml:19 template/front/manage-index.phtml:27
 msgid "Action"
 msgstr "عملکرد"
 
 #: template/admin/event-index.phtml:53 template/admin/event-index.phtml:54
-#: template/front/manage-index.phtml:46 template/front/manage-index.phtml:48
+#: template/front/manage-index.phtml:47 template/front/manage-index.phtml:49
 msgid "View"
 msgstr "نمایش"
 
 #: template/admin/event-index.phtml:55 template/admin/event-index.phtml:57
-#: template/front/manage-index.phtml:50 template/front/manage-index.phtml:52
+#: template/front/manage-index.phtml:51 template/front/manage-index.phtml:53
 msgid "Edit"
 msgstr "ویرایش"
 
@@ -473,7 +485,7 @@ msgstr "سطل آشغال"
 msgid "List of all orders"
 msgstr "فهرست تمام رویداد ها"
 
-#: template/admin/order-index.phtml:7 template/front/manage-order.phtml:14
+#: template/admin/order-index.phtml:7 template/front/manage-order.phtml:16
 msgid "Name"
 msgstr "نام"
 
@@ -485,11 +497,11 @@ msgstr "کد عمومی"
 msgid "Private code"
 msgstr "کد خصوصی"
 
-#: template/admin/order-index.phtml:10 template/front/manage-order.phtml:15
+#: template/admin/order-index.phtml:10 template/front/manage-order.phtml:17
 msgid "Number"
 msgstr "تعداد"
 
-#: template/admin/order-index.phtml:11 template/front/manage-order.phtml:16
+#: template/admin/order-index.phtml:11 template/front/manage-order.phtml:18
 msgid "Total"
 msgstr "مجموع"
 
@@ -600,65 +612,75 @@ msgstr "شرکت / ثبت نام در %s"
 msgid "Start From"
 msgstr "قیمت"
 
-#: template/front/event-detail.phtml:168
-msgid "You love this event ?"
-msgstr "این رویداد را دوست دارید؟"
-
-#: template/front/event-detail.phtml:178
-msgid "Vote to this event"
-msgstr "به این رویداد رای دهید"
-
-#: template/front/event-detail.phtml:183
+#: template/front/event-detail.phtml:165
 msgid "Key Event Elements"
 msgstr "اطلاعات اصلی رویداد"
 
-#: template/front/event-detail.phtml:192 template/front/order-detail.phtml:21
+#: template/front/event-detail.phtml:177 template/front/order-detail.phtml:21
 msgid "On"
 msgstr "در"
 
-#: template/front/event-detail.phtml:198
+#: template/front/event-detail.phtml:183
 msgid "Ended event"
 msgstr "این رویداد خاتمه یافته است"
 
-#: template/front/event-detail.phtml:211
+#: template/front/event-detail.phtml:196
 msgid "Related locations"
 msgstr "منطقه های مرتبط"
 
-#: template/front/event-detail.phtml:247
+#: template/front/event-detail.phtml:233
+msgid "You love this event ?"
+msgstr "این رویداد را دوست دارید؟"
+
+#: template/front/event-detail.phtml:243
+msgid "Vote to this event"
+msgstr "به این رویداد رای دهید"
+
+#: template/front/event-detail.phtml:250
 msgid "Nearby recommended professionals"
 msgstr "مکان های تجاری پیشنهادی نزدیک"
 
-#: template/front/event-detail.phtml:265 template/front/event-detail.phtml:375
+#: template/front/event-detail.phtml:268 template/front/event-detail.phtml:377
 msgid "Min price from"
 msgstr "قیمت"
 
-#: template/front/event-detail.phtml:288
+#: template/front/event-detail.phtml:291
 msgid "Share if you like"
 msgstr "اشتراک گذاری در شبکه های اجتماعی"
 
-#: template/front/event-detail.phtml:303
+#: template/front/event-detail.phtml:306
 msgid "Related events"
 msgstr "رویداد های مشابه"
 
-#: template/front/event-detail.phtml:357
+#: template/front/event-detail.phtml:359
 msgid "Related items"
 msgstr "اماکن مرتبط"
 
-#: template/front/manage-index.phtml:15 template/front/manage-index.phtml:16
+#: template/front/manage-index.phtml:13 template/front/manage-index.phtml:14
 msgid "New event"
 msgstr "رویداد جدید"
 
-#: template/front/manage-index.phtml:24
+#: template/front/manage-index.phtml:25
 msgid "Start"
 msgstr "آغاز"
 
-#: template/front/manage-index.phtml:25
+#: template/front/manage-index.phtml:26
 msgid "End"
 msgstr "پایان"
 
-#: template/front/manage-order.phtml:17
+#: template/front/manage-index.phtml:70
+msgid "You still doesn't submit any event, you can submit events easy"
+msgstr ""
+"شما هنوز هیچ رویدادی ارسال نکرده اید، با استفاده از دکمه رویداد جدید در این "
+"صفحه می توانید رویداد خود را ثبت کنید"
+
+#: template/front/manage-order.phtml:19
 msgid "Code"
 msgstr "کد"
+
+#: template/front/manage-order.phtml:33
+msgid "This event still have no online register !"
+msgstr "در این رویداد هنوز هیچ ثبت نام آنلاینی انجام نشده است !"
 
 #: template/front/order-detail.phtml:5
 #, php-format

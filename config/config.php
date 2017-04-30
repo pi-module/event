@@ -24,7 +24,6 @@ return array(
             'title' => _a('Guide module'),
             'name' => 'guide'
         ),
-
         array(
             'title' => _a('View'),
             'name' => 'view'
@@ -208,7 +207,6 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-
         'price_filter' => array(
             'category' => 'view',
             'title' => _a('Price filter'),
@@ -254,6 +252,14 @@ return array(
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        'manage_role' => array(
+            'category' => 'manage',
+            'title' => _a('Allowed user role to access'),
+            'description' => _a('Put allowed role here, this option used when guide module not installed'),
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => 'member'
         ),
         // Order
         'order_active' => array(
