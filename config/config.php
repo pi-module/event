@@ -48,6 +48,10 @@ return array(
             'title' => _a('Favourite'),
             'name' => 'favourite'
         ),
+        array(
+            'title'  => _a('Google Map'),
+            'name'   => 'map'
+        ),
     ),
     'item' => array(
         // Admin
@@ -105,7 +109,6 @@ return array(
             'category' => 'guide',
         ),
         // View
-
         'view_template' => array(
             'title' => _a('View template'),
             'description' =>  _a('Temporary config to finish new angular js template'),
@@ -122,8 +125,6 @@ return array(
             'value' => 'angular',
             'category' => 'view',
         ),
-
-
         'text_summary_index' => array(
             'category' => 'view',
             'title' => _a('Summary for index page'),
@@ -132,7 +133,6 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-
         'text_description_index' => array(
             'category' => 'view',
             'title' => _a('Description for index page'),
@@ -141,7 +141,6 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-
         'wide_content' => array(
             'category' => 'view',
             'title' => _a('Active wide front image for this module'),
@@ -150,7 +149,6 @@ return array(
             'filter' => 'number_int',
             'value' => 0
         ),
-
         'view_list_type' => array(
             'title' => _a('Event list type'),
             'description' => '',
@@ -303,6 +301,66 @@ return array(
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        // Map
+        'map_use' => array(
+            'title'        => _a('Use Google Map'),
+            'description'  => '',
+            'value'        => 0,
+            'filter'       => 'number_int',
+            'edit'         => 'checkbox',
+            'category'     => 'map',
+        ),
+        /* 'map_position' => array(
+            'title'        => _a('Position'),
+            'description'  => ' ',
+            'edit'         => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'bottom' => _a('Bottom'),
+                        'side' => _a('Side'),
+                        'wide' => _a('Wide on top'),
+                    ),
+                ),
+            ),
+            'filter'       => 'string',
+            'value'        => 'bottom',
+            'category'     => 'map',
+        ), */
+        'map_zoom' => array(
+            'title'        => _a('Zoom'),
+            'description'  => '',
+            'edit'         => 'text',
+            'filter'       => 'number_int',
+            'value'        => 15,
+            'category'     => 'map',
+        ),
+        'map_api_key' => array(
+            'category' => 'map',
+            'title' => _a('Set Google map API KEY'),
+            'description' => _a('For obtaining an API Key please read this document : https://developers.google.com/maps/documentation/javascript/tutorial#api_key'),
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => ''
+        ),
+        'map_type' => array(
+            'title' => _a('Map type'),
+            'description' => '',
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'ROADMAP' => _a('ROADMAP'),
+                        'SATELLITE' => _a('SATELLITE'),
+                        'HYBRID' => _a('HYBRID'),
+                        'TERRAIN' => _a('TERRAIN'),
+                    ),
+                ),
+            ),
+            'filter' => 'text',
+            'value' => 'ROADMAP',
+            'category' => 'map',
         ),
     ),
 );

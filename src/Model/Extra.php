@@ -42,5 +42,8 @@ class Extra extends Model
         'guide_category',
         'guide_location',
         'guide_item',
+        'map_latitude',
+        'map_longitude',
+        'map_zoom',
     );
 }

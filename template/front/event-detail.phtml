@@ -51,6 +51,10 @@ if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
 }
 
 $this->sticky();
+// Add Geo tags
+if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])){
+    $this->geoTag($event['map_latitude'], $event['map_longitude'], $event['title']);
+}
 ?>
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
@@ -104,6 +108,20 @@ $this->sticky();
                         <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                         <?php echo $event['register_details']; ?>
                     </div>
+                <?php } ?>
+
+                <?php if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])) { ?>
+                    <?php $locations = array(
+                        'latitude' => $event['map_latitude'],
+                        'longitude' => $event['map_longitude'],
+                        'title' => $event['title'],
+                        'zoom' => !empty($event['map_zoom']) ? $event['map_zoom'] : $config['map_zoom'],
+                    );
+                    $option = array(
+                        'mapTypeId' => $config['map_type'],
+                    );  ?>
+                    <h2><?php _e('Access Map'); ?></h2>
+                    <?php echo $this->googleMap($locations, $config['map_api_key'], 'point', $option); ?>
                 <?php } ?>
             </div>
             <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">

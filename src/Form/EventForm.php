@@ -462,6 +462,49 @@ class EventForm extends BaseForm
             }
         }
 
+        // Check order active
+        if ($this->option['map_use']) {
+            $this->add(array(
+                'name' => 'extra_map',
+                'type' => 'fieldset',
+                'options' => array(
+                    'label' => __('Map options'),
+                ),
+            ));
+            // map_latitude
+            $this->add(array(
+                'name' => 'map_latitude',
+                'options' => array(
+                    'label' => __('Latitude'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+            // map_longitude
+            $this->add(array(
+                'name' => 'map_longitude',
+                'options' => array(
+                    'label' => __('Longitude'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+            // map_zoom
+            $this->add(array(
+                'name' => 'map_zoom',
+                'options' => array(
+                    'label' => __('Zoom'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+        }
         // extra
         if ($this->option['side'] == 'admin') {
             $this->add(array(

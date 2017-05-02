@@ -80,8 +80,49 @@ class Update extends BasicUpdate
             }
         }
 
+        // Update to version 2.0.1
         if (version_compare($moduleVersion, '2.0.1', '<')) {
             Pi::api('event', 'event')->migrateMedia();
+        }
+
+        // Update to version 2.0.4
+        if (version_compare($moduleVersion, '2.0.4', '<')) {
+            // Alter table field `map_latitude`
+            $sql = sprintf("ALTER TABLE %s ADD `map_latitude` VARCHAR(16) NOT NULL DEFAULT ''", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+            // Alter table field `map_longitude`
+            $sql = sprintf("ALTER TABLE %s ADD `map_longitude` VARCHAR(16) NOT NULL DEFAULT ''", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+            // Alter table field `map_zoom`
+            $sql = sprintf("ALTER TABLE %s ADD `map_zoom` INT(5) UNSIGNED NOT NULL DEFAULT '0'", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
         }
     }
 }
