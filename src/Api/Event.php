@@ -73,6 +73,8 @@ class Event extends AbstractApi
             foreach ($listStory as $event) {
                 if(isset($listExtra[$event['id']]) && is_array($listExtra[$event['id']])){
                     $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                    $listEvent[$event['id']]['thumbUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(150, 100);
+                    $listEvent[$event['id']]['mediumUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(320, 240);
                 }
             }
         }
@@ -335,6 +337,7 @@ class Event extends AbstractApi
         } else {
             $extra['days'] = __('1 days');
         }
+
         return $extra;
     }
 
