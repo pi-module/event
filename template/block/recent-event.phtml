@@ -11,7 +11,7 @@
                     <div class="recent-event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
                         <div class="row">
                             <div class="col-xs-4 eventImage">
-                                <?php if ($event['image']) { ?>
+                                <?php if ($event['main_image']) { ?>
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(1024, 768); ?>">
                                         <img itemprop="image" class="img-responsive img-rounded u-photo"
@@ -108,7 +108,7 @@
                                     <?php } ?>
                                 </div>
                             <?php } ?>
-                            <?php if ($event['image']) { ?>
+                            <?php if ($event['main_image']) { ?>
                                 <div class="recent-event-single-image">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
