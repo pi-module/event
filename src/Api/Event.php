@@ -435,7 +435,7 @@ class Event extends AbstractApi
         $eventSingle = array(
             'id' => $event['id'],
             'title' => $event['title'],
-            'image' => $event['image'],
+            'image' => $event['main_image'],
             'thumbUrl' => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
             'eventUrl' => $event['eventUrl'],
             'subtitle' => $event['subtitle'],
