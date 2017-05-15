@@ -330,6 +330,12 @@ class Event extends AbstractApi
             }
             $extra['locationInfo'] = $this->locationList[$extra['guide_location'][0]];
         }
+        // Set time view
+        if (!empty($extra['time_start']) && !empty($extra['time_end'])) {
+            $extra['time_view'] = sprintf('%s %s %s %s', __('From'), $extra['time_start_view'], __('to'), $extra['time_end_view']);
+        } elseif (!empty($extra['time_start'])) {
+            $extra['time_view'] = $extra['time_start_view'];
+        }
         // Number of days
         if ($extra['time_end'] > 0) {
             $days = ceil(($extra['time_end'] - $extra['time_start']) / 86400) + 1;

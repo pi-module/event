@@ -399,6 +399,7 @@ class JsonController extends IndexController
         $singleEvent['text_description'] = Pi::service('markup')->render($singleEvent['text_description'], 'html', 'html');
         $singleEvent['text_description'] = strip_tags($singleEvent['text_description'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
         $singleEvent['text_description'] = str_replace("<p>&nbsp;</p>", "", $singleEvent['text_description']);
+
         // Set register_details
         $singleEvent['register_details'] = Pi::service('markup')->render($singleEvent['register_details'], 'html', 'html');
         $singleEvent['register_details'] = strip_tags($singleEvent['register_details'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
