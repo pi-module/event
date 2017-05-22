@@ -33,21 +33,22 @@ $this->jQuery(array(
 ));
 $this->footScript()->appendScript($script);
 // Set Open Graph tags for meta
+$shareImage = Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(800, 600);
 $this->doctype('HTML5');
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($event['eventUrl'], 'og:url', 'property');
 if (isset($event['text_summary']) && !empty($event['text_summary'])) {
     $this->headMeta($event['text_summary'], 'og:description', 'property');
 }
-if (!empty($event['largeUrl'])) {
-    $this->headMeta($this->escape($event['largeUrl']), 'og:image', 'property');
+if ($shareImage) {
+    $this->headMeta($shareImage, 'og:image', 'property');
 }
 // Set twitter for meta
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($summary, 'twitter:description');
-if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
+if ($shareImage) {
     $this->headMeta('summary_large_image', 'twitter:card');
-    $this->headMeta($this->escape($event['largeUrl']), 'twitter:image');
+    $this->headMeta($shareImage, 'twitter:image');
 }
 
 $this->sticky();
