@@ -33,7 +33,7 @@ $this->jQuery(array(
 ));
 $this->footScript()->appendScript($script);
 // Set Open Graph tags for meta
-$shareImage = Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(800, 600);
+$shareImage = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(800, 600);
 $this->doctype('HTML5');
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($event['eventUrl'], 'og:url', 'property');
