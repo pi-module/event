@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-04-30 12:31+0430\n"
+"POT-Creation-Date: 2017-05-30 12:57+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -33,13 +33,13 @@ msgstr "%s روزه"
 msgid "1 days"
 msgstr "۱ روزه"
 
-#: src/Controller/Front/JsonController.php:408
+#: src/Controller/Front/JsonController.php:410
 #: template/admin/event-index.phtml:45 template/block/recent-event.phtml:41
 #: template/block/recent-event.phtml:108
 msgid "From"
 msgstr "از"
 
-#: src/Controller/Front/JsonController.php:408
+#: src/Controller/Front/JsonController.php:410
 #: template/admin/event-index.phtml:46 template/block/recent-event.phtml:44
 #: template/block/recent-event.phtml:110
 msgid "to"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-04-30 12:30+0430\n"
+"POT-Creation-Date: 2017-05-30 12:57+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -52,11 +52,11 @@ msgstr "نمایش بازدید"
 msgid "Show summary"
 msgstr "نمایش خلاصه"
 
-#: config/block.php:75 config/config.php:220
+#: config/block.php:75 config/config.php:219
 msgid "Show days"
 msgstr "نمایش تعداد روز"
 
-#: config/block.php:82 config/config.php:155
+#: config/block.php:82 config/config.php:153
 msgid "Event list type"
 msgstr "نوع نمایش فهرست رویداد ها"
 
@@ -68,7 +68,7 @@ msgstr "عمودی"
 msgid "Horizontal"
 msgstr "افقی"
 
-#: config/block.php:90
+#: config/block.php:90 config/config.php:161
 msgid "Table"
 msgstr "جدولی"
 
@@ -129,63 +129,67 @@ msgstr "رای"
 msgid "Favourite"
 msgstr "علاقه مندی"
 
-#: config/config.php:56 config/config.php:172
+#: config/config.php:52
+msgid "Google Map"
+msgstr "نقشه گوگل"
+
+#: config/config.php:60 config/config.php:171
 msgid "Perpage"
 msgstr "تعداد در صفحه"
 
-#: config/config.php:65
+#: config/config.php:69
 msgid "Use news topics"
 msgstr "استفاده از موضوع های ماژول اخبار"
 
-#: config/config.php:74
+#: config/config.php:78
 msgid "Use guide category"
 msgstr "استفاده از شاخه های ماژول مدیریت اماکن"
 
-#: config/config.php:82
+#: config/config.php:86
 msgid "Use guide location"
 msgstr "استفاده از مکان ماژول مدیریت اماکن"
 
-#: config/config.php:89
+#: config/config.php:93
 msgid "Select location level for show on filter form"
 msgstr "انتخاب سطح مکان برای نمایش در فرم"
 
-#: config/config.php:95
+#: config/config.php:99
 msgid "level 1"
 msgstr "سطح ۱"
 
-#: config/config.php:96
+#: config/config.php:100
 msgid "level 2"
 msgstr "سطح ۲"
 
-#: config/config.php:97
+#: config/config.php:101
 msgid "level 3"
 msgstr "سطح ۳"
 
-#: config/config.php:98
+#: config/config.php:102
 msgid "level 4"
 msgstr "سطح ۴"
 
-#: config/config.php:99
+#: config/config.php:103
 msgid "level 5"
 msgstr "سطح ۵"
 
-#: config/config.php:110
+#: config/config.php:113
 msgid "View template"
 msgstr "انتخاب تمپلیت"
 
-#: config/config.php:111
+#: config/config.php:114
 msgid "Temporary config to finish new angular js template"
 msgstr "تنظیم انتخاب تمپلیت تا تکمیل روش نمایش جدید ( موقتی )"
 
-#: config/config.php:116
+#: config/config.php:119
 msgid "Angular"
 msgstr "Angular"
 
-#: config/config.php:117
+#: config/config.php:120
 msgid "New angular"
 msgstr "New angular"
 
-#: config/config.php:129
+#: config/config.php:130
 msgid "Summary for index page"
 msgstr "خلاصه برای صفحه اول"
 
@@ -193,97 +197,155 @@ msgstr "خلاصه برای صفحه اول"
 msgid "Description for index page"
 msgstr "متن توضیحات صفحه اول ماژول"
 
-#: config/config.php:147
+#: config/config.php:146
 msgid "Active wide front image for this module"
 msgstr "فعال کردن تصویر عریض برای صفحات این ماژول"
 
-#: config/config.php:161
+#: config/config.php:159
 msgid "Line : each event on one line"
 msgstr "خطی : هر رویداد در یک خط"
 
-#: config/config.php:162
+#: config/config.php:160
 msgid "Box : each event as box and 3 box on one line"
 msgstr "باکس : هر سه رویداد در یک خط"
 
-#: config/config.php:180
+#: config/config.php:179
 msgid "Show related event"
 msgstr "نمایش رویداد های مشابه"
 
-#: config/config.php:187
+#: config/config.php:186
 msgid "Related event type"
 msgstr "نوع رویداد های مشابه"
 
-#: config/config.php:193
+#: config/config.php:192
 msgid "By event module topics"
 msgstr "بر اساس شاخه ماژول رویداد"
 
-#: config/config.php:194
+#: config/config.php:193
 msgid "By guide module categories"
 msgstr "براساس شاخه ماژول معرفی امکان"
 
-#: config/config.php:204
+#: config/config.php:203
 msgid "Set wide image for homepage"
 msgstr "تنظیم عکس عریض برای صفحه اول"
 
-#: config/config.php:212
+#: config/config.php:211
 msgid "Price filter"
 msgstr "فیلتر قیمت"
 
-#: config/config.php:213
+#: config/config.php:212
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr ""
 "روش ورود اطلاعات ، از علامت های | و - و , باید استفاده شود ، به طور مثال : "
 "0-500000,بین ۰ تا ۵۰.۰۰۰ تومان|500000-2000000,بین ۵۰.۰۰۰ تا ۲۰۰.۰۰۰ تومان|"
 
-#: config/config.php:228
+#: config/config.php:227
+msgid "Make organizer bold"
+msgstr ""
+
+#: config/config.php:234
+msgid "Image position"
+msgstr ""
+
+#: config/config.php:235
+msgid "Image position on single event page"
+msgstr ""
+
+#: config/config.php:240
+msgid "Show image on sidebar"
+msgstr ""
+
+#: config/config.php:241
+msgid "Show image on center"
+msgstr ""
+
+#: config/config.php:251
 msgid "Social sharing items"
 msgstr "موارد اشتراک گذاری در شبکه های اجتماعی"
 
-#: config/config.php:242
+#: config/config.php:265
 msgid "Manage event by users"
 msgstr "مدیریت رویداد ها توسط کاربر"
 
-#: config/config.php:250
+#: config/config.php:273
 msgid "Auto approval user events"
 msgstr "تایید خودکار رویداد های درج شده توسط کاربر"
 
-#: config/config.php:258
+#: config/config.php:281
 msgid "Allowed user role to access"
 msgstr "نقش کاربری مجاز برای دسترسی"
 
-#: config/config.php:259
+#: config/config.php:282
 msgid "Put allowed role here, this option used when guide module not installed"
 msgstr ""
 "نقش کاربری مجاز برای ارسال رویداد را در این بخش وارد کنید، از این گزینه "
 "زمانی که ماژول معرفی امکان نصب نیست استفاده می شود"
 
-#: config/config.php:267
+#: config/config.php:290
 msgid "Active order"
 msgstr "فعال سازی ثبت نام در رویداد"
 
-#: config/config.php:268
+#: config/config.php:291
 msgid "Manage event registration, ticket stock and activate orders"
 msgstr "مدیریت ثبت رویداد، ارسال درخواست پشتیبانی و سفارش"
 
-#: config/config.php:275
+#: config/config.php:298
 msgid "Show free word for free events"
 msgstr "نمایش کلمه رایگان برای رویداد های رایگان"
 
-#: config/config.php:283
+#: config/config.php:306
 msgid "Active discount system"
 msgstr "فعال سازی سیستم تخفیف"
 
-#: config/config.php:284
+#: config/config.php:307
 msgid "Discount percent for each rule on each event"
 msgstr "تخفیف درصدی برای هر گروه کاربری در هر رویداد"
 
-#: config/config.php:292
+#: config/config.php:315
 msgid "Use vote system"
 msgstr "استفاده از سیستم رای"
 
-#: config/config.php:301
+#: config/config.php:324
 msgid "Use favourite system"
 msgstr "استفاده از سیستم مورد علاقه"
+
+#: config/config.php:332
+msgid "Use Google Map"
+msgstr ""
+
+#: config/config.php:357
+msgid "Zoom"
+msgstr ""
+
+#: config/config.php:366
+msgid "Set Google map API KEY"
+msgstr ""
+
+#: config/config.php:367
+msgid ""
+"For obtaining an API Key please read this document : https://developers."
+"google.com/maps/documentation/javascript/tutorial#api_key"
+msgstr ""
+
+#: config/config.php:373
+msgid "Map type"
+msgstr ""
+
+#: config/config.php:379
+msgid "ROADMAP"
+msgstr ""
+
+#: config/config.php:380
+msgid "SATELLITE"
+msgstr ""
+
+#: config/config.php:381
+msgid "HYBRID"
+msgstr ""
+
+#: config/config.php:382
+msgid "TERRAIN"
+msgstr ""
 
 #: config/module.php:16 config/navigation.php:29 config/page.php:56
 #: config/permission.php:33

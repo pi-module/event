@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-04-30 12:28+0430\n"
+"POT-Creation-Date: 2017-05-30 12:53+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,35 +30,35 @@ msgstr "فهرست سفارش ها"
 msgid "Add / edit event"
 msgstr "ثبت / ویرایش رویداد"
 
-#: src/Api/Event.php:278
+#: src/Api/Event.php:280
 #, php-format
 msgid "Out of stock ( %s )"
 msgstr "ظرفیت تکمیل ( %s )"
 
-#: src/Api/Event.php:280 src/Api/Event.php:286
+#: src/Api/Event.php:282 src/Api/Event.php:288
 msgid "free!"
 msgstr "رایگان !"
 
-#: src/Api/Event.php:334 src/Api/Event.php:441
+#: src/Api/Event.php:335 src/Api/Event.php:382
+#: template/front/event-detail.phtml:6 template/front/event-detail.phtml:224
+#: template/front/event-detail.phtml:371 template/front/order-detail.phtml:16
+msgid "From"
+msgstr "از"
+
+#: src/Api/Event.php:335 src/Api/Event.php:382
+#: template/front/event-detail.phtml:8 template/front/event-detail.phtml:226
+#: template/front/event-detail.phtml:374 template/front/order-detail.phtml:18
+msgid "to"
+msgstr "تا"
+
+#: src/Api/Event.php:342 src/Api/Event.php:450
 #, php-format
 msgid "%s days"
 msgstr "%s روزه"
 
-#: src/Api/Event.php:336 src/Api/Event.php:443
+#: src/Api/Event.php:344 src/Api/Event.php:452
 msgid "1 days"
 msgstr "۱ روزه"
-
-#: src/Api/Event.php:373 template/front/event-detail.phtml:6
-#: template/front/event-detail.phtml:171 template/front/event-detail.phtml:314
-#: template/front/order-detail.phtml:16
-msgid "From"
-msgstr "از"
-
-#: src/Api/Event.php:373 template/front/event-detail.phtml:8
-#: template/front/event-detail.phtml:173 template/front/event-detail.phtml:317
-#: template/front/order-detail.phtml:18
-msgid "to"
-msgstr "تا"
 
 #: src/Controller/Admin/EventController.php:74
 msgid "View filtered events"
@@ -72,17 +72,17 @@ msgstr "صحیح نیست\t"
 msgid "Not set"
 msgstr "تنظیم نشده"
 
-#: src/Controller/Admin/EventController.php:189
-#: src/Controller/Admin/EventController.php:199
+#: src/Controller/Admin/EventController.php:190
+#: src/Controller/Admin/EventController.php:200
 msgid "Error on save story data on event module."
 msgstr "خطا در ذخیره اطلاعات مطلب در ماژول رویداد."
 
-#: src/Controller/Admin/EventController.php:281
+#: src/Controller/Admin/EventController.php:286
 msgid "Event data saved successfully."
 msgstr "ویرایش رویداد با موفقیت انجام شد"
 
-#: src/Controller/Admin/EventController.php:302
-#: src/Controller/Front/ManageController.php:157
+#: src/Controller/Admin/EventController.php:307
+#: src/Controller/Front/ManageController.php:158
 #: template/admin/event-index.phtml:5 template/admin/event-index.phtml:7
 msgid "Add event"
 msgstr "رویداد جدید"
@@ -120,7 +120,7 @@ msgid "Recent events"
 msgstr "رویداد های جدید"
 
 #: src/Controller/Front/CategoryController.php:32
-#: src/Controller/Front/JsonController.php:476
+#: src/Controller/Front/JsonController.php:478
 msgid "The category not found."
 msgstr "شاخه یافت نشد"
 
@@ -170,8 +170,8 @@ msgstr "تمام رویداد ها از %s"
 
 #: src/Controller/Front/ManageController.php:37
 #: src/Controller/Front/ManageController.php:97
-#: src/Controller/Front/ManageController.php:372
-#: src/Controller/Front/ManageController.php:434
+#: src/Controller/Front/ManageController.php:378
+#: src/Controller/Front/ManageController.php:440
 msgid "Owner dashboard is inactive"
 msgstr "داشبورد سازنده رویداد غیر فعال است"
 
@@ -184,8 +184,8 @@ msgid "Search"
 msgstr "جستجو"
 
 #: src/Controller/Front/ManageController.php:118
-#: src/Controller/Front/ManageController.php:393
-#: src/Controller/Front/ManageController.php:455
+#: src/Controller/Front/ManageController.php:399
+#: src/Controller/Front/ManageController.php:461
 #: template/front/manage-index.phtml:75
 msgid ""
 "You are not allowed to submit new event, please contact to website admin and "
@@ -195,30 +195,30 @@ msgstr ""
 "بگیرید تا ثبت نمام شما نهایی شود و دسترسی ارسال رویداد برای شما فعال شود، "
 "بعد از آن می توانید رویداد جدیدی ثبت نمایید."
 
-#: src/Controller/Front/ManageController.php:149
-#: src/Controller/Front/ManageController.php:165
-#: src/Controller/Front/ManageController.php:402
-#: src/Controller/Front/ManageController.php:412
-#: src/Controller/Front/ManageController.php:464
-#: src/Controller/Front/ManageController.php:474
+#: src/Controller/Front/ManageController.php:150
+#: src/Controller/Front/ManageController.php:166
+#: src/Controller/Front/ManageController.php:408
+#: src/Controller/Front/ManageController.php:418
+#: src/Controller/Front/ManageController.php:470
+#: src/Controller/Front/ManageController.php:480
 msgid "Its not your event"
 msgstr "این رویداد متعلق به شما نیست"
 
-#: src/Controller/Front/ManageController.php:155
+#: src/Controller/Front/ManageController.php:156
 msgid "Update event"
 msgstr "به روز رسانی رویداد ها"
 
-#: src/Controller/Front/ManageController.php:173
+#: src/Controller/Front/ManageController.php:174
 #, php-format
 msgid "Add event to %s"
 msgstr "درج رویداد در %s"
 
-#: src/Controller/Front/ManageController.php:245
-#: src/Controller/Front/ManageController.php:255
+#: src/Controller/Front/ManageController.php:246
+#: src/Controller/Front/ManageController.php:256
 msgid "Error on save story data on news module."
 msgstr "خطا در ثبت اطلاعات در ماژول اخبار"
 
-#: src/Controller/Front/ManageController.php:338
+#: src/Controller/Front/ManageController.php:344
 msgid ""
 "Thanks for contributing ! Event data saved successfully and was published on "
 "public side"
@@ -226,7 +226,7 @@ msgstr ""
 "با تشکر از مشارکت شما ! اطلاعات رویداد با موفقیت ذخیره شد و در وب سایت منتشر "
 "شد"
 
-#: src/Controller/Front/ManageController.php:340
+#: src/Controller/Front/ManageController.php:346
 msgid ""
 "Thanks for contributing ! Event data saved successfully and we will be "
 "validate it soon"
@@ -327,19 +327,19 @@ msgstr "حذف"
 msgid "Main image"
 msgstr "تصویر اصلی"
 
-#: src/Form/EventForm.php:214 template/front/event-detail.phtml:224
-#: template/front/order-detail.phtml:43
+#: src/Form/EventForm.php:214 template/front/event-detail.phtml:165
+#: template/front/event-detail.phtml:279 template/front/order-detail.phtml:43
 msgid "Address"
 msgstr "آدرس"
 
-#: src/Form/EventForm.php:225 template/front/event-detail.phtml:210
-#: template/front/order-detail.phtml:27
+#: src/Form/EventForm.php:225 template/front/event-detail.phtml:151
+#: template/front/event-detail.phtml:265 template/front/order-detail.phtml:27
 msgid "Organizer name"
 msgstr "نام سازمان دهنده"
 
-#: src/Form/EventForm.php:236 template/front/event-detail.phtml:216
-#: template/front/event-detail.phtml:217 template/front/order-detail.phtml:33
-#: template/front/order-detail.phtml:35
+#: src/Form/EventForm.php:236 template/front/event-detail.phtml:156
+#: template/front/event-detail.phtml:271 template/front/event-detail.phtml:272
+#: template/front/order-detail.phtml:33 template/front/order-detail.phtml:35
 msgid "Organizer Website"
 msgstr "وب سایت سازمان دهنده"
 
@@ -426,27 +426,43 @@ msgid "Item"
 msgstr "اماکن"
 
 #: src/Form/EventForm.php:471
+msgid "Map options"
+msgstr "نقشه"
+
+#: src/Form/EventForm.php:478
+msgid "Latitude"
+msgstr "عرض جغرافیایی(Latitude)"
+
+#: src/Form/EventForm.php:489
+msgid "Longitude"
+msgstr "طول جغرافیایی(Longitude) "
+
+#: src/Form/EventForm.php:500
+msgid "Zoom"
+msgstr "بزرگنمایی"
+
+#: src/Form/EventForm.php:514
 msgid "SEO options"
 msgstr "گزینه های سئو"
 
-#: src/Form/EventForm.php:478
+#: src/Form/EventForm.php:521
 msgid "SEO Title"
 msgstr "عنوان متا ( Meta Title )"
 
-#: src/Form/EventForm.php:491
+#: src/Form/EventForm.php:534
 msgid "SEO Keywords"
 msgstr "کلمات کلیدی متا ( Meta Keywords ) "
 
-#: src/Form/EventForm.php:504
+#: src/Form/EventForm.php:547
 msgid "SEO Description"
 msgstr "توضیح متا ( Meta Description ) "
 
-#: src/Form/EventForm.php:519 src/Form/SitemapForm.php:43
+#: src/Form/EventForm.php:562 src/Form/SitemapForm.php:43
 msgid "Submit"
 msgstr "ارسال"
 
-#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:148
-#: template/front/event-detail.phtml:149
+#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:201
+#: template/front/event-detail.phtml:202
 msgid "Register to the event"
 msgstr "ثبت نام"
 
@@ -602,57 +618,65 @@ msgstr "بازدید"
 msgid "Default"
 msgstr "پیشفرض"
 
-#: template/front/event-detail.phtml:104
+#: template/front/event-detail.phtml:118
 #, php-format
 msgid "Participate/Register to %s"
 msgstr "شرکت / ثبت نام در %s"
 
-#: template/front/event-detail.phtml:125 template/front/event-detail.phtml:142
-#: template/front/event-detail.phtml:154
+#: template/front/event-detail.phtml:133
+msgid "Access Map"
+msgstr "نقشه"
+
+#: template/front/event-detail.phtml:158
+msgid "Organizer Website and register"
+msgstr "وب سایت سازمان دهنده و ثبت نام"
+
+#: template/front/event-detail.phtml:178 template/front/event-detail.phtml:195
+#: template/front/event-detail.phtml:207
 msgid "Start From"
 msgstr "قیمت"
 
-#: template/front/event-detail.phtml:165
+#: template/front/event-detail.phtml:218
 msgid "Key Event Elements"
 msgstr "اطلاعات اصلی رویداد"
 
-#: template/front/event-detail.phtml:177 template/front/order-detail.phtml:21
+#: template/front/event-detail.phtml:230 template/front/order-detail.phtml:21
 msgid "On"
 msgstr "در"
 
-#: template/front/event-detail.phtml:183
+#: template/front/event-detail.phtml:236
 msgid "Ended event"
 msgstr "این رویداد خاتمه یافته است"
 
-#: template/front/event-detail.phtml:196
+#: template/front/event-detail.phtml:249
 msgid "Related locations"
 msgstr "منطقه های مرتبط"
 
-#: template/front/event-detail.phtml:233
+#: template/front/event-detail.phtml:290
 msgid "You love this event ?"
 msgstr "این رویداد را دوست دارید؟"
 
-#: template/front/event-detail.phtml:243
+#: template/front/event-detail.phtml:300
 msgid "Vote to this event"
 msgstr "به این رویداد رای دهید"
 
-#: template/front/event-detail.phtml:250
+#: template/front/event-detail.phtml:307
 msgid "Nearby recommended professionals"
 msgstr "مکان های تجاری پیشنهادی نزدیک"
 
-#: template/front/event-detail.phtml:268 template/front/event-detail.phtml:377
+#: template/front/event-detail.phtml:325 template/front/event-detail.phtml:434
 msgid "Min price from"
 msgstr "قیمت"
 
-#: template/front/event-detail.phtml:291
+#: template/front/event-detail.phtml:348
 msgid "Share if you like"
 msgstr "اشتراک گذاری در شبکه های اجتماعی"
 
-#: template/front/event-detail.phtml:306
+#: template/front/event-detail.phtml:363
 msgid "Related events"
 msgstr "رویداد های مشابه"
 
-#: template/front/event-detail.phtml:359
+#: template/front/event-detail.phtml:416
 msgid "Related items"
 msgstr "اماکن مرتبط"
 
