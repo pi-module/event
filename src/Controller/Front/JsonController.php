@@ -367,10 +367,11 @@ class JsonController extends IndexController
             ),
             'condition' => array(
                 'title' => $pageTitle,
-                //'description' => $config['text_description_index'],
-                'locationList' => $locationList,
+                 'locationList' => $locationList,
                 'categoryList' => $categoryList,
                 'table' => $table,
+                'listType' => $config['view_list_type'],
+                'importantOrganizer' => $config['important_organizer'],
             ),
         );
 

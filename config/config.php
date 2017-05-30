@@ -158,6 +158,7 @@ return array(
                     'options' => array(
                         'line' => _a('Line : each event on one line'),
                         'box' => _a('Box : each event as box and 3 box on one line'),
+                        'table' => _a('Table'),
                     ),
                 ),
             ),
@@ -220,6 +221,30 @@ return array(
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        'important_organizer' => array(
+            'category' => 'view',
+            'title' => _a('Make organizer bold'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 0
+        ),
+        'image_position' => array(
+            'title' => _a('Image position'),
+            'description' => _a('Image position on single event page'),
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'side' => _a('Show image on sidebar'),
+                        'center' => _a('Show image on center'),
+                    ),
+                ),
+            ),
+            'filter' => 'text',
+            'value' => 'side',
+            'category' => 'view',
         ),
         // Social
         'social_sharing' => array(

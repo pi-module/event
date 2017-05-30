@@ -94,6 +94,15 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
     <div class="clearfix ">
         <div class="row" id="sticky-container">
             <div class="col-md-8 event-single-main">
+                <?php if ($config['image_position'] == 'center') {  ?>
+                    <div class="event-image-main clearfix u-photo gallery text-center">
+                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(1024, 768); ?>"
+                           title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
+                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(600, 400); ?>"
+                                 alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
+                        </a>
+                    </div>
+                <?php } ?>
                 <?php if (!empty($event['text_summary'])) { ?>
                     <div class="clearfix event-single-main-box p-summary" itemprop="description">
                         <?php echo $event['text_summary']; ?>
@@ -126,13 +135,38 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                 <?php } ?>
             </div>
             <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
-                <div class="event-image-main clearfix u-photo gallery">
-                    <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(1024, 768); ?>"
-                       title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                        <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(400, 300); ?>"
-                             alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
-                    </a>
-                </div>
+                <?php if ($config['image_position'] == 'side') {  ?>
+                    <div class="event-image-main clearfix u-photo gallery">
+                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(1024, 768); ?>"
+                           title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
+                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(400, 300); ?>"
+                                 alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
+                        </a>
+                    </div>
+                <?php } ?>
+                <?php if ($config['important_organizer']) { ?>
+                    <div class="event-organizer">
+                        <?php if (!empty($event['organizer_name'])) { ?>
+                            <p itemscope itemtype="https://schema.org/Organization">
+                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
+                            </p>
+                        <?php } ?>
+                        <?php if (!empty($event['source_url'])) { ?>
+                            <p class="u-url" itemprop="url">
+                                <a class="btn btn-success" title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
+                                    <i class="fa fa-external-link"></i>
+                                    <?php _e('Organizer Website and register') ?>
+                                </a>
+                            </p>
+                        <?php } ?>
+                        <?php if (!empty($event['address'])) { ?>
+                            <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                <i class="fa fa-location-arrow"></i>
+                                <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
+                            </p>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
                 <?php if (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
                     <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
@@ -197,10 +231,10 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                             </li>
                         <?php } ?>
                     </ul>
-                    <?php if ($ended) { ?>  
+                    <?php if ($ended) { ?>
                         <ul class="list-inline ended">
-                             <li class=""><i class="fa fa-exclamation-triangle"></i><span> <?php _e("Ended event"); ?></span></li>                    
-                        </ul>  
+                            <li class=""><i class="fa fa-exclamation-triangle"></i><span> <?php _e("Ended event"); ?></span></li>
+                        </ul>
                     <?php } ?>
                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
                         <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
@@ -223,27 +257,31 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                             <?php } ?>
                         </ul>
                     <?php } ?>
-                    <ul class="list-unstyled">
-                        <?php if (!empty($event['organizer_name'])) { ?>
-                            <li itemscope itemtype="https://schema.org/Organization">
-                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
-                            </li>
-                        <?php } ?>
-                        <?php if (!empty($event['source_url']) && !$ended) { ?>
-                            <li class="u-url" itemprop="url">
-                                <i class="fa fa-external-link"></i>
-                                <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
-                                    <?php _e('Organizer Website') ?>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php if (!empty($event['address'])) { ?>
-                            <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                                <i class="fa fa-location-arrow"></i>
-                                <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
-                            </li>
-                        <?php } ?>
-                    </ul>
+                    <?php if (!$config['important_organizer']) { ?>
+                        <div class="event-organizer">
+                            <ul class="list-unstyled">
+                                <?php if (!empty($event['organizer_name'])) { ?>
+                                    <li itemscope itemtype="https://schema.org/Organization">
+                                        <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
+                                    </li>
+                                <?php } ?>
+                                <?php if (!empty($event['source_url']) && !$ended) { ?>
+                                    <li class="u-url" itemprop="url">
+                                        <i class="fa fa-external-link"></i>
+                                        <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
+                                            <?php _e('Organizer Website') ?>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php if (!empty($event['address'])) { ?>
+                                    <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    <?php } ?>
                 </div>
                 <?php if (!empty($favourite)) { ?>
                     <div class="well clearfix eventFavourite">
