@@ -104,17 +104,17 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                     </div>
                 <?php } ?>
                 <?php if (!empty($event['text_summary'])) { ?>
-                    <div class="clearfix event-single-main-box p-summary" itemprop="description">
+                    <div class="clearfix event-single-main-box event-single-summary p-summary" itemprop="description">
                         <?php echo $event['text_summary']; ?>
                     </div>
                 <?php } ?>
                 <?php if (!empty($event['text_description'])) { ?>
-                    <div class="clearfix event-single-main-box p-summary" itemprop="description">
+                    <div class="clearfix event-single-main-box event-single-description p-summary" itemprop="description">
                         <?php echo $event['text_description']; ?>
                     </div>
                 <?php } ?>
                 <?php if (!empty($event['register_details'])) { ?>
-                    <div class="clearfix event-single-main-box" itemprop="description">
+                    <div class="clearfix event-single-main-box event-single-register-details" itemprop="description">
                         <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
                         <?php echo $event['register_details']; ?>
                     </div>
