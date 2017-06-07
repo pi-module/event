@@ -207,7 +207,7 @@ class EventForm extends BaseForm
             ),
         ));
         // address
-        if ($this->option['side'] == 'admin') {
+        if ($this->option['side'] == 'admin' || ($this->option['side'] == 'front' && $this->option['manage_register'])) {
             $this->add(array(
                 'name' => 'address',
                 'options' => array(
@@ -261,17 +261,19 @@ class EventForm extends BaseForm
             ),
         ));
         // register_details
-        $this->add(array(
-            'name' => 'register_details',
-            'options' => array(
-                'label' => __('Registration details/requirements'),
-                'editor' => 'html',
-            ),
-            'attributes' => array(
-                'type' => 'editor',
-                'description' => '',
-            )
-        ));
+        if ($this->option['side'] == 'admin' || ($this->option['side'] == 'front' && $this->option['manage_register'])) {
+            $this->add(array(
+                'name' => 'register_details',
+                'options' => array(
+                    'label' => __('Registration details/requirements'),
+                    'editor' => 'html',
+                ),
+                'attributes' => array(
+                    'type' => 'editor',
+                    'description' => '',
+                )
+            ));
+        }
         // register_price
         $this->add(array(
             'name' => 'register_price',

@@ -136,7 +136,7 @@ class EventFilter extends InputFilter
             'required' => false,
         ));
         // address
-        if ($option['side'] == 'admin') {
+        if ($option['side'] == 'admin' || ($option['side'] == 'front' && $option['manage_register'])) {
             $this->add(array(
                 'name' => 'address',
                 'required' => false,
@@ -194,15 +194,17 @@ class EventFilter extends InputFilter
             ),
         ));
         // register_details
-        $this->add(array(
-            'name' => 'register_details',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+        if ($option['side'] == 'admin' || ($option['side'] == 'front' && $option['manage_register'])) {
+            $this->add(array(
+                'name' => 'register_details',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
+            ));
+        }
         // register_price
         $this->add(array(
             'name' => 'register_price',

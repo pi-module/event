@@ -42,17 +42,21 @@ class DetailController extends ActionController
         }
 
         // Update Hits
-        if(!isset($_SESSION['hits_events'][$event['id']])){
-            if(!isset($_SESSION['hits_events'])){
-                $_SESSION['hits_events'] = array();
+        if ($config['event_all_hits']) {
+            Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+        } else {
+            if(!isset($_SESSION['hits_events'][$event['id']])){
+                if(!isset($_SESSION['hits_events'])){
+                    $_SESSION['hits_events'] = array();
+                }
+
+                $_SESSION['hits_events'][$event['id']] = false;
             }
 
-            $_SESSION['hits_events'][$event['id']] = false;
-        }
-
-        if(!$_SESSION['hits_events'][$event['id']]){
-            Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
-            $_SESSION['hits_events'][$event['id']] = true;
+            if(!$_SESSION['hits_events'][$event['id']]){
+                Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+                $_SESSION['hits_events'][$event['id']] = true;
+            }
         }
 
         // Set event topic
@@ -60,6 +64,7 @@ class DetailController extends ActionController
         if (!empty($event['topic'])) {
             $eventTopic = array_merge($eventTopic, $event['topic']);
         }
+
         // Set guide module options
         $event['guideItemInfo'] = array();
         $event['guideLocationInfo'] = array();

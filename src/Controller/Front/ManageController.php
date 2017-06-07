@@ -127,6 +127,7 @@ class ManageController extends ActionController
             'use_guide_location' => $config['use_guide_location'],
             'order_active' => $config['order_active'],
             'map_use' => $config['map_use'],
+            'manage_register' => $config['manage_register'],
         );
         // Find event
         if ($id) {

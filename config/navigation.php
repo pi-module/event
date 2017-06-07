@@ -34,6 +34,28 @@ return array(
             'module' => 'event',
             'controller' => 'event',
             'action' => 'index',
+            'pages' => array(
+                'event' => array(
+                    'label' => _a('Event'),
+                    'permission' => array(
+                        'resource' => 'event',
+                    ),
+                    'route' => 'admin',
+                    'module' => 'event',
+                    'controller' => 'event',
+                    'action' => 'index',
+                ),
+                'update' => array(
+                    'label' => _a('New event'),
+                    'permission' => array(
+                        'resource' => 'event',
+                    ),
+                    'route' => 'admin',
+                    'module' => 'event',
+                    'controller' => 'event',
+                    'action' => 'update',
+                ),
+            ),
         ),
         'order' => array(
             'label' => _a('List of order'),

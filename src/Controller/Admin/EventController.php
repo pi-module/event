@@ -107,6 +107,7 @@ class EventController extends ActionController
             'order_active' => $config['order_active'],
             'order_discount' => $config['order_discount'],
             'map_use' => $config['map_use'],
+            'manage_register' => $config['manage_register'],
         );
         // Find event
         if ($id) {

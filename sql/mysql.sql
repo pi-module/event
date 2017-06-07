@@ -33,8 +33,7 @@ CREATE TABLE `{extra}` (
   KEY `title` (`title`),
   KEY `time_start` (`time_start`),
   KEY `time_end` (`time_end`),
-  KEY `status` (`status`),
-  KEY `uid` (`uid`)
+  KEY `status` (`status`)
 );
 
 CREATE TABLE `{order}` (
@@ -62,3 +61,14 @@ CREATE TABLE `{order}` (
   KEY `time_end` (`time_end`),
   KEY `status` (`status`)
 );
+
+/* CREATE TABLE `{organizer}` (
+  `id`      INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid`     INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  `title`   VARCHAR(255)     NOT NULL DEFAULT '',
+  `website` VARCHAR(255)     NOT NULL DEFAULT '',
+  `phone`   VARCHAR(255)     NOT NULL DEFAULT '',
+  `address` VARCHAR(255)     NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+); */

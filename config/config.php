@@ -246,6 +246,14 @@ return array(
             'value' => 'side',
             'category' => 'view',
         ),
+        'event_all_hits' => array(
+            'category' => 'item',
+            'title' => _a('Include all hits'),
+            'description' => _a('Include all page refresh as hits, if not check use SESSION check for update hits'),
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 0
+        ),
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),
@@ -283,6 +291,14 @@ return array(
             'edit' => 'text',
             'filter' => 'string',
             'value' => 'member'
+        ),
+        'manage_register' => array(
+            'category' => 'manage',
+            'title' => _a('Manage register options'),
+            'description' => _a('Manage register options by user, if yes, some extra fields will show'),
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
         ),
         // Order
         'order_active' => array(

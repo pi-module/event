@@ -330,7 +330,7 @@ msgstr "تصویر اصلی"
 #: src/Form/EventForm.php:214 template/front/event-detail.phtml:165
 #: template/front/event-detail.phtml:279 template/front/order-detail.phtml:43
 msgid "Address"
-msgstr "آدرس"
+msgstr "نشانی"
 
 #: src/Form/EventForm.php:225 template/front/event-detail.phtml:151
 #: template/front/event-detail.phtml:265 template/front/order-detail.phtml:27
