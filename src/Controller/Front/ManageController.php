@@ -133,16 +133,26 @@ class ManageController extends ActionController
                 return;
             }
             // Check item
+            $canSubmitEvent = true;
             if($item){
                 $item = Pi::api('item', 'guide')->getItemLight($item);
                 $option['item'] = $item['id'];
                 $title = sprintf(__('Add event to %s'), $item['title']);
+                
+                // Test if pakcage has_event
+                if ($item['item_type'] == 'commercial') {
+                    $canSubmitEvent = false;
+                    $package = Pi::api('package', 'guide')->getPackageFromPeriod($item['package']);
+                    if (!Pi::api('item', 'guide')->isExpired($item)) {
+                        $canSubmitEvent = $package['has_event'];                
+                    }
+                }
             }
         }
         // Set form
         $form = new EventForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
-        if ($this->request->isPost()) {
+        if ($this->request->isPost() && $canSubmitEvent) {
             $data = $this->request->getPost();
             $file = $this->request->getFiles();
             // Set slug
@@ -321,6 +331,8 @@ class ManageController extends ActionController
         $this->view()->assign('form', $form);
         $this->view()->assign('title', $title);
         $this->view()->assign('config', $config);
+        $this->view()->assign('canSubmitEvent', $canSubmitEvent);
+        
     }
 
     public function removeAction()
