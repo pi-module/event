@@ -73,6 +73,8 @@ class Event extends AbstractApi
             foreach ($listStory as $event) {
                 if(isset($listExtra[$event['id']]) && is_array($listExtra[$event['id']])){
                     $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                    //$listEvent[$event['id']]['thumbUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(150, 100);
+                    //$listEvent[$event['id']]['mediumUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(320, 240);
                 }
             }
         }
@@ -328,6 +330,20 @@ class Event extends AbstractApi
             }
             $extra['locationInfo'] = $this->locationList[$extra['guide_location'][0]];
         }
+        // Set time view
+        if (!empty($extra['time_start']) && !empty($extra['time_end'])) {
+            $extra['time_view'] = sprintf('%s %s %s %s', __('From'), $extra['time_start_view'], __('to'), $extra['time_end_view']);
+        } elseif (!empty($extra['time_start'])) {
+            $extra['time_view'] = $extra['time_start_view'];
+        }
+        // Number of days
+        if ($extra['time_end'] > 0) {
+            $days = ceil(($extra['time_end'] - $extra['time_start']) / 86400) + 1;
+            $extra['days'] = sprintf(__('%s days'), $days);
+        } else {
+            $extra['days'] = __('1 days');
+        }
+
         return $extra;
     }
 
@@ -370,7 +386,7 @@ class Event extends AbstractApi
         // Set time level
         $timeLevel = '';
         if ($event['time_end'] == 0 && $event['time_start'] < $time['expired']) {
-            $timeLevel = 'expired';
+            $timeLevel = ' expired';
         } elseif ($event['time_end'] > 0 && $event['time_end'] < $time['expired']) {
             $timeLevel .= ' expired';
         }
@@ -428,11 +444,22 @@ class Event extends AbstractApi
             }
         }
 
+        // Number of days
+        if ($event['time_end'] > 0) {
+            $days = ceil(($event['time_end'] - $event['time_start']) / 86400) + 1;
+            $event['days'] = sprintf(__('%s days'), $days);
+        } else {
+            $event['days'] = __('1 days');
+        }
+
+        //$event['thumbUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(150, 100);
+        //$event['mediumUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(320, 240);
+
         // Set single event array
         $eventSingle = array(
             'id' => $event['id'],
             'title' => $event['title'],
-            'image' => $event['image'],
+            'image' => $event['main_image'],
             'thumbUrl' => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
             'eventUrl' => $event['eventUrl'],
             'subtitle' => $event['subtitle'],
@@ -453,6 +480,7 @@ class Event extends AbstractApi
             'time_level' => $timeLevel,
             'category' => implode(' ', $categoryList),
             'location' => implode(' ', $locationList),
+            'days' => $event['days'],
         );
 
         return $eventSingle;
@@ -483,52 +511,44 @@ class Event extends AbstractApi
         }
     }
 
-    public function regenerateImage()
-    {
-        // Set info
-        $columns = array('id', 'image', 'path', 'cropping');
-        $where = array('type' => array(
-            'event'
-        ));
-        $order = array('id ASC');
-        $select = Pi::model('story', 'news')->select()->columns($columns)->where($where)->order($order);
-        $rowset = Pi::model('story', 'news')->selectWith($select);
-        foreach ($rowset as $row) {
-            if (!empty($row->image) && !empty($row->path)) {
-                // Set image original path
-                $original = Pi::path(
-                    sprintf('upload/event/image/original/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Set image large path
-                $images['large'] = Pi::path(
-                    sprintf('upload/event/image/large/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Set image medium path
-                $images['medium'] = Pi::path(
-                    sprintf('upload/event/image/medium/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Set image thumb path
-                $images['thumb'] = Pi::path(
-                    sprintf('upload/event/image/thumb/%s/%s',
-                        $row->path,
-                        $row->image
-                    ));
-                // Check original exist of not
-                if (file_exists($original)) {
-                    // Remove old images
-                    foreach ($images as $image) {
-                        if (file_exists($image)) {
-                            Pi::service('file')->remove($image);
-                        }
-                    }
-                    // regenerate
-                    Pi::api('image', 'news')->process($row->image, $row->path, 'event/image', $row->cropping);
+    public function migrateMedia(){
+        if (Pi::service("module")->isActive("media")) {
+            // Get config
+            $config = Pi::service('registry')->config->read($this->getModule());
+
+            $storyModel = Pi::model("story", "news");
+
+            $select = $storyModel->select();
+            $storyCollection = $storyModel->selectWith($select);
+
+            foreach($storyCollection as $story){
+
+                /**
+                 * Check if media item have already migrate or no image to migrate
+                 */
+                if($story->main_image || empty($story["image"]) || empty($story["path"])){
+                    continue;
+                }
+
+                $mediaData = array(
+                    'active' => 1,
+                    'time_created' => time(),
+                    'uid'   => $story->uid,
+                    'count' => 0,
+                );
+
+                $imagePath = sprintf("upload/%s/original/%s/%s",
+                    'event/image',
+                    $story["path"],
+                    $story["image"]
+                );
+
+                $mediaData['title'] = $story->title;
+                $mediaId = Pi::api('doc', 'media')->insertMedia($mediaData, $imagePath);
+
+                if($mediaId){
+                    $story->main_image = $mediaId;
+                    $story->save();
                 }
             }
         }

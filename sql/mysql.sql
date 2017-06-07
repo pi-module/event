@@ -23,9 +23,18 @@ CREATE TABLE `{extra}` (
   `guide_category`    VARCHAR(255)              NOT NULL DEFAULT '',
   `guide_location`    VARCHAR(255)              NOT NULL DEFAULT '',
   `guide_item`        VARCHAR(255)              NOT NULL DEFAULT '',
+  # google map fields
+  `map_latitude`      VARCHAR(16)               NOT NULL DEFAULT '',
+  `map_longitude`     VARCHAR(16)               NOT NULL DEFAULT '',
+  `map_zoom`          INT(5) UNSIGNED           NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
-  KEY `guide_owner` (`guide_owner`)
+  KEY `guide_owner` (`guide_owner`),
+  KEY `title` (`title`),
+  KEY `time_start` (`time_start`),
+  KEY `time_end` (`time_end`),
+  KEY `status` (`status`),
+  KEY `uid` (`uid`)
 );
 
 CREATE TABLE `{order}` (

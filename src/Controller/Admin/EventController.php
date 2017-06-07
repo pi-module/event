@@ -106,6 +106,7 @@ class EventController extends ActionController
             'use_guide_location' => $config['use_guide_location'],
             'order_active' => $config['order_active'],
             'order_discount' => $config['order_discount'],
+            'map_use' => $config['map_use'],
         );
         // Find event
         if ($id) {
@@ -199,6 +200,10 @@ class EventController extends ActionController
                             $message = __('Error on save story data on event module.');
                             $this->jump(array('action' => 'index'), $message, 'error');
                         }
+                    }
+                    // Set map
+                    if ($config['map_use'] && !empty($values['map_latitude']) && !empty($values['map_longitude'])) {
+                        $values['map_zoom'] = empty($values['map_zoom']) ? $config['map_zoom'] : $values['map_zoom'];
                     }
 
                     $row->assign($values);

@@ -120,6 +120,14 @@ class EventFilter extends InputFilter
                 'required' => true,
             ));
         }
+
+
+        // image
+        $this->add(array(
+            'name' => 'main_image',
+            'required' => false,
+        ));
+
         // image
         $this->add(array(
             'name' => 'image',
@@ -290,7 +298,24 @@ class EventFilter extends InputFilter
                 ));
             }
         }
-
+        // Check map
+        if ($option['map_use']) {
+            // map_latitude
+            $this->add(array(
+                'name' => 'map_latitude',
+                'required' => false,
+            ));
+            // map_longitude
+            $this->add(array(
+                'name' => 'map_longitude',
+                'required' => false,
+            ));
+            // map_zoom
+            $this->add(array(
+                'name' => 'map_zoom',
+                'required' => false,
+            ));
+        }
         // Seo options
         if ($option['side'] == 'admin') {
             // seo_title

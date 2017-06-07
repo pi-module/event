@@ -33,24 +33,29 @@ $this->jQuery(array(
 ));
 $this->footScript()->appendScript($script);
 // Set Open Graph tags for meta
+$shareImage = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(800, 600);
 $this->doctype('HTML5');
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($event['eventUrl'], 'og:url', 'property');
 if (isset($event['text_summary']) && !empty($event['text_summary'])) {
     $this->headMeta($event['text_summary'], 'og:description', 'property');
 }
-if (!empty($event['largeUrl'])) {
-    $this->headMeta($this->escape($event['largeUrl']), 'og:image', 'property');
+if ($shareImage) {
+    $this->headMeta($shareImage, 'og:image', 'property');
 }
 // Set twitter for meta
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($summary, 'twitter:description');
-if (isset($event['largeUrl']) && !empty($event['largeUrl'])) {
+if ($shareImage) {
     $this->headMeta('summary_large_image', 'twitter:card');
-    $this->headMeta($this->escape($event['largeUrl']), 'twitter:image');
+    $this->headMeta($shareImage, 'twitter:image');
 }
 
 $this->sticky();
+// Add Geo tags
+if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])){
+    $this->geoTag($event['map_latitude'], $event['map_longitude'], $event['title']);
+}
 ?>
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
@@ -105,16 +110,30 @@ $this->sticky();
                         <?php echo $event['register_details']; ?>
                     </div>
                 <?php } ?>
+
+                <?php if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])) { ?>
+                    <?php $locations = array(
+                        'latitude' => $event['map_latitude'],
+                        'longitude' => $event['map_longitude'],
+                        'title' => $event['title'],
+                        'zoom' => !empty($event['map_zoom']) ? $event['map_zoom'] : $config['map_zoom'],
+                    );
+                    $option = array(
+                        'mapTypeId' => $config['map_type'],
+                    );  ?>
+                    <h2><?php _e('Access Map'); ?></h2>
+                    <?php echo $this->googleMap($locations, $config['map_api_key'], 'point', $option); ?>
+                <?php } ?>
             </div>
             <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
                 <div class="event-image-main clearfix u-photo gallery">
-                    <a href="<?php echo $this->escape($event['largeUrl']); ?>"
+                    <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(1024, 768); ?>"
                        title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                        <img class="img-responsive img-thumbnail" src="<?php echo $this->escape($event['mediumUrl']); ?>"
+                        <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(400, 300); ?>"
                              alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                     </a>
                 </div>
-                <?php if ($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) { ?>
+                <?php if (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
                     <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
@@ -164,14 +183,17 @@ $this->sticky();
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">
+                        <?php if ($config['view_days']) { ?>
+                            <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
+                        <?php } ?>
                         <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                            <li><i class="fa fa-clock-o"></i> <?php _e('From') ?></li>
+                            <li><?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('From') ?></li>
                             <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
                             <li><?php _e('to') ?></li>
                             <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
                         <?php } elseif (!empty($event['time_start'])) { ?>
                             <li class="event-single-time dt-start">
-                                <i class="fa fa-clock-o"></i> <?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
+                                <?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
                             </li>
                         <?php } ?>
                     </ul>
@@ -223,6 +245,24 @@ $this->sticky();
                         <?php } ?>
                     </ul>
                 </div>
+                <?php if (!empty($favourite)) { ?>
+                    <div class="well clearfix eventFavourite">
+                        <div class="row">
+                            <h4 class="col-md-9">
+                                <?php _e('You love this event ?'); ?>
+                            </h4>
+                            <div class="col-md-3">
+                                <?php include $this->template('favouritebar', 'front', 'favourite'); ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($vote)) { ?>
+                    <div class="well clearfix eventVote">
+                        <h2><?php _e('Vote to this event'); ?></h2>
+                        <?php include $this->template('votebar', 'front', 'vote'); ?>
+                    </div>
+                <?php } ?>
                 <?php if (!empty($event['guideItemInfo']['commercial'])) { ?>
                     <div class="event-item-related clearfix">
                         <div class="page-header">
@@ -236,7 +276,7 @@ $this->sticky();
                                             <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                                href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                                 <img class="img-responsive u-photo"
-                                                     src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
+                                                     src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->thumb(400, 300); ?>"
                                                      alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                                 <?php if ($guideItemInfo['ribbon']) { ?>
                                                     <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
@@ -331,7 +371,6 @@ $this->sticky();
                 <?php } ?>
             </div>
         </div>
-
         <?php if (!empty($event['guideItemInfo']['free'])) { ?>
             <div class="row">
                 <div class="col-md-12 event-item-related clearfix">
@@ -346,7 +385,7 @@ $this->sticky();
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <img class="img-responsive u-photo"
-                                                 src="<?php echo $this->escape($guideItemInfo['mediumUrl']); ?>"
+                                                 src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->thumb(400, 300); ?>"
                                                  alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                             <?php if ($guideItemInfo['ribbon']) { ?>
                                                 <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
@@ -377,7 +416,6 @@ $this->sticky();
         <?php } ?>
     </div>
 </div>
-
 <script>
     $(document).ready(function(){
         $('iframe').wrap('<div class="iframe-wrapper">');

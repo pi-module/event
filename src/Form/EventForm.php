@@ -200,32 +200,10 @@ class EventForm extends BaseForm
         }
 
         $this->add(array(
-            'name' => 'image',
+            'name' => 'main_image',
+            'type' => 'Module\Media\Form\Element\Media',
             'options' => array(
-                'label' => __($this->thumbUrl ? "Change image" : "Image"),
-            ),
-            'attributes' => array(
-                'type' => 'file',
-                'description' => '',
-            )
-        ));
-
-        $this->add(array(
-            'name' => 'imageview',
-            'type' => 'Module\Event\Form\Element\ImageCrop', // Zend\Form\Element\Image
-            'options' => array(
-                'label' => __('Uploaded image'),
-            ),
-            'attributes' => array(
-                'src' => $this->thumbUrl ?: ' ',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'cropping',
-            'type' => 'hidden',
-            'options' => array(
-                'label' => __('Cropping data'),
+                'label' => __('Main image'),
             ),
         ));
 
@@ -484,6 +462,49 @@ class EventForm extends BaseForm
             }
         }
 
+        // Check order active
+        if ($this->option['map_use']) {
+            $this->add(array(
+                'name' => 'extra_map',
+                'type' => 'fieldset',
+                'options' => array(
+                    'label' => __('Map options'),
+                ),
+            ));
+            // map_latitude
+            $this->add(array(
+                'name' => 'map_latitude',
+                'options' => array(
+                    'label' => __('Latitude'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+            // map_longitude
+            $this->add(array(
+                'name' => 'map_longitude',
+                'options' => array(
+                    'label' => __('Longitude'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+            // map_zoom
+            $this->add(array(
+                'name' => 'map_zoom',
+                'options' => array(
+                    'label' => __('Zoom'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+        }
         // extra
         if ($this->option['side'] == 'admin') {
             $this->add(array(

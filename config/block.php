@@ -71,6 +71,13 @@ return array(
                 'filter' => 'number_int',
                 'value' => 1,
             ),
+            'show-days' => array(
+                'title' => _a('Show days'),
+                'description' => '',
+                'edit' => 'checkbox',
+                'filter' => 'number_int',
+                'value' => 1,
+            ),
             'list-type' => array(
                 'title' => _a('Event list type'),
                 'description' => '',
@@ -80,6 +87,7 @@ return array(
                         'options' => array(
                             'vertical' => _a('Vertical'),
                             'horizontal' => _a('Horizontal'),
+                            'table' => _a('Table'),
                         ),
                     ),
                 ),

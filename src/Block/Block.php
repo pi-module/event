@@ -23,11 +23,11 @@ class Block
         // Set options
         $block = array();
         $block = array_merge($block, $options);
-        $where = array(
+
+        /*  $where = array(
             'status' => 1,
         );
-
-        /* $eventModel = Pi::model('extra', 'event');
+        $eventModel = Pi::model('extra', 'event');
         $eventTable = $eventModel->getTable();
         $eventAdapter = $eventModel->getAdapter();
         // Set sql
@@ -105,6 +105,8 @@ class Block
         // Language
         _b('free!');
         _b('Toman');
+        _b('%s days');
+        _b('1 days');
         // return
         return $block;
     }

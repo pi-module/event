@@ -8,23 +8,30 @@
         <div class="page-header">
             <h1><?php echo $this->escape($title); ?></h1>
         </div>
-        <table class="table table-striped table-bordered table-condensed">
-            <tr>
-                <th><?php _e('ID'); ?></th>
-                <th><?php _e('Name'); ?></th>
-                <th><?php _e('Number'); ?></th>
-                <th><?php _e('Total'); ?></th>
-                <th><?php _e('Code'); ?></th>
-            </tr>
-            <?php foreach ($list as $order) { ?>
+
+        <?php if (!empty($list)) { ?>
+            <table class="table table-striped table-bordered table-condensed">
                 <tr>
-                    <td><?php echo $this->escape($order['id']); ?></td>
-                    <td><?php echo $this->escape($order['user']['name']); ?></td>
-                    <td><?php echo $this->escape($order['number_view']); ?></td>
-                    <td><?php echo $this->escape($order['total_view']); ?></td>
-                    <td><?php echo $this->escape($order['code_public']); ?></td>
+                    <th><?php _e('ID'); ?></th>
+                    <th><?php _e('Name'); ?></th>
+                    <th><?php _e('Number'); ?></th>
+                    <th><?php _e('Total'); ?></th>
+                    <th><?php _e('Code'); ?></th>
                 </tr>
-            <?php } ?>
-        </table>
+                <?php foreach ($list as $order) { ?>
+                    <tr>
+                        <td><?php echo $this->escape($order['id']); ?></td>
+                        <td><?php echo $this->escape($order['user']['name']); ?></td>
+                        <td><?php echo $this->escape($order['number_view']); ?></td>
+                        <td><?php echo $this->escape($order['total_view']); ?></td>
+                        <td><?php echo $this->escape($order['code_public']); ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+        <?php } else { ?>
+            <div class="alert alert-danger" role="alert">
+                <?php _e('This event still have no online register !'); ?>
+            </div>
+        <?php } ?>
     </div>
 </div>

@@ -24,7 +24,6 @@ return array(
             'title' => _a('Guide module'),
             'name' => 'guide'
         ),
-
         array(
             'title' => _a('View'),
             'name' => 'view'
@@ -40,6 +39,18 @@ return array(
         array(
             'title' => _a('Order'),
             'name' => 'order'
+        ),
+        array(
+            'title' => _a('Vote'),
+            'name' => 'vote'
+        ),
+        array(
+            'title' => _a('Favourite'),
+            'name' => 'favourite'
+        ),
+        array(
+            'title'  => _a('Google Map'),
+            'name'   => 'map'
         ),
     ),
     'item' => array(
@@ -98,6 +109,22 @@ return array(
             'category' => 'guide',
         ),
         // View
+        'view_template' => array(
+            'title' => _a('View template'),
+            'description' =>  _a('Temporary config to finish new angular js template'),
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'angular' => _a('Angular'),
+                        'angularnew' => _a('New angular'),
+                    ),
+                ),
+            ),
+            'filter' => 'text',
+            'value' => 'angular',
+            'category' => 'view',
+        ),
         'text_summary_index' => array(
             'category' => 'view',
             'title' => _a('Summary for index page'),
@@ -106,7 +133,6 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-
         'text_description_index' => array(
             'category' => 'view',
             'title' => _a('Description for index page'),
@@ -115,7 +141,6 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-
         'wide_content' => array(
             'category' => 'view',
             'title' => _a('Active wide front image for this module'),
@@ -124,7 +149,6 @@ return array(
             'filter' => 'number_int',
             'value' => 0
         ),
-
         'view_list_type' => array(
             'title' => _a('Event list type'),
             'description' => '',
@@ -181,7 +205,6 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-
         'price_filter' => array(
             'category' => 'view',
             'title' => _a('Price filter'),
@@ -189,6 +212,14 @@ return array(
             'edit' => 'textarea',
             'filter' => 'string',
             'value' => ''
+        ),
+        'view_days' => array(
+            'category' => 'view',
+            'title' => _a('Show days'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
         ),
         // Social
         'social_sharing' => array(
@@ -220,6 +251,14 @@ return array(
             'filter' => 'number_int',
             'value' => 1
         ),
+        'manage_role' => array(
+            'category' => 'manage',
+            'title' => _a('Allowed user role to access'),
+            'description' => _a('Put allowed role here, this option used when guide module not installed'),
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => 'member'
+        ),
         // Order
         'order_active' => array(
             'category' => 'order',
@@ -244,6 +283,84 @@ return array(
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
+        ),
+        // Vote
+        'vote_bar' => array(
+            'category' => 'vote',
+            'title' => _a('Use vote system'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
+        // favourite
+        'favourite_bar' => array(
+            'category' => 'favourite',
+            'title' => _a('Use favourite system'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
+        ),
+        // Map
+        'map_use' => array(
+            'title'        => _a('Use Google Map'),
+            'description'  => '',
+            'value'        => 0,
+            'filter'       => 'number_int',
+            'edit'         => 'checkbox',
+            'category'     => 'map',
+        ),
+        /* 'map_position' => array(
+            'title'        => _a('Position'),
+            'description'  => ' ',
+            'edit'         => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'bottom' => _a('Bottom'),
+                        'side' => _a('Side'),
+                        'wide' => _a('Wide on top'),
+                    ),
+                ),
+            ),
+            'filter'       => 'string',
+            'value'        => 'bottom',
+            'category'     => 'map',
+        ), */
+        'map_zoom' => array(
+            'title'        => _a('Zoom'),
+            'description'  => '',
+            'edit'         => 'text',
+            'filter'       => 'number_int',
+            'value'        => 15,
+            'category'     => 'map',
+        ),
+        'map_api_key' => array(
+            'category' => 'map',
+            'title' => _a('Set Google map API KEY'),
+            'description' => _a('For obtaining an API Key please read this document : https://developers.google.com/maps/documentation/javascript/tutorial#api_key'),
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => ''
+        ),
+        'map_type' => array(
+            'title' => _a('Map type'),
+            'description' => '',
+            'edit' => array(
+                'type' => 'select',
+                'options' => array(
+                    'options' => array(
+                        'ROADMAP' => _a('ROADMAP'),
+                        'SATELLITE' => _a('SATELLITE'),
+                        'HYBRID' => _a('HYBRID'),
+                        'TERRAIN' => _a('TERRAIN'),
+                    ),
+                ),
+            ),
+            'filter' => 'text',
+            'value' => 'ROADMAP',
+            'category' => 'map',
         ),
     ),
 );

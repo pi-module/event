@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-08-29 12:18+0430\n"
+"POT-Creation-Date: 2017-04-30 12:30+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -52,19 +52,39 @@ msgstr "نمایش بازدید"
 msgid "Show summary"
 msgstr "نمایش خلاصه"
 
-#: config/block.php:75
+#: config/block.php:75 config/config.php:220
+msgid "Show days"
+msgstr "نمایش تعداد روز"
+
+#: config/block.php:82 config/config.php:155
+msgid "Event list type"
+msgstr "نوع نمایش فهرست رویداد ها"
+
+#: config/block.php:88
+msgid "Vertical"
+msgstr "عمودی"
+
+#: config/block.php:89
+msgid "Horizontal"
+msgstr "افقی"
+
+#: config/block.php:90
+msgid "Table"
+msgstr "جدولی"
+
+#: config/block.php:98
 msgid "Show more link"
 msgstr "نمایش لینک ادامه"
 
-#: config/block.php:82
+#: config/block.php:105
 msgid "Set more link"
 msgstr "درج لینک ادامه"
 
-#: config/block.php:89
+#: config/block.php:112
 msgid "Use block effects"
 msgstr " استفاده از افکت های بلاک"
 
-#: config/block.php:90
+#: config/block.php:113
 msgid "Use block effects or set custom effect on theme"
 msgstr ""
 "ستفاده از افکت های جاوا اسکریپت یا سی اس اس بلاک یا شخصی سازی آن در قالب"
@@ -101,107 +121,169 @@ msgstr "مدیریت درج رویداد توسط کاربر"
 msgid "Order"
 msgstr "سفارش"
 
-#: config/config.php:48 config/config.php:102
+#: config/config.php:44
+msgid "Vote"
+msgstr "رای"
+
+#: config/config.php:48
+msgid "Favourite"
+msgstr "علاقه مندی"
+
+#: config/config.php:56 config/config.php:172
 msgid "Perpage"
 msgstr "تعداد در صفحه"
 
-#: config/config.php:57
+#: config/config.php:65
 msgid "Use news topics"
 msgstr "استفاده از موضوع های ماژول اخبار"
 
-#: config/config.php:66
+#: config/config.php:74
 msgid "Use guide category"
 msgstr "استفاده از شاخه های ماژول مدیریت اماکن"
 
-#: config/config.php:74
+#: config/config.php:82
 msgid "Use guide location"
 msgstr "استفاده از مکان ماژول مدیریت اماکن"
 
-#: config/config.php:81
+#: config/config.php:89
 msgid "Select location level for show on filter form"
 msgstr "انتخاب سطح مکان برای نمایش در فرم"
 
-#: config/config.php:87
+#: config/config.php:95
 msgid "level 1"
 msgstr "سطح ۱"
 
-#: config/config.php:88
+#: config/config.php:96
 msgid "level 2"
 msgstr "سطح ۲"
 
-#: config/config.php:89
+#: config/config.php:97
 msgid "level 3"
 msgstr "سطح ۳"
 
-#: config/config.php:90
+#: config/config.php:98
 msgid "level 4"
 msgstr "سطح ۴"
 
-#: config/config.php:91
+#: config/config.php:99
 msgid "level 5"
 msgstr "سطح ۵"
 
 #: config/config.php:110
+msgid "View template"
+msgstr "انتخاب تمپلیت"
+
+#: config/config.php:111
+msgid "Temporary config to finish new angular js template"
+msgstr "تنظیم انتخاب تمپلیت تا تکمیل روش نمایش جدید ( موقتی )"
+
+#: config/config.php:116
+msgid "Angular"
+msgstr "Angular"
+
+#: config/config.php:117
+msgid "New angular"
+msgstr "New angular"
+
+#: config/config.php:129
+msgid "Summary for index page"
+msgstr "خلاصه برای صفحه اول"
+
+#: config/config.php:138
+msgid "Description for index page"
+msgstr "متن توضیحات صفحه اول ماژول"
+
+#: config/config.php:147
+msgid "Active wide front image for this module"
+msgstr "فعال کردن تصویر عریض برای صفحات این ماژول"
+
+#: config/config.php:161
+msgid "Line : each event on one line"
+msgstr "خطی : هر رویداد در یک خط"
+
+#: config/config.php:162
+msgid "Box : each event as box and 3 box on one line"
+msgstr "باکس : هر سه رویداد در یک خط"
+
+#: config/config.php:180
 msgid "Show related event"
 msgstr "نمایش رویداد های مشابه"
 
-#: config/config.php:117
+#: config/config.php:187
 msgid "Related event type"
 msgstr "نوع رویداد های مشابه"
 
-#: config/config.php:123
+#: config/config.php:193
 msgid "By event module topics"
 msgstr "بر اساس شاخه ماژول رویداد"
 
-#: config/config.php:124
+#: config/config.php:194
 msgid "By guide module categories"
 msgstr "براساس شاخه ماژول معرفی امکان"
 
-#: config/config.php:134
+#: config/config.php:204
 msgid "Set wide image for homepage"
 msgstr "تنظیم عکس عریض برای صفحه اول"
 
-#: config/config.php:142
+#: config/config.php:212
 msgid "Price filter"
 msgstr "فیلتر قیمت"
 
-#: config/config.php:143
+#: config/config.php:213
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr ""
 "روش ورود اطلاعات ، از علامت های | و - و , باید استفاده شود ، به طور مثال : "
 "0-500000,بین ۰ تا ۵۰.۰۰۰ تومان|500000-2000000,بین ۵۰.۰۰۰ تا ۲۰۰.۰۰۰ تومان|"
 
-#: config/config.php:150
+#: config/config.php:228
 msgid "Social sharing items"
 msgstr "موارد اشتراک گذاری در شبکه های اجتماعی"
 
-#: config/config.php:164
+#: config/config.php:242
 msgid "Manage event by users"
 msgstr "مدیریت رویداد ها توسط کاربر"
 
-#: config/config.php:172
+#: config/config.php:250
 msgid "Auto approval user events"
 msgstr "تایید خودکار رویداد های درج شده توسط کاربر"
 
-#: config/config.php:181
+#: config/config.php:258
+msgid "Allowed user role to access"
+msgstr "نقش کاربری مجاز برای دسترسی"
+
+#: config/config.php:259
+msgid "Put allowed role here, this option used when guide module not installed"
+msgstr ""
+"نقش کاربری مجاز برای ارسال رویداد را در این بخش وارد کنید، از این گزینه "
+"زمانی که ماژول معرفی امکان نصب نیست استفاده می شود"
+
+#: config/config.php:267
 msgid "Active order"
 msgstr "فعال سازی ثبت نام در رویداد"
 
-#: config/config.php:189
+#: config/config.php:268
+msgid "Manage event registration, ticket stock and activate orders"
+msgstr "مدیریت ثبت رویداد، ارسال درخواست پشتیبانی و سفارش"
+
+#: config/config.php:275
 msgid "Show free word for free events"
 msgstr "نمایش کلمه رایگان برای رویداد های رایگان"
 
-#: config/config.php:197
+#: config/config.php:283
 msgid "Active discount system"
 msgstr "فعال سازی سیستم تخفیف"
 
-#: config/config.php:198
+#: config/config.php:284
 msgid "Discount percent for each rule on each event"
 msgstr "تخفیف درصدی برای هر گروه کاربری در هر رویداد"
 
-#: config/config.php:206
-msgid "Description for index page"
-msgstr "متن توضیحات صفحه اول ماژول"
+#: config/config.php:292
+msgid "Use vote system"
+msgstr "استفاده از سیستم رای"
+
+#: config/config.php:301
+msgid "Use favourite system"
+msgstr "استفاده از سیستم مورد علاقه"
 
 #: config/module.php:16 config/navigation.php:29 config/page.php:56
 #: config/permission.php:33

@@ -35,12 +35,6 @@ $urlPackage = Pi::url($this->url('guide', array(
             </div>
             <div id="event-form">
                 <?php echo $this->form($form); ?>
-                <?php include $this->template('front/partial/crop'); ?>
-                <script>
-                    jQuery(document).ready(function(){
-                        parseCrop();
-                    });
-                </script>
             </div>
         </div>
     </div>
