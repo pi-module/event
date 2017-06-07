@@ -198,7 +198,7 @@ class EventForm extends BaseForm
                 )
             ));
         }
-
+        // Image
         $this->add(array(
             'name' => 'main_image',
             'type' => 'Module\Media\Form\Element\Media',
@@ -206,18 +206,19 @@ class EventForm extends BaseForm
                 'label' => __('Main image'),
             ),
         ));
-
         // address
-        $this->add(array(
-            'name' => 'address',
-            'options' => array(
-                'label' => __('Address'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
-                'description' => '',
-            )
-        ));
+        if ($this->option['side'] == 'admin') {
+            $this->add(array(
+                'name' => 'address',
+                'options' => array(
+                    'label' => __('Address'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+        }
         // organizer_name
         $this->add(array(
             'name' => 'organizer_name',
@@ -319,7 +320,6 @@ class EventForm extends BaseForm
                 ),
             ));
         }
-
         // order_discount
         if ($this->option['order_active'] && isset($this->option['order_discount']) && $this->option['order_discount']) {
             // extra_product
@@ -440,7 +440,6 @@ class EventForm extends BaseForm
                     )
                 ));
             }
-
             // guide_item
             if (!isset($this->option['item']) || !$this->option['item']) {
                 $this->add(
@@ -461,7 +460,6 @@ class EventForm extends BaseForm
                 );
             }
         }
-
         // Check order active
         if ($this->option['map_use']) {
             $this->add(array(

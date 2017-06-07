@@ -357,7 +357,7 @@ msgstr "توضیحات ثبت نام"
 
 #: src/Form/EventForm.php:278
 msgid "Minimum Price"
-msgstr "حداقل قیمت"
+msgstr "قیمت"
 
 #: src/Form/EventForm.php:292
 msgid "Register online?"

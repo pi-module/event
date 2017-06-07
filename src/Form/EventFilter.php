@@ -120,36 +120,33 @@ class EventFilter extends InputFilter
                 'required' => true,
             ));
         }
-
-
         // image
         $this->add(array(
             'name' => 'main_image',
             'required' => false,
         ));
-
         // image
         $this->add(array(
             'name' => 'image',
             'required' => false,
         ));
-
         // cropping
         $this->add(array(
             'name' => 'cropping',
             'required' => false,
         ));
-
         // address
-        $this->add(array(
-            'name' => 'address',
-            'required' => false,
-            'filters' => array(
-                array(
-                    'name' => 'StringTrim',
+        if ($option['side'] == 'admin') {
+            $this->add(array(
+                'name' => 'address',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
+            ));
+        }
         // organizer_name
         $this->add(array(
             'name' => 'organizer_name',

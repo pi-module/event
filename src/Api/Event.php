@@ -273,6 +273,7 @@ class Event extends AbstractApi
             $this->config = Pi::service('registry')->config->read($this->getModule());
         }
 
+        $extra['register_price_view_clean'] = $priceView;
         if ($this->config['order_active']) {
             if (($extra['register_price'] > 0 && $extra['register_stock'] > 0)) {
                 $extra['register_price_view'] = $priceView;

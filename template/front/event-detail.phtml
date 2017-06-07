@@ -148,16 +148,28 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                     <div class="event-organizer">
                         <?php if (!empty($event['organizer_name'])) { ?>
                             <p itemscope itemtype="https://schema.org/Organization">
-                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
+                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> : <a itemprop="name" href="<?php echo $this->escape($event['source_url']); ?>"><?php echo $this->escape($event['organizer_name']); ?></a>
                             </p>
                         <?php } ?>
                         <?php if (!empty($event['source_url'])) { ?>
                             <p class="u-url" itemprop="url">
-                                <a class="btn btn-success" title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
+                                <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Organizer Website and register') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                     <i class="fa fa-external-link"></i>
                                     <?php _e('Organizer Website and register') ?>
                                 </a>
                             </p>
+                        <?php } ?>
+                        <?php if ($event['register_price'] > 0) { ?>
+                            <div class="clearfix text-center">
+                                <ul class="list-inline">
+                                    <li class="clearfix event-minPrice-title">
+                                        <?php _e('Start From') ?> :
+                                    </li>
+                                    <li class="clearfix event-minPrice-title">
+                                        <strong><?php echo $this->escape($event['register_price_view_clean']); ?></strong>
+                                    </li>
+                                </ul>
+                            </div>
                         <?php } ?>
                         <?php if (!empty($event['address'])) { ?>
                             <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
@@ -166,8 +178,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                             </p>
                         <?php } ?>
                     </div>
-                <?php } ?>
-                <?php if (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
+                <?php } elseif (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
                     <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
