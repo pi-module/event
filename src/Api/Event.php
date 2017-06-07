@@ -554,4 +554,7 @@ class Event extends AbstractApi
             }
         }
     }
+
+    public function doAfterVote()
+    {}
 }

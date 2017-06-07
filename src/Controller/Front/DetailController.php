@@ -130,6 +130,7 @@ class DetailController extends ActionController
             $vote['item'] = $event['id'];
             $vote['table'] = 'story';
             $vote['module'] = 'news';
+            $vote['subModule'] = 'event';
             $vote['type'] = 'star';
             $scoreList = Pi::registry('scoreList', 'vote')->read();
             if (isset($scoreList[$module])) {
