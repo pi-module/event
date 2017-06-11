@@ -6,6 +6,12 @@ $this->css(array(
 $this->jQuery();
 $this->backbone();
 $this->js($this->assetModule('script/system-msg.js', 'system'));
+
+$urlPackage = Pi::url($this->url('guide', array(
+    'module' => 'guide',
+    'controller' => 'package',
+    'action' => 'index',
+)));
 ?>
 
 <?php $currentFlashMessages = $this->flashMessenger()->renderCurrent(); ?>
@@ -33,11 +39,50 @@ $this->js($this->assetModule('script/system-msg.js', 'system'));
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="upgradePackageModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="<?php _e('Close'); ?>">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="navigationModalLabel"><?php echo _e("Upgrade package"); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p><?php echo _e("This functionality is unavailable. Please upgrade your package"); ?></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?php echo $urlPackage ?>" class="btn btn-default"><?php echo _e("Ok"); ?></a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _e("Cancel"); ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 <script type="text/javascript">
     (function ($) {
         $(".event-time-start").datepicker().on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('.event-time-end').datepicker('setStartDate', minDate);
+        });
+        
+        if (0 == <?php echo $canSubmitEvent?>) {
+            $("form#event").on("submit", function() {
+                $('#upgradePackageModal').modal();
+                return false;    
+            });
+        }
+            
+        $("#event-form").on("click", "button", function () {
+            systemMessage.wait("<?php _e('Remove image event in process'); ?>");
+            $.getJSON($(this).attr("data-link")).done(function (result) {
+                if (result.status == 1) {
+                    systemMessage.succ(result.message);
+                } else {
+                    systemMessage.fail(result.message);
+                }
+            });
         });
 
         $('.form-group[data-name="guide_item"]').insertBefore('.form-group[data-name="title"]');

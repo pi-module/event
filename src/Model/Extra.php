@@ -19,6 +19,11 @@ class Extra extends Model
     /**
      * {@inheritDoc}
      */
+    protected $rowClass = 'Module\Event\Model\Extra\RowGateway';
+
+    /**
+     * {@inheritDoc}
+     */
     protected $columns = array(
         'id',
         'uid',

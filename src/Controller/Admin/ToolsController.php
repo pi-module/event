@@ -225,4 +225,33 @@ class ToolsController extends ActionController
         $this->view()->assign('title', __('Rebuild sitemap links'));
         $this->view()->assign('message', $message);
     }
+
+    public function fillTimeEndAction(){
+        $extraModel = Pi::model('extra', 'event');
+        $select = $extraModel->select();
+
+        $select->where(array(
+            'time_end' => 0,
+        ));
+
+        $extraCollection = $extraModel->selectWith($select);
+
+        if($extraCollection->count()){
+            foreach($extraCollection as $extraEntity){
+
+                if($extraEntity->time_start){
+                    $extraEntity->time_end = $extraEntity->time_start;
+                    $extraEntity->save();
+                }
+            }
+
+            $messenger = $this->plugin('flashMessenger');
+            $messenger->addSuccessMessage(__('Time end fields are filled successfully'));
+        } else {
+            $messenger = $this->plugin('flashMessenger');
+            $messenger->addMessage(__('Time end fields are filled yet'));
+        }
+
+        $this->redirect()->toRoute(null, array('action' => 'index'));
+    }
 }
