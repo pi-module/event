@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-03-13 14:52+0100\n"
+"POT-Creation-Date: 2017-06-11 22:50+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-Basepath: ../..\n"
@@ -21,8 +21,8 @@ msgstr ""
 msgid "Manage events"
 msgstr "Gérer les Evènements"
 
-#: src/Api/Breadcrumbs.php:86 template/front/manage-index.phtml:54
-#: template/front/manage-index.phtml:56
+#: src/Api/Breadcrumbs.php:86 template/front/manage-index.phtml:55
+#: template/front/manage-index.phtml:57
 msgid "List of orders"
 msgstr "Liste des inscriptions"
 
@@ -30,26 +30,35 @@ msgstr "Liste des inscriptions"
 msgid "Add / edit event"
 msgstr "Ajouter / Editer l'évènement"
 
-#: src/Api/Event.php:278
+#: src/Api/Event.php:281
 #, php-format
 msgid "Out of stock ( %s )"
 msgstr "Epuisé ( %s )"
 
-#: src/Api/Event.php:280 src/Api/Event.php:286
+#: src/Api/Event.php:283 src/Api/Event.php:289
 msgid "free!"
 msgstr "gratuit !"
 
-#: src/Api/Event.php:366 template/front/event-detail.phtml:6
-#: template/front/event-detail.phtml:168 template/front/event-detail.phtml:293
-#: template/front/order-detail.phtml:16
+#: src/Api/Event.php:336 src/Api/Event.php:383
+#: template/front/event-detail.phtml:6 template/front/event-detail.phtml:235
+#: template/front/event-detail.phtml:382 template/front/order-detail.phtml:16
 msgid "From"
 msgstr "Du"
 
-#: src/Api/Event.php:366 template/front/event-detail.phtml:8
-#: template/front/event-detail.phtml:170 template/front/event-detail.phtml:296
-#: template/front/order-detail.phtml:18
+#: src/Api/Event.php:336 src/Api/Event.php:383
+#: template/front/event-detail.phtml:8 template/front/event-detail.phtml:237
+#: template/front/event-detail.phtml:385 template/front/order-detail.phtml:18
 msgid "to"
 msgstr "au"
+
+#: src/Api/Event.php:343 src/Api/Event.php:451
+#, php-format
+msgid "%s days"
+msgstr "%s jours"
+
+#: src/Api/Event.php:345 src/Api/Event.php:453
+msgid "1 days"
+msgstr "1 jour"
 
 #: src/Controller/Admin/EventController.php:74
 msgid "View filtered events"
@@ -63,61 +72,51 @@ msgstr "Non valide"
 msgid "Not set"
 msgstr "Non défini"
 
-#: src/Controller/Admin/EventController.php:189
-#: src/Controller/Admin/EventController.php:199
+#: src/Controller/Admin/EventController.php:191
+#: src/Controller/Admin/EventController.php:201
 msgid "Error on save story data on event module."
 msgstr "Erreur lors de l'enregistrement des données du module Evènement"
 
-#: src/Controller/Admin/EventController.php:281
+#: src/Controller/Admin/EventController.php:287
 msgid "Event data saved successfully."
 msgstr "Les données Evènement ont été enregistrées avec succès."
 
-#: src/Controller/Admin/EventController.php:302
-#: src/Controller/Front/ManageController.php:123
-#: template/admin/event-index.phtml:5 template/admin/event-index.phtml:7
+#: src/Controller/Admin/EventController.php:308
+#: src/Controller/Front/ManageController.php:159
 msgid "Add event"
 msgstr "Ajouter un Evènement"
 
-#: src/Controller/Admin/ToolsController.php:192
+#: src/Controller/Admin/ToolsController.php:191
 msgid "Guide events imported to event module"
 msgstr "Importation des Evènement du module Guide dans le module Evènement"
 
-#: src/Controller/Admin/ToolsController.php:195
+#: src/Controller/Admin/ToolsController.php:194
 msgid "Guide event table is empty"
 msgstr "Le table Evènement du module Guide est vide"
 
-#: src/Controller/Admin/ToolsController.php:198
+#: src/Controller/Admin/ToolsController.php:197
 msgid "Guide module not installed"
 msgstr "Le module Guide n'est pas installé"
 
-#: src/Controller/Admin/ToolsController.php:212
+#: src/Controller/Admin/ToolsController.php:211
 msgid "Rebuild thie module links on sitemap module tabels"
 msgstr "Reconstruire les liens du module dans les tables du module sitemap"
 
-#: src/Controller/Admin/ToolsController.php:221
+#: src/Controller/Admin/ToolsController.php:220
 msgid "Sitemap rebuild finished"
 msgstr "Construction du SiteMap terminée"
 
-#: src/Controller/Admin/ToolsController.php:226
+#: src/Controller/Admin/ToolsController.php:225
 msgid "Rebuild sitemap links"
 msgstr "Reconstruire les liens sitemap"
 
-#: src/Controller/Admin/ToolsController.php:233
-msgid ""
-"Regenerate all images by new setting. Please make backup from youe files on "
-"upload folder , before use this tools"
-msgstr ""
-"Regenerer toutes les images selon les paramétrages du module News. Ne pas "
-"oublier de faire un Sauvegarder de vos fichiers (repertoire /upload), avant "
-"d'utiliser cette fonctionnalité"
+#: src/Controller/Admin/ToolsController.php:249
+msgid "Time end fields are filled successfully"
+msgstr "Les données de fin Evènement ont été remplies avec succès."
 
-#: src/Controller/Admin/ToolsController.php:242
-msgid "Regenerate images finished"
-msgstr "Régénération des images terminée"
-
-#: src/Controller/Admin/ToolsController.php:247
-msgid "Regenerate images"
-msgstr "Regenerer les images"
+#: src/Controller/Admin/ToolsController.php:252
+msgid "Time end fields are filled yet"
+msgstr "Les dates de fin vides ont été normalisées"
 
 #: src/Controller/Feed/IndexController.php:24
 msgid "Event feed"
@@ -128,17 +127,17 @@ msgid "Recent events"
 msgstr "Événements récents"
 
 #: src/Controller/Front/CategoryController.php:32
-#: src/Controller/Front/JsonController.php:61
+#: src/Controller/Front/JsonController.php:478
 msgid "The category not found."
 msgstr "La catégorie n'a pas été trouvée"
 
-#: src/Controller/Front/CategoryController.php:59
+#: src/Controller/Front/CategoryController.php:63
 #, php-format
 msgid "Event list on %s"
 msgstr "Liste des Evènements sur %s"
 
-#: src/Controller/Front/CategoryController.php:63
-#: src/Controller/Front/IndexController.php:48
+#: src/Controller/Front/CategoryController.php:67
+#: src/Controller/Front/IndexController.php:52
 msgid "Toman"
 msgstr "Toman"
 
@@ -147,49 +146,86 @@ msgstr "Toman"
 msgid "The event not found."
 msgstr "L'évènement n'a pas été trouvé."
 
-#: src/Controller/Front/IndexController.php:44
+#: src/Controller/Front/IndexController.php:48
 msgid "Event list"
 msgstr "Les évènements & manifestations incontournables à ne pas manquer"
 
-#: src/Controller/Front/ManageController.php:32
-#: src/Controller/Front/ManageController.php:86
-#: src/Controller/Front/ManageController.php:336
-#: src/Controller/Front/ManageController.php:379
+#: src/Controller/Front/JsonController.php:80
+#: template/admin/event-index.phtml:20
+msgid "List of events"
+msgstr "Liste des Evènements"
+
+#: src/Controller/Front/JsonController.php:91
+#: src/Controller/Front/JsonController.php:102
+#: template/front/event-angular-new.phtml:114
+#: template/front/event-angular.phtml:178
+#: template/front/event-angular.phtml:193
+#: template/front/event-angular.phtml:205
+#: template/front/event-angular.phtml:217
+msgid "All"
+msgstr "Tout"
+
+#: src/Controller/Front/JsonController.php:124
+#, php-format
+msgid "List of events on %s category"
+msgstr "Liste des Evènements sur la catégorie %s"
+
+#: src/Controller/Front/JsonController.php:142
+#, php-format
+msgid "All events from %s"
+msgstr "Tous les évènements sur %s"
+
+#: src/Controller/Front/ManageController.php:37
+#: src/Controller/Front/ManageController.php:97
+#: src/Controller/Front/ManageController.php:391
+#: src/Controller/Front/ManageController.php:453
 msgid "Owner dashboard is inactive"
 msgstr "Le BackOffice Propriétaire est inactif"
 
-#: src/Controller/Front/ManageController.php:59
+#: src/Controller/Front/ManageController.php:76
 msgid "All your events"
 msgstr "Tous vos évènements"
 
-#: src/Controller/Front/ManageController.php:64
+#: src/Controller/Front/ManageController.php:81
 msgid "Search"
 msgstr "Rechercher"
 
-#: src/Controller/Front/ManageController.php:115
-#: src/Controller/Front/ManageController.php:131
-#: src/Controller/Front/ManageController.php:349
-#: src/Controller/Front/ManageController.php:359
-#: src/Controller/Front/ManageController.php:392
-#: src/Controller/Front/ManageController.php:402
+#: src/Controller/Front/ManageController.php:118
+#: src/Controller/Front/ManageController.php:412
+#: src/Controller/Front/ManageController.php:474
+#: template/front/manage-index.phtml:75
+msgid ""
+"You are not allowed to submit new event, please contact to website admin and "
+"complete your registration, after that you allowed to submit events"
+msgstr ""
+"Vous n'êtes pas autorisé à soumettre de nouveau évènements, merci de "
+"contacter les administrateurs du site et de compléter votre inscription, "
+"afin d'être autorisé à soumettre des évènements"
+
+#: src/Controller/Front/ManageController.php:151
+#: src/Controller/Front/ManageController.php:167
+#: src/Controller/Front/ManageController.php:421
+#: src/Controller/Front/ManageController.php:431
+#: src/Controller/Front/ManageController.php:483
+#: src/Controller/Front/ManageController.php:493
 msgid "Its not your event"
 msgstr "Ceci n'est pas votre évènement"
 
-#: src/Controller/Front/ManageController.php:121
+#: src/Controller/Front/ManageController.php:157
 msgid "Update event"
 msgstr "Mettre à jour l'évènement"
 
-#: src/Controller/Front/ManageController.php:139
+#: src/Controller/Front/ManageController.php:176
 #, php-format
 msgid "Add event to %s"
 msgstr "Ajouter un évènements à %s"
 
-#: src/Controller/Front/ManageController.php:211
-#: src/Controller/Front/ManageController.php:221
+#: src/Controller/Front/ManageController.php:257
+#: src/Controller/Front/ManageController.php:267
 msgid "Error on save story data on news module."
 msgstr "Erreur lors de l'enregistrement des données du module Evènement"
 
-#: src/Controller/Front/ManageController.php:304
+#: src/Controller/Front/ManageController.php:355
 msgid ""
 "Thanks for contributing ! Event data saved successfully and was published on "
 "public side"
@@ -197,7 +233,7 @@ msgstr ""
 "Merci pour ta contribution ! Ton évènement est maintenant visible côté "
 "utilisateurs."
 
-#: src/Controller/Front/ManageController.php:306
+#: src/Controller/Front/ManageController.php:357
 msgid ""
 "Thanks for contributing ! Event data saved successfully and we will be "
 "validate it soon"
@@ -225,9 +261,10 @@ msgstr "Cet évènement n'a plus de places"
 msgid "Order module not installed"
 msgstr "Le module Commande n'est pas installé"
 
-#: src/Form/EventForm.php:50 template/admin/event-index.phtml:18
+#: src/Form/EventForm.php:50 template/admin/event-index.phtml:24
+#: template/front/event-angular-new.phtml:113
 #: template/front/event-angular.phtml:172
-#: template/front/event-angular.phtml:249 template/front/manage-index.phtml:23
+#: template/front/event-angular.phtml:249 template/front/manage-index.phtml:24
 msgid "Title"
 msgstr "Titre"
 
@@ -271,21 +308,21 @@ msgstr "Options principales"
 msgid "Status"
 msgstr "Statut"
 
-#: src/Form/EventForm.php:189 template/admin/event-index.phtml:66
-#: template/front/manage-index.phtml:64
+#: src/Form/EventForm.php:189 template/admin/event-index.phtml:72
+#: template/front/manage-index.phtml:65
 msgid "Published"
 msgstr "Publié"
 
-#: src/Form/EventForm.php:190 template/admin/event-index.phtml:67
-#: template/front/manage-index.phtml:65
+#: src/Form/EventForm.php:190 template/admin/event-index.phtml:73
+#: template/front/manage-index.phtml:66
 msgid "Pending review"
 msgstr "En attente validation"
 
-#: src/Form/EventForm.php:191 template/admin/event-index.phtml:68
+#: src/Form/EventForm.php:191 template/admin/event-index.phtml:74
 msgid "Draft"
 msgstr "Brouillon"
 
-#: src/Form/EventForm.php:192 template/admin/event-index.phtml:69
+#: src/Form/EventForm.php:192 template/admin/event-index.phtml:75
 msgid "Private"
 msgstr "Privé"
 
@@ -293,145 +330,146 @@ msgstr "Privé"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: src/Form/EventForm.php:205
-msgid "Change image"
-msgstr "Modifier l'image"
+#: src/Form/EventForm.php:206
+msgid "Main image"
+msgstr "Image Principale"
 
-#: src/Form/EventForm.php:217
-msgid "Uploaded image"
-msgstr "Image Uploadée"
-
-#: src/Form/EventForm.php:228
-msgid "Cropping data"
-msgstr "Données de Cropping"
-
-#: src/Form/EventForm.php:236 template/front/event-detail.phtml:221
-#: template/front/order-detail.phtml:43
+#: src/Form/EventForm.php:214 template/front/event-detail.phtml:177
+#: template/front/event-detail.phtml:290 template/front/order-detail.phtml:43
 msgid "Address"
 msgstr "Adresse"
 
-#: src/Form/EventForm.php:247 template/front/event-detail.phtml:207
-#: template/front/order-detail.phtml:27
+#: src/Form/EventForm.php:226 template/front/event-detail.phtml:151
+#: template/front/event-detail.phtml:276 template/front/order-detail.phtml:27
 msgid "Organizer name"
 msgstr "Organisateur"
 
-#: src/Form/EventForm.php:258 template/front/event-detail.phtml:213
-#: template/front/event-detail.phtml:214 template/front/order-detail.phtml:33
+#: src/Form/EventForm.php:237 template/front/event-detail.phtml:282
+#: template/front/event-detail.phtml:283 template/front/order-detail.phtml:33
 #: template/front/order-detail.phtml:35
 msgid "Organizer Website"
 msgstr "Site Web Organisateur"
 
-#: src/Form/EventForm.php:269
+#: src/Form/EventForm.php:248
 msgid "Offer url"
 msgstr "URL inscription"
 
-#: src/Form/EventForm.php:281
+#: src/Form/EventForm.php:260
 msgid "Registration options"
 msgstr "Options d'inscription"
 
-#: src/Form/EventForm.php:288
+#: src/Form/EventForm.php:268
 msgid "Registration details/requirements"
 msgstr "Modalités d'inscription (date limite, tarif, etc.)"
 
-#: src/Form/EventForm.php:300
+#: src/Form/EventForm.php:281
 msgid "Minimum Price"
 msgstr "Tarif minimum"
 
-#: src/Form/EventForm.php:314
+#: src/Form/EventForm.php:295
 msgid "Register online?"
 msgstr "Inscription en ligne?"
 
-#: src/Form/EventForm.php:324
+#: src/Form/EventForm.php:305
 msgid "Capacity"
 msgstr "Capacité"
 
-#: src/Form/EventForm.php:336
+#: src/Form/EventForm.php:317
 msgid "Registration type"
 msgstr "Type Inscription"
 
-#: src/Form/EventForm.php:338
+#: src/Form/EventForm.php:319
 msgid "Discount code"
 msgstr "Code Remise"
 
-#: src/Form/EventForm.php:339
+#: src/Form/EventForm.php:320
 msgid "Pay full price"
 msgstr "Payer le prix total"
 
-#: src/Form/EventForm.php:352
+#: src/Form/EventForm.php:332
 msgid "Discount options"
 msgstr "Options de Remise"
 
-#: src/Form/EventForm.php:367
+#: src/Form/EventForm.php:347
 msgid "Number and between 1 to 99"
 msgstr "Nombre entre 1 et 99"
 
-#: src/Form/EventForm.php:378
+#: src/Form/EventForm.php:358
 msgid "Topic options"
 msgstr "Option de Catégorie"
 
-#: src/Form/EventForm.php:386
+#: src/Form/EventForm.php:366
 msgid "Topic"
 msgstr "Sujet"
 
-#: src/Form/EventForm.php:397
+#: src/Form/EventForm.php:377
 msgid "Main topic"
 msgstr "Sujet principal"
 
-#: src/Form/EventForm.php:406
+#: src/Form/EventForm.php:386
 msgid "Just use for breadcrumbs and mobile apps"
 msgstr "Utilisé pour les fils d'ariane et les applications mobiles"
 
-#: src/Form/EventForm.php:416
+#: src/Form/EventForm.php:396
 msgid "Guide options"
 msgstr "Options Module Guide"
 
-#: src/Form/EventForm.php:425
+#: src/Form/EventForm.php:405
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: src/Form/EventForm.php:436 template/front/event-angular.phtml:191
+#: src/Form/EventForm.php:416 template/front/event-angular-new.phtml:128
+#: template/front/event-angular.phtml:191
 msgid "Category"
 msgstr "Catégorie"
 
-#: src/Form/EventForm.php:454 template/front/event-angular.phtml:203
+#: src/Form/EventForm.php:434 template/front/event-angular-new.phtml:127
+#: template/front/event-angular.phtml:203
 msgid "Location"
 msgstr "Lieu"
 
-#: src/Form/EventForm.php:473
+#: src/Form/EventForm.php:452
 msgid "Item"
 msgstr "Elément"
 
-#: src/Form/EventForm.php:493
+#: src/Form/EventForm.php:471
+msgid "Map options"
+msgstr "Options de carte"
+
+#: src/Form/EventForm.php:478
+msgid "Latitude"
+msgstr "Latitude"
+
+#: src/Form/EventForm.php:489
+msgid "Longitude"
+msgstr "Longitude"
+
+#: src/Form/EventForm.php:500
+msgid "Zoom"
+msgstr "Zoom"
+
+#: src/Form/EventForm.php:514
 msgid "SEO options"
 msgstr "Options SEO"
 
-#: src/Form/EventForm.php:500
+#: src/Form/EventForm.php:521
 msgid "SEO Title"
 msgstr "Titre SEO"
 
-#: src/Form/EventForm.php:513
+#: src/Form/EventForm.php:534
 msgid "SEO Keywords"
 msgstr "Mots clefs SEO"
 
-#: src/Form/EventForm.php:526
+#: src/Form/EventForm.php:547
 msgid "SEO Description"
 msgstr "Description SEO"
 
-#: src/Form/EventForm.php:541 src/Form/RegenerateImageForm.php:43
-#: src/Form/SitemapForm.php:43
+#: src/Form/EventForm.php:562 src/Form/SitemapForm.php:43
 msgid "Submit"
 msgstr "Soumettre"
 
-#: src/Form/RegenerateImageForm.php:32
-msgid "Select for regenerate"
-msgstr "Sélectionner ce que vous voulez regénérer"
-
-#: src/Form/RegenerateImageForm.php:34
-msgid "Just event images"
-msgstr "Seulement les images Evènement"
-
-#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:148
-#: template/front/event-detail.phtml:149
+#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:212
+#: template/front/event-detail.phtml:213
 msgid "Register to the event"
 msgstr "S'inscrire à l'évènement"
 
@@ -443,42 +481,38 @@ msgstr "Sélection à reconstruire"
 msgid "Just events from news story table"
 msgstr "Seulement les descriptions d'évènements (table Story du module News)"
 
-#: template/admin/event-index.phtml:14
-msgid "List of events"
-msgstr "Liste des Evènements"
+#: template/admin/event-index.phtml:8
+msgid "Filter events"
+msgstr "Filtrer les évènements"
 
-#: template/admin/event-index.phtml:17 template/admin/order-index.phtml:6
-#: template/front/manage-index.phtml:22 template/front/manage-order.phtml:13
+#: template/admin/event-index.phtml:23 template/admin/order-index.phtml:6
+#: template/front/manage-index.phtml:23 template/front/manage-order.phtml:15
 msgid "ID"
 msgstr "N°"
 
-#: template/admin/event-index.phtml:19 template/front/manage-index.phtml:26
+#: template/admin/event-index.phtml:25 template/front/manage-index.phtml:27
 msgid "Action"
 msgstr "Action"
 
-#: template/admin/event-index.phtml:53 template/admin/event-index.phtml:54
-#: template/front/manage-index.phtml:46 template/front/manage-index.phtml:48
+#: template/admin/event-index.phtml:59 template/admin/event-index.phtml:60
+#: template/front/manage-index.phtml:47 template/front/manage-index.phtml:49
 msgid "View"
 msgstr "Voir"
 
-#: template/admin/event-index.phtml:55 template/admin/event-index.phtml:57
-#: template/front/manage-index.phtml:50 template/front/manage-index.phtml:52
+#: template/admin/event-index.phtml:61 template/admin/event-index.phtml:63
+#: template/front/manage-index.phtml:51 template/front/manage-index.phtml:53
 msgid "Edit"
 msgstr "Editer"
 
-#: template/admin/event-index.phtml:70
+#: template/admin/event-index.phtml:76
 msgid "Trash"
 msgstr "Poubelle"
-
-#: template/admin/event-update.phtml:38 template/front/manage-update.phtml:50
-msgid "Remove image event in process"
-msgstr "Suppression de l'image de l'évènement en cours"
 
 #: template/admin/order-index.phtml:3
 msgid "List of all orders"
 msgstr "Liste de toutes les inscriptions"
 
-#: template/admin/order-index.phtml:7 template/front/manage-order.phtml:14
+#: template/admin/order-index.phtml:7 template/front/manage-order.phtml:16
 msgid "Name"
 msgstr "Nom"
 
@@ -490,11 +524,11 @@ msgstr "Code public"
 msgid "Private code"
 msgstr "Code privé"
 
-#: template/admin/order-index.phtml:10 template/front/manage-order.phtml:15
+#: template/admin/order-index.phtml:10 template/front/manage-order.phtml:17
 msgid "Number"
 msgstr "Nombre"
 
-#: template/admin/order-index.phtml:11 template/front/manage-order.phtml:16
+#: template/admin/order-index.phtml:11 template/front/manage-order.phtml:18
 msgid "Total"
 msgstr "Total TTC"
 
@@ -503,73 +537,82 @@ msgid "Event"
 msgstr "Evènement"
 
 #: template/admin/order-index.phtml:38 template/admin/order-index.phtml:64
+#: template/front/event-angular-new.phtml:115
+#: template/front/manage-update.phtml:47
 msgid "Close"
 msgstr "Fermer"
 
-#: template/admin/tools-image.phtml:4 template/admin/tools-image.phtml:6
 #: template/admin/tools-index.phtml:4 template/admin/tools-index.phtml:6
 #: template/admin/tools-sitemap.phtml:4 template/admin/tools-sitemap.phtml:6
 msgid "Import events from guide module"
 msgstr "Importer les Evènements depuis le module Guide"
 
-#: template/admin/tools-image.phtml:7 template/admin/tools-image.phtml:9
-#: template/admin/tools-index.phtml:7 template/admin/tools-index.phtml:9
+#: template/admin/tools-index.phtml:8 template/admin/tools-index.phtml:10
 #: template/admin/tools-sitemap.phtml:7 template/admin/tools-sitemap.phtml:9
 msgid "Sitemap"
 msgstr "Sitemap"
 
-#: template/admin/tools-image.phtml:10 template/admin/tools-image.phtml:12
-#: template/admin/tools-index.phtml:10 template/admin/tools-index.phtml:12
-#: template/admin/tools-sitemap.phtml:10 template/admin/tools-sitemap.phtml:12
-msgid "Image"
-msgstr "Image"
+#: template/admin/tools-index.phtml:12 template/admin/tools-index.phtml:14
+msgid "Fill Time End if empty"
+msgstr "Normaliser la date de fin si vide"
 
+#: template/front/event-angular-new.phtml:112
 #: template/front/event-angular.phtml:168
 msgid "Search on this group"
 msgstr "Rechercher"
 
+#: template/front/event-angular-new.phtml:116
+msgid "No event"
+msgstr "Aucun évènement"
+
+#: template/front/event-angular-new.phtml:117
 #: template/front/event-angular.phtml:176
 msgid "Event time"
 msgstr "Date"
 
-#: template/front/event-angular.phtml:178
-#: template/front/event-angular.phtml:193
-#: template/front/event-angular.phtml:205
-#: template/front/event-angular.phtml:217
-msgid "All"
-msgstr "Tout"
-
+#: template/front/event-angular-new.phtml:118
 #: template/front/event-angular.phtml:179
 msgid "This week"
 msgstr "Cette semaine"
 
+#: template/front/event-angular-new.phtml:119
 #: template/front/event-angular.phtml:180
 msgid "Next week"
 msgstr "La semaine prochaine"
 
+#: template/front/event-angular-new.phtml:120
 #: template/front/event-angular.phtml:181
 msgid "This month"
 msgstr "Ce mois-ci"
 
+#: template/front/event-angular-new.phtml:121
 #: template/front/event-angular.phtml:182
 msgid "Next month"
 msgstr "Le mois prochain"
 
+#: template/front/event-angular-new.phtml:122
 #: template/front/event-angular.phtml:183
 msgid "Next two months"
 msgstr "En M+2"
 
+#: template/front/event-angular-new.phtml:123
 #: template/front/event-angular.phtml:184
 msgid "Next three months"
 msgstr "En M+3"
 
+#: template/front/event-angular-new.phtml:124
 #: template/front/event-angular.phtml:185
 msgid "Next months"
 msgstr "Au delà de M+3"
 
+#: template/front/event-angular-new.phtml:125
 #: template/front/event-angular.phtml:186
 msgid "Expired"
 msgstr "Terminés"
+
+#: template/front/event-angular-new.phtml:126
+msgid "Active"
+msgstr "Activer"
 
 #: template/front/event-angular.phtml:215
 msgid "Price"
@@ -591,67 +634,114 @@ msgstr "Hits"
 msgid "Default"
 msgstr "Défaut"
 
-#: template/front/event-detail.phtml:104
+#: template/front/event-detail.phtml:118
 #, php-format
 msgid "Participate/Register to %s"
 msgstr "Modalités d'inscription (date limite, tarif, etc.) à %s"
 
-#: template/front/event-detail.phtml:125 template/front/event-detail.phtml:142
-#: template/front/event-detail.phtml:154
+#: template/front/event-detail.phtml:133
+msgid "Access Map"
+msgstr "Carte d'accès"
+
+#: template/front/event-detail.phtml:156 template/front/event-detail.phtml:158
+msgid "Organizer Website and register"
+msgstr "Site Web Organisateur et inscription"
+
+#: template/front/event-detail.phtml:166 template/front/event-detail.phtml:189
+#: template/front/event-detail.phtml:206 template/front/event-detail.phtml:218
 msgid "Start From"
 msgstr "A partir de "
 
-#: template/front/event-detail.phtml:165
+#: template/front/event-detail.phtml:229
 msgid "Key Event Elements"
 msgstr "Eléments Clefs sur l'Evènement"
 
-#: template/front/event-detail.phtml:174 template/front/order-detail.phtml:21
+#: template/front/event-detail.phtml:241 template/front/order-detail.phtml:21
 msgid "On"
 msgstr "Le"
 
-#: template/front/event-detail.phtml:180
+#: template/front/event-detail.phtml:247
 msgid "Ended event"
 msgstr "Evènement terminé"
 
-#: template/front/event-detail.phtml:193
+#: template/front/event-detail.phtml:260
 msgid "Related locations"
 msgstr "Lieux associés"
 
-#: template/front/event-detail.phtml:229
+#: template/front/event-detail.phtml:301
+msgid "You love this event ?"
+msgstr "Vous aimez cet évènement?"
+
+#: template/front/event-detail.phtml:311
+msgid "Vote to this event"
+msgstr "Votez pour cet évènement"
+
+#: template/front/event-detail.phtml:318
 msgid "Nearby recommended professionals"
 msgstr "Professionnels recommandés à proximité"
 
-#: template/front/event-detail.phtml:247 template/front/event-detail.phtml:357
+#: template/front/event-detail.phtml:336 template/front/event-detail.phtml:445
 msgid "Min price from"
 msgstr "A partir de "
 
-#: template/front/event-detail.phtml:270
+#: template/front/event-detail.phtml:359
 msgid "Share if you like"
 msgstr "Partage si tu apprécies !"
 
-#: template/front/event-detail.phtml:285
+#: template/front/event-detail.phtml:374
 msgid "Related events"
 msgstr "Evènements relatifs"
 
-#: template/front/event-detail.phtml:339
+#: template/front/event-detail.phtml:427
 msgid "Related items"
 msgstr "Eléments associés"
 
-#: template/front/manage-index.phtml:15 template/front/manage-index.phtml:16
+#: template/front/manage-index.phtml:13 template/front/manage-index.phtml:14
 msgid "New event"
 msgstr "Nouveau Evènement"
 
-#: template/front/manage-index.phtml:24
+#: template/front/manage-index.phtml:25
 msgid "Start"
 msgstr "Début"
 
-#: template/front/manage-index.phtml:25
+#: template/front/manage-index.phtml:26
 msgid "End"
 msgstr "Fin"
 
-#: template/front/manage-order.phtml:17
+#: template/front/manage-index.phtml:70
+msgid "You still doesn't submit any event, you can submit events easy"
+msgstr ""
+"Vous n'avez pas encore soumis d'évènement, vous pouvez le faire facilement"
+
+#: template/front/manage-order.phtml:19
 msgid "Code"
 msgstr "Code"
+
+#: template/front/manage-order.phtml:33
+msgid "This event still have no online register !"
+msgstr "Cet évènement n'a pas encore d'inscrits"
+
+#: template/front/manage-update.phtml:50
+msgid "Upgrade package"
+msgstr "Mettez à jour votre abonnement"
+
+#: template/front/manage-update.phtml:53
+msgid "This functionality is unavailable. Please upgrade your package"
+msgstr ""
+"Cette fonctionnalité n'est pas disponible. Merci de mettre à niveau votre "
+"abonnement."
+
+#: template/front/manage-update.phtml:56
+msgid "Ok"
+msgstr "Ok"
+
+#: template/front/manage-update.phtml:57
+msgid "Cancel"
+msgstr "Annuler"
+
+#: template/front/manage-update.phtml:78
+msgid "Remove image event in process"
+msgstr "Suppression de l'image de l'évènement en cours"
 
 #: template/front/order-detail.phtml:5
 #, php-format
@@ -669,6 +759,35 @@ msgstr "Date de l'Evènement"
 #: template/front/order-detail.phtml:36
 msgid "Visit"
 msgstr "Visiter"
+
+#~ msgid ""
+#~ "Regenerate all images by new setting. Please make backup from youe files "
+#~ "on upload folder , before use this tools"
+#~ msgstr ""
+#~ "Regenerer toutes les images selon les paramétrages du module News. Ne pas "
+#~ "oublier de faire un Sauvegarder de vos fichiers (repertoire /upload), "
+#~ "avant d'utiliser cette fonctionnalité"
+
+#~ msgid "Regenerate images finished"
+#~ msgstr "Régénération des images terminée"
+
+#~ msgid "Regenerate images"
+#~ msgstr "Regenerer les images"
+
+#~ msgid "Uploaded image"
+#~ msgstr "Image Uploadée"
+
+#~ msgid "Cropping data"
+#~ msgstr "Données de Cropping"
+
+#~ msgid "Select for regenerate"
+#~ msgstr "Sélectionner ce que vous voulez regénérer"
+
+#~ msgid "Just event images"
+#~ msgstr "Seulement les images Evènement"
+
+#~ msgid "Image"
+#~ msgstr "Image"
 
 #~ msgid "Remove image"
 #~ msgstr "Supprimer l'image"
