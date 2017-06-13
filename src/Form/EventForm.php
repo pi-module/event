@@ -101,7 +101,7 @@ class EventForm extends BaseForm
             'options' => array(
                 'label' => __('Time start'),
                 'datepicker' => array(
-                    'format' => 'yyyy-mm-dd',
+                    'format' => 'yyyy/mm/dd',
                     'autoclose' => true,
                     'todayBtn' => true,
                     'todayHighlight' => true,
@@ -123,7 +123,7 @@ class EventForm extends BaseForm
             'options' => array(
                 'label' => __('Time end'),
                 'datepicker' => array(
-                    'format' => 'yyyy-mm-dd',
+                    'format' => 'yyyy/mm/dd',
                     'autoclose' => true,
                     'todayBtn' => true,
                     'todayHighlight' => true,
