@@ -245,8 +245,8 @@ class Event extends AbstractApi
         // Set register_details
         $extra['register_details'] = Pi::service('markup')->render($extra['register_details'], 'html', 'html');
         // Set time
-        $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], array('pattern' => 'yyyy-MM-dd'));
-        $extra['time_end_view'] = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], array('pattern' => 'yyyy-MM-dd'));
+        $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], array('pattern' => 'yyyy/MM/dd'));
+        $extra['time_end_view'] = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], array('pattern' => 'yyyy/MM/dd'));
         // Set register_price
         if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
             $uid = Pi::user()->getId();
