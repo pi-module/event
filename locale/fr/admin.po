@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-03-13 14:53+0100\n"
+"POT-Creation-Date: 2017-06-11 22:39+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -52,31 +52,39 @@ msgstr "Afficher les hits"
 msgid "Show summary"
 msgstr "Afficher le résumé"
 
-#: config/block.php:75 config/config.php:129
+#: config/block.php:75 config/config.php:219
+msgid "Show days"
+msgstr "Afficher les jours"
+
+#: config/block.php:82 config/config.php:153
 msgid "Event list type"
 msgstr "Mode affichage en liste"
 
-#: config/block.php:81
+#: config/block.php:88
 msgid "Vertical"
 msgstr "Vertical"
 
-#: config/block.php:82
+#: config/block.php:89
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: config/block.php:90
+#: config/block.php:90 config/config.php:161
+msgid "Table"
+msgstr "Table"
+
+#: config/block.php:98
 msgid "Show more link"
 msgstr "Afficher le lien Plus"
 
-#: config/block.php:97
+#: config/block.php:105
 msgid "Set more link"
 msgstr "Définir l'url du lien Plus"
 
-#: config/block.php:104
+#: config/block.php:112
 msgid "Use block effects"
 msgstr "Utiliser les effets pour les blocs"
 
-#: config/block.php:105
+#: config/block.php:113
 msgid "Use block effects or set custom effect on theme"
 msgstr ""
 "Utiliser les effets pour les blocs ou définir un effet personnalisé dans le "
@@ -98,146 +106,274 @@ msgstr "Module News"
 msgid "Guide module"
 msgstr "Module Guide"
 
-#: config/config.php:29
+#: config/config.php:28
 msgid "View"
 msgstr "Voir"
 
-#: config/config.php:33
+#: config/config.php:32
 msgid "Social"
 msgstr "Social"
 
-#: config/config.php:37 config/page.php:35 config/permission.php:24
+#: config/config.php:36 config/page.php:35 config/permission.php:24
 msgid "Manage"
 msgstr "Gérer"
 
-#: config/config.php:41
+#: config/config.php:40
 msgid "Order"
 msgstr "Commander"
 
-#: config/config.php:49 config/config.php:146
+#: config/config.php:44
+msgid "Vote"
+msgstr "Vote"
+
+#: config/config.php:48
+msgid "Favourite"
+msgstr "Favoris"
+
+#: config/config.php:52
+msgid "Google Map"
+msgstr "Google Map"
+
+#: config/config.php:60 config/config.php:171
 msgid "Perpage"
 msgstr "Par page"
 
-#: config/config.php:58
+#: config/config.php:69
 msgid "Use news topics"
 msgstr "Utiliser les catégories du module News"
 
-#: config/config.php:67
+#: config/config.php:78
 msgid "Use guide category"
 msgstr "Utiliser les Catégories du module Guide"
 
-#: config/config.php:75
+#: config/config.php:86
 msgid "Use guide location"
 msgstr "Utiliser les Lieux du module Guide"
 
-#: config/config.php:82
+#: config/config.php:93
 msgid "Select location level for show on filter form"
 msgstr "Sélectionner le niveau Lieux à afficher dans le bloc recherche"
 
-#: config/config.php:88
+#: config/config.php:99
 msgid "level 1"
 msgstr "niveau 1"
 
-#: config/config.php:89
+#: config/config.php:100
 msgid "level 2"
 msgstr "niveau 2"
 
-#: config/config.php:90
+#: config/config.php:101
 msgid "level 3"
 msgstr "niveau 3"
 
-#: config/config.php:91
+#: config/config.php:102
 msgid "level 4"
 msgstr "niveau 4"
 
-#: config/config.php:92
+#: config/config.php:103
 msgid "level 5"
 msgstr "niveau 5"
 
-#: config/config.php:103
+#: config/config.php:113
+msgid "View template"
+msgstr "View template"
+
+#: config/config.php:114
+msgid "Temporary config to finish new angular js template"
+msgstr "Temporary config to finish new angular js template"
+
+#: config/config.php:119
+msgid "Angular"
+msgstr "Angular"
+
+#: config/config.php:120
+msgid "New angular"
+msgstr "New angular"
+
+#: config/config.php:130
 msgid "Summary for index page"
 msgstr "Texte d'introduction pour la page Index (Summary)"
 
-#: config/config.php:112
+#: config/config.php:138
 msgid "Description for index page"
 msgstr "Description pour la page Index"
 
-#: config/config.php:121
+#: config/config.php:146
 msgid "Active wide front image for this module"
 msgstr "Activer la front wide image pour ce module"
 
-#: config/config.php:135
+#: config/config.php:159
 msgid "Line : each event on one line"
 msgstr "Ligne : un évènement par ligne"
 
-#: config/config.php:136
+#: config/config.php:160
 msgid "Box : each event as box and 3 box on one line"
 msgstr "Box : 3 évènements par ligne"
 
-#: config/config.php:154
+#: config/config.php:179
 msgid "Show related event"
 msgstr "Afficher les évènements relatifs"
 
-#: config/config.php:161
+#: config/config.php:186
 msgid "Related event type"
 msgstr "Type Evènements Relatifs"
 
-#: config/config.php:167
+#: config/config.php:192
 msgid "By event module topics"
 msgstr "Par Sujets du module News"
 
-#: config/config.php:168
+#: config/config.php:193
 msgid "By guide module categories"
 msgstr "Par catégorie du module Guide"
 
-#: config/config.php:178
+#: config/config.php:203
 msgid "Set wide image for homepage"
 msgstr "Définir l'image large pour la page Index"
 
-#: config/config.php:187
+#: config/config.php:211
 msgid "Price filter"
 msgstr "Filtre sur le Prix"
 
-#: config/config.php:188
+#: config/config.php:212
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr "Règle de saisie : 100-200, Entre 100 à 200|200, Entre 200 et 300|"
 
-#: config/config.php:195
+#: config/config.php:227
+msgid "Make organizer bold"
+msgstr "Mettre l'organisateur en gras"
+
+#: config/config.php:234
+msgid "Image position"
+msgstr "Position Image"
+
+#: config/config.php:235
+msgid "Image position on single event page"
+msgstr "Position de l'image dans la page Evènement"
+
+#: config/config.php:240
+msgid "Show image on sidebar"
+msgstr "Afficher l'image sur le côté"
+
+#: config/config.php:241
+msgid "Show image on center"
+msgstr "Afficher l'image au centre"
+
+#: config/config.php:251
+msgid "Include all hits"
+msgstr "Inclure tous les hits"
+
+#: config/config.php:252
+msgid ""
+"Include all page refresh as hits, if not check use SESSION check for update "
+"hits"
+msgstr ""
+"Inclure tous les rafraichissement de page dans les Hits. sinon mise à jour "
+"des hits d'après le contrôle SESSION"
+
+#: config/config.php:259
 msgid "Social sharing items"
 msgstr "Réseaux sociaux"
 
-#: config/config.php:209
+#: config/config.php:273
 msgid "Manage event by users"
 msgstr "Gestion des évènements par les utilisateurs"
 
-#: config/config.php:217
+#: config/config.php:281
 msgid "Auto approval user events"
 msgstr "Auto-approbation des évènements utilisateurs"
 
-#: config/config.php:226
+#: config/config.php:289
+msgid "Allowed user role to access"
+msgstr "Rôle utilisateur autorisé à accéder"
+
+#: config/config.php:290
+msgid "Put allowed role here, this option used when guide module not installed"
+msgstr ""
+"Saisir ici le rôle autorisé, cette option est utilisée si le module guide "
+"n'est pas installé"
+
+#: config/config.php:297
+msgid "Manage register options"
+msgstr "Gérer les options d'inscription"
+
+#: config/config.php:298
+msgid "Manage register options by user, if yes, some extra fields will show"
+msgstr ""
+"Gestion des options d'inscription par l'utilisateur : si oui, des champs "
+"additionnels seront affichés"
+
+#: config/config.php:306
 msgid "Active order"
 msgstr "Activer l'inscription"
 
-#: config/config.php:227
+#: config/config.php:307
 msgid "Manage event registration, ticket stock and activate orders"
 msgstr ""
 "Gérer les inscriptions aux évènements, le stock de tickets et activer les "
 "commandes"
 
-#: config/config.php:234
+#: config/config.php:314
 msgid "Show free word for free events"
 msgstr "Afficher le mot \"gratuit\" pour les évènements gratuits"
 
-#: config/config.php:242
+#: config/config.php:322
 msgid "Active discount system"
 msgstr "Activer le système de Remise"
 
-#: config/config.php:243
+#: config/config.php:323
 msgid "Discount percent for each rule on each event"
 msgstr "Pourcentage de réduction pour chaque règle et chaque évènement"
 
-#: config/module.php:16 config/navigation.php:29 config/page.php:56
-#: config/permission.php:33
+#: config/config.php:331
+msgid "Use vote system"
+msgstr "Utiliser le système de Vote"
+
+#: config/config.php:340
+msgid "Use favourite system"
+msgstr "Utiliser le système de Favoris"
+
+#: config/config.php:348
+msgid "Use Google Map"
+msgstr "Utiliser la carte Google Map"
+
+#: config/config.php:373
+msgid "Zoom"
+msgstr "Zoom"
+
+#: config/config.php:382
+msgid "Set Google map API KEY"
+msgstr "Définir la Google Map API Key"
+
+#: config/config.php:383
+msgid ""
+"For obtaining an API Key please read this document : https://developers."
+"google.com/maps/documentation/javascript/tutorial#api_key"
+msgstr ""
+"Pour obtenir une API Key, merci de lire ce document : https://developers."
+"google.com/maps/documentation/javascript/tutorial#api_key"
+
+#: config/config.php:389
+msgid "Map type"
+msgstr "Type de carte"
+
+#: config/config.php:395
+msgid "ROADMAP"
+msgstr "ROADMAP"
+
+#: config/config.php:396
+msgid "SATELLITE"
+msgstr "SATELLITE"
+
+#: config/config.php:397
+msgid "HYBRID"
+msgstr "HYBRID"
+
+#: config/config.php:398
+msgid "TERRAIN"
+msgstr "TERRAIN"
+
+#: config/module.php:16 config/navigation.php:29 config/navigation.php:39
+#: config/page.php:56 config/permission.php:33
 msgid "Event"
 msgstr "Evènement"
 
@@ -245,11 +381,15 @@ msgstr "Evènement"
 msgid "Manage events"
 msgstr "Gérer les Evènements"
 
-#: config/navigation.php:39 config/page.php:61 config/permission.php:37
+#: config/navigation.php:49
+msgid "New event"
+msgstr "Nouvel Evènement"
+
+#: config/navigation.php:61 config/page.php:61 config/permission.php:37
 msgid "List of order"
 msgstr "Liste des inscriptions"
 
-#: config/navigation.php:49 config/page.php:66 config/permission.php:41
+#: config/navigation.php:71 config/page.php:66 config/permission.php:41
 msgid "Tools"
 msgstr "Outils"
 
