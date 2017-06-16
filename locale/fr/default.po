@@ -54,7 +54,7 @@ msgstr "au"
 #: src/Api/Event.php:343 src/Api/Event.php:451
 #, php-format
 msgid "%s days"
-msgstr "%s jours"
+msgstr "%s jour(s)"
 
 #: src/Api/Event.php:345 src/Api/Event.php:453
 msgid "1 days"
