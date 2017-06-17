@@ -63,6 +63,14 @@ return array(
             'filter' => 'number_int',
             'value' => 10
         ),
+        'generate_slug' => array(
+            'category' => 'admin',
+            'title' => _a('Generate slug automatic'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 0
+        ),
         // News
         'use_news_topic' => array(
             'category' => 'news',
@@ -247,12 +255,20 @@ return array(
             'category' => 'view',
         ),
         'event_all_hits' => array(
-            'category' => 'item',
+            'category' => 'view',
             'title' => _a('Include all hits'),
             'description' => _a('Include all page refresh as hits, if not check use SESSION check for update hits'),
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 0
+        ),
+        'view_summary' => array(
+            'category' => 'view',
+            'title' => _a('Show summary on event page'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1,
         ),
         // Social
         'social_sharing' => array(

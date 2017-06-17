@@ -18,6 +18,7 @@ CREATE TABLE `{extra}` (
   `register_price`    DECIMAL(16, 2)            NOT NULL DEFAULT '0.00',
   `register_type`     ENUM ('discount', 'full') NOT NULL DEFAULT 'discount',
   `register_discount` TEXT,
+  `register_click`    INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   # guide module fields
   `guide_owner`       INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   `guide_category`    VARCHAR(255)              NOT NULL DEFAULT '',

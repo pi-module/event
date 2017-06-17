@@ -6,12 +6,13 @@ $this->css(array(
 $this->jQuery();
 $this->backbone();
 $this->js($this->assetModule('script/system-msg.js', 'system'));
-
-$urlPackage = Pi::url($this->url('guide', array(
-    'module' => 'guide',
-    'controller' => 'package',
-    'action' => 'index',
-)));
+if (Pi::service('module')->isActive('guide')) {
+    $urlPackage = Pi::url($this->url('guide', array(
+        'module' => 'guide',
+        'controller' => 'package',
+        'action' => 'index',
+    )));
+}
 ?>
 
 <?php $currentFlashMessages = $this->flashMessenger()->renderCurrent(); ?>
@@ -39,8 +40,8 @@ $urlPackage = Pi::url($this->url('guide', array(
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="upgradePackageModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel">
+<?php if (Pi::service('module')->isActive('guide')) { ?>
+    <div class="modal fade" id="upgradePackageModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,22 +60,24 @@ $urlPackage = Pi::url($this->url('guide', array(
             </div>
         </div>
     </div>
-    
+<?php } ?>
 <script type="text/javascript">
     (function ($) {
         $(".event-time-start").datepicker().on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('.event-time-end').datepicker('setStartDate', minDate);
         });
-        
+
+        <?php if (Pi::service('module')->isActive('guide')) { ?>
         if (0 == <?php echo $canSubmitEvent?>) {
             $("form#event").on("submit", function() {
                 $('#upgradePackageModal').modal();
-                return false;    
+                return false;
             });
         }
-            
-        $("#event-form").on("click", "button", function () {
+        <?php } ?>
+
+        /* $("#event-form").on("click", "button", function () {
             systemMessage.wait("<?php _e('Remove image event in process'); ?>");
             $.getJSON($(this).attr("data-link")).done(function (result) {
                 if (result.status == 1) {
@@ -83,7 +86,7 @@ $urlPackage = Pi::url($this->url('guide', array(
                     systemMessage.fail(result.message);
                 }
             });
-        });
+        }); */
 
         $('.form-group[data-name="guide_item"]').insertBefore('.form-group[data-name="title"]');
     })(jQuery)

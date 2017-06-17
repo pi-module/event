@@ -124,5 +124,21 @@ class Update extends BasicUpdate
                 return false;
             }
         }
+
+        // Update to version 2.0.7
+        if (version_compare($moduleVersion, '2.0.7', '<')) {
+            // Alter table field `register_click`
+            $sql = sprintf("ALTER TABLE %s ADD `register_click` INT(10) UNSIGNED NOT NULL DEFAULT '0'", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }
     }
 }

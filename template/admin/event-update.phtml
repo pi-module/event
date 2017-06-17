@@ -22,7 +22,6 @@ $this->js($this->assetModule('script/system-msg.js', 'system'));
 </div>
 <script type="text/javascript">
     (function ($) {
-
         $(".event-time-start").datepicker().on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('.event-time-end').datepicker('setStartDate', minDate);

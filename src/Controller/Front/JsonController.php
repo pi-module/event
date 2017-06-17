@@ -496,4 +496,20 @@ class JsonController extends IndexController
         // Set view
         return $listEvent;
     }
+
+    public function registerClickAction()
+    {
+        $id = $this->params('id');
+        $id = intval($id);
+        $result = array();
+
+        if ($id > 0) {
+            $this->getModel('extra')->increment('register_click', array('id' => $id));
+            $result['status'] = 1;
+        } else {
+            $result['status'] = 0;
+        }
+
+        return $result;
+    }
 }

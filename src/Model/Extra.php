@@ -43,6 +43,7 @@ class Extra extends Model
         'register_price',
         'register_type',
         'register_discount',
+        'register_click',
         'guide_owner',
         'guide_category',
         'guide_location',

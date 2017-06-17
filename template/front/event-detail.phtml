@@ -103,7 +103,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         </a>
                     </div>
                 <?php } ?>
-                <?php if (!empty($event['text_summary'])) { ?>
+                <?php if ($config['view_summary'] && !empty($event['text_summary'])) { ?>
                     <div class="clearfix event-single-main-box event-single-summary p-summary" itemprop="description">
                         <?php echo $event['text_summary']; ?>
                     </div>
@@ -153,10 +153,21 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <?php } ?>
                         <?php if (!empty($event['source_url'])) { ?>
                             <p class="u-url" itemprop="url">
-                                <a class="btn btn-success btn-lg btn-group-justified" title="<?php _e('Organizer Website and register') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                <a class="btn btn-success btn-lg btn-group-justified event-source-url" title="<?php _e('Organizer Website and register') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                     <i class="fa fa-external-link"></i>
-                                    <?php _e('Organizer Website and register') ?>
+                                    <?php _e('Register') ?>
                                 </a>
+                                <script type="text/javascript">
+                                    (function ($) {
+                                        $('.event-source-url').click(function () {
+                                            $.getJSON("<?php echo Pi::url($this->url('event', array(
+                                                'controller' => 'json',
+                                                'action' => 'registerClick',
+                                                'id' => $event['id'],
+                                            ))); ?>");
+                                        });
+                                    })(jQuery)
+                                </script>
                             </p>
                         <?php } ?>
                         <?php if ($event['register_price'] > 0) { ?>

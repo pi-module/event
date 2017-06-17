@@ -17,6 +17,7 @@ use Pi\Filter;
 use Pi\Mvc\Controller\ActionController;
 use Module\Event\Form\EventForm;
 use Module\Event\Form\EventFilter;
+use Zend\Math\Rand;
 
 class ManageController extends ActionController
 {
@@ -153,9 +154,9 @@ class ManageController extends ActionController
             return;
         }
         // Set title
-        if($id){
+        if ($id) {
             $title = __('Update event');
-        }else{
+        } else {
             $title = __('Add event');
         }
         // Check event guide owner
@@ -174,16 +175,19 @@ class ManageController extends ActionController
                 $item = Pi::api('item', 'guide')->getItemLight($item);
                 $option['item'] = $item['id'];
                 $title = sprintf(__('Add event to %s'), $item['title']);
-                
+
                 // Test if pakcage has_event
                 if ($item['item_type'] == 'commercial') {
                     $canSubmitEvent = false;
                     $package = Pi::api('package', 'guide')->getPackageFromPeriod($item['package']);
                     if (!Pi::api('item', 'guide')->isExpired($item)) {
-                        $canSubmitEvent = $package['has_event'];                
+                        $canSubmitEvent = $package['has_event'];
                     }
                 }
             }
+        } else {
+            // Check item
+            $canSubmitEvent = true;
         }
         // Set form
         $form = new EventForm('event', $option);
@@ -192,7 +196,11 @@ class ManageController extends ActionController
             $data = $this->request->getPost();
             $file = $this->request->getFiles();
             // Set slug
-            $slug = ($data['slug']) ? $data['slug'] : $data['title'];
+            if ($config['generate_slug']) {
+                $slug = Rand::getString(16, 'abcdefghijklmnopqrstuvwxyz123456789', true);
+            } else {
+                $slug = ($data['slug']) ? $data['slug'] : $data['title'];
+            }
             $filter = new Filter\Slug;
             $data['slug'] = $filter($slug);
             // Form filter
@@ -373,7 +381,7 @@ class ManageController extends ActionController
         $this->view()->assign('title', $title);
         $this->view()->assign('config', $config);
         $this->view()->assign('canSubmitEvent', $canSubmitEvent);
-        
+
     }
 
     public function removeAction()
