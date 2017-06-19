@@ -15,7 +15,7 @@
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
                                         <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                             src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(600, 400); ?>"
+                                             src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('item'); ?>"
                                              alt="<?php echo $this->escape($event['title']); ?>"/>
                                     </a>
                                 <?php } ?>
@@ -122,7 +122,7 @@
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
                                         <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                             src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(600, 400); ?>"
+                                             src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('item'); ?>"
                                              alt="<?php echo $this->escape($event['title']); ?>"/>
                                     </a>
                                 </div>

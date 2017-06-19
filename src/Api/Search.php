@@ -103,6 +103,6 @@ class Search extends AbstractSearch
      */
     protected function buildImage(array $item, $table = '')
     {
-        return (string) Pi::api('doc','media')->getSingleLinkUrl($item['main_image'])->thumb(150, 100);
+        return (string) Pi::api('doc','media')->getSingleLinkUrl($item['main_image'])->setConfigModule('news')->thumb('thumbnail');
     }
 }
