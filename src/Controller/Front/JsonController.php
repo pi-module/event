@@ -277,8 +277,8 @@ class JsonController extends IndexController
         $event = array();
         $count = 0;
 
-        $offset = (int)($page - 1) * $config['view_perpage'];
         $limit = (intval($limit) > 0) ? intval($limit) : intval($config['view_perpage']);
+        $offset = (int)($page - 1) * $limit;
 
         // Set category on where link
         if (isset($categoryIDList) && !empty($categoryIDList)) {
@@ -362,7 +362,7 @@ class JsonController extends IndexController
             'events' => $event,
             'paginator' => array(
                 'count' => $count,
-                'limit' => intval($config['view_perpage']),
+                'limit' => $limit,
                 'page' => $page,
             ),
             'condition' => array(
