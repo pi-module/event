@@ -33,7 +33,7 @@ $this->jQuery(array(
 ));
 $this->footScript()->appendScript($script);
 // Set Open Graph tags for meta
-$shareImage = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(800, 600);
+$shareImage = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large');
 $this->doctype('HTML5');
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($event['eventUrl'], 'og:url', 'property');
@@ -96,9 +96,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
             <div class="col-md-8 event-single-main">
                 <?php if ($config['image_position'] == 'center') {  ?>
                     <div class="event-image-main clearfix u-photo gallery text-center">
-                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb('large'); ?>"
+                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large'); ?>"
                            title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb('medium'); ?>"
+                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                         </a>
                     </div>
@@ -137,9 +137,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
             <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
                 <?php if ($config['image_position'] == 'side') {  ?>
                     <div class="event-image-main clearfix u-photo gallery">
-                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb('large'); ?>"
+                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large'); ?>"
                            title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
-                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb('medium'); ?>"
+                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                         </a>
                     </div>
@@ -336,7 +336,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                             <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                                href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                                 <img class="img-responsive u-photo"
-                                                     src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->thumb(400, 300); ?>"
+                                                     src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                                      alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                                 <?php if ($guideItemInfo['ribbon']) { ?>
                                                     <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
@@ -445,7 +445,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <img class="img-responsive u-photo"
-                                                 src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->thumb(400, 300); ?>"
+                                                 src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                                  alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                             <?php if ($guideItemInfo['ribbon']) { ?>
                                                 <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
