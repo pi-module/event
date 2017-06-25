@@ -5,26 +5,78 @@ $this->css(array(
 ));
 $this->jQuery();
 $this->js($this->assetModule('script/system-msg.js', 'system'));
-?>
 
+$local = Pi::service('i18n')->getLocale();
+if ($local = 'fa') {
+    $this->css(array(
+        $this->assetModule('css/persianDatepicker.css'),
+    ));
+    $this->js(array(
+        $this->assetModule('js/moment.min.js'),
+        $this->assetModule('js/moment-jalali.js'),
+        $this->assetModule('js/persianDatepicker.min.js'),
+    ));
+}
+?>
 <?php $currentFlashMessages = $this->flashMessenger()->renderCurrent(); ?>
-<?php if(trim($currentFlashMessages)) : ?>
+<?php if(trim($currentFlashMessages)) { ?>
     <div class="alert alert-dismissable alert-info">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div><?php echo $currentFlashMessages; ?></div>
     </div>
     <?php $this->flashMessenger()->clearMessages() ?>
-<?php endif; ?>
-
+<?php } ?>
 <div id="event-form" class="clearfix">
     <h3><?php echo $this->escape($title); ?></h3>
     <?php echo $this->form($form); ?>
 </div>
-<script type="text/javascript">
-    (function ($) {
-        $(".event-time-start").datepicker().on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('.event-time-end').datepicker('setStartDate', minDate);
-        });
-    })(jQuery)
-</script>
+<?php if ($local == 'fa') { ?>
+    <script type="text/javascript">
+        // https://github.com/jalaali/moment-jalaali
+        // https://momentjs.com/docs/#/parsing/string-format/
+        (function ($) {
+
+            $('.event-time-start-view').persianDatepicker({
+                <?php if (isset($event['time_start']) && !empty($event['time_start'])) { ?>
+                selectedBefore: !0,
+                selectedDate: moment(<?php echo $event['time_start']; ?>, 'X').format('jYYYY/jM/jD'),
+                <?php } ?>
+                onSelect: function () {
+                    // debugger
+                    var old = $('.event-time-start-view').val();
+                    // UNIX timestamp
+                    var timestampDate = moment(old, 'jYYYY/jM/jD').format('X');
+                    // Set val
+                    $('.event-time-start').val(timestampDate);
+                }
+            });
+
+            $('.event-time-end-view').persianDatepicker({
+                <?php if (isset($event['time_end']) && !empty($event['time_end'])) { ?>
+                selectedBefore: !0,
+                selectedDate: moment(<?php echo $event['time_end']; ?>, 'X').format('jYYYY/jM/jD'),
+                <?php } ?>
+                onSelect: function () {
+                    // debugger
+                    var old = $('.event-time-end-view').val();
+                    // UNIX timestamp
+                    var timestampDate = moment(old, 'jYYYY/jM/jD').format('X');
+                    // Set val
+                    $('.event-time-end').val(timestampDate);
+                }
+            });
+
+        })(jQuery)
+    </script>
+<?php } else { ?>
+    <script type="text/javascript">
+        (function ($) {
+
+            $(".event-time-start").datepicker().on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('.event-time-end').datepicker('setStartDate', minDate);
+            });
+
+        })(jQuery)
+    </script>
+<?php } ?>

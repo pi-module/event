@@ -94,49 +94,96 @@ class EventForm extends BaseForm
                 'label' => __('Time options'),
             ),
         ));
-        // time_start
-        $this->add(array(
-            'name' => 'time_start',
-            'type' => 'datepicker',
-            'options' => array(
-                'label' => __('Time start'),
-                'datepicker' => array(
-                    'format' => 'yyyy/mm/dd',
-                    'autoclose' => true,
-                    'todayBtn' => true,
-                    'todayHighlight' => true,
-                    'weekStart' => 1,
-                    'zIndexOffset' => 10000
-                    
+        // Check local
+        $local = Pi::service('i18n')->getLocale();
+        if ($local == 'fa') {
+            // time_start_view
+            $this->add(array(
+                'name' => 'time_start_moment',
+                'options' => array(
+                    'label' => __('Time start'),
                 ),
-            ),
-            'attributes' => array(
-                'required' => true,
-                'value' => date('Y-m-d'),
-                'class' => 'event-time-start',
-            )
-        ));
-        // time_end
-        $this->add(array(
-            'name' => 'time_end',
-            'type' => 'datepicker',
-            'options' => array(
-                'label' => __('Time end'),
-                'datepicker' => array(
-                    'format' => 'yyyy/mm/dd',
-                    'autoclose' => true,
-                    'todayBtn' => true,
-                    'todayHighlight' => true,
-                    'weekStart' => 1,
-                    'zIndexOffset' => 10000
-                    
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                    'required' => true,
+                    'class' => 'event-time-start-view',
+                )
+            ));
+            // time_end_view
+            $this->add(array(
+                'name' => 'time_end_moment',
+                'options' => array(
+                    'label' => __('Time end'),
                 ),
-            ),
-            'attributes' => array(
-                'required' => false,
-                'class' => 'event-time-end',
-            )
-        ));
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                    'required' => false,
+                    'class' => 'event-time-end-view',
+                )
+            ));
+            // time_start
+            $this->add(array(
+                'name' => 'time_start',
+                'attributes' => array(
+                    'type' => 'hidden',
+                    'class' => 'event-time-start',
+                ),
+            ));
+            // time_end
+            $this->add(array(
+                'name' => 'time_end',
+                'attributes' => array(
+                    'type' => 'hidden',
+                    'class' => 'event-time-end',
+                ),
+            ));
+        } else {
+            // time_start
+            $this->add(array(
+                'name' => 'time_start',
+                'type' => 'datepicker',
+                'options' => array(
+                    'label' => __('Time start'),
+                    'datepicker' => array(
+                        'format' => 'yyyy/mm/dd',
+                        'autoclose' => true,
+                        'todayBtn' => true,
+                        'todayHighlight' => true,
+                        'weekStart' => 1,
+                        'zIndexOffset' => 10000
+
+                    ),
+                ),
+                'attributes' => array(
+                    'required' => true,
+                    'value' => date('Y-m-d'),
+                    'class' => 'event-time-start',
+                )
+            ));
+            // time_end
+            $this->add(array(
+                'name' => 'time_end',
+                'type' => 'datepicker',
+                'options' => array(
+                    'label' => __('Time end'),
+                    'datepicker' => array(
+                        'format' => 'yyyy/mm/dd',
+                        'autoclose' => true,
+                        'todayBtn' => true,
+                        'todayHighlight' => true,
+                        'weekStart' => 1,
+                        'zIndexOffset' => 10000
+
+                    ),
+                ),
+                'attributes' => array(
+                    'required' => false,
+                    'class' => 'event-time-end',
+                )
+            ));
+        }
         // extra
         $this->add(array(
             'name' => 'extra_text',
