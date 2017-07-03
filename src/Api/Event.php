@@ -557,4 +557,115 @@ class Event extends AbstractApi
 
     public function doAfterVote()
     {}
+    
+    public function favoriteList()
+    {
+        // Get user id
+        $uid = Pi::user()->getId();
+        // Check user
+        if ($uid > 0) {
+            $favoriteIds = Pi::api('favourite', 'favourite')->userFavourite($uid, 'news');
+            // Check list of ides
+            if (!empty($favoriteIds)) {
+                // Get config
+                
+                // TOPIC
+                $select = Pi::model('category', 'guide')->select();
+                $rowset = Pi::model('category', 'guide')->selectWith($select);
+                $topics = array();
+                foreach ($rowset as $row) {
+                    $topics[$row->id] = array(
+                        'title' => $row->title,
+                        'categoryUrl' => Pi::url(Pi::service("url")->assemble("guide", array(
+                            "module" => 'guide',
+                            "controller" => "category",
+                            "slug" => $row->slug,
+                        )))
+                    );
+                }
+                //
+                
+                // LOCATION
+                $select = Pi::model('location', 'guide')->select();
+                $rowset = Pi::model('location', 'guide')->selectWith($select);
+                $locations = array();
+                foreach ($rowset as $row) {
+                    $locations[$row->id] = $row->title;
+                }
+                // 
+                
+                $config = Pi::service('registry')->config->read('news');
+                // Set list
+                $list = array();
+                $where = array(
+                    'story.id' => $favoriteIds, 
+                    'story.status' => 1,
+                    'story.type' => array(
+                       'event'
+                   )
+                );
+                
+                $storyTable = Pi::model("story", 'news')->getTable();
+                $extraTable = Pi::model("extra", 'event')->getTable();
+                
+                
+                $select = Pi::db()->select();
+                $select
+                ->from(array('story' => $storyTable))
+                ->join(array('extra' => $extraTable), 'story.id = extra.id', array('guide_category', 'guide_location', 'time_start', 'time_end' ))
+                ->where ($where);
+                
+                
+                $rowset = Pi::db()->query($select);
+                
+                foreach ($rowset as $row) {
+                    $story = $row;
+                    $story['url'] = Pi::url(Pi::service('url')->assemble('news', array(
+                        'module' => 'event',
+                        'controller' => 'index',
+                        'slug' => $row['slug'],
+                    )));
+                    
+                    $story['categories'] = array();
+                    $storyTopics = json_decode($story['guide_category']);
+                    foreach ($storyTopics as $idTopic) {
+                        $story['categories'][] = $topics[$idTopic];
+                    }
+                    
+                    $story['locations'] = array();
+                    $storyLocationsId = json_decode($story['guide_location']);
+                    $storyLocations = array();
+                    foreach ($storyLocationsId as $idLocation) {
+                        $storyLocations[] = $locations[$idLocation];
+                    }
+                    $story['location'] = join(' | ', $storyLocations);
+                    $story['image'] = '';
+                    if ($row['main_image']) {
+                        $story["image"] = Pi::url((string) Pi::api('doc','media')->getSingleLinkUrl($row['main_image'])->setConfigModule('news')->thumb('thumbnail'));
+                    }
+                    
+                    if (!empty($story['time_start']) && !empty($story['time_end'])) {
+                        $time = sprintf(
+                            '%s %s %s %s',
+                            __('From'),
+                            _date($story['time_start']),
+                            __('to'),
+                            _date($story['time_end'])
+                        );
+                    } elseif (!empty($story['time_start'])) {
+                        $time = _date($story['time_start']);
+                    }
+                    $story['period'] = $time;
+
+                    $list[$row->id] = $story;
+                }
+                return $list;
+            } else {
+                return '';
+            }
+        } else {
+            return '';
+        }
+    }
+
 }

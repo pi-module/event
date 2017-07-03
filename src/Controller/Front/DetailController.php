@@ -146,7 +146,14 @@ class DetailController extends ActionController
             $favourite['table'] = 'story';
             $favourite['module'] = 'news';
             $this->view()->assign('favourite', $favourite);
+            
+            $configFavourite = Pi::service('registry')->config->read('favourite');
+            if ($configFavourite['favourite_list']) {
+                $favouriteList = Pi::api('favourite', 'favourite')->listItemFavourite('news', 'story', $event['id']);
+                $this->view()->assign('favouriteList', $favouriteList);
+            }
         }
+        
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');
