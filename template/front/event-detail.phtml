@@ -306,12 +306,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                     <?php } ?>
                 </div>
                 <?php if (!empty($favourite)) { ?>
-                    <div class="well clearfix eventFavourite">
+                    <div class="clearfix eventFavourite">
                         <div class="row">
-                            <h4 class="col-md-9">
-                                <?php _e('You love this event ?'); ?>
-                            </h4>
-                            <div class="col-md-3">
+                            <div class="col-md-12">
                                 <?php include $this->template('favouritebar', 'front', 'favourite'); ?>
                             </div>
                         </div>
