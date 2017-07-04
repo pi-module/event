@@ -88,6 +88,8 @@ class ManageController extends ActionController
         $module = $this->params('module');
         $id = $this->params('id');
         $item = $this->params('item');
+        // Set local
+        $local = Pi::service('i18n')->getLocale();
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Get user
@@ -230,9 +232,16 @@ class ManageController extends ActionController
                     }
 
                     // Set time
-                    $values['time_publish'] = ($values['time_end']) ? strtotime($values['time_end']) : strtotime($values['time_start']);
-                    $values['time_start'] = strtotime($values['time_start']);
-                    $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
+                    if ($local == 'fa') {
+                        $values['time_publish'] = ($values['time_end']) ? $values['time_end'] : $values['time_start'];
+                        $values['time_start'] = $values['time_start'];
+                        $values['time_end'] = ($values['time_end']) ? $values['time_end'] : '';
+                    } else {
+                        $values['time_publish'] = ($values['time_end']) ? strtotime($values['time_end']) : strtotime($values['time_start']);
+                        $values['time_start'] = strtotime($values['time_start']);
+                        $values['time_end'] = ($values['time_end']) ? strtotime($values['time_end']) : '';
+                    }
+
                     // Set type
                     $values['type'] = 'event';
                     // Set status
@@ -370,9 +379,13 @@ class ManageController extends ActionController
         } else {
             if ($id) {
                 // Set time
-                $event['time_start'] = ($event['time_start']) ? date('Y-m-d', $event['time_start']) : date('Y-m-d');
-                $event['time_end'] = ($event['time_end']) ? date('Y-m-d', $event['time_end']) : '';
+                if ($local != 'fa') {
+                    $event['time_start'] = ($event['time_start']) ? date('Y-m-d', $event['time_start']) : date('Y-m-d');
+                    $event['time_end'] = ($event['time_end']) ? date('Y-m-d', $event['time_end']) : '';
+                }
                 $form->setData($event);
+                // Set event to view
+                $this->view()->assign('event', $event);
             }
         }
         // Set view

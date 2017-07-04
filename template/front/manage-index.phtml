@@ -39,8 +39,8 @@
                                             class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($event['id']); ?></span>
                                 </td>
                                 <td><?php echo $this->escape($event['title']); ?></td>
-                                <td><?php echo $this->escape((empty($event['time_start'])) ? '' : _date($event['time_start'], array('pattern' => 'yyyy-MM-dd'))); ?></td>
-                                <td><?php echo $this->escape((empty($event['time_end'])) ? '' : _date($event['time_end'], array('pattern' => 'yyyy-MM-dd'))); ?></td>
+                                <td><?php echo $this->escape((empty($event['time_start'])) ? '' : _date($event['time_start'], array('pattern' => 'yyyy/MM/dd'))); ?></td>
+                                <td><?php echo $this->escape((empty($event['time_end'])) ? '' : _date($event['time_end'], array('pattern' => 'yyyy/MM/dd'))); ?></td>
                                 <td>
                                     <div class="text-nowrap">
                                         <?php if ($event['status'] == 1) { ?>

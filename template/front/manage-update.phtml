@@ -13,17 +13,27 @@ if (Pi::service('module')->isActive('guide')) {
         'action' => 'index',
     )));
 }
-?>
 
+$local = Pi::service('i18n')->getLocale();
+if ($local = 'fa') {
+    $this->css(array(
+        $this->assetModule('css/persianDatepicker.css'),
+    ));
+    $this->js(array(
+        $this->assetModule('js/moment.min.js'),
+        $this->assetModule('js/moment-jalali.js'),
+        $this->assetModule('js/persianDatepicker.min.js'),
+    ));
+}
+?>
 <?php $currentFlashMessages = $this->flashMessenger()->renderCurrent(); ?>
-<?php if(trim($currentFlashMessages)) : ?>
+<?php if(trim($currentFlashMessages)) { ?>
     <div class="alert alert-dismissable alert-info">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div><?php echo $currentFlashMessages; ?></div>
     </div>
     <?php $this->flashMessenger()->clearMessages() ?>
-<?php endif; ?>
-
+<?php } ?>
 <div id="event-form" class="clearfix">
     <div class="guide-manage clearfix">
         <div class="col-md-3">
@@ -61,33 +71,72 @@ if (Pi::service('module')->isActive('guide')) {
         </div>
     </div>
 <?php } ?>
-<script type="text/javascript">
-    (function ($) {
-        $(".event-time-start").datepicker().on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('.event-time-end').datepicker('setStartDate', minDate);
-        });
+<?php if ($local == 'fa') { ?>
+    <script type="text/javascript">
+        // https://github.com/jalaali/moment-jalaali
+        // https://momentjs.com/docs/#/parsing/string-format/
+        (function ($) {
 
-        <?php if (Pi::service('module')->isActive('guide')) { ?>
-        if (0 == <?php echo $canSubmitEvent?>) {
-            $("form#event").on("submit", function() {
-                $('#upgradePackageModal').modal();
-                return false;
-            });
-        }
-        <?php } ?>
-
-        /* $("#event-form").on("click", "button", function () {
-            systemMessage.wait("<?php _e('Remove image event in process'); ?>");
-            $.getJSON($(this).attr("data-link")).done(function (result) {
-                if (result.status == 1) {
-                    systemMessage.succ(result.message);
-                } else {
-                    systemMessage.fail(result.message);
+            $('.event-time-start-view').persianDatepicker({
+                <?php if (isset($event['time_start']) && !empty($event['time_start'])) { ?>
+                selectedBefore: !0,
+                selectedDate: moment(<?php echo $event['time_start']; ?>, 'X').format('jYYYY/jM/jD'),
+                <?php } ?>
+                onSelect: function () {
+                    // debugger
+                    var old = $('.event-time-start-view').val();
+                    // UNIX timestamp
+                    var timestampDate = moment(old, 'jYYYY/jM/jD').format('X');
+                    // Set val
+                    $('.event-time-start').val(timestampDate);
                 }
             });
-        }); */
 
-        $('.form-group[data-name="guide_item"]').insertBefore('.form-group[data-name="title"]');
-    })(jQuery)
-</script>
+            $('.event-time-end-view').persianDatepicker({
+                <?php if (isset($event['time_end']) && !empty($event['time_end'])) { ?>
+                selectedBefore: !0,
+                selectedDate: moment(<?php echo $event['time_end']; ?>, 'X').format('jYYYY/jM/jD'),
+                <?php } ?>
+                onSelect: function () {
+                    // debugger
+                    var old = $('.event-time-end-view').val();
+                    // UNIX timestamp
+                    var timestampDate = moment(old, 'jYYYY/jM/jD').format('X');
+                    // Set val
+                    $('.event-time-end').val(timestampDate);
+                }
+            });
+
+            <?php if (Pi::service('module')->isActive('guide')) { ?>
+            if (0 == <?php echo $canSubmitEvent?>) {
+                $("form#event").on("submit", function() {
+                    $('#upgradePackageModal').modal();
+                    return false;
+                });
+            }
+            <?php } ?>
+
+            $('.form-group[data-name="guide_item"]').insertBefore('.form-group[data-name="title"]');
+        })(jQuery)
+    </script>
+<?php } else { ?>
+    <script type="text/javascript">
+        (function ($) {
+            $(".event-time-start").datepicker().on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('.event-time-end').datepicker('setStartDate', minDate);
+            });
+
+            <?php if (Pi::service('module')->isActive('guide')) { ?>
+            if (0 == <?php echo $canSubmitEvent?>) {
+                $("form#event").on("submit", function() {
+                    $('#upgradePackageModal').modal();
+                    return false;
+                });
+            }
+            <?php } ?>
+
+            $('.form-group[data-name="guide_item"]').insertBefore('.form-group[data-name="title"]');
+        })(jQuery)
+    </script>
+<?php } ?>
