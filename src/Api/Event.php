@@ -641,7 +641,7 @@ class Event extends AbstractApi
                     $story['location'] = join(' | ', $storyLocations);
                     $story['image'] = '';
                     if ($row['main_image']) {
-                        $story["image"] = Pi::url((string) Pi::api('doc','media')->getSingleLinkUrl($row['main_image'])->setConfigModule('news')->thumb('thumbnail'));
+                        $story["image"] = Pi::url((string) Pi::api('doc','media')->getSingleLinkUrl($row['main_image'])->setConfigModule('news')->thumb('medium'));
                     }
                     
                     if (!empty($story['time_start']) && !empty($story['time_end'])) {
