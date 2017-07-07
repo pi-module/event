@@ -657,7 +657,7 @@ class Event extends AbstractApi
                     }
                     $story['period'] = $time;
 
-                    $list[$row->id] = $story;
+                    $list[$row['id']] = $story;
                 }
                 return $list;
             } else {
