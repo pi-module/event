@@ -96,8 +96,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
             <div class="col-md-8 event-single-main">
                 <?php if ($config['image_position'] == 'center') {  ?>
                     <div class="event-image-main clearfix u-photo gallery text-center">
-                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large'); ?>"
-                           title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
+                        <?php $media = Pi::api('doc','media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
+                        <a href="<?php echo $media['resized_url']; ?>"
+                           title="<?php echo $this->escape($event['title']); ?><?php if($media['copyright']) echo ' - ' . $media['copyright'] ?>" itemprop="image">
                             <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                         </a>
@@ -137,8 +138,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
             <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
                 <?php if ($config['image_position'] == 'side') {  ?>
                     <div class="event-image-main clearfix u-photo gallery">
-                        <a href="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large'); ?>"
-                           title="<?php echo $this->escape($event['title']); ?>" itemprop="image">
+                        <?php $media = Pi::api('doc','media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
+                        <a href="<?php echo $media['resized_url']; ?>"
+                           title="<?php echo $this->escape($event['title']); ?><?php if($media['copyright']) echo ' - ' . $media['copyright'] ?>" itemprop="image">
                             <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                         </a>
@@ -438,7 +440,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <?php foreach ($event['guideItemInfo']['free'] as $guideItemInfo) { ?>
                             <div class="event-item-box h-review col-sm-4 col-md-3">
                                 <div class="thumbnail p-item h-card">
-                                    <?php if ($guideItemInfo['image']) { ?>
+                                    <?php if ($guideItemInfo['main_image']) { ?>
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                             <img class="img-responsive u-photo"
