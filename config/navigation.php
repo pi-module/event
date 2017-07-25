@@ -36,7 +36,7 @@ return array(
             'action' => 'index',
             'pages' => array(
                 'event' => array(
-                    'label' => _a('Event'),
+                    'label' => _a('All Events'),
                     'permission' => array(
                         'resource' => 'event',
                     ),
