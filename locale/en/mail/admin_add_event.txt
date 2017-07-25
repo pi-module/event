@@ -1,0 +1,18 @@
+[comment]Event added[/comment]
+
+[format]html[/format]
+
+[subject]%site_name% - Event added[/subject]
+
+[body]
+<div style="padding: 1px; direction: ltr;">
+    <h3 style="font-size: 1.1em;">Dear %site_name% admin</h3>
+    <div style="padding: 3px 0; margin: 1px 0;">A new event has been added on your site.</div>
+    <div style="padding: 3px 0; margin: 1px 0;">You can read details about this request in the <a href="%admin-event-url%" title="Event">Event</a> Admin Area.</div>
+    <div style="padding: 3px 0; margin: 1px 0;">Regards,</div>
+    <div style="padding: 3px 0; margin: 1px 0;">Don't reply to this email</div>
+    <div style="margin-top: 10px">
+        <a href="%site_url%" title="%site_name%">%site_name%</a>
+    </div>
+</div>
+[/body]

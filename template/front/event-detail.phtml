@@ -195,7 +195,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                     <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
-                                <?php if ($event['register_stock'] > 0) { ?>
+                                <?php if ($event['register_stock'] == 0 || $event['register_stock'] - $event['register_sales'] > 0) { ?>
                                     <div class="clearfix text-center">
                                         <ul class="list-inline">
                                             <li class="clearfix event-minPrice-title">
@@ -239,6 +239,25 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                     </div>
                 <?php } ?>
                 <div class="well clearfix eventTime">
+                    <h2><?php _e('Stock'); ?></h2>
+                    <ul class="list-inline">
+                        <?php if ($count) { ?> 
+                            <li><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></li>
+                        <?php } ?>     
+                        <li><i class="fa fa-ticket"></i>&nbsp; 
+                            <?php
+                            if ($event['register_sales'] == $event['register_stock']) { 
+                                _e('Full');
+                            } else if ($event['register_stock'] > 0) {                                                               
+                                echo sprintf(__('%s registred / %s places'), $event['register_sales'], $event['register_stock']);
+                            } else {
+                                echo sprintf(__('%s registred'), $event['register_sales']);
+                            }
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+                <div class="well clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">
                         <?php if ($config['view_days']) { ?>
@@ -267,7 +286,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                         <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
                     <?php } ?>
-
+                
                     <?php if (!empty($event['guideLocationInfo'])) { ?>
                         <ul class="list-inline">
                             <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
