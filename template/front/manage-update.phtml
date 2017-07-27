@@ -140,3 +140,34 @@ if ($local = 'fa') {
         })(jQuery)
     </script>
 <?php } ?>
+
+<div class="modal fade" id="mainImageRequired" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><?php echo _e("Main image is required"); ?></h4>
+            </div>
+            <div class="modal-body">
+                <?php echo _e("You must add main image before save that event"); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function ($) {
+        $("#event").submit(function(e){
+
+            var mainImage = $('input[name="main_image"]').val();
+
+            if(!mainImage){
+                $('#mainImageRequired').modal('show');
+                e.preventDefault();
+            }
+        });
+    })(jQuery)
+</script>
