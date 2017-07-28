@@ -238,6 +238,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     </div>
                 <?php } ?>
+				<?php if ($event['register_stock'] > 0) { ?>
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Stock'); ?></h2>
                     <ul class="list-inline">
@@ -257,6 +258,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         </li>
                     </ul>
                 </div>
+				<?php } ?>
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">
