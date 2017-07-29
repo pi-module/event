@@ -106,7 +106,7 @@ class DetailController extends ActionController
         }
         // Set form
         $option = array();
-        $option['stock'] = ($event['register_stock'] > 10) ? 10 : $event['register_stock'];
+        $option['stock'] = ($event['register_stock'] == 0 || $event['register_stock'] -  $event['register_sales'] > 10) ? 10 : ($event['register_stock'] -  $event['register_sales']);
         $form = new RegisterForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         $form->setAttribute('action', $event['eventOrder']);
@@ -154,12 +154,39 @@ class DetailController extends ActionController
             }
         }
         
+        // my places
+        $uid = Pi::user()->getId();
+        $count = 0;
+        if ($uid) {
+            $where = array(
+                'uid' => $uid,
+                'module_name' => 'event',
+                'module_item' =>  $event['id'],
+                'status_payment' => 2
+            );    
+            
+            
+            $orderTable = Pi::model('order', 'order')->getTable();
+            $basketTable = Pi::model("basket", 'order')->getTable();
+         
+            $select = Pi::db()->select();
+            $select
+            ->from(array('order' => $orderTable))->columns(array())
+            ->join(array('basket' => $basketTable), 'basket.order = order.id', array('count' => new \Zend\Db\Sql\Expression('SUM(number)')))
+            ->where ($where);
+        
+            $count = Pi::db()->query($select)->current()['count'];
+        }
+        
+        
+        
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');
         $this->view()->headKeywords($event['seo_keywords'], 'set');
         $this->view()->setTemplate('event-detail');
         $this->view()->assign('event', $event);
+        $this->view()->assign('count', $count);
         $this->view()->assign('config', $config);
         $this->view()->assign('form', $form);
         $this->view()->assign('ended', $ended);

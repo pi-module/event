@@ -1,5 +1,5 @@
 <?php $this->css($this->assetModule('css/front.css')); ?>
-<div class="clearfix">
+<div class="event-manage clearfix">
     <div class="col-md-3">
         <?php $sideActive = 'event'; ?>
         <?php include $this->templateModule('front/user-profile-sidebar.phtml', 'user'); ?>
@@ -7,6 +7,13 @@
     <div class="col-md-9">
         <div class="page-header">
             <h1><?php echo $this->escape($title); ?></h1>
+            <?php 
+                if ($event['register_stock'] > 0) {                                                               
+                    echo sprintf(__('%s registred / %s places'), $event['register_sales'], $event['register_stock']);
+                } else {
+                    echo sprintf(__('%s registred'), $event['register_sales']);
+                }
+            ?>
         </div>
 
         <?php if (!empty($list)) { ?>

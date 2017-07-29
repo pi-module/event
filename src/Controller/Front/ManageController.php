@@ -373,6 +373,27 @@ class ManageController extends ActionController
                     } else {
                         $message = __('Thanks for contributing ! Event data saved successfully and we will be validate it soon');
                     }
+                    
+                    // Set to admin
+                    $adminmail = Pi::config('adminmail');
+                    $adminname = Pi::config('adminname');
+                    $toAdmin = array(
+                        $adminmail => $adminname,
+                    );
+                    
+                    // Set info
+                    $information = array(
+                        'admin-event-url' => Pi::url(Pi::service('url')->assemble('admin', array('module' => 'event', 'controller' => 'event', 'action' => 'index'))),
+                    );
+            
+                    // Send mail to admin
+                    Pi::service('notification')->send(
+                        $toAdmin,
+                        'admin_add_event',
+                        $information,
+                        Pi::service('module')->current()
+                    );
+                    
                     $this->jump(array('action' => 'index'), $message);
                 }
             }
@@ -533,7 +554,7 @@ class ManageController extends ActionController
         $this->view()->setTemplate('manage-order');
         $this->view()->assign('list', $list);
         $this->view()->assign('event', $event);
-        $this->view()->assign('title', sprintf('List of orders on %s', $event['title']));
+        $this->view()->assign('title', sprintf('Registration List for %s', $event['title']));
     }
 
     public function canonizeGuideOwner()

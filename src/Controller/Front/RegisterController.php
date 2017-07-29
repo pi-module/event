@@ -64,7 +64,7 @@ class RegisterController extends ActionController
                     $this->jump($event['eventUrl'], $message, 'error');
                 }
                 // Check capacity
-                if ($event['register_stock'] === 0 || $event['register_stock'] < $number) {
+                if ($event['register_stock'] > 0 && ($event['register_stock'] -  $event['register_sales'] === 0 || $event['register_stock'] -  $event['register_sales']  < $number)) {
                     $message = __('This event do not have enough capacity');
                     $this->jump($event['eventUrl'], $message, 'error');
                 }

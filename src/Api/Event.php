@@ -275,9 +275,9 @@ class Event extends AbstractApi
 
         $extra['register_price_view_clean'] = $priceView;
         if ($this->config['order_active']) {
-            if (($extra['register_price'] > 0 && $extra['register_stock'] > 0)) {
+            if (($extra['register_price'] > 0 && ($extra['register_stock'] - $extra['register_sales'] > 0 || $extra['register_stock'] == 0))) {
                 $extra['register_price_view'] = $priceView;
-            } elseif ($extra['register_price'] > 0 && $extra['register_stock'] == 0) {
+            } elseif ($extra['register_price'] > 0 && $extra['register_stock'] > 0 && $extra['register_stock'] - $extra['register_sales'] == 0) {
                 $extra['register_price_view'] = sprintf(__('Out of stock ( %s )'), $priceView);
             } else {
                 $extra['register_price_view'] = __('free!');
