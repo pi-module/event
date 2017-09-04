@@ -67,9 +67,9 @@ class Time extends AbstractApi
             default:
                 $time = array(
                     'expired' => time(),
-                    'thisWeek' => strtotime("-1 Monday"),
-                    'nextWeek' => strtotime("+1 Monday"),
-                    'nextTwoWeek' => strtotime("+2 Monday"),
+                    'thisWeek' => strtotime("last Monday"),
+                    'nextWeek' => strtotime("next Monday"),
+                    'nextTwoWeek' => strtotime("Monday this week +2 weeks");
                     'thisMonth' => strtotime('first day of this month'),
                     'nextMonth' => strtotime('first day of +1 month'),
                     'nextTwoMonth' => strtotime('first day of +2 month'),
