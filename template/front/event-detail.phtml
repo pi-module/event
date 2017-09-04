@@ -206,7 +206,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                             </li>
                                         </ul>
                                         <div class="clearfix">
-                                            <?php echo $this->form($form, 'inline'); ?>
+                                            <?php if( $config['order_active']) { ?>
+                                                <?php echo $this->form($form, 'inline'); ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 <?php } else { ?>
@@ -223,7 +225,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                 </div>
                                 <div class="event-offerUrl-btn" itemprop="url">
                                     <a class="btn btn-success btn-lg btn-group-justified <?php echo $ended ? 'disabled' : '' ?>" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
-                                        <?php _e('Register to the event') ?>
+                                        <?php echo $config['order_active'] ;_e('Register to the event') ?>
                                     </a>
                                 </div>
                             <?php } elseif ($config['order_free']) { ?>
