@@ -238,19 +238,18 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     </div>
                 <?php } ?>
-				<?php if ($event['register_stock'] > 0) { ?>
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Stock'); ?></h2>
                     <ul class="list-inline">
                         <?php if ($count) { ?> 
-                            <li><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></li>
+                            <li class="text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></strong></li>
                         <?php } ?>     
                         <li><i class="fa fa-ticket"></i>&nbsp; 
                             <?php
-                            if ($event['register_sales'] == $event['register_stock']) { 
+                            if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) { 
                                 _e('Full');
                             } else if ($event['register_stock'] > 0) {                                                               
-                                echo sprintf(__('%s registred / %s places'), $event['register_sales'], $event['register_stock']);
+                                echo sprintf(__('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'], $event['register_stock'] - $event['register_sales']);
                             } else {
                                 echo sprintf(__('%s registred'), $event['register_sales']);
                             }
@@ -258,7 +257,6 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         </li>
                     </ul>
                 </div>
-				<?php } ?>
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">

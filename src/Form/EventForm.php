@@ -321,6 +321,21 @@ class EventForm extends BaseForm
                 )
             ));
         }
+
+        if ($this->option['order_active']) {
+            // register_stock
+            $this->add(array(
+                'name' => 'register_stock',
+                'options' => array(
+                    'label' => __('Capacity'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'description' => '',
+                )
+            ));
+        }    
+            
         // register_price
         $this->add(array(
             'name' => 'register_price',
@@ -342,18 +357,7 @@ class EventForm extends BaseForm
                     'label' => __('Register online?'),
                 ),
                 'attributes' => array(
-                    'description' => '',
-                )
-            ));
-            // register_stock
-            $this->add(array(
-                'name' => 'register_stock',
-                'options' => array(
-                    'label' => __('Capacity'),
-                ),
-                'attributes' => array(
-                    'type' => 'text',
-                    'description' => '',
+                    'description' => __('user can register directly on the website and proceed to checkout, real availability is displayed'),
                 )
             ));
             // register_type
