@@ -161,7 +161,6 @@ if ($local = 'fa') {
 <script>
     (function ($) {
         $("#event").submit(function(e){
-
             var mainImage = $('input[name="main_image"]').val();
 
             if(!mainImage){
@@ -169,5 +168,22 @@ if ($local = 'fa') {
                 e.preventDefault();
             }
         });
+        
+        var registerCanOnChange = function() {
+              if ($('[type=checkbox][name=register_can]').prop('checked')) {
+                  $('[data-name=register_stock] label i.text-danger').show();
+                  $('[name=register_stock]').attr('required', true);
+              } else {
+                  $('[data-name=register_stock] label i.text-danger').hide();
+                  $('[name=register_stock]').removeAttr('required');                  
+              }
+        };
+      
+        $('[name=register_can]').change(
+          registerCanOnChange
+          
+        );
+        
+        registerCanOnChange();
     })(jQuery)
 </script>

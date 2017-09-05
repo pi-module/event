@@ -321,7 +321,20 @@ class EventForm extends BaseForm
                 )
             ));
         }
-
+        // Check order active
+        if ($this->option['order_active']) {
+            // register_can
+            $this->add(array(
+                'name' => 'register_can',
+                'type' => 'checkbox',
+                'options' => array(
+                    'label' => __('Register online?'),
+                ),
+                'attributes' => array(
+                    'description' => __('User can register directly on the website and proceed to checkout, real availability is displayed'),
+                )
+            ));
+        }
         if ($this->option['order_active']) {
             // register_stock
             $this->add(array(
@@ -331,7 +344,8 @@ class EventForm extends BaseForm
                 ),
                 'attributes' => array(
                     'type' => 'text',
-                    'description' => '',
+                    'required' => true,
+                    'description' => __('0 for unlimited'),
                 )
             ));
         }    
@@ -347,20 +361,11 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-        // Check order active
-        if ($this->option['order_active']) {
-            // register_can
-            $this->add(array(
-                'name' => 'register_can',
-                'type' => 'checkbox',
-                'options' => array(
-                    'label' => __('Register online?'),
-                ),
-                'attributes' => array(
-                    'description' => __('User can register directly on the website and proceed to checkout, real availability is displayed'),
-                )
-            ));
-            // register_type
+        
+           
+        // order_discount
+        if ($this->option['order_active'] && isset($this->option['order_discount']) && $this->option['order_discount']) {
+             // register_type
             $this->add(array(
                 'name' => 'register_type',
                 'type' => 'select',
@@ -372,9 +377,7 @@ class EventForm extends BaseForm
                     ),
                 ),
             ));
-        }
-        // order_discount
-        if ($this->option['order_active'] && isset($this->option['order_discount']) && $this->option['order_discount']) {
+            
             // extra_product
             $this->add(array(
                 'name' => 'extra_discount',

@@ -230,7 +230,7 @@ class EventFilter extends InputFilter
             // register_stock
             $this->add(array(
                 'name' => 'register_stock',
-                'required' => false,
+                'required' => $options['register_can'],
                 'filters' => array(
                     array(
                         'name' => 'StringTrim',

@@ -191,7 +191,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                             </p>
                         <?php } ?>
                     </div>
-                <?php } elseif (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended && $event['register_stock'] != null) { ?>
+                <?php } elseif (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
                     <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>

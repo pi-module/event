@@ -110,6 +110,7 @@ class EventController extends ActionController
             'order_discount' => $config['order_discount'],
             'map_use' => $config['map_use'],
             'manage_register' => $config['manage_register'],
+            'register_can' => $this->params('register_can')
         );
         // Find event
         if ($id) {
@@ -217,6 +218,9 @@ class EventController extends ActionController
                     }
 
                     $row->assign($values);
+                    if ($values['register_stock'] == null) {
+                        $row->register_stock = null;
+                    }
                     $row->save();
 
                     // Check topic

@@ -71,12 +71,31 @@ if ($local = 'fa') {
 <?php } else { ?>
     <script type="text/javascript">
         (function ($) {
-
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
             });
-
         })(jQuery)
     </script>
 <?php } ?>
+
+<script>
+    $(document).ready(function(){
+            var registerCanOnChange = function() {
+              if ($('[type=checkbox][name=register_can]').prop('checked')) {
+                  $('[data-name=register_stock] label i.text-danger').show();
+                  $('[name=register_stock]').attr('required', true);
+              } else {
+                  $('[data-name=register_stock] label i.text-danger').hide();
+                  $('[name=register_stock]').removeAttr('required');                  
+              }
+        };
+      
+        $('[name=register_can]').change(
+          registerCanOnChange
+          
+        );
+        
+        registerCanOnChange();
+    });
+</script>

@@ -153,7 +153,18 @@ class Update extends BasicUpdate
                 ));
                 return false;
             }
+
+            $sql = sprintf("UPDATE %s SET register_stock = null WHERE register_stock = 0 AND register_can = 0;", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
         }
-        
     }
 }
