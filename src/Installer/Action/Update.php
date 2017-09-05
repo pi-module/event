@@ -140,5 +140,20 @@ class Update extends BasicUpdate
                 return false;
             }
         }
+         if (version_compare($moduleVersion, '2.0.9', '<')) {
+            // Alter table field `register_click`
+            $sql = sprintf("ALTER TABLE %s CHANGE `register_stock` `register_stock` INT(10) UNSIGNED NULL DEFAULT NULL;", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }
+        
     }
 }

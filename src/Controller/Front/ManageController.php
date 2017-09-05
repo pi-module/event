@@ -292,6 +292,10 @@ class ManageController extends ActionController
                     }
 
                     $row->assign($values);
+                    if ($values['register_stock'] == null) {
+                        $row->register_stock = null;
+                    }
+
                     $row->save();
 
                     // Check topic

@@ -191,7 +191,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                             </p>
                         <?php } ?>
                     </div>
-                <?php } elseif (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
+                <?php } elseif (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended && $event['register_stock'] != null) { ?>
                     <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
@@ -240,25 +240,27 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
                     </div>
                 <?php } ?>
-                <div class="well clearfix eventTime">
-                    <h2><?php _e('Stock'); ?></h2>
-                    <ul class="list-inline">
-                        <?php if ($count) { ?> 
-                            <li class="text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></strong></li>
-                        <?php } ?>     
-                        <li><i class="fa fa-ticket"></i>&nbsp; 
-                            <?php
-                            if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) { 
-                                _e('Full');
-                            } else if ($event['register_stock'] > 0) {                                                               
-                                echo sprintf(__('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'], $event['register_stock'] - $event['register_sales']);
-                            } else {
-                                echo sprintf(__('%s registred'), $event['register_sales']);
-                            }
-                            ?>
-                        </li>
-                    </ul>
-                </div>
+                <?php if ($event['register_stock'] != null) { ?> 
+                    <div class="well clearfix eventTime">
+                        <h2><?php _e('Stock'); ?></h2>
+                        <ul class="list-inline">
+                            <?php if ($count) { ?> 
+                                <li class="text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></strong></li>
+                            <?php } ?>     
+                            <li><i class="fa fa-ticket"></i>&nbsp; 
+                                <?php
+                                if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) { 
+                                    _e('Full');
+                                } else if ($event['register_stock'] > 0) {                                                               
+                                    echo sprintf(__('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'], $event['register_stock'] - $event['register_sales']);
+                                } else {
+                                    echo sprintf(__('%s registred'), $event['register_sales']);
+                                }
+                                ?>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } ?>
                 <div class="well clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">
