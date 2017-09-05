@@ -9,7 +9,7 @@
             <h1><?php echo $this->escape($title); ?></h1>
             <?php 
                 if ($event['register_stock'] > 0) {                                                               
-                    echo sprintf(__('%s registred / %s places'), $event['register_sales'], $event['register_stock']);
+                    echo sprintf(__('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'], $event['register_stock'] - $event['register_sales']);
                 } else {
                     echo sprintf(__('%s registred'), $event['register_sales']);
                 }
