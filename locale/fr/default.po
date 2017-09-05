@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-07-31 11:36+0200\n"
+"POT-Creation-Date: 2017-09-05 08:10+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,8 +21,8 @@ msgstr ""
 msgid "Manage events"
 msgstr "Gérer les Evènements"
 
-#: src/Api/Breadcrumbs.php:86 template/front/manage-index.phtml:55
-#: template/front/manage-index.phtml:57
+#: src/Api/Breadcrumbs.php:86 template/front/manage-index.phtml:65
+#: template/front/manage-index.phtml:67
 msgid "List of orders"
 msgstr "Liste des inscriptions"
 
@@ -195,7 +195,7 @@ msgstr "Rechercher"
 #: src/Controller/Front/ManageController.php:121
 #: src/Controller/Front/ManageController.php:454
 #: src/Controller/Front/ManageController.php:516
-#: template/front/manage-index.phtml:75
+#: template/front/manage-index.phtml:85
 msgid ""
 "You are not allowed to submit new event, please contact to website admin and "
 "complete your registration, after that you allowed to submit events"
@@ -311,12 +311,12 @@ msgid "Status"
 msgstr "Statut"
 
 #: src/Form/EventForm.php:236 template/admin/event-index.phtml:66
-#: template/front/manage-index.phtml:65
+#: template/front/manage-index.phtml:75
 msgid "Published"
 msgstr "Publié"
 
 #: src/Form/EventForm.php:237 template/admin/event-index.phtml:67
-#: template/front/manage-index.phtml:66
+#: template/front/manage-index.phtml:76
 msgid "Pending review"
 msgstr "En attente validation"
 
@@ -364,115 +364,123 @@ msgstr "Options d'inscription"
 msgid "Registration details/requirements"
 msgstr "Modalités d'inscription (date limite, tarif, etc.)"
 
-#: src/Form/EventForm.php:328
-msgid "Minimum Price"
-msgstr "Tarif minimum"
-
-#: src/Form/EventForm.php:342
-msgid "Register online?"
-msgstr "Inscription en ligne?"
-
-#: src/Form/EventForm.php:352
+#: src/Form/EventForm.php:330
 msgid "Capacity"
 msgstr "Capacité"
 
-#: src/Form/EventForm.php:364
+#: src/Form/EventForm.php:343
+msgid "Minimum Price"
+msgstr "Tarif minimum"
+
+#: src/Form/EventForm.php:357
+msgid "Register online?"
+msgstr "Inscription en ligne?"
+
+#: src/Form/EventForm.php:360
+msgid ""
+"User can register directly on the website and proceed to checkout, real "
+"availability is displayed"
+msgstr ""
+"L'utilisateur peut s'inscrire directement sur le site web et acheter sa "
+"place, la disponibilité réelle est affichée"
+
+#: src/Form/EventForm.php:368
 msgid "Registration type"
 msgstr "Type Inscription"
 
-#: src/Form/EventForm.php:366
+#: src/Form/EventForm.php:370
 msgid "Discount code"
 msgstr "Code Remise"
 
-#: src/Form/EventForm.php:367
+#: src/Form/EventForm.php:371
 msgid "Pay full price"
 msgstr "Payer le prix total"
 
-#: src/Form/EventForm.php:379
+#: src/Form/EventForm.php:383
 msgid "Discount options"
 msgstr "Options de Remise"
 
-#: src/Form/EventForm.php:394
+#: src/Form/EventForm.php:398
 msgid "Number and between 1 to 99"
 msgstr "Nombre entre 1 et 99"
 
-#: src/Form/EventForm.php:405
+#: src/Form/EventForm.php:409
 msgid "Topic options"
 msgstr "Option de Catégorie"
 
-#: src/Form/EventForm.php:413
+#: src/Form/EventForm.php:417
 msgid "Topic"
 msgstr "Sujet"
 
-#: src/Form/EventForm.php:424
+#: src/Form/EventForm.php:428
 msgid "Main topic"
 msgstr "Sujet principal"
 
-#: src/Form/EventForm.php:433
+#: src/Form/EventForm.php:437
 msgid "Just use for breadcrumbs and mobile apps"
 msgstr "Utilisé pour les fils d'ariane et les applications mobiles"
 
-#: src/Form/EventForm.php:443
+#: src/Form/EventForm.php:447
 msgid "Guide options"
 msgstr "Options Module Guide"
 
-#: src/Form/EventForm.php:452
+#: src/Form/EventForm.php:456
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: src/Form/EventForm.php:463 template/front/event-angular-new.phtml:128
+#: src/Form/EventForm.php:467 template/front/event-angular-new.phtml:128
 #: template/front/event-angular.phtml:191
 #: template/front/partial/favourite-list.phtml:7
 msgid "Category"
 msgstr "Catégorie"
 
-#: src/Form/EventForm.php:481 template/front/event-angular-new.phtml:127
+#: src/Form/EventForm.php:485 template/front/event-angular-new.phtml:127
 #: template/front/event-angular.phtml:203
 msgid "Location"
 msgstr "Lieu"
 
-#: src/Form/EventForm.php:499
+#: src/Form/EventForm.php:503
 msgid "Item"
 msgstr "Elément"
 
-#: src/Form/EventForm.php:518
+#: src/Form/EventForm.php:522
 msgid "Map options"
 msgstr "Options de carte"
 
-#: src/Form/EventForm.php:525
+#: src/Form/EventForm.php:529
 msgid "Latitude"
 msgstr "Latitude"
 
-#: src/Form/EventForm.php:536
+#: src/Form/EventForm.php:540
 msgid "Longitude"
 msgstr "Longitude"
 
-#: src/Form/EventForm.php:547
+#: src/Form/EventForm.php:551
 msgid "Zoom"
 msgstr "Zoom"
 
-#: src/Form/EventForm.php:561
+#: src/Form/EventForm.php:565
 msgid "SEO options"
 msgstr "Options SEO"
 
-#: src/Form/EventForm.php:568
+#: src/Form/EventForm.php:572
 msgid "SEO Title"
 msgstr "Titre SEO"
 
-#: src/Form/EventForm.php:581
+#: src/Form/EventForm.php:585
 msgid "SEO Keywords"
 msgstr "Mots clefs SEO"
 
-#: src/Form/EventForm.php:594
+#: src/Form/EventForm.php:598
 msgid "SEO Description"
 msgstr "Description SEO"
 
-#: src/Form/EventForm.php:609 src/Form/SitemapForm.php:43
+#: src/Form/EventForm.php:613 src/Form/SitemapForm.php:43
 msgid "Submit"
 msgstr "Soumettre"
 
-#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:225
-#: template/front/event-detail.phtml:226
+#: src/Form/RegisterForm.php:63 template/front/event-detail.phtml:227
+#: template/front/event-detail.phtml:228
 msgid "Register to the event"
 msgstr "S'inscrire à l'évènement"
 
@@ -489,17 +497,17 @@ msgstr "Seulement les descriptions d'évènements (table Story du module News)"
 msgid "ID"
 msgstr "N°"
 
-#: template/admin/event-index.phtml:19 template/front/manage-index.phtml:27
+#: template/admin/event-index.phtml:19 template/front/manage-index.phtml:28
 msgid "Action"
 msgstr "Action"
 
 #: template/admin/event-index.phtml:53 template/admin/event-index.phtml:54
-#: template/front/manage-index.phtml:47 template/front/manage-index.phtml:49
+#: template/front/manage-index.phtml:57 template/front/manage-index.phtml:59
 msgid "View"
 msgstr "Voir"
 
 #: template/admin/event-index.phtml:55 template/admin/event-index.phtml:57
-#: template/front/manage-index.phtml:51 template/front/manage-index.phtml:53
+#: template/front/manage-index.phtml:61 template/front/manage-index.phtml:63
 msgid "Edit"
 msgstr "Editer"
 
@@ -652,29 +660,30 @@ msgid "Register"
 msgstr "S'inscrire"
 
 #: template/front/event-detail.phtml:179 template/front/event-detail.phtml:202
-#: template/front/event-detail.phtml:219 template/front/event-detail.phtml:231
+#: template/front/event-detail.phtml:221 template/front/event-detail.phtml:233
 msgid "Start From"
 msgstr "A partir de "
 
-#: template/front/event-detail.phtml:243
+#: template/front/event-detail.phtml:244
 msgid "Stock"
 msgstr "Places disponibles"
 
-#: template/front/event-detail.phtml:246
+#: template/front/event-detail.phtml:247
 #, php-format
 msgid "I'm registrered to this event (%s place(s))"
 msgstr "Je suis inscrit à cet évènement (%s place(s))"
 
-#: template/front/event-detail.phtml:251
+#: template/front/event-detail.phtml:252
 msgid "Full"
 msgstr "Complet"
 
-#: template/front/event-detail.phtml:253 template/front/manage-order.phtml:12
+#: template/front/event-detail.phtml:254 template/front/manage-index.phtml:48
 #, php-format
-msgid "%s registred / %s places"
-msgstr "%s inscrits / %s places"
+msgid "%s registred / %s places (%s left)"
+msgstr "%s inscrits / %s places (%s restantes)"
 
-#: template/front/event-detail.phtml:255 template/front/manage-order.phtml:14
+#: template/front/event-detail.phtml:256 template/front/manage-index.phtml:50
+#: template/front/manage-order.phtml:14
 #, php-format
 msgid "%s registred"
 msgstr "%s inscrits"
@@ -731,10 +740,19 @@ msgstr "Début"
 msgid "End"
 msgstr "Fin"
 
-#: template/front/manage-index.phtml:70
+#: template/front/manage-index.phtml:27
+msgid "Places"
+msgstr "Places"
+
+#: template/front/manage-index.phtml:80
 msgid "You still doesn't submit any event, you can submit events easy"
 msgstr ""
 "Vous n'avez pas encore soumis d'évènement, vous pouvez le faire facilement"
+
+#: template/front/manage-order.phtml:12
+#, php-format
+msgid "%s registred / %s places"
+msgstr "%s inscrits / %s places"
 
 #: template/front/manage-order.phtml:26
 msgid "Code"

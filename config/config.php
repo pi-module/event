@@ -311,7 +311,7 @@ return array(
         'manage_register' => array(
             'category' => 'manage',
             'title' => _a('Manage register options'),
-            'description' => _a('Manage register options by user, if yes, some extra fields will show : Address and Registration details/requirements'),
+            'description' => _a('Manage register options by user side. If yes, those extra fields will showed on user form : Address and Registration details/requirements'),
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1
