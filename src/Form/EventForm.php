@@ -357,7 +357,7 @@ class EventForm extends BaseForm
                     'label' => __('Register online?'),
                 ),
                 'attributes' => array(
-                    'description' => __('user can register directly on the website and proceed to checkout, real availability is displayed'),
+                    'description' => __('User can register directly on the website and proceed to checkout, real availability is displayed'),
                 )
             ));
             // register_type
