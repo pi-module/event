@@ -176,6 +176,9 @@ class DetailController extends ActionController
             ->where ($where);
         
             $count = Pi::db()->query($select)->current()['count'];
+            if (!$count) {
+                $count = 0;
+            }
         }
         
         
