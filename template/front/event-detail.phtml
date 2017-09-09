@@ -225,7 +225,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                 </div>
                                 <div class="event-offerUrl-btn" itemprop="url">
                                     <a class="btn btn-success btn-lg btn-group-justified <?php echo $ended ? 'disabled' : '' ?>" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
-                                        <?php echo $config['order_active'] ;_e('Register to the event') ?>
+                                        <?php _e('Register to the event') ?>
                                     </a>
                                 </div>
                             <?php } elseif ($config['order_free']) { ?>
