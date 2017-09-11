@@ -97,5 +97,13 @@ if ($local = 'fa') {
         );
         
         registerCanOnChange();
+        
+         if ($(".event-time-start").length) {
+            $(".event-time-start").datepicker().on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('.event-time-end').datepicker('setStartDate', minDate);
+            });
+        }
+            
     });
 </script>
