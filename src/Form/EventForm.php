@@ -365,18 +365,6 @@ class EventForm extends BaseForm
            
         // order_discount
         if ($this->option['order_active'] && isset($this->option['order_discount']) && $this->option['order_discount']) {
-             // register_type
-            $this->add(array(
-                'name' => 'register_type',
-                'type' => 'select',
-                'options' => array(
-                    'label' => __('Registration type'),
-                    'value_options' => array(
-                        'discount' => __('Discount code'),
-                        'full' => __('Pay full price'),
-                    ),
-                ),
-            ));
             
             // extra_product
             $this->add(array(

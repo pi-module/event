@@ -221,9 +221,7 @@ class EventController extends ActionController
                     if ($values['register_stock'] == null) {
                         $row->register_stock = null;
                     }
-                    if ($row->register_type == null) {
-                        $row->register_type = 'full'; 
-                    }
+                   
                     $row->save();
 
                     // Check topic

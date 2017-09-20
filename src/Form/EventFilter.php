@@ -237,16 +237,7 @@ class EventFilter extends InputFilter
                     ),
                 ),
             ));
-            // register_type
-            $this->add(array(
-                'name' => 'register_type',
-                'required' => false,
-                'filters' => array(
-                    array(
-                        'name' => 'StringTrim',
-                    ),
-                ),
-            ));
+           
         }
         // order_discount
         if (isset($option['order_active']) && $option['order_active'] && isset($option['order_discount']) && $option['order_discount']) {

@@ -16,7 +16,6 @@ CREATE TABLE `{extra}` (
   `register_stock`    INT(10) UNSIGNED          NULL DEFAULT NULL,
   `register_sales`    INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   `register_price`    DECIMAL(16, 2)            NOT NULL DEFAULT '0.00',
-  `register_type`     ENUM ('discount', 'full') NOT NULL DEFAULT 'discount',
   `register_discount` TEXT,
   `register_click`    INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   # guide module fields

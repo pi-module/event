@@ -166,5 +166,21 @@ class Update extends BasicUpdate
                 return false;
             }
         }
+        
+        if (version_compare($moduleVersion, '2.0.10', '<')) {
+        
+            $sql = sprintf("ALTER TABLE %s DROP  `register_type` ", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }
+            
     }
 }

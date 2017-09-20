@@ -65,7 +65,6 @@ class Order extends AbstractApi
                 'time_order' => time(),
                 'time_start' => $event['time_start'],
                 'time_end' => $event['time_end'],
-                'type' => $event['register_type'],
                 'code_public' => $code['public'],
                 'code_private' => $code['private'],
                 'status' => 1,

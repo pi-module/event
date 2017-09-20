@@ -58,7 +58,7 @@ class ToolsController extends ActionController
                     $event['register_can'] = 0;
                     $event['register_stock'] = 0;
                     $event['register_sales'] = 0;
-                    $event['register_type'] = 'discount';
+
                     // Save event
                     $row = $this->getModel('extra')->createRow();
                     $row->assign($event);
