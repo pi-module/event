@@ -75,6 +75,8 @@ if ($local = 'fa') {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
             });
+            var minDate = new Date($(".event-time-start").val());
+            $('.event-time-end').datepicker('setStartDate', minDate);
         })(jQuery)
     </script>
 <?php } ?>
@@ -103,6 +105,8 @@ if ($local = 'fa') {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
             });
+            var minDate = new Date($(".event-time-start").val());
+            $('.event-time-end').datepicker('setStartDate', minDate);
         }
             
     });
