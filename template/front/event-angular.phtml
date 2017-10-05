@@ -1,4 +1,8 @@
 <?php
+$urlAddEvent = Pi::url($this->url('', array(
+    'controller' => 'manage',
+    'action' => 'update',
+)));
 
 // Load angular custom js
 $script = <<<'EOT'
@@ -236,8 +240,8 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     <div class="col-sm-12 col-md-9" data-ng-controller="listdata">
         <div class="clearfix">
             <div class="event-list clearfix">
-                <div class="clearfix event-sort">
-                    <ul class="list-inline">
+                <div class="clearfix event-sort ">
+                    <ul class="list-inline col-md-8">
                         <li><?php _e('Sort by'); ?> :</li>
                         <li class="event-sort-type" data-ng-click="sort('time_publish')"><?php _e('Time'); ?> <i
                                 class="fa sort-icon" data-ng-show="sortKey=='time_publish'"
@@ -251,7 +255,25 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                                 data-ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
                         <li class="event-sort-type" data-ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
+                   
+                    <ul class="list-inline  col-md-4">
+                        
+                        
+                        <?php if (Pi::user()->getId() > 0) { ?>
+                            <a class="btn-success btn pull-right" href="/event/manage/update">
+                                <span class="fa fa-calendar"></span> <?php _e("Add an event !") ?>
+                            </a>
+                        <?php } else { ?>
+                            <a class="btn-success btn pull-right" href="#" onclick="loginForAddEvent(this);">
+                                <span class="fa fa-calendar"></span> <?php _e("Add an event !") ?>
+                            </a>                            
+                        <?php } ?> 
+                        
+
+                    </ul>
                 </div>
+                
+                <div class=" clearfix"></div>
                 <div class="clearfix <?php echo (isset($config['view_list_type']) && $config['view_list_type'] == 'box') ? 'match-height-list' : '' ?>">
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
@@ -345,3 +367,41 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
         </div>
     </div>
 </div>
+
+
+<script>
+    var favoritePopoverTimeoutHandle;
+    function loginForAddEvent(elem) {
+         clearTimeout(favoritePopoverTimeoutHandle);
+        var content = '<?php _e("You think an event deserves to be here? Promote your event by adding it for free.") ?>';
+        var loginLinkLabel = "<?php _e('login/register') ?>";
+        
+       
+        <?php if(Pi::user()->config('enable_modal')) { ?> 
+            content += '<div class="text-center"><button onclick="$(\'.popover-active\').popover(\'hide\')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#loginRegisterModal" data-redirect="<?php echo $urlAddEvent?>">'+loginLinkLabel+'</button></div>'; 
+        <?php } else { ?>
+            content += '<div class="text-center"><br/><?php _e("Please login to add an event") ?></div>';
+        <?php } ?>
+                                          
+        var link = $(elem);
+        
+        link.not('.popover-active').addClass('popover-active').popover({
+            trigger: 'manual',
+            placement: 'top',
+            toggle: 'popover',
+            content: content,
+            title: "<?php _e('Add an event !') ?>",
+            container: 'body',
+            html: true
+        });
+    
+        link.popover('show');
+    
+         favoritePopoverTimeoutHandle = setTimeout(function () {
+            link.popover('hide')
+            $('.popover-active').popover('hide');
+        }, 5000);
+        
+        return false;
+    }    
+</script>
