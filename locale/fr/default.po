@@ -660,7 +660,7 @@ msgstr "Merci de vous connecter pour ajouter votre évènement"
 
 #: template/front/event-angular.phtml:393
 msgid "Add your event here"
-msgstr "Ajoutez votre évènement ici"
+msgstr "Ajoutez votre évènement"
 
 #: template/front/event-detail.phtml:119
 #, php-format
