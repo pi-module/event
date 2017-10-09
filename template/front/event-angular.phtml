@@ -265,7 +265,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                             </a>
                         <?php } else { ?>
                             <a class="btn-success btn pull-right" href="#" onclick="loginForAddEvent(this);">
-                                <span class="fa fa-calendar"></span> <?php _e("Add an event !") ?>
+                                <span class="fa fa-calendar"></span> <?php _e("Add your event") ?>
                             </a>                            
                         <?php } ?> 
                         
@@ -374,7 +374,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     function loginForAddEvent(elem) {
          clearTimeout(favoritePopoverTimeoutHandle);
         var content = '<?php _e("You think an event deserves to be here? Promote your event by adding it for free.") ?>';
-        var loginLinkLabel = "<?php _e('login/register') ?>";
+        var loginLinkLabel = "<?php _e('Login / Register') ?>";
         
        
         <?php if(Pi::user()->config('enable_modal')) { ?> 
@@ -390,7 +390,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
             placement: 'top',
             toggle: 'popover',
             content: content,
-            title: "<?php _e('Add an event !') ?>",
+            title: "<?php _e('Add your event here') ?>",
             container: 'body',
             html: true
         });
