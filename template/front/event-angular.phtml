@@ -374,7 +374,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     function loginForAddEvent(elem) {
          clearTimeout(favoritePopoverTimeoutHandle);
         var content = '<?php _e("You think an event deserves to be here? Promote your event by adding it for free.") ?>';
-        var loginLinkLabel = "<?php _e('Login / Register') ?>";
+        var loginLinkLabel = "<?php _e("Login / Register") ?>";
         
        
         <?php if(Pi::user()->config('enable_modal')) { ?> 
