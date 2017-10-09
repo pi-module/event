@@ -259,3 +259,8 @@ a.item-ribbon:hover {
     width:14px;
     text-align:center;
 }
+
+.add-event {
+    padding:4px 15px!important; 
+    border-radius:6px!important
+}
