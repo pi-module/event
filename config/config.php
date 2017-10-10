@@ -149,22 +149,15 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-        'wide_content' => array(
-            'category' => 'view',
-            'title' => _a('Active wide front image for this module'),
-            'description' => '',
-            'edit' => 'checkbox',
-            'filter' => 'number_int',
-            'value' => 0
-        ),
-        'image_homepage' => array(
+       'image_index' => array(
             'category' => 'view',
             'title' => _a('Set wide image for homepage'),
-            'description' => '',
+            'description' => _a('Upload to upload/event/image/width/index'),
             'edit' => 'text',
             'filter' => 'string',
             'value' => ''
         ),
+        
         'view_list_type' => array(
             'title' => _a('Event list type'),
             'description' => '',
@@ -213,6 +206,14 @@ return array(
             'filter' => 'text',
             'value' => 'event',
             'category' => 'view',
+        ),
+        'image_homepage' => array(
+            'category' => 'view',
+            'title' => _a('Set og/twitter image for homepage'),
+            'description' => 'Used in meta (second choice)',
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => ''
         ),
         'price_filter' => array(
             'category' => 'view',
