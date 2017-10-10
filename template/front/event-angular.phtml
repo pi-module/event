@@ -256,20 +256,16 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         <li class="event-sort-type" data-ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                    
-                    <ul class="list-inline  col-md-4">
-                        
-                        
+                    <ul class="list-inline event-nomargin col-md-4">
                         <?php if (Pi::user()->getId() > 0) { ?>
                             <a class="btn-success btn pull-right add-event" href="<?php echo Pi::url($this->url('', array('module' => 'event', 'controller' => 'manage', 'action' => 'update'))) ?>">
                                 <span class="fa fa-calendar"></span>&nbsp;&nbsp;&nbsp;<?php _e("<strong>Add</strong> an event !") ?>
                             </a>
                         <?php } else { ?>
-                            <a class="btn-success btn pull-right" href="#" onclick="loginForAddEvent(this);">
-                                <span class="fa fa-calendar"></span> <?php _e("Add an event !") ?>
+                            <a class="btn-success btn pull-right add-event" href="#" onclick="loginForAddEvent(this);">
+                                <span class="fa fa-calendar"></span>&nbsp;&nbsp;&nbsp;<?php _e("<strong>Add</strong> an event !") ?>
                             </a>                            
                         <?php } ?> 
-                        
-
                     </ul>
                 </div>
                 
