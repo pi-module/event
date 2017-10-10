@@ -368,7 +368,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
 <script>
     var favoritePopoverTimeoutHandle;
     function loginForAddEvent(elem) {
-         clearTimeout(favoritePopoverTimeoutHandle);
+        clearTimeout(favoritePopoverTimeoutHandle);
         var content = "<?php _e("You think an event deserves to be here? Promote your event by adding it for free.") ?>";
         var loginLinkLabel = "<?php _e("Login / Register") ?>";
         
@@ -383,7 +383,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
         
         link.not('.popover-active').addClass('popover-active').popover({
             trigger: 'manual',
-            placement: 'top',
+            placement: 'bottom',
             toggle: 'popover',
             content: content,
             title: "<?php _e('Add your event here') ?>",
