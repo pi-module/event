@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-10-09 13:20+0200\n"
+"POT-Creation-Date: 2017-10-10 12:14+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -634,15 +634,12 @@ msgstr "Hits"
 msgid "Default"
 msgstr "Défaut"
 
-#: template/front/event-angular.phtml:264
-msgid "<strong>Add</strong> an event !"
-msgstr "<strong>Ajouter</strong> votre évènement !"
+#: template/front/event-angular.phtml:262
+#: template/front/event-angular.phtml:266
+msgid "<strong>Add</strong> an event"
+msgstr "<strong>Ajouter</strong> votre évènement"
 
-#: template/front/event-angular.phtml:268
-msgid "Add your event"
-msgstr "Ajouter votre évènement"
-
-#: template/front/event-angular.phtml:376
+#: template/front/event-angular.phtml:372
 msgid ""
 "You think an event deserves to be here? Promote your event by adding it for "
 "free."
@@ -650,15 +647,15 @@ msgstr ""
 "Vous pensez qu'un évènement mérite d'apparaître dans notre guide ? Faites la "
 "promotion de votre évènement en l'ajoutant gratuitement ici."
 
-#: template/front/event-angular.phtml:377
+#: template/front/event-angular.phtml:373
 msgid "Login / Register"
 msgstr "Se connecter / S'inscrire"
 
-#: template/front/event-angular.phtml:383
+#: template/front/event-angular.phtml:379
 msgid "Please login to add an event"
 msgstr "Merci de vous connecter pour ajouter votre évènement"
 
-#: template/front/event-angular.phtml:393
+#: template/front/event-angular.phtml:389
 msgid "Add your event here"
 msgstr "Ajoutez votre évènement"
 
@@ -833,6 +830,9 @@ msgstr "Période"
 #: template/front/partial/favourite-list.phtml:8
 msgid "Locations"
 msgstr "Lieux"
+
+#~ msgid "Add your event"
+#~ msgstr "Ajouter votre évènement"
 
 #, fuzzy
 #~| msgid "Add event"
