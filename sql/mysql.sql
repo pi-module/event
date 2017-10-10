@@ -50,8 +50,6 @@ CREATE TABLE `{order}` (
   `time_end`     INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   `status`       TINYINT(1) UNSIGNED       NOT NULL DEFAULT '0',
   `type`         ENUM ('discount', 'full') NOT NULL DEFAULT 'discount',
-  `code_public`  VARCHAR(32)               NOT NULL DEFAULT '',
-  `code_private` VARCHAR(32)               NOT NULL DEFAULT '',
   `extra`        TEXT,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),

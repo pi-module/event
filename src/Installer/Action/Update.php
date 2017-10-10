@@ -47,6 +47,11 @@ class Update extends BasicUpdate
         $newsStoryModel = Pi::model('story', 'news');
         $newsStoryTable = $newsStoryModel->getTable();
         $newsStoryAdapter = $newsStoryModel->getAdapter();
+ 
+        // Set order model
+        $orderModel = Pi::model('order', $this->module);
+        $orderTable = $orderModel->getTable();
+        $orderAdapter = $orderModel->getAdapter();
 
         // Update to version 0.1.5
         if (version_compare($moduleVersion, '0.1.5', '<')) {
@@ -181,6 +186,19 @@ class Update extends BasicUpdate
                 return false;
             }
         }
-            
+        if (version_compare($moduleVersion, '2.0.12', '<')) {
+        
+            $sql = sprintf("ALTER TABLE %s DROP  `code_private`, DROP  `code_public`  ", $orderTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }  
     }
 }

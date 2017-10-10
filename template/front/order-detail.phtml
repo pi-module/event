@@ -44,12 +44,4 @@
             <td colspan="4"><?php echo $this->escape($product['details']['address']); ?></td>
         </tr>
     <?php } ?>
-    <tr class="success">
-        <td><i class="fa fa-key"></i> <?php _e('Public code') ?></td>
-        <td colspan="4"><strong><?php echo $this->escape($product['extra']['orderDetail']['code_public']); ?></strong></td>
-    </tr>
-    <tr class="success">
-        <td><i class="fa fa-key"></i> <?php _e('Private code') ?></td>
-        <td colspan="4"><strong><?php echo $this->escape($product['extra']['orderDetail']['code_private']); ?></strong></td>
-    </tr>
 </table>

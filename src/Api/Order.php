@@ -51,8 +51,6 @@ class Order extends AbstractApi
                 array('id' => $event['id'])
             );
             
-            // generate code
-            $code = $this->generateCode();
             // Save order
             $values = array(
                 'uid' => $order['uid'],
@@ -65,8 +63,6 @@ class Order extends AbstractApi
                 'time_order' => time(),
                 'time_start' => $event['time_start'],
                 'time_end' => $event['time_end'],
-                'code_public' => $code['public'],
-                'code_private' => $code['private'],
                 'status' => 1,
                 'extra' => json_encode($setting['action']),
             );
@@ -143,20 +139,5 @@ class Order extends AbstractApi
         }
         // return
         return $order;
-    }
-
-    public function generateCode()
-    {
-        // Generate code_public
-        $private = Rand::getInteger(100000, 999999);
-        // Generate code_private
-        // Without 0 o
-        $public = Rand::getString(6, 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789', true);
-        // Set values
-        $result = array(
-            'public' => $public,
-            'private' => $private,
-        );
-        return $result;
     }
 }
