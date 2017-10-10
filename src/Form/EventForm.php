@@ -382,7 +382,7 @@ class EventForm extends BaseForm
                 $this->add(array(
                     'name' => $name,
                     'options' => array(
-                        'label' => $role['title'],
+                        'label' => __('Rebate rate for') . ' ' . $role['title'],
                     ),
                     'attributes' => array(
                         'type' => 'text',
