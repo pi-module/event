@@ -157,6 +157,14 @@ return array(
             'filter' => 'number_int',
             'value' => 0
         ),
+        'image_homepage' => array(
+            'category' => 'view',
+            'title' => _a('Set wide image for homepage'),
+            'description' => '',
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => ''
+        ),
         'view_list_type' => array(
             'title' => _a('Event list type'),
             'description' => '',
@@ -205,14 +213,6 @@ return array(
             'filter' => 'text',
             'value' => 'event',
             'category' => 'view',
-        ),
-        'image_homepage' => array(
-            'category' => 'view',
-            'title' => _a('Set wide image for homepage'),
-            'description' => '',
-            'edit' => 'text',
-            'filter' => 'string',
-            'value' => ''
         ),
         'price_filter' => array(
             'category' => 'view',
