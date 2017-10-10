@@ -369,8 +369,8 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     var favoritePopoverTimeoutHandle;
     function loginForAddEvent(elem) {
          clearTimeout(favoritePopoverTimeoutHandle);
-        var content = '<?php _e("You think an event deserves to be here? Promote your event by adding it for free.") ?>';
-        var loginLinkLabel = "<?php _e('login/register') ?>";
+        var content = "<?php _e("You think an event deserves to be here? Promote your event by adding it for free.") ?>";
+        var loginLinkLabel = "<?php _e("Login / Register") ?>";
         
        
         <?php if(Pi::user()->config('enable_modal')) { ?> 
@@ -386,7 +386,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
             placement: 'top',
             toggle: 'popover',
             content: content,
-            title: "<?php _e('Add an event !') ?>",
+            title: "<?php _e('Add your event here') ?>",
             container: 'body',
             html: true
         });
