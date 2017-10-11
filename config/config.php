@@ -149,10 +149,24 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
+        'wide_content' => array(
+            'category' => 'view',
+            'title' => _a('Active wide front image for this module'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 0
+        ),
        'image_index' => array(
             'category' => 'view',
             'title' => _a('Set wide image for homepage'),
-            'description' => _a('Upload to upload/event/image/width/index'),
+            'description' => sprintf(__("First make <strong>width</strong> directory on <strong>%s</strong> path, and you need upload images by ftp on it and put main image name on this field, for example if you input <strong>header.jpg</strong> on this field images size and name should be : 
+                <br> mobi-header.jpg => width: 479px 
+                <br> smart-header.jpg => width: 767px 
+                <br> tab-header.jpg => width: 991px 
+                <br> lap-header.jpg => width: 1366px 
+                <br> xlap-header.jpg => width: 1920px 
+                <br> desk-header.jpg => width: 2880px"), Pi::path('upload/event/image/width/index')),
             'edit' => 'text',
             'filter' => 'string',
             'value' => ''
