@@ -256,6 +256,9 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                         <li class="event-sort-type" data-ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
                    
+                   <?php 
+                   $roles = Pi::registry('role')->read();
+                   if ($roles[$config['manage_role']]['section'] == 'front') { ?> 
                     <ul class="list-inline event-nomargin col-md-4">
                         <?php if (Pi::user()->getId() > 0) { ?>
                             <a class="btn-success btn pull-right add-event" href="<?php echo Pi::url($this->url('', array('module' => 'event', 'controller' => 'manage', 'action' => 'update'))) ?>">
@@ -267,6 +270,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                             </a>                            
                         <?php } ?> 
                     </ul>
+                    <?php } ?> 
                 </div>
                 
                 <div class=" clearfix"></div>
