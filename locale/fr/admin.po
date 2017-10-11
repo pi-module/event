@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-10-09 12:33+0200\n"
+"POT-Creation-Date: 2017-10-11 21:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -52,11 +52,11 @@ msgstr "Afficher les hits"
 msgid "Show summary"
 msgstr "Afficher le résumé"
 
-#: config/block.php:75 config/config.php:227
+#: config/block.php:75 config/config.php:242
 msgid "Show days"
 msgstr "Afficher les jours"
 
-#: config/block.php:82 config/config.php:161
+#: config/block.php:82 config/config.php:176
 msgid "Event list type"
 msgstr "Mode affichage en liste"
 
@@ -68,7 +68,7 @@ msgstr "Vertical"
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: config/block.php:90 config/config.php:169
+#: config/block.php:90 config/config.php:184
 msgid "Table"
 msgstr "Table"
 
@@ -134,7 +134,7 @@ msgstr "Favoris"
 msgid "Google Map"
 msgstr "Google Map"
 
-#: config/config.php:60 config/config.php:179
+#: config/config.php:60 config/config.php:194
 msgid "Perpage"
 msgstr "Par page"
 
@@ -206,67 +206,71 @@ msgstr "Description pour la page Index"
 msgid "Active wide front image for this module"
 msgstr "Activer la front wide image pour ce module"
 
-#: config/config.php:167
-msgid "Line : each event on one line"
-msgstr "Ligne : un évènement par ligne"
-
-#: config/config.php:168
-msgid "Box : each event as box and 3 box on one line"
-msgstr "Box : 3 évènements par ligne"
-
-#: config/config.php:187
-msgid "Show related event"
-msgstr "Afficher les évènements relatifs"
-
-#: config/config.php:194
-msgid "Related event type"
-msgstr "Type Evènements Relatifs"
-
-#: config/config.php:200
-msgid "By event module topics"
-msgstr "Par Sujets du module News"
-
-#: config/config.php:201
-msgid "By guide module categories"
-msgstr "Par catégorie du module Guide"
-
-#: config/config.php:211
+#: config/config.php:162
 msgid "Set wide image for homepage"
 msgstr "Définir l'image large pour la page Index"
 
-#: config/config.php:219
+#: config/config.php:182
+msgid "Line : each event on one line"
+msgstr "Ligne : un évènement par ligne"
+
+#: config/config.php:183
+msgid "Box : each event as box and 3 box on one line"
+msgstr "Box : 3 évènements par ligne"
+
+#: config/config.php:202
+msgid "Show related event"
+msgstr "Afficher les évènements relatifs"
+
+#: config/config.php:209
+msgid "Related event type"
+msgstr "Type Evènements Relatifs"
+
+#: config/config.php:215
+msgid "By event module topics"
+msgstr "Par Sujets du module News"
+
+#: config/config.php:216
+msgid "By guide module categories"
+msgstr "Par catégorie du module Guide"
+
+#: config/config.php:226
+msgid "Set og/twitter image for homepage"
+msgstr "Définir l'URL de l'image homepage pour FB/Twitter"
+
+#: config/config.php:234
 msgid "Price filter"
 msgstr "Filtre sur le Prix"
 
-#: config/config.php:220
+#: config/config.php:235
 msgid "Input method : 100-200,Between 100 to 200|200-300,Between 200 to 300|"
 msgstr "Règle de saisie : 100-200, Entre 100 à 200|200-300, Entre 200 et 300|"
 
-#: config/config.php:235
+#: config/config.php:250
 msgid "Make organizer bold"
 msgstr "Mettre l'organisateur en gras"
 
-#: config/config.php:242
+#: config/config.php:257
 msgid "Image position"
 msgstr "Position Image"
 
-#: config/config.php:243
+#: config/config.php:258
 msgid "Image position on single event page"
 msgstr "Position de l'image dans la page Evènement"
 
-#: config/config.php:248
+#: config/config.php:263
 msgid "Show image on sidebar"
 msgstr "Afficher l'image sur le côté"
 
-#: config/config.php:249
+#: config/config.php:264
 msgid "Show image on center"
 msgstr "Afficher l'image au centre"
 
-#: config/config.php:259
+#: config/config.php:274
 msgid "Include all hits"
 msgstr "Inclure tous les hits"
 
-#: config/config.php:260
+#: config/config.php:275
 msgid ""
 "Include all page refresh as hits, if not check use SESSION check for update "
 "hits"
@@ -274,37 +278,37 @@ msgstr ""
 "Inclure tous les rafraichissement de page dans les Hits. sinon mise à jour "
 "des hits d'après le contrôle SESSION"
 
-#: config/config.php:267
+#: config/config.php:282
 msgid "Show summary on event page"
 msgstr "Texte d'introduction pour la page Event (Summary)"
 
-#: config/config.php:275
+#: config/config.php:290
 msgid "Social sharing items"
 msgstr "Réseaux sociaux"
 
-#: config/config.php:289
+#: config/config.php:304
 msgid "Manage event by users"
 msgstr "Gestion des évènements par les utilisateurs"
 
-#: config/config.php:297
+#: config/config.php:312
 msgid "Auto approval user events"
 msgstr "Auto-approbation des évènements utilisateurs"
 
-#: config/config.php:305
+#: config/config.php:320
 msgid "Allowed user role to access"
 msgstr "Rôle utilisateur autorisé à accéder"
 
-#: config/config.php:306
+#: config/config.php:321
 msgid "Put allowed role here, this option used when guide module not installed"
 msgstr ""
 "Saisir ici le rôle autorisé, cette option est utilisée si le module guide "
 "n'est pas installé"
 
-#: config/config.php:313
+#: config/config.php:328
 msgid "Manage register options"
 msgstr "Gérer les options d'inscription"
 
-#: config/config.php:314
+#: config/config.php:329
 msgid ""
 "Manage register options by user side. If yes, those extra fields will showed "
 "on user form : Address and Registration details/requirements"
@@ -313,49 +317,49 @@ msgstr ""
 "additionnels suivants seront affichés dans le formulaire utilisateur : "
 "adresse et modalités d'inscription"
 
-#: config/config.php:322
+#: config/config.php:337
 msgid "Active order"
 msgstr "Activer l'inscription"
 
-#: config/config.php:323
+#: config/config.php:338
 msgid "Manage event registration, ticket stock and activate orders"
 msgstr ""
 "Gérer les inscriptions aux évènements, le stock de tickets et activer les "
 "commandes"
 
-#: config/config.php:330
+#: config/config.php:345
 msgid "Show free word for free events"
 msgstr "Afficher le mot \"gratuit\" pour les évènements gratuits"
 
-#: config/config.php:338
+#: config/config.php:353
 msgid "Active discount system"
 msgstr "Activer le système de Remise"
 
-#: config/config.php:339
+#: config/config.php:354
 msgid "Discount percent for each rule on each event"
 msgstr "Pourcentage de réduction pour chaque règle et chaque évènement"
 
-#: config/config.php:347
+#: config/config.php:362
 msgid "Use vote system"
 msgstr "Utiliser le système de Vote"
 
-#: config/config.php:356
+#: config/config.php:371
 msgid "Use favourite system"
 msgstr "Utiliser le système de Favoris"
 
-#: config/config.php:364
+#: config/config.php:379
 msgid "Use Google Map"
 msgstr "Utiliser la carte Google Map"
 
-#: config/config.php:389
+#: config/config.php:404
 msgid "Zoom"
 msgstr "Zoom"
 
-#: config/config.php:398
+#: config/config.php:413
 msgid "Set Google map API KEY"
 msgstr "Définir la Google Map API Key"
 
-#: config/config.php:399
+#: config/config.php:414
 msgid ""
 "For obtaining an API Key please read this document : https://developers."
 "google.com/maps/documentation/javascript/tutorial#api_key"
@@ -363,23 +367,23 @@ msgstr ""
 "Pour obtenir une API Key, merci de lire ce document : https://developers."
 "google.com/maps/documentation/javascript/tutorial#api_key"
 
-#: config/config.php:405
+#: config/config.php:420
 msgid "Map type"
 msgstr "Type de carte"
 
-#: config/config.php:411
+#: config/config.php:426
 msgid "ROADMAP"
 msgstr "ROADMAP"
 
-#: config/config.php:412
+#: config/config.php:427
 msgid "SATELLITE"
 msgstr "SATELLITE"
 
-#: config/config.php:413
+#: config/config.php:428
 msgid "HYBRID"
 msgstr "HYBRID"
 
-#: config/config.php:414
+#: config/config.php:429
 msgid "TERRAIN"
 msgstr "TERRAIN"
 
