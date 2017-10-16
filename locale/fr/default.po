@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-10-10 12:14+0200\n"
+"POT-Creation-Date: 2017-10-11 21:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,6 +15,31 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: config/config.php:163
+#, php-format
+msgid ""
+"First make <strong>width</strong> directory on <strong>%s</strong> path, and "
+"you need upload images by ftp on it and put main image name on this field, "
+"for example if you input <strong>header.jpg</strong> on this field images "
+"size and name should be : \n"
+"                <br> mobi-header.jpg => width: 479px \n"
+"                <br> smart-header.jpg => width: 767px \n"
+"                <br> tab-header.jpg => width: 991px \n"
+"                <br> lap-header.jpg => width: 1366px \n"
+"                <br> xlap-header.jpg => width: 1920px \n"
+"                <br> desk-header.jpg => width: 2880px"
+msgstr ""
+"D'abord créer le répertoire <strong>width</strong> situé sur le chemin "
+"<strong>%s</strong>, puis uploader vos images par ftp dedans et déclarer le "
+"nom de l'image ici. Par exemple, si vous saisissez <strong>header.jpg</"
+"strong> dans ce chamsp, les taille d'aimge et nom doivent être : \n"
+"                <br> mobi-header.jpg => width: 479px \n"
+"                <br> smart-header.jpg => width: 767px \n"
+"                <br> tab-header.jpg => width: 991px \n"
+"                <br> lap-header.jpg => width: 1366px \n"
+"                <br> xlap-header.jpg => width: 1920px \n"
+"                <br> desk-header.jpg => width: 2880px"
 
 #: src/Api/Breadcrumbs.php:74 src/Api/Breadcrumbs.php:79
 #: src/Api/Breadcrumbs.php:91
@@ -392,6 +417,10 @@ msgstr "Tarif minimum"
 msgid "Discount options"
 msgstr "Options de Remise"
 
+#: src/Form/EventForm.php:385
+msgid "Rebate rate for"
+msgstr "Taux de remise pour"
+
 #: src/Form/EventForm.php:389
 msgid "Number and between 1 to 99"
 msgstr "Nombre entre 1 et 99"
@@ -516,27 +545,19 @@ msgstr "Liste de toutes les inscriptions"
 msgid "Name"
 msgstr "Nom"
 
-#: template/admin/order-index.phtml:8 template/front/order-detail.phtml:48
-msgid "Public code"
-msgstr "Code public"
-
-#: template/admin/order-index.phtml:9 template/front/order-detail.phtml:52
-msgid "Private code"
-msgstr "Code privé"
-
-#: template/admin/order-index.phtml:10 template/front/manage-order.phtml:24
+#: template/admin/order-index.phtml:8 template/front/manage-order.phtml:24
 msgid "Number"
 msgstr "Nombre"
 
-#: template/admin/order-index.phtml:11 template/front/manage-order.phtml:25
+#: template/admin/order-index.phtml:9 template/front/manage-order.phtml:25
 msgid "Total"
 msgstr "Total TTC"
 
-#: template/admin/order-index.phtml:12
+#: template/admin/order-index.phtml:10
 msgid "Event"
 msgstr "Evènement"
 
-#: template/admin/order-index.phtml:38 template/admin/order-index.phtml:64
+#: template/admin/order-index.phtml:36 template/admin/order-index.phtml:60
 #: template/front/event-angular-new.phtml:115
 #: template/front/manage-update.phtml:58
 msgid "Close"
@@ -634,12 +655,12 @@ msgstr "Hits"
 msgid "Default"
 msgstr "Défaut"
 
-#: template/front/event-angular.phtml:262
-#: template/front/event-angular.phtml:266
+#: template/front/event-angular.phtml:265
+#: template/front/event-angular.phtml:269
 msgid "<strong>Add</strong> an event"
 msgstr "<strong>Ajouter</strong> votre évènement"
 
-#: template/front/event-angular.phtml:372
+#: template/front/event-angular.phtml:376
 msgid ""
 "You think an event deserves to be here? Promote your event by adding it for "
 "free."
@@ -647,15 +668,15 @@ msgstr ""
 "Vous pensez qu'un évènement mérite d'apparaître dans notre guide ? Faites la "
 "promotion de votre évènement en l'ajoutant gratuitement ici."
 
-#: template/front/event-angular.phtml:373
+#: template/front/event-angular.phtml:377
 msgid "Login / Register"
 msgstr "Se connecter / S'inscrire"
 
-#: template/front/event-angular.phtml:379
+#: template/front/event-angular.phtml:383
 msgid "Please login to add an event"
 msgstr "Merci de vous connecter pour ajouter votre évènement"
 
-#: template/front/event-angular.phtml:389
+#: template/front/event-angular.phtml:393
 msgid "Add your event here"
 msgstr "Ajoutez votre évènement"
 
@@ -767,11 +788,7 @@ msgid "You still doesn't submit any event, you can submit events easy"
 msgstr ""
 "Vous n'avez pas encore soumis d'évènement, vous pouvez le faire facilement"
 
-#: template/front/manage-order.phtml:26
-msgid "Code"
-msgstr "Code"
-
-#: template/front/manage-order.phtml:40
+#: template/front/manage-order.phtml:38
 msgid "This event still have no online register !"
 msgstr "Cet évènement n'a pas encore d'inscrits"
 
@@ -830,6 +847,15 @@ msgstr "Période"
 #: template/front/partial/favourite-list.phtml:8
 msgid "Locations"
 msgstr "Lieux"
+
+#~ msgid "Public code"
+#~ msgstr "Code public"
+
+#~ msgid "Private code"
+#~ msgstr "Code privé"
+
+#~ msgid "Code"
+#~ msgstr "Code"
 
 #~ msgid "Add your event"
 #~ msgstr "Ajouter votre évènement"
