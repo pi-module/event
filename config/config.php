@@ -223,7 +223,7 @@ return array(
         ),
         'image_homepage' => array(
             'category' => 'view',
-            'title' => _a('Set og/twitter image for homepage'),
+            'title' => _a('OG/Twitter image URL for Homepage'),
             'description' => 'Used in meta (second choice)',
             'edit' => 'text',
             'filter' => 'string',
