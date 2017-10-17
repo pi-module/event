@@ -285,6 +285,14 @@ return array(
             'filter' => 'number_int',
             'value' => 1,
         ),
+        'text_intro_add' => array(
+            'category' => 'view',
+            'title' => _a('Introduction for add page'),
+            'description' => '',
+            'edit' => 'textarea',
+            'filter' => 'string',
+            'value' => ''
+        ),
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),
