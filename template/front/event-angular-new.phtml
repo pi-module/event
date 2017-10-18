@@ -28,9 +28,7 @@ if (isset($category['text_summary']) && !empty($category['text_summary'])) {
 } elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
     $this->headMeta(_strip($config['text_description_index']), 'og:description', 'property');
 }
-if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
-    $this->headMeta($this->escape($category['largeUrl']), 'og:image', 'property');
-} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
     $this->headMeta($this->escape($config['image_homepage']), 'og:image', 'property');
 }
 
@@ -45,9 +43,7 @@ if (isset($category['text_summary']) && !empty($category['text_summary'])) {
 } elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
     $this->headMeta(_strip($config['text_description_index']), 'twitter:description');
 }
-if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
-    $this->headMeta($this->escape($category['largeUrl']), 'twitter:image');
-} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
     $this->headMeta($this->escape($config['image_homepage']), 'twitter:image');
 }
 ?>
@@ -76,22 +72,9 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
-            <?php if (!empty($category['largeUrl'])) { ?>
-                <div class="category-width-description">
-                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
-                    <?php if (!empty($category['text_summary'])) { ?>
-                        <div class="clearfix"><?php echo $category['text_summary']; ?></div>
-                    <?php } ?>
-                </div>
-                <div class="category-width-image">
-                    <img class="img-responsive" src="<?php echo $category['largeUrl']; ?>"
-                         alt="<?php echo $this->escape($category['title']); ?>">
-                </div>
-            <?php } else { ?>
-                <div class="page-header">
-                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
-                </div>
-            <?php } ?>
+            <div class="page-header">
+                <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
+            </div>
             <?php if (!empty($category['text_description'])) { ?>
                 <div class="clearfix well"><?php echo $category['text_description']; ?></div>
             <?php } ?>
