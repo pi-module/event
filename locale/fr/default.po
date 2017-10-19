@@ -665,8 +665,8 @@ msgid ""
 "You think an event deserves to be here? Promote your event by adding it for "
 "free."
 msgstr ""
-"Vous pensez qu'un évènement mérite d'apparaître dans notre guide ? Faites la "
-"promotion de votre évènement en l'ajoutant gratuitement ici."
+"Un évènement incontournable du territoire (sportif, culturel, patrimonial, "
+"etc.) manque à l'appel dans notre guide ? Ajoutez-le !"
 
 #: template/front/event-angular.phtml:360
 msgid "Login / Register"
