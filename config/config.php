@@ -133,6 +133,14 @@ return array(
             'value' => 'angular',
             'category' => 'view',
         ),
+         'view_summary' => array(
+            'category' => 'view',
+            'title' => _a('Show summary on event page'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1,
+        ),
         'text_summary_index' => array(
             'category' => 'view',
             'title' => _a('Summary for index page'),
@@ -141,7 +149,7 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-        'text_description_index' => array(
+       'text_description_index' => array(
             'category' => 'view',
             'title' => _a('Description for index page'),
             'description' => '',
@@ -149,6 +157,15 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
+        'text_intro_add' => array(
+            'category' => 'view',
+            'title' => _a('Introduction for add page'),
+            'description' => '',
+            'edit' => 'textarea',
+            'filter' => 'string',
+            'value' => ''
+        ),
+        
         'wide_content' => array(
             'category' => 'view',
             'title' => _a('Active wide front image for this module'),
@@ -277,22 +294,7 @@ return array(
             'filter' => 'number_int',
             'value' => 0
         ),
-        'view_summary' => array(
-            'category' => 'view',
-            'title' => _a('Show summary on event page'),
-            'description' => '',
-            'edit' => 'checkbox',
-            'filter' => 'number_int',
-            'value' => 1,
-        ),
-        'text_intro_add' => array(
-            'category' => 'view',
-            'title' => _a('Introduction for add page'),
-            'description' => '',
-            'edit' => 'textarea',
-            'filter' => 'string',
-            'value' => ''
-        ),
+        
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),
