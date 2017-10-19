@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2017-10-11 21:24+0200\n"
+"POT-Creation-Date: 2017-10-19 08:38+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -235,8 +235,8 @@ msgid "By guide module categories"
 msgstr "Par catégorie du module Guide"
 
 #: config/config.php:226
-msgid "Set og/twitter image for homepage"
-msgstr "Définir l'URL de l'image homepage pour FB/Twitter"
+msgid "OG/Twitter image URL for Homepage"
+msgstr "URL de l'image FB/Twitter pour la homepage"
 
 #: config/config.php:234
 msgid "Price filter"
@@ -283,32 +283,36 @@ msgid "Show summary on event page"
 msgstr "Texte d'introduction pour la page Event (Summary)"
 
 #: config/config.php:290
+msgid "Introduction for add page"
+msgstr "Introduction pour le formulaire ajout event"
+
+#: config/config.php:298
 msgid "Social sharing items"
 msgstr "Réseaux sociaux"
 
-#: config/config.php:304
+#: config/config.php:312
 msgid "Manage event by users"
 msgstr "Gestion des évènements par les utilisateurs"
 
-#: config/config.php:312
+#: config/config.php:320
 msgid "Auto approval user events"
 msgstr "Auto-approbation des évènements utilisateurs"
 
-#: config/config.php:320
+#: config/config.php:328
 msgid "Allowed user role to access"
 msgstr "Rôle utilisateur autorisé à accéder"
 
-#: config/config.php:321
+#: config/config.php:329
 msgid "Put allowed role here, this option used when guide module not installed"
 msgstr ""
 "Saisir ici le rôle autorisé, cette option est utilisée si le module guide "
 "n'est pas installé"
 
-#: config/config.php:328
+#: config/config.php:336
 msgid "Manage register options"
 msgstr "Gérer les options d'inscription"
 
-#: config/config.php:329
+#: config/config.php:337
 msgid ""
 "Manage register options by user side. If yes, those extra fields will showed "
 "on user form : Address and Registration details/requirements"
@@ -317,49 +321,49 @@ msgstr ""
 "additionnels suivants seront affichés dans le formulaire utilisateur : "
 "adresse et modalités d'inscription"
 
-#: config/config.php:337
+#: config/config.php:345
 msgid "Active order"
 msgstr "Activer l'inscription"
 
-#: config/config.php:338
+#: config/config.php:346
 msgid "Manage event registration, ticket stock and activate orders"
 msgstr ""
 "Gérer les inscriptions aux évènements, le stock de tickets et activer les "
 "commandes"
 
-#: config/config.php:345
+#: config/config.php:353
 msgid "Show free word for free events"
 msgstr "Afficher le mot \"gratuit\" pour les évènements gratuits"
 
-#: config/config.php:353
+#: config/config.php:361
 msgid "Active discount system"
 msgstr "Activer le système de Remise"
 
-#: config/config.php:354
+#: config/config.php:362
 msgid "Discount percent for each rule on each event"
 msgstr "Pourcentage de réduction pour chaque règle et chaque évènement"
 
-#: config/config.php:362
+#: config/config.php:370
 msgid "Use vote system"
 msgstr "Utiliser le système de Vote"
 
-#: config/config.php:371
+#: config/config.php:379
 msgid "Use favourite system"
 msgstr "Utiliser le système de Favoris"
 
-#: config/config.php:379
+#: config/config.php:387
 msgid "Use Google Map"
 msgstr "Utiliser la carte Google Map"
 
-#: config/config.php:404
+#: config/config.php:412
 msgid "Zoom"
 msgstr "Zoom"
 
-#: config/config.php:413
+#: config/config.php:421
 msgid "Set Google map API KEY"
 msgstr "Définir la Google Map API Key"
 
-#: config/config.php:414
+#: config/config.php:422
 msgid ""
 "For obtaining an API Key please read this document : https://developers."
 "google.com/maps/documentation/javascript/tutorial#api_key"
@@ -367,23 +371,23 @@ msgstr ""
 "Pour obtenir une API Key, merci de lire ce document : https://developers."
 "google.com/maps/documentation/javascript/tutorial#api_key"
 
-#: config/config.php:420
+#: config/config.php:428
 msgid "Map type"
 msgstr "Type de carte"
 
-#: config/config.php:426
+#: config/config.php:434
 msgid "ROADMAP"
 msgstr "ROADMAP"
 
-#: config/config.php:427
+#: config/config.php:435
 msgid "SATELLITE"
 msgstr "SATELLITE"
 
-#: config/config.php:428
+#: config/config.php:436
 msgid "HYBRID"
 msgstr "HYBRID"
 
-#: config/config.php:429
+#: config/config.php:437
 msgid "TERRAIN"
 msgstr "TERRAIN"
 
