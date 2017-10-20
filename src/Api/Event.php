@@ -558,10 +558,13 @@ class Event extends AbstractApi
     public function doAfterVote()
     {}
     
-    public function favoriteList()
+    public function favoriteList($uid = null)
     {
         // Get user id
-        $uid = Pi::user()->getId();
+        if ($uid == null) {
+            $uid = Pi::user()->getId();
+        }
+                
         // Check user
         if ($uid > 0) {
             $favoriteIds = Pi::api('favourite', 'favourite')->userFavourite($uid, 'news');
