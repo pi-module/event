@@ -6,15 +6,15 @@
             <?php include $this->templateModule('front/user-profile-sidebar.phtml', 'user'); ?>
         </div>
         <div class="col-md-9">
-            <div class="page-header clearfix">
-                <h1 class="pull-left"><?php echo $this->escape($title); ?></h1>
-                <?php if ($allowed) { ?>
-                    <div class="pull-right text-right">
+            <?php if ($allowed) { ?>
+                    <div class="pull-right">
                         <a class="btn btn-primary" href="<?php echo $this->url('', array('action' => 'update')); ?>" title="<?php _e('New event'); ?>">
                             <i class="fa fa-plus"></i> <?php _e('New event'); ?>
                         </a>
                     </div>
                 <?php } ?>
+            <div class="page-header clearfix">
+                <h1 ><?php echo $this->escape($title); ?></h1>
             </div>
             <?php if ($allowed) { ?>
                 <?php if (!empty($events)) { ?>
