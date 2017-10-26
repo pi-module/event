@@ -1,11 +1,11 @@
 <?php Pi::service('i18n')->load(array('module/event', 'default')); ?>
 <table id="item-list" class="table table-striped table-bordered table-condensed">
     <tr>
-        <th class="col-md-1"><?php _e('Image'); ?></th>
+        <th class="col-md-<?php echo $isProfil ? '2' : '1' ?>"><?php _e('Image'); ?></th>
         <th class="col-md-3"><?php _e('Name'); ?></th>
-        <th class="col-md-3"><?php _e('Period'); ?></th>
         <th class="col-md-2"><?php _e('Category'); ?></th>
-        <th class="col-md-3"><?php _e('Locations'); ?></th>
+        <th class="col-md-3"><?php _e('Period'); ?></th>
+        <th class="col-md-<?php echo $isProfil ? '2' : '3' ?>"><?php _e('Locations'); ?></th>
 
     </tr>
     <?php foreach ($favouriteList as $favourite) { ?>
@@ -18,12 +18,12 @@
                 <a title="<?php echo $this->escape($favourite['title']); ?>"
                    href="<?php echo $this->escape($favourite['url']); ?>"><?php echo $this->escape($favourite['title']); ?></a>
             </td>
-            <td><?php echo $this->escape(($favourite['period'])); ?></td>
             <td><?php foreach ($favourite['categories'] as $category) { ?>
                     <span class="guide-margin"><a title="<?php echo $this->escape($category['title']); ?>"
                                                   href="<?php echo $this->escape($category['categoryUrl']); ?>"><?php echo $this->escape($category['title']); ?></a></span>
                 <?php } ?>
             </td>
+            <td><?php echo $this->escape(($favourite['period'])); ?></td>
             <td>
                 <span class="guide-margin"><?php echo $this->escape($favourite['location']); ?></span>
             </td>
