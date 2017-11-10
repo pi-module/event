@@ -266,3 +266,5 @@ a.item-ribbon:hover {
     padding:4px 15px!important; 
     border-radius:6px!important
 }
+
+.page-header h1 {margin:0}
