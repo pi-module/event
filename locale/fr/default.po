@@ -658,7 +658,7 @@ msgstr "Défaut"
 #: template/front/event-angular.phtml:248
 #: template/front/event-angular.phtml:252
 msgid "<strong>Add</strong> an event"
-msgstr "<strong>Ajouter</strong> votre évènement"
+msgstr "<strong>Ajoutez</strong> votre évènement !"
 
 #: template/front/event-angular.phtml:359
 msgid "A major event is missing? Add it !"
