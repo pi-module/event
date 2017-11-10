@@ -9,7 +9,7 @@
             <h1><?php echo $this->escape($title); ?></h1>
             <?php 
                 if ($event['register_stock'] > 0) {                                                               
-                    echo sprintf(__('%s registred / %s places'), $event['register_sales'], $event['register_stock']);
+                    echo sprintf(__('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'], $event['register_stock'] - $event['register_sales']);
                 } else {
                     echo sprintf(__('%s registred'), $event['register_sales']);
                 }
@@ -23,7 +23,6 @@
                     <th><?php _e('Name'); ?></th>
                     <th><?php _e('Number'); ?></th>
                     <th><?php _e('Total'); ?></th>
-                    <th><?php _e('Code'); ?></th>
                 </tr>
                 <?php foreach ($list as $order) { ?>
                     <tr>
@@ -31,7 +30,6 @@
                         <td><?php echo $this->escape($order['user']['name']); ?></td>
                         <td><?php echo $this->escape($order['number_view']); ?></td>
                         <td><?php echo $this->escape($order['total_view']); ?></td>
-                        <td><?php echo $this->escape($order['code_public']); ?></td>
                     </tr>
                 <?php } ?>
             </table>

@@ -34,8 +34,6 @@ class Order extends Model
         'time_end',
         'status',
         'type',
-        'code_public',
-        'code_private',
         'extra',
     );
 }

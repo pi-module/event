@@ -1,3 +1,5 @@
+.event-nomargin {margin:0}
+
 .event-manage .page-header h3 {
     padding-top: 0;
     margin-top: 0;
@@ -259,3 +261,10 @@ a.item-ribbon:hover {
     width:14px;
     text-align:center;
 }
+
+.add-event {
+    padding:4px 15px!important; 
+    border-radius:6px!important
+}
+
+.page-header h1 {margin:0}

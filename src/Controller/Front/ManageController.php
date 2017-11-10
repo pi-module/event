@@ -131,7 +131,11 @@ class ManageController extends ActionController
             'order_active' => $config['order_active'],
             'map_use' => $config['map_use'],
             'manage_register' => $config['manage_register'],
+            'order_discount' => $config['order_discount'],
+            'register_can' => $this->params('register_can')
+            
         );
+        
         // Find event
         if ($id) {
             $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
@@ -292,6 +296,10 @@ class ManageController extends ActionController
                     }
 
                     $row->assign($values);
+                    if ($values['register_stock'] == null) {
+                        $row->register_stock = null;
+                    }
+                   
                     $row->save();
 
                     // Check topic

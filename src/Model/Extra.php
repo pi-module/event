@@ -41,7 +41,6 @@ class Extra extends Model
         'register_stock',
         'register_sales',
         'register_price',
-        'register_type',
         'register_discount',
         'register_click',
         'guide_owner',

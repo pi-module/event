@@ -133,6 +133,14 @@ return array(
             'value' => 'angular',
             'category' => 'view',
         ),
+         'view_summary' => array(
+            'category' => 'view',
+            'title' => _a('Show summary on event page'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1,
+        ),
         'text_summary_index' => array(
             'category' => 'view',
             'title' => _a('Summary for index page'),
@@ -141,7 +149,7 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
-        'text_description_index' => array(
+       'text_description_index' => array(
             'category' => 'view',
             'title' => _a('Description for index page'),
             'description' => '',
@@ -149,6 +157,15 @@ return array(
             'filter' => 'string',
             'value' => ''
         ),
+        'text_intro_add' => array(
+            'category' => 'view',
+            'title' => _a('Introduction for add page'),
+            'description' => '',
+            'edit' => 'textarea',
+            'filter' => 'string',
+            'value' => ''
+        ),
+        
         'wide_content' => array(
             'category' => 'view',
             'title' => _a('Active wide front image for this module'),
@@ -157,6 +174,21 @@ return array(
             'filter' => 'number_int',
             'value' => 0
         ),
+       'image_index' => array(
+            'category' => 'view',
+            'title' => _a('Set wide image for homepage'),
+            'description' => sprintf(__("First make <strong>width</strong> directory on <strong>%s</strong> path, and you need upload images by ftp on it and put main image name on this field, for example if you input <strong>header.jpg</strong> on this field images size and name should be : 
+                <br> mobi-header.jpg => width: 479px 
+                <br> smart-header.jpg => width: 767px 
+                <br> tab-header.jpg => width: 991px 
+                <br> lap-header.jpg => width: 1366px 
+                <br> xlap-header.jpg => width: 1920px 
+                <br> desk-header.jpg => width: 2880px"), Pi::path('upload/event/image/width/index')),
+            'edit' => 'text',
+            'filter' => 'string',
+            'value' => ''
+        ),
+        
         'view_list_type' => array(
             'title' => _a('Event list type'),
             'description' => '',
@@ -208,7 +240,7 @@ return array(
         ),
         'image_homepage' => array(
             'category' => 'view',
-            'title' => _a('Set wide image for homepage'),
+            'title' => _a('OG/Twitter image URL for Homepage'),
             'description' => '',
             'edit' => 'text',
             'filter' => 'string',
@@ -262,14 +294,7 @@ return array(
             'filter' => 'number_int',
             'value' => 0
         ),
-        'view_summary' => array(
-            'category' => 'view',
-            'title' => _a('Show summary on event page'),
-            'description' => '',
-            'edit' => 'checkbox',
-            'filter' => 'number_int',
-            'value' => 1,
-        ),
+        
         // Social
         'social_sharing' => array(
             'title' => _t('Social sharing items'),
@@ -311,7 +336,7 @@ return array(
         'manage_register' => array(
             'category' => 'manage',
             'title' => _a('Manage register options'),
-            'description' => _a('Manage register options by user, if yes, some extra fields will show'),
+            'description' => _a('Manage register options by user side. If yes, those extra fields will showed on user form : Address and Registration details/requirements'),
             'edit' => 'checkbox',
             'filter' => 'number_int',
             'value' => 1

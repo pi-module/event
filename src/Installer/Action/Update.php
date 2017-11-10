@@ -47,6 +47,11 @@ class Update extends BasicUpdate
         $newsStoryModel = Pi::model('story', 'news');
         $newsStoryTable = $newsStoryModel->getTable();
         $newsStoryAdapter = $newsStoryModel->getAdapter();
+ 
+        // Set order model
+        $orderModel = Pi::model('order', $this->module);
+        $orderTable = $orderModel->getTable();
+        $orderAdapter = $orderModel->getAdapter();
 
         // Update to version 0.1.5
         if (version_compare($moduleVersion, '0.1.5', '<')) {
@@ -140,5 +145,60 @@ class Update extends BasicUpdate
                 return false;
             }
         }
+         if (version_compare($moduleVersion, '2.0.9', '<')) {
+            // Alter table field `register_click`
+            $sql = sprintf("ALTER TABLE %s CHANGE `register_stock` `register_stock` INT(10) UNSIGNED NULL DEFAULT NULL;", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+
+            $sql = sprintf("UPDATE %s SET register_stock = null WHERE register_stock = 0 AND register_can = 0;", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }
+        
+        if (version_compare($moduleVersion, '2.0.10', '<')) {
+        
+            $sql = sprintf("ALTER TABLE %s DROP  `register_type` ", $extraTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }
+        if (version_compare($moduleVersion, '2.0.12', '<')) {
+        
+            $sql = sprintf("ALTER TABLE %s DROP  `code_private`, DROP  `code_public`  ", $orderTable);
+            try {
+                $extraAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult('db', array(
+                    'status' => false,
+                    'message' => 'Table alter query failed: '
+                        . $exception->getMessage(),
+                ));
+                return false;
+            }
+        }  
     }
 }

@@ -1,4 +1,8 @@
 <?php
+$urlAddEvent = Pi::url($this->url('', array(
+    'controller' => 'manage',
+    'action' => 'update',
+)));
 
 // Load angular custom js
 $script = <<<'EOT'
@@ -94,9 +98,7 @@ if (isset($category['text_summary']) && !empty($category['text_summary'])) {
 } elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
     $this->headMeta(_strip($config['text_description_index']), 'og:description', 'property');
 }
-if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
-    $this->headMeta($this->escape($category['largeUrl']), 'og:image', 'property');
-} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
     $this->headMeta($this->escape($config['image_homepage']), 'og:image', 'property');
 }
 
@@ -111,9 +113,7 @@ if (isset($category['text_summary']) && !empty($category['text_summary'])) {
 } elseif(isset($config['text_description_index']) && !empty($config['text_description_index'])) {
     $this->headMeta(_strip($config['text_description_index']), 'twitter:description');
 }
-if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
-    $this->headMeta($this->escape($category['largeUrl']), 'twitter:image');
-} elseif(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
+if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
     $this->headMeta($this->escape($config['image_homepage']), 'twitter:image');
 }
 ?>
@@ -123,7 +123,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     </div>
     <div class="col-sm-12 col-md-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
-            <?php if (!empty($config['image_homepage'])) { ?>
+            <?php if (!empty($config['image_index'])) { ?>
 
                 <?php
                     ob_start();
@@ -141,22 +141,9 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                 <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
-            <?php if (!empty($category['largeUrl'])) { ?>
-                <div class="category-width-description">
-                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
-                    <?php if (!empty($category['text_summary'])) { ?>
-                        <div class="clearfix"><?php echo $category['text_summary']; ?></div>
-                    <?php } ?>
-                </div>
-                <div class="category-width-image">
-                    <img class="img-responsive" src="<?php echo $category['largeUrl']; ?>"
-                         alt="<?php echo $this->escape($category['title']); ?>">
-                </div>
-            <?php } else { ?>
-                <div class="page-header">
-                    <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
-                </div>
-            <?php } ?>
+            <div class="page-header">
+                <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
+            </div>
             <?php if (!empty($category['text_description'])) { ?>
                 <div class="clearfix well"><?php echo $category['text_description']; ?></div>
             <?php } ?>
@@ -167,7 +154,7 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
             <div class="page-header">
                 <h4><?php _e('Search on this group'); ?></h4>
             </div>
-            <form>
+            <form class="well">
                 <div class="form-group">
                     <label><?php _e('Title'); ?></label>
                     <input type="text" data-ng-model="filterTitle" class="form-control">
@@ -236,8 +223,8 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
     <div class="col-sm-12 col-md-9" data-ng-controller="listdata">
         <div class="clearfix">
             <div class="event-list clearfix">
-                <div class="clearfix event-sort">
-                    <ul class="list-inline">
+                <div class="clearfix event-sort ">
+                    <ul class="list-inline col-md-8">
                         <li><?php _e('Sort by'); ?> :</li>
                         <li class="event-sort-type" data-ng-click="sort('time_publish')"><?php _e('Time'); ?> <i
                                 class="fa sort-icon" data-ng-show="sortKey=='time_publish'"
@@ -251,7 +238,25 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
                                 data-ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></i></li>
                         <li class="event-sort-type" data-ng-click="sortKey=''"><?php _e('Default'); ?></li>
                     </ul>
+                   
+                   <?php 
+                   $roles = Pi::registry('role')->read();
+                   if ($roles[$config['manage_role']]['section'] == 'front') { ?> 
+                    <ul class="list-inline event-nomargin col-md-4">
+                        <?php if (Pi::user()->getId() > 0) { ?>
+                            <a class="btn-success btn pull-right add-event" href="<?php echo Pi::url($this->url('', array('module' => 'event', 'controller' => 'manage', 'action' => 'update'))) ?>">
+                                <span class="fa fa-calendar"></span>&nbsp;&nbsp;&nbsp;<?php _e("<strong>Add</strong> an event") ?>
+                            </a>
+                        <?php } else { ?>
+                            <a class="btn-success btn pull-right add-event" href="#" onclick="loginForAddEvent(this);">
+                                <span class="fa fa-calendar"></span>&nbsp;&nbsp;&nbsp;<?php _e("<strong>Add</strong> an event") ?>
+                            </a>                            
+                        <?php } ?> 
+                    </ul>
+                    <?php } ?> 
                 </div>
+                
+                <div class=" clearfix"></div>
                 <div class="clearfix <?php echo (isset($config['view_list_type']) && $config['view_list_type'] == 'box') ? 'match-height-list' : '' ?>">
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
@@ -345,3 +350,41 @@ if (isset($category['largeUrl']) && !empty($category['largeUrl'])) {
         </div>
     </div>
 </div>
+
+
+<script>
+    var favoritePopoverTimeoutHandle;
+    function loginForAddEvent(elem) {
+        clearTimeout(favoritePopoverTimeoutHandle);
+        var content = "<?php _e("A major event is missing? Add it !") ?>";
+        var loginLinkLabel = "<?php _e("Login / Register") ?>";
+        
+       
+        <?php if(Pi::user()->config('enable_modal')) { ?> 
+            content += '<div class="text-center"><button onclick="$(\'.popover-active\').popover(\'hide\')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#loginRegisterModal" data-redirect="<?php echo $urlAddEvent?>">'+loginLinkLabel+'</button></div>'; 
+        <?php } else { ?>
+            content += '<div class="text-center"><br/><?php _e("Please login to add an event") ?></div>';
+        <?php } ?>
+                                          
+        var link = $(elem);
+        
+        link.not('.popover-active').addClass('popover-active').popover({
+            trigger: 'manual',
+            placement: 'bottom',
+            toggle: 'popover',
+            content: content,
+            title: "<?php _e('Add your event here') ?>",
+            container: 'body',
+            html: true
+        });
+    
+        link.popover('show');
+    
+         favoritePopoverTimeoutHandle = setTimeout(function () {
+            link.popover('hide')
+            $('.popover-active').popover('hide');
+        }, 5000);
+        
+        return false;
+    }    
+</script>

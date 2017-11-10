@@ -44,6 +44,10 @@ if ($local = 'fa') {
             <div class="page-header">
                 <h1><?php echo $this->escape($title); ?></h1>
             </div>
+            <p>
+                <?php echo $config['text_intro_add'] ?>
+                <hr/>
+            </p>
             <div id="event-form">
                 <?php echo $this->form($form); ?>
             </div>
@@ -126,6 +130,8 @@ if ($local = 'fa') {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
             });
+            var minDate = new Date($(".event-time-start").val());
+            $('.event-time-end').datepicker('setStartDate', minDate);
 
             <?php if (Pi::service('module')->isActive('guide')) { ?>
             if (0 == <?php echo $canSubmitEvent?>) {
@@ -161,7 +167,6 @@ if ($local = 'fa') {
 <script>
     (function ($) {
         $("#event").submit(function(e){
-
             var mainImage = $('input[name="main_image"]').val();
 
             if(!mainImage){
@@ -169,5 +174,32 @@ if ($local = 'fa') {
                 e.preventDefault();
             }
         });
+        
+        var registerCanOnChange = function() {
+              if ($('[type=checkbox][name=register_can]').prop('checked')) {
+                  $('[data-name=register_stock] label i.text-danger').show();
+                  $('[name=register_stock]').attr('required', true);
+              } else {
+                  $('[data-name=register_stock] label i.text-danger').hide();
+                  $('[name=register_stock]').removeAttr('required');                  
+              }
+        };
+      
+        $('[name=register_can]').change(
+          registerCanOnChange
+          
+        );
+        
+        registerCanOnChange();
+        
+        if ($(".event-time-start").length) {
+            $(".event-time-start").datepicker().on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('.event-time-end').datepicker('setStartDate', minDate);
+            });
+            var minDate = new Date($(".event-time-start").val());
+            $('.event-time-end').datepicker('setStartDate', minDate);
+        }
+            
     })(jQuery)
 </script>

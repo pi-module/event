@@ -13,10 +13,9 @@ CREATE TABLE `{extra}` (
   # register
   `register_details`  TEXT,
   `register_can`      TINYINT(1) UNSIGNED       NOT NULL DEFAULT '0',
-  `register_stock`    INT(10) UNSIGNED          NOT NULL DEFAULT '0',
+  `register_stock`    INT(10) UNSIGNED          NULL DEFAULT NULL,
   `register_sales`    INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   `register_price`    DECIMAL(16, 2)            NOT NULL DEFAULT '0.00',
-  `register_type`     ENUM ('discount', 'full') NOT NULL DEFAULT 'discount',
   `register_discount` TEXT,
   `register_click`    INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   # guide module fields
@@ -51,8 +50,6 @@ CREATE TABLE `{order}` (
   `time_end`     INT(10) UNSIGNED          NOT NULL DEFAULT '0',
   `status`       TINYINT(1) UNSIGNED       NOT NULL DEFAULT '0',
   `type`         ENUM ('discount', 'full') NOT NULL DEFAULT 'discount',
-  `code_public`  VARCHAR(32)               NOT NULL DEFAULT '',
-  `code_private` VARCHAR(32)               NOT NULL DEFAULT '',
   `extra`        TEXT,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),

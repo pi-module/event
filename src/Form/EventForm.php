@@ -321,6 +321,35 @@ class EventForm extends BaseForm
                 )
             ));
         }
+        // Check order active
+        if ($this->option['order_active']) {
+            // register_can
+            $this->add(array(
+                'name' => 'register_can',
+                'type' => 'checkbox',
+                'options' => array(
+                    'label' => __('Register online?'),
+                ),
+                'attributes' => array(
+                    'description' => __('User can register directly on the website and proceed to checkout, real availability is displayed'),
+                )
+            ));
+        }
+        if ($this->option['order_active']) {
+            // register_stock
+            $this->add(array(
+                'name' => 'register_stock',
+                'options' => array(
+                    'label' => __('Capacity'),
+                ),
+                'attributes' => array(
+                    'type' => 'text',
+                    'required' => true,
+                    'description' => __('0 for unlimited'),
+                )
+            ));
+        }    
+            
         // register_price
         $this->add(array(
             'name' => 'register_price',
@@ -332,45 +361,11 @@ class EventForm extends BaseForm
                 'description' => '',
             )
         ));
-        // Check order active
-        if ($this->option['order_active']) {
-            // register_can
-            $this->add(array(
-                'name' => 'register_can',
-                'type' => 'checkbox',
-                'options' => array(
-                    'label' => __('Register online?'),
-                ),
-                'attributes' => array(
-                    'description' => '',
-                )
-            ));
-            // register_stock
-            $this->add(array(
-                'name' => 'register_stock',
-                'options' => array(
-                    'label' => __('Capacity'),
-                ),
-                'attributes' => array(
-                    'type' => 'text',
-                    'description' => '',
-                )
-            ));
-            // register_type
-            $this->add(array(
-                'name' => 'register_type',
-                'type' => 'select',
-                'options' => array(
-                    'label' => __('Registration type'),
-                    'value_options' => array(
-                        'discount' => __('Discount code'),
-                        'full' => __('Pay full price'),
-                    ),
-                ),
-            ));
-        }
+        
+           
         // order_discount
         if ($this->option['order_active'] && isset($this->option['order_discount']) && $this->option['order_discount']) {
+            
             // extra_product
             $this->add(array(
                 'name' => 'extra_discount',
@@ -387,7 +382,7 @@ class EventForm extends BaseForm
                 $this->add(array(
                     'name' => $name,
                     'options' => array(
-                        'label' => $role['title'],
+                        'label' => __('Rebate rate for') . ' ' . $role['title'],
                     ),
                     'attributes' => array(
                         'type' => 'text',
