@@ -631,15 +631,19 @@ class Event extends AbstractApi
                     
                     $story['categories'] = array();
                     $storyTopics = json_decode($story['guide_category']);
-                    foreach ($storyTopics as $idTopic) {
-                        $story['categories'][] = $topics[$idTopic];
+                    if (count($storyTopics)) {
+                        foreach ($storyTopics as $idTopic) {
+                            $story['categories'][] = $topics[$idTopic];
+                        }
                     }
                     
                     $story['locations'] = array();
                     $storyLocationsId = json_decode($story['guide_location']);
                     $storyLocations = array();
-                    foreach ($storyLocationsId as $idLocation) {
-                        $storyLocations[] = $locations[$idLocation];
+                    if (count($storyLocationsId)) {
+                        foreach ($storyLocationsId as $idLocation) {
+                            $storyLocations[] = $locations[$idLocation];
+                        }
                     }
                     $story['location'] = join(' | ', $storyLocations);
                     $story['image'] = '';

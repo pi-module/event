@@ -423,7 +423,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
 
                                         <?php $summary = !empty($relatedEvent['text_summary']) ? $relatedEvent['text_summary'] : $relatedEvent['title']; ?>
                                         <meta itemprop="description" content="<?php echo $this->escape($summary); ?>" />
-                                        <meta itemprop="image" content="<?php echo $this->escape($relatedEvent['locationInfo']['largeUrl']); ?>" />
+                                        <?php if (isset($relatedEvent['locationInfo']['largeUrl'])) { ?>
+                                            <meta itemprop="image" content="<?php echo $this->escape($relatedEvent['locationInfo']['largeUrl']); ?>" />
+                                        <?php } ?>
                                         <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
                                             <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
                                             <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
