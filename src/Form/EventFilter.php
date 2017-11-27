@@ -33,6 +33,19 @@ class EventFilter extends InputFilter
                     'name' => 'StringTrim',
                 ),
             ),
+            'validators' => array(
+                new \Zend\Validator\Db\NoRecordExists(
+                    array(
+                        'table' => Pi::model('story', 'news')->getTable(),
+                        'field' => 'title',
+                        'adapter' => Pi::model('story', 'news')->getAdapter(),
+                        'exclude' => array(
+                            'field' => 'id',
+                            'value' => isset($option['id']) ? $option['id'] : null
+                        )                             
+                    )
+                )
+            ),
         ));
         // subtitle
         $this->add(array(
@@ -52,12 +65,6 @@ class EventFilter extends InputFilter
                 array(
                     'name' => 'StringTrim',
                 ),
-            ),
-            'validators' => array(
-                new \Module\News\Validator\SlugDuplicate(array(
-                    'module' => 'news',
-                    'table' => 'story',
-                )),
             ),
         ));
         // time_start

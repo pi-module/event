@@ -128,6 +128,7 @@ class EventController extends ActionController
             }
         }
         // Set form
+        $option['id'] = $id;
         $form = new EventForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         if ($this->request->isPost()) {

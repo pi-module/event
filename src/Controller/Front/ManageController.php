@@ -184,6 +184,7 @@ class ManageController extends ActionController
             $canSubmitEvent = true;
         }
         // Set form
+        $option['id'] = $id;
         $form = new EventForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         if ($this->request->isPost() && $canSubmitEvent) {
