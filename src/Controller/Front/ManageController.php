@@ -260,7 +260,8 @@ class ManageController extends ActionController
 
                     // Save values on news story table and event extra table
                     if (!empty($values['id'])) {
-                        $story = Pi::api('api', 'news')->editStory($values, true);
+                        
+                        $story = Pi::api('api', 'news')->editStory($values, true, false);
                         if (isset($story) && !empty($story)) {
                             $row = $this->getModel('extra')->find($story['id']);
                         } else {
@@ -288,7 +289,6 @@ class ManageController extends ActionController
                     if ($values['register_stock'] == null) {
                         $row->register_stock = null;
                     }
-                   
                     $row->save();
 
                     // Check topic

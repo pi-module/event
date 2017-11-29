@@ -195,7 +195,7 @@ class EventController extends ActionController
                     $values['register_discount'] = json_encode($discount);
                     // Save values on news story table and event extra table
                     if (!empty($values['id'])) {
-                        $story = Pi::api('api', 'news')->editStory($values, true);
+                        $story = Pi::api('api', 'news')->editStory($values, true, false);
                         if (isset($story) && !empty($story)) {
                             $row = $this->getModel('extra')->find($story['id']);
                         } else {
