@@ -41,27 +41,15 @@ class ManageController extends ActionController
         } else {
             Pi::service('authentication')->requireLogin();
         }
-        // Check owner
-        if (Pi::service('module')->isActive('guide')) {
-            $owner = $this->canonizeGuideOwner();
-            if (isset($owner['id']) && $owner['id'] > 0) {
-                $where = array(
-                    'guide_owner' => $owner['id'],
-                );
-                $allowed = 1;
-                // Set view
-                $this->view()->assign('owner', $owner);
-            }
-        } else {
-            $roles = Pi::user()->getRole($uid, 'front');
-            if (in_array($config['manage_role'], $roles)) {
-                $where = array(
-                    'uid' => $uid,
-                );
-                $allowed = 1;
-            }
+       
+        $roles = Pi::user()->getRole($uid, 'front');
+        if (in_array($config['manage_role'], $roles)) {
+            $where = array(
+                'uid' => $uid,
+            );
+            $allowed = 1;
         }
-
+        
         // Get event list
         if ($allowed) {
             $order = array('time_start DESC', 'id DESC');
@@ -105,7 +93,7 @@ class ManageController extends ActionController
         }
         // Check allowed
         $allowed = 0;
-        if (Pi::service('module')->isActive('guide')) {
+        if ($item && Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
             if (isset($owner['id']) && $owner['id'] > 0) {
                 $allowed = 1;
@@ -166,7 +154,7 @@ class ManageController extends ActionController
             $title = __('Add event');
         }
         // Check event guide owner
-        if (Pi::service('module')->isActive('guide')) {
+        if ($item && Pi::service('module')->isActive('guide')) {
             $owner = $this->canonizeGuideOwner();
             $option['owner'] = $owner['id'];
             if (isset($event['guide_owner']) && $event['guide_owner'] != $owner['id']) {
@@ -196,6 +184,7 @@ class ManageController extends ActionController
             $canSubmitEvent = true;
         }
         // Set form
+        $option['id'] = $id;
         $form = new EventForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         if ($this->request->isPost() && $canSubmitEvent) {
@@ -271,7 +260,8 @@ class ManageController extends ActionController
 
                     // Save values on news story table and event extra table
                     if (!empty($values['id'])) {
-                        $story = Pi::api('api', 'news')->editStory($values, true);
+                        
+                        $story = Pi::api('api', 'news')->editStory($values, true, false);
                         if (isset($story) && !empty($story)) {
                             $row = $this->getModel('extra')->find($story['id']);
                         } else {
@@ -299,7 +289,6 @@ class ManageController extends ActionController
                     if ($values['register_stock'] == null) {
                         $row->register_stock = null;
                     }
-                   
                     $row->save();
 
                     // Check topic
