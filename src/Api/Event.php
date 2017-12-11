@@ -567,7 +567,7 @@ class Event extends AbstractApi
                 
         // Check user
         if ($uid > 0) {
-            $favoriteIds = Pi::api('favourite', 'favourite')->userFavourite($uid, 'news');
+            $favoriteIds = Pi::api('favourite', 'favourite')->userFavourite($uid, 'event');
             // Check list of ides
             if (!empty($favoriteIds)) {
                 // Get config
