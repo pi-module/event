@@ -141,15 +141,15 @@ class DetailController extends ActionController
         }
         // favourite
         if ($config['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
-            $favourite['is'] = Pi::api('favourite', 'favourite')->loadFavourite('news', 'story', $event['id']);
+            $favourite['is'] = Pi::api('favourite', 'favourite')->loadFavourite('event', 'story', $event['id']);
             $favourite['item'] = $event['id'];
             $favourite['table'] = 'story';
-            $favourite['module'] = 'news';
+            $favourite['module'] = 'event';
             $this->view()->assign('favourite', $favourite);
             
             $configFavourite = Pi::service('registry')->config->read('favourite');
             if ($configFavourite['favourite_list']) {
-                $favouriteList = Pi::api('favourite', 'favourite')->listItemFavourite('news', 'story', $event['id']);
+                $favouriteList = Pi::api('favourite', 'favourite')->listItemFavourite('event', 'story', $event['id']);
                 $this->view()->assign('favouriteList', $favouriteList);
             }
         }
