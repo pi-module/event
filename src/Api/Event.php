@@ -136,7 +136,15 @@ class Event extends AbstractApi
                 //}
             }
         }
-        return $listEvent;
+        
+        $events = array();
+        foreach ($listEvent as $event) {
+            if ($event['time_end'] < strtotime(date('Y-m-d'))) {
+                continue;
+            }
+            $events[] = $event;
+        }
+        return $events;
     }
 
     public function getListFromId($id)
