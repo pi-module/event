@@ -354,7 +354,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                             <?php foreach ($event['guideItemInfo']['commercial'] as $guideItemInfo) { ?>
                                 <div class="center-block event-item-box h-review col-sm-9 col-md-9">
                                     <div class="thumbnail p-item h-card">
-                                        <?php if ($guideItemInfo['image']) { ?>
+                                        <?php if ($guideItemInfo['main_image']) { ?>
                                             <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                                href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
                                                 <img class="img-responsive u-photo"

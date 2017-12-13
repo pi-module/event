@@ -682,5 +682,15 @@ class Event extends AbstractApi
             return array();
         }
     }
-
+    public function getOnlyAvailableEvent($list)
+    {
+        $events = array();
+        foreach ($list as $event) {
+            if ($event['time_end'] < strtotime(date('Y-m-d'))) {
+                continue;
+            }
+            $events[] = $event;
+        }
+        return $events;
+    }
 }
