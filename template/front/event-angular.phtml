@@ -242,7 +242,6 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                    <?php 
                    $roles = Pi::registry('role')->read();
                    if ($roles[$config['manage_role']]['section'] == 'front') { ?> 
-                    <ul class="list-inline event-nomargin col-md-4">
                         <?php if (Pi::user()->getId() > 0) { ?>
                             <a class="btn-success btn pull-right add-event" href="<?php echo Pi::url($this->url('', array('module' => 'event', 'controller' => 'manage', 'action' => 'update'))) ?>">
                                 <span class="fa fa-calendar"></span>&nbsp;&nbsp;&nbsp;<?php _e("<strong>Add</strong> an event") ?>
@@ -252,7 +251,6 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                                 <span class="fa fa-calendar"></span>&nbsp;&nbsp;&nbsp;<?php _e("<strong>Add</strong> an event") ?>
                             </a>                            
                         <?php } ?> 
-                    </ul>
                     <?php } ?> 
                 </div>
                 
