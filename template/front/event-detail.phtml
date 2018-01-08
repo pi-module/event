@@ -159,7 +159,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                     <i class="fa fa-external-link"></i>
                                     <?php _e('Register') ?>
                                 </a>
-                                <script type="text/javascript">
+                                <script>
                                     (function ($) {
                                         $('.event-source-url').click(function () {
                                             $.getJSON("<?php echo Pi::url($this->url('event', array(

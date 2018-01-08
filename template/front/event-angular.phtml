@@ -361,7 +361,7 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
         <?php if(Pi::user()->config('enable_modal')) { ?> 
             content += '<div class="text-center"><button onclick="$(\'.popover-active\').popover(\'hide\')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#loginRegisterModal" data-redirect="<?php echo $urlAddEvent?>">'+loginLinkLabel+'</button></div>'; 
         <?php } else { ?>
-            content += '<div class="text-center"><br/><?php _e("Please login to add an event") ?></div>';
+            content += '<div class="text-center"><br><?php _e("Please login to add an event") ?></div>';
         <?php } ?>
                                           
         var link = $(elem);
