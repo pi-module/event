@@ -469,6 +469,8 @@ class Event extends AbstractApi
             'id' => $event['id'],
             'title' => $event['title'],
             'image' => $event['main_image'],
+
+            'realThumbUrl' => $event['thumbUrl'],
             'thumbUrl' => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
             'eventUrl' => $event['eventUrl'],
             'subtitle' => $event['subtitle'],

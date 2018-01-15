@@ -275,11 +275,22 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                                     <div class="text-center">
                                         <a itemprop="url" title="{{event.title}}"
                                            data-ng-href="{{event.eventUrl}}">
-                                            <img itemprop="image" class="img-responsive img-rounded u-photo center-block lazyload"
-                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII="
-                                                 data-src="#"
-                                                 data-ng-src="{{event.thumbUrl}}"
-                                                 alt="{{event.title}}"/>
+
+                                            <picture>
+                                                <source data-srcset="{{event.realThumbUrl}}" media="(max-width: 479px)">
+                                                <source data-srcset="{{event.realThumbUrl}}" media="(max-width: 767px)">
+                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 991px)">
+                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 1366px)">
+                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 2800px)">
+
+                                                <img itemprop="image" class="img-responsive img-rounded u-photo center-block lazyload"
+                                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII="
+                                                     data-src="#"
+                                                     data-ng-src="{{event.thumbUrl}}"
+                                                     alt="{{event.title}}"/>
+                                            </picture>
+
+
                                         </a>
                                     </div>
                                 </div>
