@@ -475,10 +475,22 @@ $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'));
                                     <?php if ($guideItemInfo['main_image']) { ?>
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                            <img class="img-responsive u-photo lazyload"
-                                                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                                 data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
-                                                 alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+
+                                            <picture>
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(479,479); ?>" media="(max-width: 479px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(767,767); ?>" media="(max-width: 767px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(220,200); ?>" media="(max-width: 991px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(215,215); ?>" media="(max-width: 1199px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 1366px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 2800px)">
+
+                                                <img class="img-responsive u-photo lazyload"
+                                                     style="max-width:100%"
+                                                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                     data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
+                                                     alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                            </picture>
+
                                             <?php if ($guideItemInfo['ribbon']) { ?>
                                                 <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
                                             <?php } ?>
