@@ -61,9 +61,11 @@ app.controller('listdata',function($scope, $http){
         $scope.sortKey = keyname;
         $scope.reverse = !$scope.reverse;
     }
-    $scope.$on('dirPaginateFinished', function(dirPaginateFinishedEvent) {        
+    
+    $scope.$on('dirPaginateFinished', function(dirPaginateFinishedEvent) {
         $('.event-list').imagesLoaded().then(function(){
             // Callback in the future
+            lazySizes.init();
         });
     });
 });
@@ -117,6 +119,15 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
     $this->headMeta($this->escape($config['image_homepage']), 'twitter:image');
 }
 ?>
+
+<script>
+    window.lazySizesConfig = window.lazySizesConfig || {};
+    window.lazySizesConfig.init = false;
+</script>
+
+<?php $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js')); ?>
+
+
 <div class="clearfix row">
     <div class="ajax-spinner">
         <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader" alt="" />
@@ -257,17 +268,27 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                 <div class=" clearfix"></div>
                 <div class="clearfix <?php echo (isset($config['view_list_type']) && $config['view_list_type'] == 'box') ? 'match-height-list' : '' ?>">
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
-                        <div data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
+                        <div data-on-finish-render="dirPaginateFinished" data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
                              class="event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
                             <div class="row">
                                 <div class="col-xs-3 event-single-image" data-ng-if="event.image">
                                     <div class="text-center">
                                         <a itemprop="url" title="{{event.title}}"
                                            data-ng-href="{{event.eventUrl}}">
-                                            <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
-                                                 src="#"
-                                                 data-ng-src="{{event.thumbUrl}}"
-                                                 alt="{{event.title}}"/>
+
+                                            <picture>
+                                                <source data-srcset="{{event.realThumbUrl}}" media="(max-width: 479px)">
+                                                <source data-srcset="{{event.realThumbUrl}}" media="(max-width: 767px)">
+                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 991px)">
+                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 1366px)">
+                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 2800px)">
+
+                                                <img itemprop="image" class="img-responsive img-rounded u-photo center-block lazyload"
+                                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII="
+                                                     data-src="#"
+                                                     data-ng-src="{{event.thumbUrl}}"
+                                                     alt="{{event.title}}"/>
+                                            </picture>
                                         </a>
                                     </div>
                                 </div>
@@ -361,7 +382,7 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
         <?php if(Pi::user()->config('enable_modal')) { ?> 
             content += '<div class="text-center"><button onclick="$(\'.popover-active\').popover(\'hide\')" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#loginRegisterModal" data-redirect="<?php echo $urlAddEvent?>">'+loginLinkLabel+'</button></div>'; 
         <?php } else { ?>
-            content += '<div class="text-center"><br/><?php _e("Please login to add an event") ?></div>';
+            content += '<div class="text-center"><br><?php _e("Please login to add an event") ?></div>';
         <?php } ?>
                                           
         var link = $(elem);

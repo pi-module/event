@@ -255,6 +255,7 @@ class EventForm extends BaseForm
             'type' => 'Module\Media\Form\Element\Media',
             'options' => array(
                 'label' => __('Main image'),
+                'module' => 'news',
             ),
         ));
         // address

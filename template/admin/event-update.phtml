@@ -31,7 +31,7 @@ if ($local = 'fa') {
     <?php echo $this->form($form); ?>
 </div>
 <?php if ($local == 'fa') { ?>
-    <script type="text/javascript">
+    <script>
         // https://github.com/jalaali/moment-jalaali
         // https://momentjs.com/docs/#/parsing/string-format/
         (function ($) {
@@ -69,7 +69,7 @@ if ($local = 'fa') {
         })(jQuery)
     </script>
 <?php } else { ?>
-    <script type="text/javascript">
+    <script>
         (function ($) {
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
