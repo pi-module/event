@@ -203,6 +203,8 @@ class EventForm extends BaseForm
                 'rows' => '3',
                 'cols' => '40',
                 'description' => '',
+                'required' => true,
+                
             )
         ));
         // text_description
@@ -215,6 +217,8 @@ class EventForm extends BaseForm
             'attributes' => array(
                 'type' => 'editor',
                 'description' => '',
+                'required' => true,
+                
             )
         ));
         // extra_main
@@ -446,6 +450,7 @@ class EventForm extends BaseForm
                     'options' => array(
                         'label' => __('Owner'),
                         'module' => 'guide',
+                        'owner' => true
                     ),
                 ));
             }

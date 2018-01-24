@@ -14,6 +14,7 @@ namespace Module\Event\Api;
 
 use Pi;
 use Pi\Application\Api\AbstractApi;
+use Zend\Db\Sql\Predicate\Expression;
 
 /*
  * Pi::api('event', 'event')->getEventSingle($parameter, $field, $type);
@@ -693,4 +694,12 @@ class Event extends AbstractApi
         }
         return $events;
     }
+    
+    public function changeGuideOwner($owner, $newOwner, $item)    {
+            
+        $model = Pi::model('extra', 'event');
+        $model->update(array('guide_owner' => $newOwner['id'], 'uid' => $newOwner['uid']), array(new Expression('guide_item LIKE "%' . $item . '%"')));
+        
+    }
+    
 }
