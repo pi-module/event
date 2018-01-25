@@ -76,7 +76,7 @@ if ($local = 'fa') {
     </div>
 <?php } ?>
 <?php if ($local == 'fa') { ?>
-    <script type="text/javascript">
+    <script>
         // https://github.com/jalaali/moment-jalaali
         // https://momentjs.com/docs/#/parsing/string-format/
         (function ($) {
@@ -124,7 +124,7 @@ if ($local = 'fa') {
         })(jQuery)
     </script>
 <?php } else { ?>
-    <script type="text/javascript">
+    <script>
         (function ($) {
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
@@ -152,7 +152,7 @@ if ($local = 'fa') {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><?php echo _e("Main image is required"); ?></h4>
+                <h4 class="modal-title" ><?php echo _e("Main image is required"); ?></h4>
             </div>
             <div class="modal-body">
                 <?php echo _e("You must add main image before save that event"); ?>

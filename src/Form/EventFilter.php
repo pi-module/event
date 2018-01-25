@@ -90,7 +90,7 @@ class EventFilter extends InputFilter
         // text_summary
         $this->add(array(
             'name' => 'text_summary',
-            'required' => false,
+            'required' => true,
             'filters' => array(
                 array(
                     'name' => 'StringTrim',
@@ -100,7 +100,7 @@ class EventFilter extends InputFilter
         // text_description
         $this->add(array(
             'name' => 'text_description',
-            'required' => false,
+            'required' => true,
             'filters' => array(
                 array(
                     'name' => 'StringTrim',

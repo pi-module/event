@@ -56,6 +56,8 @@ $this->sticky();
 if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])){
     $this->geoTag($event['map_latitude'], $event['map_longitude'], $event['title']);
 }
+
+$this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'));
 ?>
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
@@ -99,7 +101,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <?php $media = Pi::api('doc','media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
                         <a href="<?php echo $media['resized_url']; ?>"
                            title="<?php echo $this->escape($event['title']); ?><?php if($media['copyright']) echo ' - ' . $media['copyright'] ?>" itemprop="image">
-                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
+                            <img class="img-responsive img-thumbnail lazyload"
+                                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                 data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                         </a>
                     </div>
@@ -141,7 +145,9 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                         <?php $media = Pi::api('doc','media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
                         <a href="<?php echo $media['resized_url']; ?>"
                            title="<?php echo $this->escape($event['title']); ?><?php if($media['copyright']) echo ' - ' . $media['copyright'] ?>" itemprop="image">
-                            <img class="img-responsive img-thumbnail" src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
+                            <img class="img-responsive img-thumbnail lazyload"
+                                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                 data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                         </a>
                     </div>
@@ -159,7 +165,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                     <i class="fa fa-external-link"></i>
                                     <?php _e('Register') ?>
                                 </a>
-                                <script type="text/javascript">
+                                <script>
                                     (function ($) {
                                         $('.event-source-url').click(function () {
                                             $.getJSON("<?php echo Pi::url($this->url('event', array(
@@ -354,11 +360,12 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                             <?php foreach ($event['guideItemInfo']['commercial'] as $guideItemInfo) { ?>
                                 <div class="center-block event-item-box h-review col-sm-9 col-md-9">
                                     <div class="thumbnail p-item h-card">
-                                        <?php if ($guideItemInfo['image']) { ?>
+                                        <?php if ($guideItemInfo['main_image']) { ?>
                                             <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                                href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                                <img class="img-responsive u-photo"
-                                                     src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
+                                                <img class="img-responsive u-photo lazyload"
+                                                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                     data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                                      alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                                 <?php if ($guideItemInfo['ribbon']) { ?>
                                                     <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
@@ -468,9 +475,22 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
                                     <?php if ($guideItemInfo['main_image']) { ?>
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                            <img class="img-responsive u-photo"
-                                                 src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
-                                                 alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+
+                                            <picture>
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(479,479); ?>" media="(max-width: 479px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(767,767); ?>" media="(max-width: 767px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(220,200); ?>" media="(max-width: 991px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(215,215); ?>" media="(max-width: 1199px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 1366px)">
+                                                <source data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 2800px)">
+
+                                                <img class="img-responsive u-photo lazyload"
+                                                     style="max-width:100%"
+                                                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                     data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
+                                                     alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                            </picture>
+
                                             <?php if ($guideItemInfo['ribbon']) { ?>
                                                 <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
                                             <?php } ?>

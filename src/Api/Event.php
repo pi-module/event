@@ -14,6 +14,7 @@ namespace Module\Event\Api;
 
 use Pi;
 use Pi\Application\Api\AbstractApi;
+use Zend\Db\Sql\Predicate\Expression;
 
 /*
  * Pi::api('event', 'event')->getEventSingle($parameter, $field, $type);
@@ -136,7 +137,15 @@ class Event extends AbstractApi
                 //}
             }
         }
-        return $listEvent;
+        
+        $events = array();
+        foreach ($listEvent as $event) {
+            if ($event['time_end'] < strtotime(date('Y-m-d'))) {
+                continue;
+            }
+            $events[] = $event;
+        }
+        return $events;
     }
 
     public function getListFromId($id)
@@ -461,6 +470,8 @@ class Event extends AbstractApi
             'id' => $event['id'],
             'title' => $event['title'],
             'image' => $event['main_image'],
+
+            'realThumbUrl' => $event['thumbUrl'],
             'thumbUrl' => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
             'eventUrl' => $event['eventUrl'],
             'subtitle' => $event['subtitle'],
@@ -674,5 +685,23 @@ class Event extends AbstractApi
             return array();
         }
     }
-
+    public function getOnlyAvailableEvent($list)
+    {
+        $events = array();
+        foreach ($list as $event) {
+            if ($event['time_end'] < strtotime(date('Y-m-d'))) {
+                continue;
+            }
+            $events[] = $event;
+        }
+        return $events;
+    }
+    
+    public function changeGuideOwner($owner, $newOwner, $item)    {
+            
+        $model = Pi::model('extra', 'event');
+        $model->update(array('guide_owner' => $newOwner['id'], 'uid' => $newOwner['uid']), array(new Expression('guide_item LIKE "%' . $item . '%"')));
+        
+    }
+    
 }

@@ -391,6 +391,9 @@ class ManageController extends ActionController
                         Pi::service('module')->current()
                     );
                     
+                    if ($item['id']) {
+                        $this->jump(array('module' => 'guide', 'controller' => 'manage', 'action' => 'event-list', 'item' => $item['id']), $message);    
+                    }
                     $this->jump(array('action' => 'index'), $message);
                 }
             }
