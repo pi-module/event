@@ -49,6 +49,9 @@ app.directive('onFinishRender', function ($timeout) {
 });
 
 app.controller('listdata',function($scope, $http){
+
+    jQuery('picture source[data-srcset]').attr('srcset', null);
+    
     $scope.events = [];
     $('.ajax-spinner').show();
     $http.get("%s").success(function(response){
@@ -277,11 +280,11 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                                            data-ng-href="{{event.eventUrl}}">
 
                                             <picture>
-                                                <source data-srcset="{{event.realThumbUrl}}" media="(max-width: 479px)">
-                                                <source data-srcset="{{event.realThumbUrl}}" media="(max-width: 767px)">
-                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 991px)">
-                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 1366px)">
-                                                <source data-srcset="{{event.thumbUrl}}" media="(max-width: 2800px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{event.realThumbUrl}}" media="(max-width: 479px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{event.realThumbUrl}}" media="(max-width: 767px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{event.thumbUrl}}" media="(max-width: 991px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{event.thumbUrl}}" media="(max-width: 1366px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{event.thumbUrl}}" media="(max-width: 2800px)">
 
                                                 <img itemprop="image" class="img-responsive img-rounded u-photo center-block lazyload"
                                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII="
