@@ -413,6 +413,7 @@ class ManageController extends ActionController
         $this->view()->setTemplate('manage-update');
         $this->view()->assign('form', $form);
         $this->view()->assign('title', $title);
+        $this->view()->assign('item', $item);
         $this->view()->assign('config', $config);
         $this->view()->assign('canSubmitEvent', $canSubmitEvent);
 

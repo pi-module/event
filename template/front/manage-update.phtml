@@ -74,6 +74,24 @@ if ($local = 'fa') {
             </div>
         </div>
     </div>
+    <div class="modal fade" id="publishModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="<?php _e('Close'); ?>">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><?php echo _e("Item not publish"); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p><?php echo _e("You cannot yet publish any event : to unlock this feature, you have to get your business item being published"); ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _e("Ok"); ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 <?php if ($local == 'fa') { ?>
     <script>
@@ -167,6 +185,12 @@ if ($local = 'fa') {
 <script>
     (function ($) {
         $("#event").submit(function(e){
+            if (1 != <?php echo $item['status'] ?>) {
+                event.preventDefault();
+                $('#publishModal').modal();
+                return;   
+            }
+           
             var mainImage = $('input[name="main_image"]').val();
 
             if(!mainImage){
