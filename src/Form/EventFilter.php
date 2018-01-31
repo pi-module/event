@@ -90,7 +90,7 @@ class EventFilter extends InputFilter
         // text_summary
         $this->add(array(
             'name' => 'text_summary',
-            'required' => true,
+            'required' => $option['side'] == 'admin' ? false : true,
             'filters' => array(
                 array(
                     'name' => 'StringTrim',
@@ -100,7 +100,7 @@ class EventFilter extends InputFilter
         // text_description
         $this->add(array(
             'name' => 'text_description',
-            'required' => true,
+            'required' => $option['side'] == 'admin' ? false : true,
             'filters' => array(
                 array(
                     'name' => 'StringTrim',

@@ -182,15 +182,48 @@ if ($local = 'fa') {
     </div>
 </div>
 
+<div class="modal fade" id="descriptionRequired" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" ><?php echo _e("Description is required"); ?></h4>
+            </div>
+            <div class="modal-body">
+                <?php echo _e("You must add a description before save that event"); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     (function ($) {
         $("#event").submit(function(e){
-            if (1 != <?php echo $item['status'] ?>) {
+            if (1 != <?php echo $item['status'] ? $item['status'] : 1 ?>) {
                 event.preventDefault();
                 $('#publishModal').modal();
                 return;   
             }
            
+           var ret = false;
+           $.each(CKEDITOR.instances, 
+                function(elem) {
+                    if (elem.indexOf('text_description') > -1) {
+                        if (CKEDITOR.instances[elem].getData().length == 0) {
+                            $('#descriptionRequired').modal('show');
+                            e.preventDefault();
+                            ret = true;
+                            return;
+                        }
+                    }
+                }
+            );
+            if (ret) {
+                return;
+            }
+            
             var mainImage = $('input[name="main_image"]').val();
 
             if(!mainImage){

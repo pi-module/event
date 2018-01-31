@@ -203,7 +203,7 @@ class EventForm extends BaseForm
                 'rows' => '3',
                 'cols' => '40',
                 'description' => '',
-                'required' => true,
+                'required' => $this->option['side'] == 'admin' ? false : true,
                 
             )
         ));
@@ -217,7 +217,7 @@ class EventForm extends BaseForm
             'attributes' => array(
                 'type' => 'editor',
                 'description' => '',
-                'required' => true,
+                'required' => $this->option['side'] == 'admin' ? false : true,
                 
             )
         ));
