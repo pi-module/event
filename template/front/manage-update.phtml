@@ -201,7 +201,7 @@ if ($local = 'fa') {
 <script>
     (function ($) {
         $("#event").submit(function(e){
-            if (1 != <?php echo $item['status'] ? $item['status'] : 1 ?>) {
+            if (1 != <?php echo isset($item['status']) ? $item['status'] : 1 ?>) {
                 event.preventDefault();
                 $('#publishModal').modal();
                 return;   
