@@ -128,7 +128,7 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
     window.lazySizesConfig.init = false;
 </script>
 
-<?php $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js')); ?>
+<?php $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), array('async' => 'async')); ?>
 
 
 <div class="clearfix row">

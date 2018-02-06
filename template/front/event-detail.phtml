@@ -57,7 +57,7 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
     $this->geoTag($event['map_latitude'], $event['map_longitude'], $event['title']);
 }
 
-$this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'));
+$this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), array('async' => 'async'));
 ?>
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
