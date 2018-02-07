@@ -15,22 +15,22 @@ $title = sprintf('%s - %s', $event['title'], $time);
 $summary = sprintf('%s - %s', !empty($event['text_summary']) ? $event['text_summary'] : $event['title'], $time);
 // Set script
 $script = <<<'EOT'
-    $('.gallery').each(function() {
-    	$(this).magnificPopup({
-       		delegate: 'a',
-       		type: 'image',
-       		gallery: {
-      			enabled:true
-       		}
-    	});
-	});
+    window.addEventListener('DOMContentLoaded', function() {
+        $('.gallery').each(function() {
+            $(this).magnificPopup({
+                delegate: 'a',
+                type: 'image',
+                gallery: {
+                    enabled:true
+                }
+            });
+        });
+    });
 EOT;
 // Load files
 $this->css($this->assetModule('css/front.css'));
-$this->jQuery(array(
-    'extension/jquery.magnific-popup.min.js',
-    'extension/magnific-popup.min.css',
-));
+$this->jQuery(array('extension/jquery.magnific-popup.min.js' => array('deferr' => 'defer')));
+$this->jQuery('extension/magnific-popup.min.css');
 $this->footScript()->appendScript($script);
 // Set Open Graph tags for meta
 $shareImage = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large');
