@@ -34,7 +34,7 @@ if ($local = 'fa') {
     </div>
     <?php $this->flashMessenger()->clearMessages() ?>
 <?php } ?>
-<div id="event-form" class="clearfix">
+<div id="event-form-container" class="clearfix">
     <div class="guide-manage clearfix">
         <div class="col-md-3">
             <?php $sideActive = 'event'; ?>
@@ -46,8 +46,8 @@ if ($local = 'fa') {
             </div>
             <p>
                 <?php echo $config['text_intro_add'] ?>
-                <hr/>
             </p>
+            <hr/>
             <div id="event-form">
                 <?php echo $this->form($form); ?>
             </div>
