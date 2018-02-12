@@ -34,7 +34,7 @@ if ($local = 'fa') {
     <script>
         // https://github.com/jalaali/moment-jalaali
         // https://momentjs.com/docs/#/parsing/string-format/
-        (function ($) {
+        $(document).ready(function(){
 
             $('.event-time-start-view').persianDatepicker({
                 <?php if (isset($event['time_start']) && !empty($event['time_start'])) { ?>
@@ -66,18 +66,18 @@ if ($local = 'fa') {
                 }
             });
 
-        })(jQuery)
+        });
     </script>
 <?php } else { ?>
     <script>
-        (function ($) {
+        $(document).ready(function(){
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
             });
             var minDate = new Date($(".event-time-start").val());
             $('.event-time-end').datepicker('setStartDate', minDate);
-        })(jQuery)
+        });
     </script>
 <?php } ?>
 
