@@ -30,7 +30,7 @@ EOT;
 // Load files
 $this->css($this->assetModule('css/front.css'));
 $this->jQuery(array('extension/jquery.magnific-popup.min.js' => array('defer' => 'defer')));
-//$this->jQuery('extension/magnific-popup.min.css');
+$this->jQuery('extension/magnific-popup.min.css', array('defer' => 'defer'));
 
 
 
@@ -62,23 +62,6 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
 
 $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), array('async' => 'async'));
 ?>
-
-<noscript id="deferred-event">
-    <link rel="stylesheet" type="text/css" href="<?php echo Pi::url('static/' . Pi\View\Helper\JQuery::DIR_ROOT . '/extension/magnific-popup.min.css') ?>"/>
-</noscript>
-<script>
-    var loadDeferredEvent = function() {
-        var addStylesNode = document.getElementById("deferred-event");
-        var replacement = document.createElement("div");
-        replacement.innerHTML = addStylesNode.textContent;
-        document.body.appendChild(replacement)
-        addStylesNode.parentElement.removeChild(addStylesNode);
-    };
-    var rafEvent = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    if (rafEvent) rafEvent(function() { window.setTimeout(loadDeferredEvent, 0); });
-    else window.addEventListener('load', loadDeferredEvent);
-</script>
 
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
