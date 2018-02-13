@@ -143,7 +143,7 @@ if ($local = 'fa') {
     </script>
 <?php } else { ?>
     <script>
-        (function ($) {
+        $(document).ready(function(){
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
@@ -161,7 +161,7 @@ if ($local = 'fa') {
             <?php } ?>
 
             $('.form-group[data-name="guide_item"]').insertBefore('.form-group[data-name="title"]');
-        })(jQuery)
+        });
     </script>
 <?php } ?>
 
@@ -199,7 +199,8 @@ if ($local = 'fa') {
     </div>
 </div>
 <script>
-    (function ($) {
+    $(document).ready(function(){
+
         $("#event").submit(function(e){
             if (1 != <?php echo isset($item['status']) ? $item['status'] : 1 ?>) {
                 event.preventDefault();
@@ -258,5 +259,5 @@ if ($local = 'fa') {
             $('.event-time-end').datepicker('setStartDate', minDate);
         }
             
-    })(jQuery)
+    });
 </script>
