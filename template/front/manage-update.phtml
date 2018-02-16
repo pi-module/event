@@ -2,7 +2,7 @@
 $this->css(array(
     $this->assetModule('css/front.css'),
     $this->assetModule('script/system-ui.css', 'system'),
-));
+), array('defer' => 'defer'));
 $this->jQuery();
 $this->backbone();
 $this->js($this->assetModule('script/system-msg.js', 'system'));

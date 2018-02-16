@@ -28,7 +28,7 @@ $script = <<<'EOT'
     });
 EOT;
 // Load files
-$this->css($this->assetModule('css/front.css'));
+$this->css($this->assetModule('css/front.css'), array('defer' => 'defer'));
 $this->jQuery(array('extension/jquery.magnific-popup.min.js' => array('defer' => 'defer')));
 $this->jQuery('extension/magnific-popup.min.css', array('defer' => 'defer'));
 
