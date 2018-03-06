@@ -83,7 +83,7 @@ $script = sprintf(
 $this->jQuery();
 $this->angular();
 $this->js($this->assetModule('js/dirPagination.js'));
-$this->css($this->assetModule('css/front.css'));
+$this->css($this->assetModule('css/front.css'), array('defer' => 'defer'));
 $this->footScript()->appendScript($script);
 
 // Set Open Graph tags for meta
@@ -403,7 +403,7 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
         link.popover('show');
     
          favoritePopoverTimeoutHandle = setTimeout(function () {
-            link.popover('hide')
+            link.popover('hide');
             $('.popover-active').popover('hide');
         }, 5000);
         
