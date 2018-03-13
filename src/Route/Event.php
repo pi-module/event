@@ -112,6 +112,13 @@ class Event extends Standard
                             $matches['password'] = $this->decode($parts[7]);
                         }
 
+                        if($matches['action'] == 'hit'){
+                            $matches['slug'] = $this->decode($parts[2]);
+                        }
+
+//                        print_r($matches);
+//                        die('HIT');
+
                         break;
                 }
             }
