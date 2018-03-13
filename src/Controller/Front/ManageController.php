@@ -186,6 +186,7 @@ class ManageController extends ActionController
         // Set form
         $option['id'] = $id;
         $form = new EventForm('event', $option);
+        $form->setAttribute('action', '#');
         $form->setAttribute('enctype', 'multipart/form-data');
         if ($this->request->isPost() && $canSubmitEvent) {
             $data = $this->request->getPost();
@@ -413,6 +414,7 @@ class ManageController extends ActionController
         $this->view()->setTemplate('manage-update');
         $this->view()->assign('form', $form);
         $this->view()->assign('title', $title);
+        $this->view()->assign('item', $item);
         $this->view()->assign('config', $config);
         $this->view()->assign('canSubmitEvent', $canSubmitEvent);
 

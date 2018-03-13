@@ -26,6 +26,15 @@ use Zend\Math\Rand;
 
 class Order extends AbstractApi
 {
+    public function checkProduct($id, $type = null)
+    {
+        $product = Pi::model('extra', 'event')->find($id, 'id');
+        if (empty($product) || $product['status'] != 1) {
+            return false;
+        }
+        return true;
+    }
+    
     public function getProductDetails($product)
     {
         $event = Pi::api('event', 'event')->getEventSingle($product, 'id', 'light');

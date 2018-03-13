@@ -26,7 +26,7 @@
                 <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#orderUser<?php echo $this->escape($order['id']); ?>">
-                        <?php echo $this->escape($order['user']['name']); ?>
+                        <?php echo !empty($order['user']['name']) ? $this->escape($order['user']['name']) : '' ; ?>
                     </button>
                     <!-- Modal -->
                     <div class="modal fade" id="orderUser<?php echo $this->escape($order['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="orderUserLabel<?php echo $this->escape($order['id']); ?>">

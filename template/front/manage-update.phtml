@@ -2,7 +2,7 @@
 $this->css(array(
     $this->assetModule('css/front.css'),
     $this->assetModule('script/system-ui.css', 'system'),
-));
+), array('defer' => 'defer'));
 $this->jQuery();
 $this->backbone();
 $this->js($this->assetModule('script/system-msg.js', 'system'));
@@ -34,7 +34,7 @@ if ($local = 'fa') {
     </div>
     <?php $this->flashMessenger()->clearMessages() ?>
 <?php } ?>
-<div id="event-form" class="clearfix">
+<div id="event-form-container" class="clearfix">
     <div class="guide-manage clearfix">
         <div class="col-md-3">
             <?php $sideActive = 'event'; ?>
@@ -46,8 +46,8 @@ if ($local = 'fa') {
             </div>
             <p>
                 <?php echo $config['text_intro_add'] ?>
-                <hr/>
             </p>
+            <hr/>
             <div id="event-form">
                 <?php echo $this->form($form); ?>
             </div>
@@ -55,7 +55,7 @@ if ($local = 'fa') {
     </div>
 </div>
 <?php if (Pi::service('module')->isActive('guide')) { ?>
-    <div class="modal fade" id="upgradePackageModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel">
+    <div class="modal fade" id="upgradePackageModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -70,6 +70,24 @@ if ($local = 'fa') {
                 <div class="modal-footer">
                     <a href="<?php echo $urlPackage ?>" class="btn btn-default"><?php echo _e("Ok"); ?></a>
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _e("Cancel"); ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="publishModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="<?php _e('Close'); ?>">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><?php echo _e("Item not publish"); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p><?php echo _e("You cannot yet publish any event : to unlock this feature, you have to get your business item being published"); ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _e("Ok"); ?></button>
                 </div>
             </div>
         </div>
@@ -125,7 +143,7 @@ if ($local = 'fa') {
     </script>
 <?php } else { ?>
     <script>
-        (function ($) {
+        $(document).ready(function(){
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
@@ -143,11 +161,11 @@ if ($local = 'fa') {
             <?php } ?>
 
             $('.form-group[data-name="guide_item"]').insertBefore('.form-group[data-name="title"]');
-        })(jQuery)
+        });
     </script>
 <?php } ?>
 
-<div class="modal fade" id="mainImageRequired" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="mainImageRequired" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -164,9 +182,49 @@ if ($local = 'fa') {
     </div>
 </div>
 
+<div class="modal fade" id="descriptionRequired" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" ><?php echo _e("Description is required"); ?></h4>
+            </div>
+            <div class="modal-body">
+                <?php echo _e("You must add a description before save that event"); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
-    (function ($) {
+    $(document).ready(function(){
+
         $("#event").submit(function(e){
+            if (1 != <?php echo isset($item['status']) ? $item['status'] : 1 ?>) {
+                event.preventDefault();
+                $('#publishModal').modal();
+                return;   
+            }
+           
+           var ret = false;
+           $.each(CKEDITOR.instances, 
+                function(elem) {
+                    if (elem.indexOf('text_description') > -1) {
+                        if (CKEDITOR.instances[elem].getData().length == 0) {
+                            $('#descriptionRequired').modal('show');
+                            e.preventDefault();
+                            ret = true;
+                            return;
+                        }
+                    }
+                }
+            );
+            if (ret) {
+                return;
+            }
+            
             var mainImage = $('input[name="main_image"]').val();
 
             if(!mainImage){
@@ -201,5 +259,5 @@ if ($local = 'fa') {
             $('.event-time-end').datepicker('setStartDate', minDate);
         }
             
-    })(jQuery)
+    });
 </script>

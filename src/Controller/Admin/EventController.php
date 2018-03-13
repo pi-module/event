@@ -306,7 +306,7 @@ class EventController extends ActionController
         } else {
             if ($id) {
                 // Make discount
-                if ($config['order_discount']) {
+                if ($config['order_discount'] && isset($event['register_discount'])) {
                     foreach ($event['register_discount'] as $name => $value) {
                         $event[$name] = $value;
                     }
