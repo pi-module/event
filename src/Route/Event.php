@@ -116,9 +116,6 @@ class Event extends Standard
                             $matches['slug'] = $this->decode($parts[2]);
                         }
 
-//                        print_r($matches);
-//                        die('HIT');
-
                         break;
                 }
             }
