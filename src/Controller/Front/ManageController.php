@@ -528,17 +528,7 @@ class ManageController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
-        // Check event guide owner
-        if (Pi::service('module')->isActive('guide')) {
-            $owner = $this->canonizeGuideOwner();
-            $option['owner'] = $owner['id'];
-            if (isset($event['guide_owner']) && $event['guide_owner'] != $owner['id']) {
-                $this->getResponse()->setStatusCode(401);
-                $this->terminate(__('Its not your event'), '', 'error-denied');
-                $this->view()->setLayout('layout-simple');
-                return;
-            }
-        }
+        
         // Get info
         $list = array();
         $order = array('id DESC');

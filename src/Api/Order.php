@@ -42,59 +42,72 @@ class Order extends AbstractApi
         return $event;
     }
 
-    public function postPaymentUpdate($order, $basket)
+    public function postPaymentUpdate($order, $detail)
     {
         // Update time
-        if ($order['module_item'] > 0) {
-            // Set number
-            $number = 1;
-            foreach ($basket as $product) {
+        foreach ($detail as $product) {
+            if ($product['product'] > 0) {
+                // Set number
                 $number = $product['number'];
+                
+                // Get event
+                $event = Pi::api('event', 'event')->getEventSingle($product['product'], 'id', 'light');
+                $setting = json_decode($event['setting'], true);
+                // Update sales
+                Pi::model('extra', $this->getModule())->update(
+                    array('register_sales' => ($event['register_sales'] + $number)),
+                    array('id' => $event['id'])
+                );
+                
+                // Save order
+                $values = array(
+                    'uid' => $order['uid'],
+                    'event' => $event['id'],
+                    'order_id' => $order['id'],
+                    'number' => $number,
+                    'price' => $product['product_price'],
+                    'vat'=> $product['vat_price'],
+                    'total'=> $product['product_price'] + $product['vat_price'] + $product['shipping_price'] + $product['packing_price'] + $product['setup_price'] - $product['discount_price'],
+                    'time_order' => time(),
+                    'time_start' => $event['time_start'],
+                    'time_end' => $event['time_end'],
+                    'status' => 1,
+                    'extra' => json_encode($setting['action']),
+                );
+                $row = Pi::model('order', $this->getModule())->createRow();
+                $row->assign($values);
+                $row->save();
+                // Set url
+                /* $url = Pi::url(Pi::service('url')->assemble('event', array(
+                    'module' => $this->getModule(),
+                    'controller' => 'register',
+                    'action' => 'detail',
+                    'id' => $row->id,
+                ))); */
+                
+                
+                 if (Pi::service('authentication')->hasIdentity()) {
+                     $url = Pi::url(Pi::service('url')->assemble('order', array(
+                        'module' => 'order',
+                        'controller' => 'detail',
+                        'action' => 'index',
+                        'id' => $order['id'],
+                    )));
+                 } else {
+                    $url =  Pi::url(Pi::service('url')->assemble('event', array(
+                        'module' => 'event',
+                        'controller' => 'detail',
+                        'action' => 'index',
+                        'slug' => $event['slug']
+                    )));
+                    
+                }
+
+                // Send notification
+                //Pi::api('notification', 'order')->newOrder($order, $event);
+                // Set back url
+                return $url;
             }
-            // Get event
-            $event = Pi::api('event', 'event')->getEventSingle($order['module_item'], 'id', 'light');
-            $setting = json_decode($event['setting'], true);
-            // Update sales
-            Pi::model('extra', $this->getModule())->update(
-                array('register_sales' => ($event['register_sales'] + $number)),
-                array('id' => $event['id'])
-            );
-            
-            // Save order
-            $values = array(
-                'uid' => $order['uid'],
-                'event' => $event['id'],
-                'order_id' => $order['id'],
-                'number' => $number,
-                'price' => $order['product_price'],
-                'vat'=> $order['vat_price'],
-                'total'=> $order['total_price'],
-                'time_order' => time(),
-                'time_start' => $event['time_start'],
-                'time_end' => $event['time_end'],
-                'status' => 1,
-                'extra' => json_encode($setting['action']),
-            );
-            $row = Pi::model('order', $this->getModule())->createRow();
-            $row->assign($values);
-            $row->save();
-            // Set url
-            /* $url = Pi::url(Pi::service('url')->assemble('event', array(
-                'module' => $this->getModule(),
-                'controller' => 'register',
-                'action' => 'detail',
-                'id' => $row->id,
-            ))); */
-            $url = Pi::url(Pi::service('url')->assemble('order', array(
-                'module' => 'order',
-                'controller' => 'detail',
-                'action' => 'index',
-                'id' => $order['id'],
-            )));
-            // Send notification
-            //Pi::api('notification', 'order')->newOrder($order, $event);
-            // Set back url
-            return $url;
         }
     }
 
