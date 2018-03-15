@@ -160,19 +160,23 @@ class DetailController extends ActionController
         if ($uid) {
             $where = array(
                 'uid' => $uid,
-                'module_name' => 'event',
+                'module' => 'event',
                 'module_item' =>  $event['id'],
                 'status_payment' => 2
             );    
             
             
             $orderTable = Pi::model('order', 'order')->getTable();
-            $basketTable = Pi::model("basket", 'order')->getTable();
+            $detailTable = Pi::model("detail", 'order')->getTable();
+            $invoiceTable = Pi::model("invoice", 'order')->getTable();
+            $invoiceInstallmentTable = Pi::model("invoice_installment", 'order')->getTable();
          
             $select = Pi::db()->select();
             $select
             ->from(array('order' => $orderTable))->columns(array())
-            ->join(array('basket' => $basketTable), 'basket.order = order.id', array('count' => new \Zend\Db\Sql\Expression('SUM(number)')))
+            ->join(array('detail' => $detailTable), 'detail.order = order.id', array('count' => new \Zend\Db\Sql\Expression('SUM(number)')))
+            ->join(array('invoice' => $invoiceTable), 'invoice.order = order.id', array())
+            ->join(array('invoice_installment' => $invoiceInstallmentTable), 'invoice_installment.invoice = invoice.id', array('status_payment'))
             ->where ($where);
         
             $count = Pi::db()->query($select)->current()['count'];
