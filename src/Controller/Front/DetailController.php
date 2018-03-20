@@ -161,7 +161,7 @@ class DetailController extends ActionController
             $where = array(
                 'uid' => $uid,
                 'module' => 'event',
-                'module_item' =>  $event['id'],
+                'product' =>  $event['id'],
                 'status_payment' => 2
             );    
             
