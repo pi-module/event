@@ -58,9 +58,11 @@
                                                href="<?php echo $this->escape( Pi::url(Pi::service('url')->assemble('event', array('module' => 'event','controller' => 'index','slug' => $event['slug'])))); ?>" target="_blank"><i
                                                         class="fa fa-eye"></i> <?php _e('View'); ?></a>
                                         <?php } ?>
+                                        <?php if ($event['time_end'] >= strtotime('now midnight')) { ?>
                                         <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
                                            href="<?php echo $this->url('', array('action' => 'update', 'id' => $event['id'])); ?>"><i
                                                     class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                                        <?php } ?>
                                         <?php if ($config['order_active'] && $event['register_can']) { ?>
                                             <a class="btn btn-primary btn-xs" title="<?php _e('List of orders'); ?>"
                                                href="<?php echo $this->url('', array('action' => 'order', 'id' => $event['id'])); ?>"><i

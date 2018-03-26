@@ -147,6 +147,12 @@ class ManageController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+        if ($event['time_end'] < strtotime('now midnight')) {
+            $this->getResponse()->setStatusCode(401);
+            $this->terminate(__('Event is over'), '', 'error-denied');
+            $this->view()->setLayout('layout-simple');
+            return;
+        } 
         // Set title
         if ($id) {
             $title = __('Update event');
@@ -382,6 +388,7 @@ class ManageController extends ActionController
                     // Set info
                     $information = array(
                         'admin-event-url' => Pi::url(Pi::service('url')->assemble('admin', array('module' => 'event', 'controller' => 'event', 'action' => 'index'))),
+                        'title' => $values['title']
                     );
             
                     // Send mail to admin
