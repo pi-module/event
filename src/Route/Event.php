@@ -200,6 +200,10 @@ class Event extends Standard
         if (!empty($mergedParams['password'])) {
             $url['password'] = 'password' . $this->paramDelimiter . $mergedParams['password'];
         }
+        
+         if (!empty($mergedParams['status'])) {
+            $url['status'] = 'status' . $this->paramDelimiter . $mergedParams['status'];
+        }
 
         // Make url
         $url = implode($this->paramDelimiter, $url);

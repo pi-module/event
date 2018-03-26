@@ -5,7 +5,33 @@
             <a class="btn btn-primary" title="<?php _e('Add event'); ?>"
                href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'update')); ?>"><i
                     class="fa fa-folder-open"></i> <?php _e('Add event'); ?></a>
-        </div>
+        
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-eye"></i> <?php _e('View'); ?> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a title="<?php _e('All events'); ?>"
+                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index')); ?>"><i
+                                class="fa fa-file"></i> <?php _e('All events'); ?></a></li>
+                    <li><a title="<?php _e('Published'); ?>"
+                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '1')); ?>"><i
+                                class="fa fa-file"></i> <?php _e('Published'); ?></a></li>
+                    <li><a title="<?php _e('Pending review'); ?>"
+                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '2')); ?>"><i
+                                class="fa fa-file"></i> <?php _e('Pending review'); ?></a></li>
+                    <li><a title="<?php _e('Draft'); ?>"
+                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '3')); ?>"><i
+                                class="fa fa-file"></i> <?php _e('Draft'); ?></a></li>
+                    <li><a title="<?php _e('Private'); ?>"
+                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '4')); ?>"><i
+                                class="fa fa-file"></i> <?php _e('Private'); ?></a></li>
+                    <li><a title="<?php _e('Trash'); ?>"
+                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '5')); ?>"><i
+                                    class="fa fa-file"></i> <?php _e('Trash'); ?></a></li>
+                </ul>
+            </div>
+        </div>        
         <div class="col-md-8">
             <?php echo $this->form($form, 'inline'); ?>
         </div>
