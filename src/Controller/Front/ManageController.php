@@ -139,6 +139,14 @@ class ManageController extends ActionController
                 $option['thumbUrl'] = $event['thumbUrl'];
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
             }
+
+            if ($event['time_end'] < strtotime('now midnight')) {
+                $this->getResponse()->setStatusCode(401);
+                $this->terminate(__('Event is over'), '', 'error-denied');
+                $this->view()->setLayout('layout-simple');
+                return;
+            } 
+
         }
         // Check event uid
         if (isset($event['uid']) && $event['uid'] != $uid) {
@@ -147,12 +155,7 @@ class ManageController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
-        if ($event['time_end'] < strtotime('now midnight')) {
-            $this->getResponse()->setStatusCode(401);
-            $this->terminate(__('Event is over'), '', 'error-denied');
-            $this->view()->setLayout('layout-simple');
-            return;
-        } 
+        
         // Set title
         if ($id) {
             $title = __('Update event');
@@ -266,8 +269,9 @@ class ManageController extends ActionController
                     }
 
                     // Save values on news story table and event extra table
+                    $edit = false;
                     if (!empty($values['id'])) {
-                        
+                        $edit = true;    
                         $story = Pi::api('api', 'news')->editStory($values, true, false);
                         if (isset($story) && !empty($story)) {
                             $row = $this->getModel('extra')->find($story['id']);
@@ -392,13 +396,21 @@ class ManageController extends ActionController
                     );
             
                     // Send mail to admin
-                    Pi::service('notification')->send(
-                        $toAdmin,
-                        'admin_add_event',
-                        $information,
-                        Pi::service('module')->current()
-                    );
-                    
+                    if ($edit) {
+                        Pi::service('notification')->send(
+                            $toAdmin,
+                            'admin_edit_event',
+                            $information,
+                            Pi::service('module')->current()
+                        );
+                    } else {                    
+                        Pi::service('notification')->send(
+                            $toAdmin,
+                            'admin_add_event',
+                            $information,
+                            Pi::service('module')->current()
+                        );
+                    }
                     if ($item['id']) {
                         $this->jump(array('module' => 'guide', 'controller' => 'manage', 'action' => 'event-list', 'item' => $item['id']), $message);    
                     }
