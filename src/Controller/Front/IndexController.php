@@ -23,6 +23,12 @@ class IndexController extends ActionController
         $module = $this->params('module');
         // Get config
         $config = Pi::service('registry')->config->read($module);
+
+        // Save statistics
+        if (Pi::service('module')->isActive('statistics')) {
+            Pi::api('log', 'statistics')->save('event', 'index');
+        }
+
         // Check homepage type
         switch ($config['view_template']) {
             default:
@@ -51,6 +57,7 @@ class IndexController extends ActionController
                 // Language
                 __('Toman');
                 break;
+
             case 'angularnew':
                 $this->view()->setTemplate('event-angular-new');
                 $this->view()->assign('config', $config);

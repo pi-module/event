@@ -60,6 +60,11 @@ class ManageController extends ActionController
             }
         }
 
+        // Save statistics
+        if (Pi::service('module')->isActive('statistics')) {
+            Pi::api('log', 'statistics')->save('event', 'manage');
+        }
+
         // Set view
         $this->view()->setTemplate('manage-index');
         $this->view()->assign('title', __('All your events'));
@@ -410,6 +415,12 @@ class ManageController extends ActionController
                 $this->view()->assign('event', $event);
             }
         }
+
+        // Save statistics
+        if (Pi::service('module')->isActive('statistics')) {
+            Pi::api('log', 'statistics')->save('event', 'manage');
+        }
+
         // Set view
         $this->view()->setTemplate('manage-update');
         $this->view()->assign('form', $form);
@@ -552,6 +563,12 @@ class ManageController extends ActionController
                 'id', 'identity', 'name', 'email'
             ));
         }
+
+        // Save statistics
+        if (Pi::service('module')->isActive('statistics')) {
+            Pi::api('log', 'statistics')->save('event', 'manage');
+        }
+
         // Set view
         $this->view()->setTemplate('manage-order');
         $this->view()->assign('list', $list);

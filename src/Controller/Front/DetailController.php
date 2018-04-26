@@ -180,9 +180,12 @@ class DetailController extends ActionController
                 $count = 0;
             }
         }
-        
-        
-        
+
+        // Save statistics
+        if (Pi::service('module')->isActive('statistics')) {
+            Pi::api('log', 'statistics')->save('event', 'detail', $event['id']);
+        }
+
         // Set view
         $this->view()->headTitle($event['seo_title']);
         $this->view()->headDescription($event['seo_description'], 'set');

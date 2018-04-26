@@ -33,6 +33,12 @@ class CategoryController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+
+        // Save statistics
+        if (Pi::service('module')->isActive('statistics')) {
+            Pi::api('log', 'statistics')->save('event', 'category', $category['id']);
+        }
+
         // Check homepage type
         switch ($config['view_template']) {
             default:
@@ -66,6 +72,7 @@ class CategoryController extends ActionController
                 // Language
                 __('Toman');
                 break;
+
             case 'angularnew':
                 // Set view
                 $this->view()->headTitle($category['seo_title']);

@@ -58,6 +58,12 @@ class RegisterController extends ActionController
                     $this->view()->setLayout('layout-simple');
                     return;
                 }
+
+                // Save statistics
+                if (Pi::service('module')->isActive('statistics')) {
+                    Pi::api('log', 'statistics')->save('event', 'register', $event['id']);
+                }
+
                 // Check can register
                 if (!$event['register_can']) {
                     $message = __('This event not available for registration');
