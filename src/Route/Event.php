@@ -112,6 +112,10 @@ class Event extends Standard
                             $matches['password'] = $this->decode($parts[7]);
                         }
 
+                        if($matches['action'] == 'hit'){
+                            $matches['slug'] = $this->decode($parts[2]);
+                        }
+
                         break;
                 }
             }
@@ -195,6 +199,10 @@ class Event extends Standard
         // Set password
         if (!empty($mergedParams['password'])) {
             $url['password'] = 'password' . $this->paramDelimiter . $mergedParams['password'];
+        }
+        
+         if (!empty($mergedParams['status'])) {
+            $url['status'] = 'status' . $this->paramDelimiter . $mergedParams['status'];
         }
 
         // Make url

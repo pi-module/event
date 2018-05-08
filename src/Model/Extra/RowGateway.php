@@ -19,6 +19,12 @@ class RowGateway extends \Pi\Db\RowGateway\RowGateway
             $this->time_end = $this->time_start;
         }
 
+        $url = Pi::url(Pi::service('url')->assemble('event', array(
+            'slug' => $this->slug,
+        )));
+
+        Pi::service('cache')->flushCacheByUrl($url, 'event');
+
         return parent::save($rePopulate, $filter);
     }
 }

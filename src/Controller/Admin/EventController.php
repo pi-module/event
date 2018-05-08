@@ -27,6 +27,8 @@ class EventController extends ActionController
         // Get page
         $page = $this->params('page', 1);
         $title = $this->params('title');
+        $status = $this->params('status');
+        
         // Set info
         $where = array(
             'type' => 'event',
@@ -34,6 +36,10 @@ class EventController extends ActionController
         if (!empty($title)) {
             $where['title LIKE ?'] = '%' . $title . '%';
         }
+        if (!empty($status)) {
+            $where['status'] = $status;
+        }
+        
         $order = array('id DESC');
         $offset = (int)($page - 1) * $this->config('admin_perpage');
         $limit = intval($this->config('admin_perpage'));
@@ -45,6 +51,7 @@ class EventController extends ActionController
             'controller' => 'event',
             'action' => 'index',
             'title' => $title,
+            'status' => $status
         );
         // Get paginator
         $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'story');

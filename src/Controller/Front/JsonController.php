@@ -512,4 +512,44 @@ class JsonController extends IndexController
 
         return $result;
     }
+
+    public function hitAction()
+    {
+        // Get info from url
+        $module = $this->params('module');
+        $slug = $this->params('slug');
+
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
+        // Find event
+        $event = Pi::api('event', 'event')->getEventSingle($slug, 'slug', 'full');
+
+        // Update Hits
+        if ($config['event_all_hits']) {
+            Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+        } else {
+            if(!isset($_SESSION['hits_events'][$event['id']])){
+                if(!isset($_SESSION['hits_events'])){
+                    $_SESSION['hits_events'] = array();
+                }
+
+                $_SESSION['hits_events'][$event['id']] = false;
+            }
+
+            if(!$_SESSION['hits_events'][$event['id']]){
+                Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+                $_SESSION['hits_events'][$event['id']] = true;
+            }
+        }
+
+        /**
+         * Get new hit count
+         */
+        $event = Pi::model('story', 'news')->find($event['id']);
+
+        return array(
+            'status' => 1,
+            'hits' => (int) $event->hits,
+        );
+    }
 }

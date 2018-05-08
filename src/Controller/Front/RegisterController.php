@@ -94,8 +94,8 @@ class RegisterController extends ActionController
                 );
                 // Set order array
                 $order = array();
-                $order['module_name'] = $module;
-                $order['module_item'] = $event['id'];
+                $order['module'] = $module;
+                $order['product'] = $event['id'];
                 $order['type_payment'] = 'onetime';
                 $order['type_commodity'] = 'service';
                 $order['product'][$event['id']] = $singleProduct;

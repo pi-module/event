@@ -144,6 +144,14 @@ class ManageController extends ActionController
                 $option['thumbUrl'] = $event['thumbUrl'];
                 $option['removeUrl'] = $this->url('', array('action' => 'remove', 'id' => $event['id']));
             }
+
+            if ($event['time_end'] < strtotime('now midnight')) {
+                $this->getResponse()->setStatusCode(401);
+                $this->terminate(__('Event is over'), '', 'error-denied');
+                $this->view()->setLayout('layout-simple');
+                return;
+            } 
+
         }
         // Check event uid
         if (isset($event['uid']) && $event['uid'] != $uid) {
@@ -152,6 +160,7 @@ class ManageController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+        
         // Set title
         if ($id) {
             $title = __('Update event');
@@ -265,8 +274,9 @@ class ManageController extends ActionController
                     }
 
                     // Save values on news story table and event extra table
+                    $edit = false;
                     if (!empty($values['id'])) {
-                        
+                        $edit = true;    
                         $story = Pi::api('api', 'news')->editStory($values, true, false);
                         if (isset($story) && !empty($story)) {
                             $row = $this->getModel('extra')->find($story['id']);
@@ -387,16 +397,25 @@ class ManageController extends ActionController
                     // Set info
                     $information = array(
                         'admin-event-url' => Pi::url(Pi::service('url')->assemble('admin', array('module' => 'event', 'controller' => 'event', 'action' => 'index'))),
+                        'title' => $values['title']
                     );
             
                     // Send mail to admin
-                    Pi::service('notification')->send(
-                        $toAdmin,
-                        'admin_add_event',
-                        $information,
-                        Pi::service('module')->current()
-                    );
-                    
+                    if ($edit) {
+                        Pi::service('notification')->send(
+                            $toAdmin,
+                            'admin_edit_event',
+                            $information,
+                            Pi::service('module')->current()
+                        );
+                    } else {                    
+                        Pi::service('notification')->send(
+                            $toAdmin,
+                            'admin_add_event',
+                            $information,
+                            Pi::service('module')->current()
+                        );
+                    }
                     if ($item['id']) {
                         $this->jump(array('module' => 'guide', 'controller' => 'manage', 'action' => 'event-list', 'item' => $item['id']), $message);    
                     }
@@ -539,17 +558,7 @@ class ManageController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
-        // Check event guide owner
-        if (Pi::service('module')->isActive('guide')) {
-            $owner = $this->canonizeGuideOwner();
-            $option['owner'] = $owner['id'];
-            if (isset($event['guide_owner']) && $event['guide_owner'] != $owner['id']) {
-                $this->getResponse()->setStatusCode(401);
-                $this->terminate(__('Its not your event'), '', 'error-denied');
-                $this->view()->setLayout('layout-simple');
-                return;
-            }
-        }
+        
         // Get info
         $list = array();
         $order = array('id DESC');

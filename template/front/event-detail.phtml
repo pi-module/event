@@ -61,6 +61,13 @@ if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_l
 }
 
 $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), array('async' => 'async'));
+
+$hitsAjaxUrl = Pi::url($this->url('event', array(
+    'controller' => 'json',
+    'action' => 'hit',
+    'slug' => $event['slug'],
+)));
+
 ?>
 
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
@@ -73,7 +80,17 @@ $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), array('async' => 
     <div class="clearfix small itemUnderHead">
         <ul class="text-muted list-inline text-right pull-right">
             <li><i class="fa fa-calendar"></i> <?php echo $this->escape($event['time_update_view']); ?></li>
-            <li><i class="fa fa-eye"></i> <?php echo _number($this->escape($event['hits'])); ?></li>
+            <li><i class="fa fa-eye"></i> <span class="hitsCounter"></span></li>
+
+            <script>
+                $(document).ready(function(){
+                    $.getJSON("<?php echo $hitsAjaxUrl ?>", function( result ) {
+                        var hits = result.hits;
+                        $('.hitsCounter').html(hits);
+                    });
+                });
+            </script>
+
             <?php if (!empty($event['guideCategoryInfo']) || !empty($event['topics'])) { ?>
                 <li><i class="fa fa-folder"></i></li>
             <?php } ?>
