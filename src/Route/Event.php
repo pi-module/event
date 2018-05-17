@@ -28,7 +28,7 @@ class Event extends Standard
     );
 
     protected $controllerList = array(
-        'index', 'category', 'detail', 'manage', 'register', 'json'
+        'index', 'category', 'detail', 'manage', 'register', 'json', 'api'
     );
 
     /**
@@ -116,6 +116,15 @@ class Event extends Standard
                             $matches['slug'] = $this->decode($parts[2]);
                         }
 
+                        break;
+
+                    // api controller
+                    case 'api':
+
+                        if ($parts[1] == 'favourite') {
+                            $matches['action'] = 'favourite';
+                            $matches['slug'] = $this->decode($parts[2]);
+                        }
                         break;
                 }
             }
