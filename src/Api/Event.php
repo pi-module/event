@@ -699,6 +699,10 @@ class Event extends AbstractApi
     
     public function changeGuideOwner($owner, $newOwner, $item)    {
             
+        if ($item == null) {
+            return;
+        }
+        
         $model = Pi::model('extra', 'event');
         $model->update(array('guide_owner' => $newOwner['id'], 'uid' => $newOwner['uid']), array(new Expression('guide_item LIKE "%' . $item . '%"')));
         
