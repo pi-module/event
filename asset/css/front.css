@@ -197,8 +197,8 @@ a.item-ribbon:hover {
 }
 
 
-.table.table-striped .btn-success.btn-xs:focus,
-.table.table-striped .btn-success.btn-xs {
+.table.table-striped .btn-success.btn-sm:focus,
+.table.table-striped .btn-success.btn-sm {
     padding: 1px 5px;
 }
 
@@ -213,7 +213,7 @@ a.item-ribbon:hover {
 }
 
 @media screen and (max-width: 991px) {
-    .col-xs-3.event-single-image{
+    .col-3.event-single-image{
         padding-right:0;
     }
 
