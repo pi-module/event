@@ -65,10 +65,10 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                     <h1 class="p-name"><?php echo $this->escape($title); ?></h1>
                 </div>
                 <?php if (!empty($config['text_summary_index'])) { ?>
-                    <div class="clearfix well"><?php echo $config['text_summary_index']; ?></div>
+                    <div class="clearfix card card-body bg-light mb-3"><?php echo $config['text_summary_index']; ?></div>
                 <?php } ?>
                 <?php if (!empty($config['text_description_index'])) { ?>
-                    <div class="clearfix well"><?php echo $config['text_description_index']; ?></div>
+                    <div class="clearfix card card-body bg-light mb-3"><?php echo $config['text_description_index']; ?></div>
                 <?php } ?>
             <?php } ?>
         <?php } elseif (isset($isCategoryPage) && $isCategoryPage == 1) { ?>
@@ -76,7 +76,7 @@ if(isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                 <h1 class="p-name"><?php echo $this->escape($category['title']); ?></h1>
             </div>
             <?php if (!empty($category['text_description'])) { ?>
-                <div class="clearfix well"><?php echo $category['text_description']; ?></div>
+                <div class="clearfix card card-body bg-light mb-3"><?php echo $category['text_description']; ?></div>
             <?php } ?>
         <?php } ?>
     </div>

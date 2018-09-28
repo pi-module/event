@@ -79,8 +79,8 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
     </div>
     <div class="clearfix small itemUnderHead">
         <ul class="text-muted list-inline text-right pull-right">
-            <li><i class="fa fa-calendar"></i> <?php echo $this->escape($event['time_update_view']); ?></li>
-            <li><i class="fa fa-eye"></i> <span class="hitsCounter"></span></li>
+            <li class="list-inline-item"><i class="fa fa-calendar"></i> <?php echo $this->escape($event['time_update_view']); ?></li>
+            <li class="list-inline-item"><i class="fa fa-eye"></i> <span class="hitsCounter"></span></li>
 
             <script>
                 $(document).ready(function(){
@@ -92,11 +92,11 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
             </script>
 
             <?php if (!empty($event['guideCategoryInfo']) || !empty($event['topics'])) { ?>
-                <li><i class="fa fa-folder"></i></li>
+                <li class="list-inline-item"><i class="fa fa-folder"></i></li>
             <?php } ?>
             <?php if (!empty($event['guideCategoryInfo'])) { ?>
                 <?php foreach ($event['guideCategoryInfo'] as $guideCategoryInfo) { ?>
-                    <li class="p-category">
+                    <li class="list-inline-item p-category">
                         <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>" href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
                             <?php echo $this->escape($guideCategoryInfo['title']); ?>
                         </a>
@@ -105,7 +105,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
             <?php } ?>
             <?php if (!empty($event['topics'])) { ?>
                 <?php foreach ($event['topics'] as $eventTopic) { ?>
-                    <li class="p-category">
+                    <li class="list-inline-item p-category">
                         <a title="<?php echo $this->escape($eventTopic['title']); ?>" href="<?php echo $this->escape($eventTopic['url']); ?>">
                             <?php echo $this->escape($eventTopic['title']); ?>
                         </a>
@@ -122,7 +122,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                         <?php $media = Pi::api('doc','media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
                         <a href="<?php echo $media['resized_url']; ?>"
                            title="<?php echo $this->escape($event['title']); ?><?php if($media['copyright']) echo ' - ' . $media['copyright'] ?>" itemprop="image">
-                            <img class="img-responsive img-thumbnail lazyload"
+                            <img class="img-fluid img-thumbnail lazyload"
                                  src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                  data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
@@ -174,7 +174,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                 <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(360,360); ?>" media="(max-width: 1366px)">
                                 <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(360,360); ?>" media="(max-width: 2800px)">
 
-                                <img class="img-responsive img-thumbnail lazyload"
+                                <img class="img-fluid img-thumbnail lazyload"
                                      src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
                                      data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(360,360); ?>"
                                      alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
@@ -192,7 +192,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                         <?php } ?>
                         <?php if (!empty($event['source_url'])) { ?>
                             <p class="u-url" itemprop="url">
-                                <a class="btn btn-success btn-lg btn-group-justified event-source-url" title="<?php _e('Organizer Website and register') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                <a class="btn btn-success btn-lg btn-group d-flex event-source-url" title="<?php _e('Organizer Website and register') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                     <i class="fa fa-external-link"></i>
                                     <?php _e('Register') ?>
                                 </a>
@@ -212,10 +212,10 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                         <?php if ($event['register_price'] > 0) { ?>
                             <div class="clearfix text-center">
                                 <ul class="list-inline">
-                                    <li class="clearfix event-minPrice-title">
+                                    <li class="list-inline-item clearfix event-minPrice-title">
                                         <?php _e('Start From') ?> :
                                     </li>
-                                    <li class="clearfix event-minPrice-title">
+                                    <li class="list-inline-item clearfix event-minPrice-title">
                                         <strong><?php echo $this->escape($event['register_price_view_clean']); ?></strong>
                                     </li>
                                 </ul>
@@ -229,16 +229,16 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                         <?php } ?>
                     </div>
                 <?php } elseif (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
-                    <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                    <div class="clearfix card card-body bg-light mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
                                 <?php if ($event['register_stock'] == 0 || $event['register_stock'] - $event['register_sales'] > 0) { ?>
                                     <div class="clearfix text-center">
                                         <ul class="list-inline">
-                                            <li class="clearfix event-minPrice-title">
+                                            <li class="list-inline-item clearfix event-minPrice-title">
                                                 <?php _e('Start From') ?> :
                                             </li>
-                                            <li class="clearfix event-minPrice-text">
+                                            <li class="list-inline-item clearfix event-minPrice-text">
                                                 <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
                                             </li>
                                         </ul>
@@ -261,7 +261,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                     <?php echo $this->escape($event['register_price_view']); ?>
                                 </div>
                                 <div class="event-offerUrl-btn" itemprop="url">
-                                    <a class="btn btn-success btn-lg btn-group-justified <?php echo $ended ? 'disabled' : '' ?>" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                    <a class="btn btn-success btn-lg btn-group d-flex <?php echo $ended ? 'disabled' : '' ?>" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                         <?php _e('Register to the event') ?>
                                     </a>
                                 </div>
@@ -278,13 +278,13 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                     </div>
                 <?php } ?>
                 <?php if ($event['register_stock'] != null) { ?> 
-                    <div class="well clearfix eventTime">
+                    <div class="card card-body bg-light mb-3 clearfix eventTime">
                         <h2><?php _e('Stock'); ?></h2>
                         <ul class="list-inline">
                             <?php if ($count) { ?> 
-                                <li class="text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></strong></li>
+                                <li class="list-inline-item text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></strong></li>
                             <?php } ?>     
-                            <li><i class="fa fa-ticket"></i>&nbsp; 
+                            <li class="list-inline-item"><i class="fa fa-ticket"></i>&nbsp;
                                 <?php
                                 if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) { 
                                     _e('Full');
@@ -298,26 +298,26 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                         </ul>
                     </div>
                 <?php } ?>
-                <div class="well clearfix eventTime">
+                <div class="card card-body bg-light mb-3 clearfix eventTime">
                     <h2><?php _e('Key Event Elements'); ?></h2>
                     <ul class="list-inline">
                         <?php if ($config['view_days']) { ?>
-                            <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
+                            <li class="list-inline-item"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
                         <?php } ?>
                         <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                            <li><?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('From') ?></li>
-                            <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
-                            <li><?php _e('to') ?></li>
-                            <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
+                            <li class="list-inline-item"><?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('From') ?></li>
+                            <li class="list-inline-item dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
+                            <li class="list-inline-item"><?php _e('to') ?></li>
+                            <li class="list-inline-item dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
                         <?php } elseif (!empty($event['time_start'])) { ?>
-                            <li class="event-single-time dt-start">
+                            <li class="list-inline-item event-single-time dt-start">
                                 <?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
                             </li>
                         <?php } ?>
                     </ul>
                     <?php if ($ended) { ?>
                         <ul class="list-inline ended">
-                            <li class=""><i class="fa fa-exclamation-triangle"></i><span> <?php _e("Ended event"); ?></span></li>
+                            <li class="list-inline-item"><i class="fa fa-exclamation-triangle"></i><span> <?php _e("Ended event"); ?></span></li>
                         </ul>
                     <?php } ?>
                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
@@ -330,9 +330,9 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                 
                     <?php if (!empty($event['guideLocationInfo'])) { ?>
                         <ul class="list-inline">
-                            <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
+                            <li class="list-inline-item"><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
                             <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
-                                <li itemprop="location" itemscope itemtype="https://schema.org/Place">
+                                <li class="list-inline-item" itemprop="location" itemscope itemtype="https://schema.org/Place">
                                     <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
                                         <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
                                     </a>
@@ -345,7 +345,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                         <div class="event-organizer">
                             <ul class="list-unstyled">
                                 <?php if (!empty($event['organizer_name'])) { ?>
-                                    <li itemscope itemtype="https://schema.org/Organization">
+                                    <li class="list-inline-item" itemscope itemtype="https://schema.org/Organization">
                                         <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
                                     </li>
                                 <?php } ?>
@@ -377,7 +377,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                     </div>
                 <?php } ?>
                 <?php if (!empty($vote)) { ?>
-                    <div class="well clearfix eventVote">
+                    <div class="card card-body bg-light mb-3 clearfix eventVote">
                         <h2><?php _e('Vote to this event'); ?></h2>
                         <?php include $this->template('votebar', 'front', 'vote'); ?>
                     </div>
@@ -403,7 +403,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                                     <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(262,262); ?>" media="(max-width: 1366px)">
                                                     <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(262,262); ?>" media="(max-width: 2800px)">
 
-                                                    <img class="img-responsive u-photo lazyload"
+                                                    <img class="img-fluid u-photo lazyload"
                                                          src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
                                                          data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(262,262); ?>"
                                                          alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
@@ -438,10 +438,10 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                 <?php } ?>
                 <?php if ($config['social_sharing']) { ?>
                     <div class="clearfix">
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
+                        <div class="col-md-12 col-sm-12 col-12 socialSharingText">
                             <strong><?php _e('Share if you like'); ?></strong>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
+                        <div class="col-md-12 col-sm-12 col-12 socialSharing">
                             <?php echo $this->socialSharing(
                                 $config['social_sharing'],
                                 $title,
@@ -527,7 +527,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                                 <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 1366px)">
                                                 <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 2800px)">
 
-                                                <img class="img-responsive u-photo lazyload"
+                                                <img class="img-fluid u-photo lazyload"
                                                      style="max-width:100%"
                                                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                                      data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
