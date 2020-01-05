@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Controller\Front;
 
 use Pi;
@@ -21,7 +22,7 @@ class CategoryController extends ActionController
     {
         // Get info from url
         $module = $this->params('module');
-        $slug = $this->params('slug');
+        $slug   = $this->params('slug');
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Get category
@@ -44,11 +45,15 @@ class CategoryController extends ActionController
             default:
             case 'angular':
                 // Set filter url
-                $filterUrl = Pi::url($this->url('', array(
-                    'controller' => 'json',
-                    'action' => 'filterCategory',
-                    'slug' => $slug,
-                )));
+                $filterUrl = Pi::url(
+                    $this->url(
+                        '', [
+                        'controller' => 'json',
+                        'action'     => 'filterCategory',
+                        'slug'       => $slug,
+                    ]
+                    )
+                );
                 // Get location list
                 $locationList = Pi::api('event', 'event')->getLocationList();
                 // Get category list

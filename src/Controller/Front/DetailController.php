@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Controller\Front;
 
 use Pi;
@@ -23,14 +24,14 @@ class DetailController extends ActionController
     {
         // Get info from url
         $module = $this->params('module');
-        $slug = $this->params('slug');
+        $slug   = $this->params('slug');
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Find event
         $event = Pi::api('event', 'event')->getEventSingle($slug, 'slug', 'full');
 
-        if($slug != $event['slug']){
-            return $this->redirect()->toRoute('', array('slug' => $event['slug']))->setStatusCode(301);
+        if ($slug != $event['slug']) {
+            return $this->redirect()->toRoute('', ['slug' => $event['slug']])->setStatusCode(301);
         }
 
         // Check event
@@ -43,46 +44,46 @@ class DetailController extends ActionController
 
         // Update Hits
         if ($config['event_all_hits']) {
-            Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+            Pi::model('story', 'news')->increment('hits', ['id' => $event['id']]);
         } else {
-            if(!isset($_SESSION['hits_events'][$event['id']])){
-                if(!isset($_SESSION['hits_events'])){
-                    $_SESSION['hits_events'] = array();
+            if (!isset($_SESSION['hits_events'][$event['id']])) {
+                if (!isset($_SESSION['hits_events'])) {
+                    $_SESSION['hits_events'] = [];
                 }
 
                 $_SESSION['hits_events'][$event['id']] = false;
             }
 
-            if(!$_SESSION['hits_events'][$event['id']]){
-                Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+            if (!$_SESSION['hits_events'][$event['id']]) {
+                Pi::model('story', 'news')->increment('hits', ['id' => $event['id']]);
                 $_SESSION['hits_events'][$event['id']] = true;
             }
         }
 
         // Set event topic
-        $eventTopic = array();
+        $eventTopic = [];
         if (!empty($event['topic'])) {
             $eventTopic = array_merge($eventTopic, $event['topic']);
         }
 
         // Set guide module options
-        $event['guideItemInfo'] = array();
-        $event['guideLocationInfo'] = array();
-        $event['guideCategoryInfo'] = array();
+        $event['guideItemInfo']     = [];
+        $event['guideLocationInfo'] = [];
+        $event['guideCategoryInfo'] = [];
         if (Pi::service('module')->isActive('guide')) {
             // Set item info
             if (!empty($event['guide_item'])) {
-                $event['guideItemInfo'] = array(
-                    'commercial' => array(),
-                    'free' => array(),
-                );
+                $event['guideItemInfo'] = [
+                    'commercial' => [],
+                    'free'       => [],
+                ];
                 foreach ($event['guide_item'] as $item) {
                     $guideItem = Pi::api('item', 'guide')->getItem($item);
                     if (Pi::api('item', 'guide')->IsExpired($guideItem)) {
-                        continue;         
+                        continue;
                     }
                     if (isset($guideItem) && !empty($guideItem) && $guideItem['status'] == 1) {
-                        if (in_array($guideItem['item_type'], array('commercial', 'person'))) {
+                        if (in_array($guideItem['item_type'], ['commercial', 'person'])) {
                             $event['guideItemInfo']['commercial'][$item] = $guideItem;
                         } else {
                             $event['guideItemInfo']['free'][$item] = $guideItem;
@@ -100,20 +101,21 @@ class DetailController extends ActionController
             if (!empty($event['guide_category'])) {
                 foreach ($event['guide_category'] as $category) {
                     $event['guideCategoryInfo'][$category] = Pi::api('category', 'guide')->getCategory($category);
-                    $eventTopic = array_merge($eventTopic, $event['guide_category']);
+                    $eventTopic                            = array_merge($eventTopic, $event['guide_category']);
                 }
             }
         }
         // Set form
-        $option = array();
-        $option['stock'] = ($event['register_stock'] == 0 || $event['register_stock'] -  $event['register_sales'] > 10) ? 10 : ($event['register_stock'] -  $event['register_sales']);
-        $form = new RegisterForm('event', $option);
+        $option          = [];
+        $option['stock'] = ($event['register_stock'] == 0 || $event['register_stock'] - $event['register_sales'] > 10) ? 10
+            : ($event['register_stock'] - $event['register_sales']);
+        $form            = new RegisterForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         $form->setAttribute('action', $event['eventOrder']);
         $form->setData($event);
         // Related
         if ($config['related_event'] && !empty($eventTopic)) {
-            $eventTopic = array_unique($eventTopic);
+            $eventTopic    = array_unique($eventTopic);
             $relatedEvents = Pi::api('event', 'event')->getEventRelated($event['id'], $eventTopic);
             $this->view()->assign('relatedEvents', $relatedEvents);
         }
@@ -124,61 +126,61 @@ class DetailController extends ActionController
         }
         // Set vote
         if ($config['vote_bar'] && Pi::service('module')->isActive('vote')) {
-            $vote = array();
-            $vote['point'] = $event['point'];
-            $vote['count'] = $event['count'];
-            $vote['item'] = $event['id'];
-            $vote['table'] = 'story';
-            $vote['module'] = 'news';
+            $vote              = [];
+            $vote['point']     = $event['point'];
+            $vote['count']     = $event['count'];
+            $vote['item']      = $event['id'];
+            $vote['table']     = 'story';
+            $vote['module']    = 'news';
             $vote['subModule'] = 'event';
-            $vote['type'] = 'star';
-            $scoreList = Pi::registry('scoreList', 'vote')->read();
+            $vote['type']      = 'star';
+            $scoreList         = Pi::registry('scoreList', 'vote')->read();
             if (isset($scoreList[$module])) {
-                $vote['score'] = $scoreList[$module];
+                $vote['score']  = $scoreList[$module];
                 $vote['points'] = Pi::api('vote', 'vote')->getVoteScore('news', 'story', $event['id']);
             }
             $this->view()->assign('vote', $vote);
         }
         // favourite
         if ($config['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
-            $favourite['is'] = Pi::api('favourite', 'favourite')->loadFavourite('event', 'story', $event['id']);
-            $favourite['item'] = $event['id'];
-            $favourite['table'] = 'story';
+            $favourite['is']     = Pi::api('favourite', 'favourite')->loadFavourite('event', 'story', $event['id']);
+            $favourite['item']   = $event['id'];
+            $favourite['table']  = 'story';
             $favourite['module'] = 'event';
             $this->view()->assign('favourite', $favourite);
-            
+
             $configFavourite = Pi::service('registry')->config->read('favourite');
             if ($configFavourite['favourite_list']) {
                 $favouriteList = Pi::api('favourite', 'favourite')->listItemFavourite('event', 'story', $event['id']);
                 $this->view()->assign('favouriteList', $favouriteList);
             }
         }
-        
+
         // my places
-        $uid = Pi::user()->getId();
+        $uid   = Pi::user()->getId();
         $count = 0;
         if ($uid) {
-            $where = array(
-                'uid' => $uid,
-                'module' => 'event',
-                'product' =>  $event['id'],
-                'status_payment' => 2
-            );    
-            
-            
-            $orderTable = Pi::model('order', 'order')->getTable();
-            $detailTable = Pi::model("detail", 'order')->getTable();
-            $invoiceTable = Pi::model("invoice", 'order')->getTable();
+            $where = [
+                'uid'            => $uid,
+                'module'         => 'event',
+                'product'        => $event['id'],
+                'status_payment' => 2,
+            ];
+
+
+            $orderTable              = Pi::model('order', 'order')->getTable();
+            $detailTable             = Pi::model("detail", 'order')->getTable();
+            $invoiceTable            = Pi::model("invoice", 'order')->getTable();
             $invoiceInstallmentTable = Pi::model("invoice_installment", 'order')->getTable();
-         
+
             $select = Pi::db()->select();
             $select
-            ->from(array('order' => $orderTable))->columns(array())
-            ->join(array('detail' => $detailTable), 'detail.order = order.id', array('count' => new \Zend\Db\Sql\Expression('SUM(number)')))
-            ->join(array('invoice' => $invoiceTable), 'invoice.order = order.id', array())
-            ->join(array('invoice_installment' => $invoiceInstallmentTable), 'invoice_installment.invoice = invoice.id', array('status_payment'))
-            ->where ($where);
-        
+                ->from(['order' => $orderTable])->columns([])
+                ->join(['detail' => $detailTable], 'detail.order = order.id', ['count' => new \Zend\Db\Sql\Expression('SUM(number)')])
+                ->join(['invoice' => $invoiceTable], 'invoice.order = order.id', [])
+                ->join(['invoice_installment' => $invoiceInstallmentTable], 'invoice_installment.invoice = invoice.id', ['status_payment'])
+                ->where($where);
+
             $count = Pi::db()->query($select)->current()['count'];
             if (!$count) {
                 $count = 0;

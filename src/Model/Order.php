@@ -20,20 +20,21 @@ class Order extends Model
     /**
      * {@inheritDoc}
      */
-    protected $columns = array(
-        'id',
-        'uid',
-        'event',
-        'order_id',
-        'number',
-        'price',
-        'vat',
-        'total',
-        'time_order',
-        'time_start',
-        'time_end',
-        'status',
-        'type',
-        'extra',
-    );
+    protected $columns
+        = [
+            'id',
+            'uid',
+            'event',
+            'order_id',
+            'number',
+            'price',
+            'vat',
+            'total',
+            'time_order',
+            'time_start',
+            'time_end',
+            'status',
+            'type',
+            'extra',
+        ];
 }

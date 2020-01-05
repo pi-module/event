@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Controller\Front;
 
 use Pi;
@@ -70,41 +71,44 @@ class RegisterController extends ActionController
                     $this->jump($event['eventUrl'], $message, 'error');
                 }
                 // Check capacity
-                if ($event['register_stock'] > 0 && ($event['register_stock'] -  $event['register_sales'] === 0 || $event['register_stock'] -  $event['register_sales']  < $number)) {
+                if ($event['register_stock'] > 0
+                    && ($event['register_stock'] - $event['register_sales'] === 0
+                        || $event['register_stock'] - $event['register_sales'] < $number)
+                ) {
                     $message = __('This event do not have enough capacity');
                     $this->jump($event['eventUrl'], $message, 'error');
                 }
                 // Set extra
-                $extra = array();
-                $extra['view_type'] = 'template';
+                $extra                  = [];
+                $extra['view_type']     = 'template';
                 $extra['view_template'] = 'order-detail';
-                $extra['getDetail'] = true;
+                $extra['getDetail']     = true;
                 // Set singel Product
-                $singleProduct = array(
-                    'product' => $event['id'],
-                    'product_price' => $event['register_price'],
+                $singleProduct = [
+                    'product'        => $event['id'],
+                    'product_price'  => $event['register_price'],
                     'discount_price' => 0,
                     'shipping_price' => 0,
-                    'setup_price' => 0,
-                    'packing_price' => 0,
-                    'vat_price' => 0,
-                    'number' => $number,
-                    'title' => $event['title'],
-                    'extra' => json_encode($extra),
-                );
+                    'setup_price'    => 0,
+                    'packing_price'  => 0,
+                    'vat_price'      => 0,
+                    'number'         => $number,
+                    'title'          => $event['title'],
+                    'extra'          => json_encode($extra),
+                ];
                 // Set order array
-                $order = array();
-                $order['module'] = $module;
-                $order['product'] = $event['id'];
-                $order['type_payment'] = 'onetime';
-                $order['type_commodity'] = 'service';
+                $order                          = [];
+                $order['module']                = $module;
+                $order['product']               = $event['id'];
+                $order['type_payment']          = 'onetime';
+                $order['type_commodity']        = 'service';
                 $order['product'][$event['id']] = $singleProduct;
                 // Set session_order if user not login
                 if ($uid == 0) {
-                    $_SESSION['session_order'] = array(
+                    $_SESSION['session_order'] = [
                         'module' => 'event',
-                        'value' => $singleProduct,
-                    );
+                        'value'  => $singleProduct,
+                    ];
                 }
                 // Set and go to order
                 $url = Pi::api('order', 'order')->setOrderInfo($order);
@@ -116,7 +120,7 @@ class RegisterController extends ActionController
                 return;
             }
         } else {
-            $url = array('', 'controller' => 'register', 'action' => 'index');
+            $url = ['', 'controller' => 'register', 'action' => 'index'];
             return $this->redirect()->toRoute('', $url);
         }
     }

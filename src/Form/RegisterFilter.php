@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Form;
 
 use Pi;
@@ -17,17 +18,21 @@ use Zend\InputFilter\InputFilter;
 
 class RegisterFilter extends InputFilter
 {
-    public function __construct($option = array())
+    public function __construct($option = [])
     {
         // id
-        $this->add(array(
-            'name' => 'id',
-            'required' => true,
-        ));
+        $this->add(
+            [
+                'name'     => 'id',
+                'required' => true,
+            ]
+        );
         // number
-        $this->add(array(
-            'name' => 'number',
-            'required' => true,
-        ));
+        $this->add(
+            [
+                'name'     => 'number',
+                'required' => true,
+            ]
+        );
     }
 }

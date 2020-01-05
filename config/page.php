@@ -10,62 +10,62 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     // Front section
-    'front' => array(
-        array(
-            'title' => _a('Index page'),
+    'front' => [
+        [
+            'title'      => _a('Index page'),
             'controller' => 'index',
             'permission' => 'public',
-            'block' => 1,
-        ),
-        array(
-            'title' => _a('Category'),
+            'block'      => 1,
+        ],
+        [
+            'title'      => _a('Category'),
             'controller' => 'category',
             'permission' => 'public',
-            'block' => 1,
-        ),
-        array(
-            'title' => _a('Event detail'),
+            'block'      => 1,
+        ],
+        [
+            'title'      => _a('Event detail'),
             'controller' => 'detail',
             'permission' => 'public',
-            'block' => 1,
-        ),
-        array(
-            'title' => _a('Manage'),
+            'block'      => 1,
+        ],
+        [
+            'title'      => _a('Manage'),
             'controller' => 'manage',
             'permission' => 'manage',
-            'block' => 1,
-        ),
-        array(
-            'title' => _a('Register'),
+            'block'      => 1,
+        ],
+        [
+            'title'      => _a('Register'),
             'controller' => 'register',
             'permission' => 'public',
-            'block' => 0,
-        ),
-        array(
-            'label' => _a('Json output'),
+            'block'      => 0,
+        ],
+        [
+            'label'      => _a('Json output'),
             'controller' => 'json',
             'permission' => 'public',
-            'block' => 0,
-        ),
-    ),
+            'block'      => 0,
+        ],
+    ],
     // Admin section
-    'admin' => array(
-        array(
-            'title' => _a('Event'),
+    'admin' => [
+        [
+            'title'      => _a('Event'),
             'controller' => 'event',
             'permission' => 'event',
-        ),
-        array(
-            'title' => _a('List of order'),
+        ],
+        [
+            'title'      => _a('List of order'),
             'controller' => 'order',
             'permission' => 'order',
-        ),
-        array(
-            'title' => _a('Tools'),
+        ],
+        [
+            'title'      => _a('Tools'),
             'controller' => 'tools',
             'permission' => 'tools',
-        ),
-    ),
-);
+        ],
+    ],
+];

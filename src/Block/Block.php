@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Block;
 
 use Pi;
@@ -18,10 +19,10 @@ use Zend\Db\Sql\Predicate\Expression;
 
 class Block
 {
-    public static function recentEvent($options = array(), $module = null)
+    public static function recentEvent($options = [], $module = null)
     {
         // Set options
-        $block = array();
+        $block = [];
         $block = array_merge($block, $options);
 
         /*  $where = array(
@@ -53,41 +54,43 @@ class Block
         } */
 
         $select = Pi::model('extra', 'event')->select()
-            ->where(function ($where) {
-                $fromWhere = clone $where;
-                $toWhere = clone $where;
-                $fromWhere->equalTo('status', 1);
-                $fromWhere->greaterThan('time_end', strtotime("-1 day"));
-                $toWhere->equalTo('status', 1);
-                $toWhere->equalTo('time_end', 0);
-                $toWhere->greaterThan('time_start', strtotime("-1 day"));
-                $where->andPredicate($fromWhere)->orPredicate($toWhere);
-            })
+            ->where(
+                function ($where) {
+                    $fromWhere = clone $where;
+                    $toWhere   = clone $where;
+                    $fromWhere->equalTo('status', 1);
+                    $fromWhere->greaterThan('time_end', strtotime("-1 day"));
+                    $toWhere->equalTo('status', 1);
+                    $toWhere->equalTo('time_end', 0);
+                    $toWhere->greaterThan('time_start', strtotime("-1 day"));
+                    $where->andPredicate($fromWhere)->orPredicate($toWhere);
+                }
+            )
             ->order('time_start ASC, id ASC')
             ->limit(intval($block['number']));
         $rowset = Pi::model('extra', 'event')->selectWith($select)->toArray();
         foreach ($rowset as $row) {
-            $list[] = $row['id'];
-            $block['resources'][$row['id']] = array();
+            $list[]                         = $row['id'];
+            $block['resources'][$row['id']] = [];
         }
 
-        $where = array(
+        $where = [
             'status' => 1,
-        );
-        
+        ];
+
         if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
-            $table = 'link';
+            $table          = 'link';
             $where['topic'] = $block['topic-id'];
             $where['story'] = $list;
         } else {
-            $table = 'story';
+            $table       = 'story';
             $where['id'] = $list;
         }
 
         //$table = 'story';
         //$where['id'] = $list;
 
-        $order = array('time_publish ASC', 'id ASC');
+        $order = ['time_publish ASC', 'id ASC'];
 
         // Set event
         $events = Pi::api('event', 'event')->getEventList($where, $order, '', $block['number'], 'full', $table);
@@ -96,11 +99,15 @@ class Block
         }
 
         // Set more link
-        $block['morelink'] = Pi::url(Pi::service('url')->assemble('event', array(
-            'module' => $module,
-            'controller' => 'index',
-            'action' => 'index',
-        )));
+        $block['morelink'] = Pi::url(
+            Pi::service('url')->assemble(
+                'event', [
+                'module'     => $module,
+                'controller' => 'index',
+                'action'     => 'index',
+            ]
+            )
+        );
 
         // Language
         _b('free!');

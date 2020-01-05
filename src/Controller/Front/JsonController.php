@@ -20,14 +20,14 @@ class JsonController extends IndexController
     public function searchAction()
     {
         // Get info from url
-        $module = $this->params('module');
-        $page = $this->params('page', 1);
-        $title = $this->params('title');
-        $category = $this->params('category');
-        $tag = $this->params('tag');
+        $module    = $this->params('module');
+        $page      = $this->params('page', 1);
+        $title     = $this->params('title');
+        $category  = $this->params('category');
+        $tag       = $this->params('tag');
         $favourite = $this->params('favourite');
-        $limit = $this->params('limit');
-        $time = $this->params('time');
+        $limit     = $this->params('limit');
+        $time      = $this->params('time');
 
         //$recommended = $this->params('recommended');
         //$order = $this->params('order');
@@ -50,10 +50,10 @@ class JsonController extends IndexController
         }
 
         // Clean params
-        $paramsClean = array();
+        $paramsClean = [];
         foreach ($_GET as $key => $value) {
-            $key = _strip($key);
-            $value = _strip($value);
+            $key               = _strip($key);
+            $value             = _strip($value);
             $paramsClean[$key] = $value;
         }
 
@@ -61,17 +61,17 @@ class JsonController extends IndexController
         $config = Pi::service('registry')->config->read($module);
 
         // Set empty result
-        $result = array(
-            'events' => array(),
-            'paginator' => array(),
-            'condition' => array(),
-        );
+        $result = [
+            'events'    => [],
+            'paginator' => [],
+            'condition' => [],
+        ];
 
         // Set where link
-        $whereEvent = array(
+        $whereEvent = [
             'status' => 1,
-            'type' => 'event'
-        );
+            'type'   => 'event',
+        ];
         /* if (!empty($recommended) && $recommended == 1) {
             $whereEvent['recommended'] = 1;
         } */
@@ -80,29 +80,29 @@ class JsonController extends IndexController
         $pageTitle = __('List of events');
 
         // Set order
-        $order = array('time_publish DESC', 'id DESC');
-        $orderExtra = array('time_start DESC', 'id DESC');
+        $order      = ['time_publish DESC', 'id DESC'];
+        $orderExtra = ['time_start DESC', 'id DESC'];
 
         // Get location list
         $locationList = Pi::api('event', 'event')->getLocationList();
         if (!empty($locationList)) {
-            $locationAll[] = array(
-                'id' => 0,
+            $locationAll[] = [
+                'id'    => 0,
                 'title' => __('All'),
                 'value' => '',
-            );
-            $locationList = array_merge($locationAll, $locationList);
+            ];
+            $locationList  = array_merge($locationAll, $locationList);
         }
 
         // Get category list
         $categoryList = Pi::api('event', 'event')->getCategoryList();
         if (!empty($categoryList)) {
-            $categoryAll[] = array(
-                'id' => 0,
+            $categoryAll[] = [
+                'id'    => 0,
                 'title' => __('All'),
                 'value' => '',
-            );
-            $categoryList = array_merge($categoryAll, $categoryList);
+            ];
+            $categoryList  = array_merge($categoryAll, $categoryList);
         }
 
         // Get category information from model
@@ -113,7 +113,7 @@ class JsonController extends IndexController
             if (!$category || $category['status'] != 1) {
                 return $result;
             }
-            $categoryIDList = array();
+            $categoryIDList   = [];
             $categoryIDList[] = $category['id'];
             if (isset($category['ids']) && !empty($category['ids'])) {
                 foreach ($category['ids'] as $categorySingle) {
@@ -128,7 +128,7 @@ class JsonController extends IndexController
 
         // Get tag list
         if (!empty($tag)) {
-            $eventIDTag = array();
+            $eventIDTag = [];
             // Check favourite
             if (!Pi::service('module')->isActive('tag')) {
                 return $result;
@@ -161,38 +161,40 @@ class JsonController extends IndexController
         }
 
         // Set event ID list
-        $checkTitle = false;
-        $checkTime = false;
-        $eventIDList = array(
-            'title' => array(),
-            'time' => array(),
-        );
+        $checkTitle  = false;
+        $checkTime   = false;
+        $eventIDList = [
+            'title' => [],
+            'time'  => [],
+        ];
 
         // Check title from event table
         if (isset($title) && !empty($title)) {
             $checkTitle = true;
-            $titles = is_array($title) ? $title : array($title);
-            $columns = array('id');
-            $select = $this->getModel('extra')->select()->columns($columns)->where(function ($where) use ($titles, $recommended) {
-                $whereMain = clone $where;
-                $whereKey = clone $where;
-                $whereMain->equalTo('status', 1);
-                //if (!empty($recommended) && $recommended == 1) {
-                //    $whereMain->equalTo('recommended', 1);
-                //}
-                foreach ($titles as $title) {
-                    $whereKey->like('title', '%' . $title . '%')->and;
+            $titles     = is_array($title) ? $title : [$title];
+            $columns    = ['id'];
+            $select     = $this->getModel('extra')->select()->columns($columns)->where(
+                function ($where) use ($titles, $recommended) {
+                    $whereMain = clone $where;
+                    $whereKey  = clone $where;
+                    $whereMain->equalTo('status', 1);
+                    //if (!empty($recommended) && $recommended == 1) {
+                    //    $whereMain->equalTo('recommended', 1);
+                    //}
+                    foreach ($titles as $title) {
+                        $whereKey->like('title', '%' . $title . '%')->and;
+                    }
+                    $where->andPredicate($whereMain)->andPredicate($whereKey);
                 }
-                $where->andPredicate($whereMain)->andPredicate($whereKey);
-            })->order($orderExtra);
-            $rowset = $this->getModel('extra')->selectWith($select);
+            )->order($orderExtra);
+            $rowset     = $this->getModel('extra')->selectWith($select);
             foreach ($rowset as $row) {
                 $eventIDList['title'][$row->id] = $row->id;
             }
         }
 
         // Check time
-        $timeArray = array(
+        $timeArray = [
             'active',
             'expired',
             'thisWeek',
@@ -202,82 +204,84 @@ class JsonController extends IndexController
             'nextTwoMonth',
             'nextThreeMonth',
             'nextAllMonth',
-        );
-        $time = (in_array($time, $timeArray)) ? $time : '';
+        ];
+        $time      = (in_array($time, $timeArray)) ? $time : '';
         if (!empty($time)) {
             // Get time
             $timeList = Pi::api('time', 'event')->makeTime();
             // Set time where query
             switch ($time) {
                 case 'active':
-                    $whereExtra1 = array('time_end' => 0, 'time_start > ?' => $timeList['expired']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_end > ?' => $timeList['expired']);
+                    $whereExtra1 = ['time_end' => 0, 'time_start > ?' => $timeList['expired']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_end > ?' => $timeList['expired']];
                     break;
 
                 case 'expired':
-                    $whereExtra1 = array('time_end' => 0, 'time_start < ?' => $timeList['expired']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_end < ?' => $timeList['expired']);
+                    $whereExtra1 = ['time_end' => 0, 'time_start < ?' => $timeList['expired']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_end < ?' => $timeList['expired']];
                     break;
 
                 case 'thisWeek':
-                    $whereExtra1 = array('time_start >= ?' => $timeList['thisWeek'], 'time_start < ?' => $timeList['nextWeek']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['thisWeek'], 'time_end > ?' => $timeList['thisWeek']);
+                    $whereExtra1 = ['time_start >= ?' => $timeList['thisWeek'], 'time_start < ?' => $timeList['nextWeek']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_start < ?' => $timeList['thisWeek'], 'time_end > ?' => $timeList['thisWeek']];
                     break;
 
                 case 'nextWeek':
-                    $whereExtra1 = array('time_start >= ?' => $timeList['nextWeek'], 'time_start < ?' => $timeList['nextTwoWeek']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextWeek'], 'time_end > ?' => $timeList['nextWeek']);
+                    $whereExtra1 = ['time_start >= ?' => $timeList['nextWeek'], 'time_start < ?' => $timeList['nextTwoWeek']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_start < ?' => $timeList['nextWeek'], 'time_end > ?' => $timeList['nextWeek']];
                     break;
 
                 case 'thisMonth':
-                    $whereExtra1 = array('time_start >= ?' => $timeList['thisMonth'], 'time_start < ?' => $timeList['nextMonth']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['thisMonth'], 'time_end > ?' => $timeList['thisMonth']);
+                    $whereExtra1 = ['time_start >= ?' => $timeList['thisMonth'], 'time_start < ?' => $timeList['nextMonth']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_start < ?' => $timeList['thisMonth'], 'time_end > ?' => $timeList['thisMonth']];
                     break;
 
                 case 'nextMonth':
-                    $whereExtra1 = array('time_start >= ?' => $timeList['nextMonth'], 'time_start < ?' => $timeList['nextTwoMonth']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextMonth'], 'time_end > ?' => $timeList['nextMonth']);
+                    $whereExtra1 = ['time_start >= ?' => $timeList['nextMonth'], 'time_start < ?' => $timeList['nextTwoMonth']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_start < ?' => $timeList['nextMonth'], 'time_end > ?' => $timeList['nextMonth']];
                     break;
 
                 case 'nextTwoMonth':
-                    $whereExtra1 = array('time_start >= ?' => $timeList['nextTwoMonth'], 'time_start < ?' => $timeList['nextThreeMonth']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextTwoMonth'], 'time_end > ?' => $timeList['nextTwoMonth']);
+                    $whereExtra1 = ['time_start >= ?' => $timeList['nextTwoMonth'], 'time_start < ?' => $timeList['nextThreeMonth']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_start < ?' => $timeList['nextTwoMonth'], 'time_end > ?' => $timeList['nextTwoMonth']];
                     break;
 
                 case 'nextThreeMonth':
-                    $whereExtra1 = array('time_start >= ?' => $timeList['nextThreeMonth'], 'time_start < ?' => $timeList['nextFourMonth']);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_start < ?' => $timeList['nextThreeMonth'], 'time_end > ?' => $timeList['nextThreeMonth']);
+                    $whereExtra1 = ['time_start >= ?' => $timeList['nextThreeMonth'], 'time_start < ?' => $timeList['nextFourMonth']];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_start < ?' => $timeList['nextThreeMonth'], 'time_end > ?' => $timeList['nextThreeMonth']];
                     break;
 
                 case 'nextAllMonth':
-                    $whereExtra1 = array('time_start >= ?' => $timeList['nextFourMonth'],);
-                    $whereExtra2 = array('time_end > ?' => 0, 'time_end > ?' => $timeList['nextFourMonth']);
+                    $whereExtra1 = ['time_start >= ?' => $timeList['nextFourMonth'],];
+                    $whereExtra2 = ['time_end > ?' => 0, 'time_end > ?' => $timeList['nextFourMonth']];
                     break;
             }
 
             // Make query
             $checkTime = true;
-            $columns = array('id');
-            $select = $this->getModel('extra')->select()->columns($columns)->where(function ($where) use ($whereExtra1, $whereExtra2) {
-                $whereMain = clone $where;
-                $where1 = clone $where;
-                $where2 = clone $where;
-                $whereMain->equalTo('status', 1);
-                $where1->addPredicates($whereExtra1);
-                $where2->addPredicates($whereExtra2);
-                $where->addPredicate($whereMain)->addPredicate($where1)->orPredicate($where2);
-            })->order($orderExtra);
-            $rowset = $this->getModel('extra')->selectWith($select);
+            $columns   = ['id'];
+            $select    = $this->getModel('extra')->select()->columns($columns)->where(
+                function ($where) use ($whereExtra1, $whereExtra2) {
+                    $whereMain = clone $where;
+                    $where1    = clone $where;
+                    $where2    = clone $where;
+                    $whereMain->equalTo('status', 1);
+                    $where1->addPredicates($whereExtra1);
+                    $where2->addPredicates($whereExtra2);
+                    $where->addPredicate($whereMain)->addPredicate($where1)->orPredicate($where2);
+                }
+            )->order($orderExtra);
+            $rowset    = $this->getModel('extra')->selectWith($select);
             foreach ($rowset as $row) {
                 $eventIDList['time'][$row->id] = $row->id;
             }
         }
 
         // Set info
-        $event = array();
+        $event = [];
         $count = 0;
 
-        $limit = (intval($limit) > 0) ? intval($limit) : intval($config['view_perpage']);
+        $limit  = (intval($limit) > 0) ? intval($limit) : intval($config['view_perpage']);
         $offset = (int)($page - 1) * $limit;
 
         // Set category on where link
@@ -358,22 +362,22 @@ class JsonController extends IndexController
         }
 
         // Set result
-        $result = array(
-            'events' => $event,
-            'paginator' => array(
+        $result = [
+            'events'    => $event,
+            'paginator' => [
                 'count' => $count,
                 'limit' => $limit,
-                'page' => $page,
-            ),
-            'condition' => array(
-                'title' => $pageTitle,
-                 'locationList' => $locationList,
-                'categoryList' => $categoryList,
-                'table' => $table,
-                'listType' => $config['view_list_type'],
+                'page'  => $page,
+            ],
+            'condition' => [
+                'title'              => $pageTitle,
+                'locationList'       => $locationList,
+                'categoryList'       => $categoryList,
+                'table'              => $table,
+                'listType'           => $config['view_list_type'],
                 'importantOrganizer' => $config['important_organizer'],
-            ),
-        );
+            ],
+        ];
 
         return $result;
     }
@@ -381,7 +385,7 @@ class JsonController extends IndexController
     public function eventSingleAction()
     {
         // Get info from url
-        $id = $this->params('id');
+        $id   = $this->params('id');
         $slug = $this->params('slug');
         // Get
         if (!empty($slug)) {
@@ -394,16 +398,16 @@ class JsonController extends IndexController
 
         // Set text_summary
         $singleEvent['text_summary'] = Pi::service('markup')->render($singleEvent['text_summary'], 'html', 'html');
-        $singleEvent['text_summary'] = strip_tags($singleEvent['text_summary'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
+        $singleEvent['text_summary'] = strip_tags($singleEvent['text_summary'], "<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
         $singleEvent['text_summary'] = str_replace("<p>&nbsp;</p>", "", $singleEvent['text_summary']);
         // Set text_description
         $singleEvent['text_description'] = Pi::service('markup')->render($singleEvent['text_description'], 'html', 'html');
-        $singleEvent['text_description'] = strip_tags($singleEvent['text_description'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
+        $singleEvent['text_description'] = strip_tags($singleEvent['text_description'], "<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
         $singleEvent['text_description'] = str_replace("<p>&nbsp;</p>", "", $singleEvent['text_description']);
 
         // Set register_details
         $singleEvent['register_details'] = Pi::service('markup')->render($singleEvent['register_details'], 'html', 'html');
-        $singleEvent['register_details'] = strip_tags($singleEvent['register_details'],"<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
+        $singleEvent['register_details'] = strip_tags($singleEvent['register_details'], "<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
         $singleEvent['register_details'] = str_replace("<p>&nbsp;</p>", "", $singleEvent['register_details']);
         // Set time
         if (!empty($singleEvent['time_start']) && !empty($singleEvent['time_end'])) {
@@ -413,36 +417,36 @@ class JsonController extends IndexController
         }
 
         // Set event
-        $event = array();
-        $event[] = array(
-            'id' => $singleEvent['id'],
-            'title' => $singleEvent['title'],
-            'text_summary' => $singleEvent['text_summary'],
-            'text_description' => $singleEvent['text_description'],
-            'register_details' => $singleEvent['register_details'],
-            'time_update' => $singleEvent['time_update'],
-            'time_start' => $singleEvent['time_start'],
-            'time_end' => $singleEvent['time_end'],
-            'time_view' => $singleEvent['time_view'],
-            'hits' => $singleEvent['hits'],
-            'recommended' => $singleEvent['recommended'],
-            'favourite' => $singleEvent['favourite'],
-            'largeUrl' => $singleEvent['largeUrl'],
-            'mediumUrl' => $singleEvent['mediumUrl'],
-            'thumbUrl' => $singleEvent['thumbUrl'],
-            'image' => $singleEvent['image'],
-            'eventUrl' => $singleEvent['eventUrl'],
-            'source_url' => $singleEvent['source_url'],
-            'organizer_name' => $singleEvent['organizer_name'],
-            'address' => $singleEvent['address'],
-            'offer_url' => $singleEvent['offer_url'],
-            'price' => isset($singleEvent['register_price_view']) ? $singleEvent['register_price_view'] : $singleEvent['price_view'],
-            'subtitle' => $singleEvent['subtitle'],
-            'register_price' => $singleEvent['register_price'],
+        $event   = [];
+        $event[] = [
+            'id'                  => $singleEvent['id'],
+            'title'               => $singleEvent['title'],
+            'text_summary'        => $singleEvent['text_summary'],
+            'text_description'    => $singleEvent['text_description'],
+            'register_details'    => $singleEvent['register_details'],
+            'time_update'         => $singleEvent['time_update'],
+            'time_start'          => $singleEvent['time_start'],
+            'time_end'            => $singleEvent['time_end'],
+            'time_view'           => $singleEvent['time_view'],
+            'hits'                => $singleEvent['hits'],
+            'recommended'         => $singleEvent['recommended'],
+            'favourite'           => $singleEvent['favourite'],
+            'largeUrl'            => $singleEvent['largeUrl'],
+            'mediumUrl'           => $singleEvent['mediumUrl'],
+            'thumbUrl'            => $singleEvent['thumbUrl'],
+            'image'               => $singleEvent['image'],
+            'eventUrl'            => $singleEvent['eventUrl'],
+            'source_url'          => $singleEvent['source_url'],
+            'organizer_name'      => $singleEvent['organizer_name'],
+            'address'             => $singleEvent['address'],
+            'offer_url'           => $singleEvent['offer_url'],
+            'price'               => isset($singleEvent['register_price_view']) ? $singleEvent['register_price_view'] : $singleEvent['price_view'],
+            'subtitle'            => $singleEvent['subtitle'],
+            'register_price'      => $singleEvent['register_price'],
             'register_price_view' => $singleEvent['register_price_view'],
-            'price_currency' => $singleEvent['price_currency'],
-            'originalUrl' => isset($singleEvent['originalUrl']) ? $singleEvent['originalUrl'] : '',
-        );
+            'price_currency'      => $singleEvent['price_currency'],
+            'originalUrl'         => isset($singleEvent['originalUrl']) ? $singleEvent['originalUrl'] : '',
+        ];
 
         return $event;
     }
@@ -452,13 +456,13 @@ class JsonController extends IndexController
         // Get time
         $time = Pi::api('time', 'event')->makeTime();
         // Set info
-        $where = array(
+        $where     = [
             'status' => 1,
-            'type' => 'event'
-        );
-        $order = array('time_publish DESC', 'id DESC');
-        $events = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'full', 'story');
-        $listEvent = array();
+            'type'   => 'event',
+        ];
+        $order     = ['time_publish DESC', 'id DESC'];
+        $events    = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'full', 'story');
+        $listEvent = [];
         foreach ($events as $event) {
             $listEvent[] = Pi::api('event', 'event')->canonizeEventJson($event, $time, true);
         }
@@ -482,14 +486,14 @@ class JsonController extends IndexController
         // Get time
         $time = Pi::api('time', 'event')->makeTime();
         // Set info
-        $where = array(
+        $where     = [
             'status' => 1,
-            'type' => 'event',
-            'topic' => $category['ids'],
-        );
-        $order = array('time_publish DESC', 'id DESC');
-        $events = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'full', 'link');
-        $listEvent = array();
+            'type'   => 'event',
+            'topic'  => $category['ids'],
+        ];
+        $order     = ['time_publish DESC', 'id DESC'];
+        $events    = Pi::api('event', 'event')->getEventList($where, $order, '', '', 'full', 'link');
+        $listEvent = [];
         foreach ($events as $event) {
             $listEvent[] = Pi::api('event', 'event')->canonizeEventJson($event, $time);
         }
@@ -499,12 +503,12 @@ class JsonController extends IndexController
 
     public function registerClickAction()
     {
-        $id = $this->params('id');
-        $id = intval($id);
-        $result = array();
+        $id     = $this->params('id');
+        $id     = intval($id);
+        $result = [];
 
         if ($id > 0) {
-            $this->getModel('extra')->increment('register_click', array('id' => $id));
+            $this->getModel('extra')->increment('register_click', ['id' => $id]);
             $result['status'] = 1;
         } else {
             $result['status'] = 0;
@@ -517,7 +521,7 @@ class JsonController extends IndexController
     {
         // Get info from url
         $module = $this->params('module');
-        $slug = $this->params('slug');
+        $slug   = $this->params('slug');
 
         // Get config
         $config = Pi::service('registry')->config->read($module);
@@ -526,18 +530,18 @@ class JsonController extends IndexController
 
         // Update Hits
         if ($config['event_all_hits']) {
-            Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+            Pi::model('story', 'news')->increment('hits', ['id' => $event['id']]);
         } else {
-            if(!isset($_SESSION['hits_events'][$event['id']])){
-                if(!isset($_SESSION['hits_events'])){
-                    $_SESSION['hits_events'] = array();
+            if (!isset($_SESSION['hits_events'][$event['id']])) {
+                if (!isset($_SESSION['hits_events'])) {
+                    $_SESSION['hits_events'] = [];
                 }
 
                 $_SESSION['hits_events'][$event['id']] = false;
             }
 
-            if(!$_SESSION['hits_events'][$event['id']]){
-                Pi::model('story', 'news')->increment('hits', array('id' => $event['id']));
+            if (!$_SESSION['hits_events'][$event['id']]) {
+                Pi::model('story', 'news')->increment('hits', ['id' => $event['id']]);
                 $_SESSION['hits_events'][$event['id']] = true;
             }
         }
@@ -547,9 +551,9 @@ class JsonController extends IndexController
          */
         $event = Pi::model('story', 'news')->find($event['id']);
 
-        return array(
+        return [
             'status' => 1,
-            'hits' => (int) $event->hits,
-        );
+            'hits'   => (int)$event->hits,
+        ];
     }
 }

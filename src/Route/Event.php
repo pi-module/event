@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Route;
 
 use Pi;
@@ -19,17 +20,20 @@ class Event extends Standard
 {
     /**
      * Default values.
+     *
      * @var array
      */
-    protected $defaults = array(
-        'module' => 'event',
-        'controller' => 'index',
-        'action' => 'index'
-    );
+    protected $defaults
+        = [
+            'module'     => 'event',
+            'controller' => 'index',
+            'action'     => 'index',
+        ];
 
-    protected $controllerList = array(
-        'index', 'category', 'detail', 'manage', 'register', 'json', 'api'
-    );
+    protected $controllerList
+        = [
+            'index', 'category', 'detail', 'manage', 'register', 'json', 'api',
+        ];
 
     /**
      * {@inheritDoc}
@@ -41,8 +45,8 @@ class Event extends Standard
      */
     protected function parse($path)
     {
-        $matches = array();
-        $parts = array_filter(explode($this->structureDelimiter, $path));
+        $matches = [];
+        $parts   = array_filter(explode($this->structureDelimiter, $path));
 
         // Set controller
         $matches = array_merge($this->defaults, $matches);
@@ -68,22 +72,24 @@ class Event extends Standard
                                 $matches['item'] = intval($parts[3]);
                             }
                         } elseif (isset($parts[1]) && $parts[1] == 'remove'
-                            && isset($parts[3]) && is_numeric($parts[3])
+                            && isset($parts[3])
+                            && is_numeric($parts[3])
                         ) {
                             $matches['action'] = 'remove';
-                            $matches['id'] = intval($parts[3]);
+                            $matches['id']     = intval($parts[3]);
                         } elseif (isset($parts[1]) && $parts[1] == 'order'
-                            && isset($parts[3]) && is_numeric($parts[3])
+                            && isset($parts[3])
+                            && is_numeric($parts[3])
                         ) {
                             $matches['action'] = 'order';
-                            $matches['id'] = intval($parts[3]);
+                            $matches['id']     = intval($parts[3]);
                         }
                         break;
 
                     case 'register':
                         if (isset($parts[1]) && $parts[1] == 'add') {
                             $matches['action'] = 'add';
-                            $matches['slug'] = $this->decode($parts[2]);
+                            $matches['slug']   = $this->decode($parts[2]);
                         }
                         break;
 
@@ -112,7 +118,7 @@ class Event extends Standard
                             $matches['password'] = $this->decode($parts[7]);
                         }
 
-                        if($matches['action'] == 'hit'){
+                        if ($matches['action'] == 'hit') {
                             $matches['slug'] = $this->decode($parts[2]);
                         }
 
@@ -123,22 +129,22 @@ class Event extends Standard
 
                         if ($parts[1] == 'favourite') {
                             $matches['action'] = 'favourite';
-                            $matches['slug'] = $this->decode($parts[2]);
+                            $matches['slug']   = $this->decode($parts[2]);
                         }
                         break;
                 }
             }
         } elseif (isset($parts[0])) {
-            $parts[0] = urldecode($parts[0]);
+            $parts[0]     = urldecode($parts[0]);
             $categorySlug = Pi::registry('categoryRoute', 'event')->read();
             if (in_array($parts[0], $categorySlug)) {
                 $matches['controller'] = 'category';
-                $matches['action'] = 'index';
-                $matches['slug'] = $this->decode($parts[0]);
+                $matches['action']     = 'index';
+                $matches['slug']       = $this->decode($parts[0]);
             } else {
                 $matches['controller'] = 'detail';
-                $matches['action'] = 'index';
-                $matches['slug'] = $this->decode($parts[0]);
+                $matches['action']     = 'index';
+                $matches['slug']       = $this->decode($parts[0]);
             }
         }
 
@@ -153,16 +159,16 @@ class Event extends Standard
     /**
      * assemble(): Defined by Route interface.
      *
-     * @see    Route::assemble()
-     * @param  array $params
-     * @param  array $options
+     * @param array $params
+     * @param array $options
+     *
      * @return string
+     * @see    Route::assemble()
      */
     public function assemble(
-        array $params = array(),
-        array $options = array()
-    )
-    {
+        array $params = [],
+        array $options = []
+    ) {
         $mergedParams = array_merge($this->defaults, $params);
         if (!$mergedParams) {
             return $this->prefix;
@@ -209,8 +215,8 @@ class Event extends Standard
         if (!empty($mergedParams['password'])) {
             $url['password'] = 'password' . $this->paramDelimiter . $mergedParams['password'];
         }
-        
-         if (!empty($mergedParams['status'])) {
+
+        if (!empty($mergedParams['status'])) {
             $url['status'] = 'status' . $this->paramDelimiter . $mergedParams['status'];
         }
 

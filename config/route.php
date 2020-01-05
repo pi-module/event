@@ -10,18 +10,18 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     // route name
-    'event' => array(
-        'name' => 'event',
-        'type' => 'Module\Event\Route\Event',
-        'options' => array(
-            'route' => '/event',
-            'defaults' => array(
-                'module' => 'event',
+    'event' => [
+        'name'    => 'event',
+        'type'    => 'Module\Event\Route\Event',
+        'options' => [
+            'route'    => '/event',
+            'defaults' => [
+                'module'     => 'event',
                 'controller' => 'index',
-                'action' => 'index'
-            )
-        ),
-    )
-);
+                'action'     => 'index',
+            ],
+        ],
+    ],
+];

@@ -1,4 +1,4 @@
-<?php $this->css($this->assetModule('css/front.css'), array('defer' => 'defer')); ?>
+<?php $this->css($this->assetModule('css/front.css'), ['defer' => 'defer']); ?>
 <div class="clearfix">
     <div class="event-manage clearfix row">
         <div class="col-md-3">
@@ -7,14 +7,14 @@
         </div>
         <div class="col-md-9">
             <?php if ($allowed) { ?>
-                    <div class="pull-right">
-                        <a class="btn btn-primary" href="<?php echo $this->url('', array('action' => 'update')); ?>" title="<?php _e('New event'); ?>">
-                            <i class="fa fa-plus"></i> <?php _e('New event'); ?>
-                        </a>
-                    </div>
-                <?php } ?>
+                <div class="pull-right">
+                    <a class="btn btn-primary" href="<?php echo $this->url('', ['action' => 'update']); ?>" title="<?php _e('New event'); ?>">
+                        <i class="fa fa-plus"></i> <?php _e('New event'); ?>
+                    </a>
+                </div>
+            <?php } ?>
             <div class="page-header clearfix">
-                <h1 ><?php echo $this->escape($title); ?></h1>
+                <h1><?php echo $this->escape($title); ?></h1>
             </div>
             <?php if ($allowed) { ?>
                 <?php if (!empty($events)) { ?>
@@ -40,32 +40,43 @@
                                             class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($event['id']); ?></span>
                                 </td>
                                 <td><?php echo $this->escape($event['title']); ?></td>
-                                <td><?php echo $this->escape((empty($event['time_start'])) ? '' : _date($event['time_start'], array('pattern' => 'yyyy/MM/dd'))); ?></td>
-                                <td><?php echo $this->escape((empty($event['time_end'])) ? '' : _date($event['time_end'], array('pattern' => 'yyyy/MM/dd'))); ?></td>
+                                <td><?php echo $this->escape(
+                                        (empty($event['time_start'])) ? '' : _date($event['time_start'], ['pattern' => 'yyyy/MM/dd'])
+                                    ); ?></td>
+                                <td><?php echo $this->escape((empty($event['time_end'])) ? '' : _date($event['time_end'], ['pattern' => 'yyyy/MM/dd'])); ?></td>
                                 <td>
                                     <?php
-                                        if ($event['register_stock'] > 0) {                                                               
-                                            echo sprintf(__('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'], $event['register_stock'] - $event['register_sales']);
-                                        } else {
-                                            echo sprintf(__('%s registred'), $event['register_sales']);
-                                        }
+                                    if ($event['register_stock'] > 0) {
+                                        echo sprintf(
+                                            __('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'],
+                                            $event['register_stock'] - $event['register_sales']
+                                        );
+                                    } else {
+                                        echo sprintf(__('%s registred'), $event['register_sales']);
+                                    }
                                     ?>
                                 </td>
                                 <td>
                                     <div class="text-nowrap">
                                         <?php if ($event['status'] == 1) { ?>
                                             <a class="btn btn-success btn-xs" title="<?php _e('View'); ?>"
-                                               href="<?php echo $this->escape( Pi::url(Pi::service('url')->assemble('event', array('module' => 'event','controller' => 'index','slug' => $event['slug'])))); ?>" target="_blank"><i
+                                               href="<?php echo $this->escape(
+                                                   Pi::url(
+                                                       Pi::service('url')->assemble(
+                                                           'event', ['module' => 'event', 'controller' => 'index', 'slug' => $event['slug']]
+                                                       )
+                                                   )
+                                               ); ?>" target="_blank"><i
                                                         class="fa fa-eye"></i> <?php _e('View'); ?></a>
                                         <?php } ?>
                                         <?php if ($event['time_end'] >= strtotime('now midnight')) { ?>
-                                        <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
-                                           href="<?php echo $this->url('', array('action' => 'update', 'id' => $event['id'])); ?>"><i
-                                                    class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                                            <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
+                                               href="<?php echo $this->url('', ['action' => 'update', 'id' => $event['id']]); ?>"><i
+                                                        class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
                                         <?php } ?>
                                         <?php if ($config['order_active'] && $event['register_can']) { ?>
                                             <a class="btn btn-primary btn-xs" title="<?php _e('List of orders'); ?>"
-                                               href="<?php echo $this->url('', array('action' => 'order', 'id' => $event['id'])); ?>"><i
+                                               href="<?php echo $this->url('', ['action' => 'order', 'id' => $event['id']]); ?>"><i
                                                         class="fa fa-shopping-cart"></i> <?php _e('List of orders'); ?></a>
                                         <?php } ?>
                                     </div>
@@ -84,7 +95,9 @@
                 <?php } ?>
             <?php } else { ?>
                 <div class="alert alert-danger" role="alert">
-                    <?php _e('You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'); ?>
+                    <?php _e(
+                        'You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'
+                    ); ?>
                 </div>
             <?php } ?>
         </div>

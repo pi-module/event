@@ -7,11 +7,13 @@
             <form id="list-filter" ng-submit="filterAction()">
                 <div class="form-group">
                     <label>{{'TITLE' | translate}}</label>
-                    <input type="text" class="form-control" ng-model="filter.title" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
+                    <input type="text" class="form-control" ng-model="filter.title" ng-change="filterAction()"
+                           ng-model-options="{ debounce: 5000 }">
                 </div>
                 <div class="form-group">
                     <label>{{'TIME_SELECT' | translate}}</label>
-                    <select class="form-control" ng-model="filter.time" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
+                    <select class="form-control" ng-model="filter.time" ng-change="filterAction()"
+                            ng-model-options="{ debounce: 5000 }">
                         <option value="">{{'ALL' | translate}}</option>
                         <option value="thisWeek">{{'TIME_THIS_WEEK' | translate}}</option>
                         <option value="nextWeek">{{'TIME_NEXT_WEEK' | translate}}</option>
@@ -26,7 +28,8 @@
                 </div>
                 <div class="form-group" ng-if="condition.categoryList">
                     <label>{{'CATEGORY' | translate}}</label>
-                    <select class="form-control" ng-model="filter.categorySelect" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
+                    <select class="form-control" ng-model="filter.categorySelect" ng-change="filterAction()"
+                            ng-model-options="{ debounce: 5000 }">
                         <option ng-repeat="categorySingle in condition.categoryList" value="{{categorySingle.value}}">
                             {{categorySingle.title}}
                         </option>
@@ -34,8 +37,9 @@
                 </div>
                 <div class="form-group" ng-if="condition.locationList">
                     <label>{{'LOCATION' | translate}}</label>
-                    <select class="form-control" ng-model="filter.locationSelect" ng-change="filterAction()" ng-model-options="{ debounce: 5000 }">
-                        <option ng-repeat="locationSingle in condition.locationList"  value="{{locationSingle.value}}">
+                    <select class="form-control" ng-model="filter.locationSelect" ng-change="filterAction()"
+                            ng-model-options="{ debounce: 5000 }">
+                        <option ng-repeat="locationSingle in condition.locationList" value="{{locationSingle.value}}">
                             {{locationSingle.title}}
                         </option>
                     </select>
@@ -60,7 +64,8 @@
             </div>
             <div ng-show="events.length">
                 <div class="row">
-                    <div ng-repeat="event in events" class="event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
+                    <div ng-repeat="event in events" class="event-single clearfix h-event" itemscope
+                         itemtype="https://schema.org/Event">
                         <div class="row">
                             <div class="col-xs-12 col-md-3 event-single-image">
                                 <div class="text-center">
@@ -98,7 +103,8 @@
                                             </li>
                                             <li><i class="fa fa-eye"></i> {{event.hits}}</li>
                                         </ul>
-                                        <meta data-ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}"/>
+                                        <meta data-ng-if="event.register_price" itemprop="priceCurrency"
+                                              content="{{event.price_currency}}"/>
                                     </div>
                                     <div class="event-single-summery clearfix p-summary" itemprop="description"
                                          data-ng-if="event.text_summary">
@@ -136,7 +142,8 @@
                                             </li>
                                             <li><i class="fa fa-eye"></i> {{event.hits}}</li>
                                         </ul>
-                                        <meta data-ng-if="event.register_price" itemprop="priceCurrency" content="{{event.price_currency}}"/>
+                                        <meta data-ng-if="event.register_price" itemprop="priceCurrency"
+                                              content="{{event.price_currency}}"/>
                                     </div>
                                     <div class="event-single-summery clearfix p-summary" itemprop="description"
                                          data-ng-if="event.text_summary">

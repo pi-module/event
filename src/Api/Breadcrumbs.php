@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Api;
 
 use Pi;
@@ -29,83 +30,99 @@ class Breadcrumbs extends AbstractBreadcrumbs
         // Make tree
         if (!empty($params['controller']) && $params['controller'] != 'index') {
             // Set index
-            $result = array(
-                array(
+            $result = [
+                [
                     'label' => $moduleData['title'],
-                    'href' => Pi::url(Pi::service('url')->assemble('event', array(
-                        'module' => $this->getModule(),
-                    ))),
-                ),
-            );
+                    'href'  => Pi::url(
+                        Pi::service('url')->assemble(
+                            'event', [
+                            'module' => $this->getModule(),
+                        ]
+                        )
+                    ),
+                ],
+            ];
             // Set
             switch ($params['controller']) {
                 case 'detail':
                     $event = Pi::api('event', 'event')->getEventSingle($params['slug'], 'slug', 'light');
                     // Check topic_mai
                     if ($event['topic_main'] > 0) {
-                        $topic = Pi::api('topic', 'news')->getTopic($event['topic_main']);
-                        $result[] = array(
+                        $topic    = Pi::api('topic', 'news')->getTopic($event['topic_main']);
+                        $result[] = [
                             'label' => $topic['title'],
-                            'href' => Pi::url(Pi::service('url')->assemble('event', array(
-                                'module' => $this->getModule(),
-                                'controller' => 'category',
-                                'slug' => $topic['slug'],
-                            ))),
-                        );
+                            'href'  => Pi::url(
+                                Pi::service('url')->assemble(
+                                    'event', [
+                                    'module'     => $this->getModule(),
+                                    'controller' => 'category',
+                                    'slug'       => $topic['slug'],
+                                ]
+                                )
+                            ),
+                        ];
                     }
-                    $result[] = array(
+                    $result[] = [
                         'label' => $event['title'],
-                    );
+                    ];
                     break;
 
                 case 'category':
                     if (!empty($params['slug'])) {
                         // Set link
-                        $topic = Pi::api('topic', 'news')->getTopic($params['slug'], 'slug');
-                        $result[] = array(
+                        $topic    = Pi::api('topic', 'news')->getTopic($params['slug'], 'slug');
+                        $result[] = [
                             'label' => $topic['title'],
-                        );
+                        ];
                     }
                     break;
 
                 case 'manage':
                     if ($params['action'] == 'index') {
-                        $result[] = array(
+                        $result[] = [
                             'label' => __('Manage events'),
-                        );
+                        ];
                     } elseif ($params['action'] == 'order') {
                         // Set link
-                        $result[] = array(
+                        $result[] = [
                             'label' => __('Manage events'),
-                            'href' => Pi::url(Pi::service('url')->assemble('event', array(
-                                'controller' => 'manage',
-                            ))),
-                        );
+                            'href'  => Pi::url(
+                                Pi::service('url')->assemble(
+                                    'event', [
+                                    'controller' => 'manage',
+                                ]
+                                )
+                            ),
+                        ];
                         // Set link
-                        $result[] = array(
+                        $result[] = [
                             'label' => __('List of orders'),
-                        );
+                        ];
                     } elseif ($params['action'] == 'update') {
                         // Set link
-                        $result[] = array(
+                        $result[] = [
                             'label' => __('Manage events'),
-                            'href' => Pi::url(Pi::service('url')->assemble('event', array(
-                                'controller' => 'manage',
-                            ))),
-                        );
+                            'href'  => Pi::url(
+                                Pi::service('url')->assemble(
+                                    'event', [
+                                    'controller' => 'manage',
+                                ]
+                                )
+                            ),
+                        ];
                         // Set link
-                        $result[] = array(
+                        $result[] = [
                             'label' => __('Add / edit event'),
-                        );
+                        ];
                     }
                     break;
             }
         } else {
-            $result = array(
-                array(
+            $result = [
+                [
                     'label' => $moduleData['title'],
-                ),
-            );
+                ],
+            ];
         }
         return $result;
     }

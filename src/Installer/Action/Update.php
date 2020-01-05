@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Installer\Action;
 
 use Pi;
@@ -25,7 +26,7 @@ class Update extends BasicUpdate
     protected function attachDefaultListeners()
     {
         $events = $this->events;
-        $events->attach('update.pre', array($this, 'updateSchema'));
+        $events->attach('update.pre', [$this, 'updateSchema']);
         parent::attachDefaultListeners();
 
         return $this;
@@ -39,18 +40,18 @@ class Update extends BasicUpdate
         $moduleVersion = $e->getParam('version');
 
         // Set extra model
-        $extraModel = Pi::model('extra', $this->module);
-        $extraTable = $extraModel->getTable();
+        $extraModel   = Pi::model('extra', $this->module);
+        $extraTable   = $extraModel->getTable();
         $extraAdapter = $extraModel->getAdapter();
 
         // Set news story model
-        $newsStoryModel = Pi::model('story', 'news');
-        $newsStoryTable = $newsStoryModel->getTable();
+        $newsStoryModel   = Pi::model('story', 'news');
+        $newsStoryTable   = $newsStoryModel->getTable();
         $newsStoryAdapter = $newsStoryModel->getAdapter();
- 
+
         // Set order model
-        $orderModel = Pi::model('order', $this->module);
-        $orderTable = $orderModel->getTable();
+        $orderModel   = Pi::model('order', $this->module);
+        $orderTable   = $orderModel->getTable();
         $orderAdapter = $orderModel->getAdapter();
 
         // Update to version 0.1.5
@@ -63,8 +64,8 @@ class Update extends BasicUpdate
                 $time = ($row->time_end) ? $row->time_end : $row->time_start;
                 // Update time_publish
                 $newsStoryModel->update(
-                    array('time_publish' => $time),
-                    array('id' => $row->id)
+                    ['time_publish' => $time],
+                    ['id' => $row->id]
                 );
             }
         }
@@ -76,11 +77,13 @@ class Update extends BasicUpdate
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
         }
@@ -97,11 +100,13 @@ class Update extends BasicUpdate
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
             // Alter table field `map_longitude`
@@ -109,11 +114,13 @@ class Update extends BasicUpdate
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
             // Alter table field `map_zoom`
@@ -121,11 +128,13 @@ class Update extends BasicUpdate
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
         }
@@ -137,25 +146,29 @@ class Update extends BasicUpdate
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
         }
-         if (version_compare($moduleVersion, '2.0.9', '<')) {
+        if (version_compare($moduleVersion, '2.0.9', '<')) {
             // Alter table field `register_click`
             $sql = sprintf("ALTER TABLE %s CHANGE `register_stock` `register_stock` INT(10) UNSIGNED NULL DEFAULT NULL;", $extraTable);
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
 
@@ -163,42 +176,48 @@ class Update extends BasicUpdate
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
         }
-        
+
         if (version_compare($moduleVersion, '2.0.10', '<')) {
-        
+
             $sql = sprintf("ALTER TABLE %s DROP  `register_type` ", $extraTable);
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
         }
         if (version_compare($moduleVersion, '2.0.12', '<')) {
-        
+
             $sql = sprintf("ALTER TABLE %s DROP  `code_private`, DROP  `code_public`  ", $orderTable);
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
                 return false;
             }
-        }  
+        }
     }
 }

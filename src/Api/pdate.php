@@ -18,11 +18,11 @@
 
 # Version 1.2.9
 
-static $pdate_month_name = array('', 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند');
-static $pdate_week_name = array('شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه');
-static $pdate_month_days = array(0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
+static $pdate_month_name = ['', 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+static $pdate_week_name = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه'];
+static $pdate_month_days = [0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
 
-function pdate($format, $timestamp = NULL)
+function pdate($format, $timestamp = null)
 {
     global $pdate_month_name, $pdate_week_name, $pdate_month_days;
 
@@ -44,8 +44,8 @@ function pdate($format, $timestamp = NULL)
     }
 
     $lenghFormat = strlen($format);
-    $i = 0;
-    $result = '';
+    $i           = 0;
+    $result      = '';
 
     while ($i < $lenghFormat) {
         $par = $format{$i};
@@ -162,7 +162,9 @@ function pdate($format, $timestamp = NULL)
                 break;
 
             case 'r':
-                $result .= (substr($pdate_week_name[$pWeek], 0, 2) . '، ' . $pDay . ' ' . substr($pdate_month_name[$pMonth], 0, 6) . ' ' . $pYear . ' ' . date('H::i:s P', $timestamp));
+                $result .= (substr($pdate_week_name[$pWeek], 0, 2) . '، ' . $pDay . ' ' . substr($pdate_month_name[$pMonth], 0, 6) . ' ' . $pYear . ' ' . date(
+                        'H::i:s P', $timestamp
+                    ));
                 break;
 
             case 'U':
@@ -178,7 +180,7 @@ function pdate($format, $timestamp = NULL)
     return $result;
 }
 
-function pstrftime($format, $timestamp = NULL)
+function pstrftime($format, $timestamp = null)
 {
     global $pdate_month_name, $pdate_week_name, $pdate_month_days;
 
@@ -196,8 +198,8 @@ function pstrftime($format, $timestamp = NULL)
     }
 
     $lenghFormat = strlen($format);
-    $i = 0;
-    $result = '';
+    $i           = 0;
+    $result      = '';
 
     while ($i < $lenghFormat) {
         $par = $format{$i};
@@ -299,7 +301,9 @@ function pstrftime($format, $timestamp = NULL)
 
                 # Time and Date Stamps
                 case 'c':
-                    $result .= (substr($pdate_week_name[$pWeek], 0, 2) . ' ' . substr($pdate_month_name[$pMonth], 0, 6) . ' ' . $pDay . ' ' . strftime("%T", $timestamp) . ' ' . $pYear);
+                    $result .= (substr($pdate_week_name[$pWeek], 0, 2) . ' ' . substr($pdate_month_name[$pMonth], 0, 6) . ' ' . $pDay . ' ' . strftime(
+                            "%T", $timestamp
+                        ) . ' ' . $pYear);
                     break;
 
                 case 'D':
@@ -390,14 +394,15 @@ function pcheckdate($month, $day, $year)
     return 1;
 }
 
-function pgetdate($timestamp = NULL)
+function pgetdate($timestamp = null)
 {
     if (!$timestamp) {
         $timestamp = mktime();
     }
 
     list($seconds, $minutes, $hours, $mday, $wday, $mon, $year, $yday, $weekday, $month) = explode('-', pdate('s-i-G-j-w-n-Y-z-l-F', $timestamp));
-    return array(0 => $timestamp, 'seconds' => $seconds, 'minutes' => $minutes, 'hours' => $hours, 'mday' => $mday, 'wday' => $wday, 'mon' => $mon, 'year' => $year, 'yday' => $yday, 'weekday' => $weekday, 'month' => $month);
+    return [0      => $timestamp, 'seconds' => $seconds, 'minutes' => $minutes, 'hours' => $hours, 'mday' => $mday, 'wday' => $wday, 'mon' => $mon,
+            'year' => $year, 'yday' => $yday, 'weekday' => $weekday, 'month' => $month];
 }
 
 # Copyright (C) 2000 Roozbeh Pournader and Mohammad Tou'si 
@@ -423,28 +428,29 @@ function div($a, $b)
 
 function gregorian_to_jalali($g_y, $g_m, $g_d)
 {
-    static $g_days_in_month = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-    static $j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
-    $gy = $g_y - 1600;
-    $gm = $g_m - 1;
+    static $g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    static $j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+    $gy       = $g_y - 1600;
+    $gm       = $g_m - 1;
     $g_day_no = (365 * $gy + div($gy + 3, 4) - div($gy + 99, 100) + div($gy + 399, 400));
 
     for ($i = 0; $i < $gm; ++$i) {
         $g_day_no += $g_days_in_month[$i];
     }
 
-    if ($gm > 1 && (($gy % 4 == 0 && $gy % 100 != 0) || ($gy % 400 == 0)))
-        # leap and after Feb
+    if ($gm > 1 && (($gy % 4 == 0 && $gy % 100 != 0) || ($gy % 400 == 0))) # leap and after Feb
+    {
         $g_day_no++;
+    }
     $g_day_no += $g_d - 1;
     $j_day_no = $g_day_no - 79;
-    $j_np = div($j_day_no, 12053); # 12053 = (365 * 33 + 32 / 4)
+    $j_np     = div($j_day_no, 12053); # 12053 = (365 * 33 + 32 / 4)
     $j_day_no = $j_day_no % 12053;
-    $jy = (979 + 33 * $j_np + 4 * div($j_day_no, 1461)); # 1461 = (365 * 4 + 4 / 4)
+    $jy       = (979 + 33 * $j_np + 4 * div($j_day_no, 1461)); # 1461 = (365 * 4 + 4 / 4)
     $j_day_no %= 1461;
 
     if ($j_day_no >= 366) {
-        $jy += div($j_day_no - 1, 365);
+        $jy       += div($j_day_no - 1, 365);
         $j_day_no = ($j_day_no - 1) % 365;
     }
 
@@ -452,15 +458,15 @@ function gregorian_to_jalali($g_y, $g_m, $g_d)
         $j_day_no -= $j_days_in_month[$i];
     }
 
-    return array($jy, $i + 1, $j_day_no + 1);
+    return [$jy, $i + 1, $j_day_no + 1];
 }
 
 function jalali_to_gregorian($j_y, $j_m, $j_d)
 {
-    static $g_days_in_month = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-    static $j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
-    $jy = $j_y - 979;
-    $jm = $j_m - 1;
+    static $g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    static $j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+    $jy       = $j_y - 979;
+    $jm       = $j_m - 1;
     $j_day_no = (365 * $jy + div($jy, 33) * 8 + div($jy % 33 + 3, 4));
 
     for ($i = 0; $i < $jm; ++$i) {
@@ -469,14 +475,14 @@ function jalali_to_gregorian($j_y, $j_m, $j_d)
 
     $j_day_no += $j_d - 1;
     $g_day_no = $j_day_no + 79;
-    $gy = (1600 + 400 * div($g_day_no, 146097)); # 146097 = (365 * 400 + 400 / 4 - 400 / 100 + 400 / 400)
+    $gy       = (1600 + 400 * div($g_day_no, 146097)); # 146097 = (365 * 400 + 400 / 4 - 400 / 100 + 400 / 400)
     $g_day_no = $g_day_no % 146097;
-    $leap = 1;
+    $leap     = 1;
 
     if ($g_day_no >= 36525) # 36525 = (365 * 100 + 100 / 4)
     {
         $g_day_no--;
-        $gy += (100 * div($g_day_no, 36524)); # 36524 = (365 * 100 + 100 / 4 - 100 / 100)
+        $gy       += (100 * div($g_day_no, 36524)); # 36524 = (365 * 100 + 100 / 4 - 100 / 100)
         $g_day_no = $g_day_no % 36524;
         if ($g_day_no >= 365) {
             $g_day_no++;
@@ -485,13 +491,13 @@ function jalali_to_gregorian($j_y, $j_m, $j_d)
         }
     }
 
-    $gy += (4 * div($g_day_no, 1461)); # 1461 = (365 * 4 + 4 / 4)
+    $gy       += (4 * div($g_day_no, 1461)); # 1461 = (365 * 4 + 4 / 4)
     $g_day_no %= 1461;
 
     if ($g_day_no >= 366) {
         $leap = 0;
         $g_day_no--;
-        $gy += div($g_day_no, 365);
+        $gy       += div($g_day_no, 365);
         $g_day_no = ($g_day_no % 365);
     }
 
@@ -499,5 +505,5 @@ function jalali_to_gregorian($j_y, $j_m, $j_d)
         $g_day_no -= ($g_days_in_month[$i] + ($i == 1 && $leap));
     }
 
-    return array($gy, $i + 1, $g_day_no + 1);
+    return [$gy, $i + 1, $g_day_no + 1];
 }

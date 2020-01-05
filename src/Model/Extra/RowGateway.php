@@ -15,13 +15,17 @@ class RowGateway extends \Pi\Db\RowGateway\RowGateway
 {
     public function save($rePopulate = true, $filter = true)
     {
-        if($this->time_start && (empty($this->time_end) || $this->time_end == 0)){
+        if ($this->time_start && (empty($this->time_end) || $this->time_end == 0)) {
             $this->time_end = $this->time_start;
         }
 
-        $url = Pi::url(Pi::service('url')->assemble('event', array(
-            'slug' => $this->slug,
-        )));
+        $url = Pi::url(
+            Pi::service('url')->assemble(
+                'event', [
+                'slug' => $this->slug,
+            ]
+            )
+        );
 
         Pi::service('cache')->flushCacheByUrl($url, 'event');
 

@@ -1,37 +1,37 @@
 <?php $this->css($this->assetModule('css/admin.css')); ?>
 <div class="clearfix">
-	<div class="clearfix">
+    <div class="clearfix">
         <div class="col-md-4">
             <a class="btn btn-primary" title="<?php _e('Add event'); ?>"
-               href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'update')); ?>"><i
-                    class="fa fa-folder-open"></i> <?php _e('Add event'); ?></a>
-        
+               href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'update']); ?>"><i
+                        class="fa fa-folder-open"></i> <?php _e('Add event'); ?></a>
+
             <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-eye"></i> <?php _e('View'); ?> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a title="<?php _e('All events'); ?>"
-                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index')); ?>"><i
-                                class="fa fa-file"></i> <?php _e('All events'); ?></a></li>
+                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index']); ?>"><i
+                                    class="fa fa-file"></i> <?php _e('All events'); ?></a></li>
                     <li><a title="<?php _e('Published'); ?>"
-                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '1')); ?>"><i
-                                class="fa fa-file"></i> <?php _e('Published'); ?></a></li>
+                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '1']); ?>"><i
+                                    class="fa fa-file"></i> <?php _e('Published'); ?></a></li>
                     <li><a title="<?php _e('Pending review'); ?>"
-                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '2')); ?>"><i
-                                class="fa fa-file"></i> <?php _e('Pending review'); ?></a></li>
+                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '2']); ?>"><i
+                                    class="fa fa-file"></i> <?php _e('Pending review'); ?></a></li>
                     <li><a title="<?php _e('Draft'); ?>"
-                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '3')); ?>"><i
-                                class="fa fa-file"></i> <?php _e('Draft'); ?></a></li>
+                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '3']); ?>"><i
+                                    class="fa fa-file"></i> <?php _e('Draft'); ?></a></li>
                     <li><a title="<?php _e('Private'); ?>"
-                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '4')); ?>"><i
-                                class="fa fa-file"></i> <?php _e('Private'); ?></a></li>
+                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '4']); ?>"><i
+                                    class="fa fa-file"></i> <?php _e('Private'); ?></a></li>
                     <li><a title="<?php _e('Trash'); ?>"
-                           href="<?php echo $this->url('', array('controller' => 'event', 'action' => 'index', 'status' => '5')); ?>"><i
+                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '5']); ?>"><i
                                     class="fa fa-file"></i> <?php _e('Trash'); ?></a></li>
                 </ul>
             </div>
-        </div>        
+        </div>
         <div class="col-md-8">
             <?php echo $this->form($form, 'inline'); ?>
         </div>
@@ -68,8 +68,8 @@
                         </div>
                         <div class="clearfix">
                             <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                <?php echo _b('From') ?> <?php echo $this->escape($event['time_start_view']); ?>
-                                <?php echo _b('to') ?> <?php echo $this->escape($event['time_end_view']); ?>
+                                <?php echo _b('From') ?><?php echo $this->escape($event['time_start_view']); ?>
+                                <?php echo _b('to') ?><?php echo $this->escape($event['time_end_view']); ?>
                             <?php } elseif (!empty($event['time_start'])) { ?>
                                 <?php echo $this->escape($event['time_start_view']); ?>
                             <?php } ?>
@@ -79,8 +79,8 @@
                         <a class="btn btn-success" title="<?php _e('View'); ?>" href="<?php echo $event['eventUrl']; ?>"
                            target="_blank"><i class="fa fa-eye"></i> <?php _e('View'); ?></a>
                         <a class="btn btn-primary" title="<?php _e('Edit'); ?>"
-                           href="<?php echo $this->url('', array('action' => 'update', 'id' => $event['id'])); ?>"><i
-                                class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $event['id']]); ?>"><i
+                                    class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
                     </td>
                 </tr>
             <?php } ?>

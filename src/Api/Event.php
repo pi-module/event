@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Api;
 
 use Pi;
@@ -35,9 +36,9 @@ class Event extends AbstractApi
     public function getEventSingle($parameter, $field = 'id', $type = 'full')
     {
         // Set option
-        $option = array(
-            'imagePath' => 'event/image'
-        );
+        $option = [
+            'imagePath' => 'event/image',
+        ];
         // Get event from news story table
         $event = Pi::api('api', 'news')->getStorySingle($parameter, $field, $type, $option);
         // Get event extra information
@@ -50,12 +51,12 @@ class Event extends AbstractApi
 
     public function getEventList($where, $order, $offset = '', $limit = 10, $type = 'full', $table = 'link')
     {
-        $option = array(
-            'imagePath' => 'event/image'
-        );
-        $listEvent = array();
-        $listExtra = array();
-        $listEventId = array();
+        $option      = [
+            'imagePath' => 'event/image',
+        ];
+        $listEvent   = [];
+        $listExtra   = [];
+        $listEventId = [];
         // Get story list from news story table
         $listStory = Pi::api('api', 'news')->getStoryList($where, $order, $offset, $limit, $type, $table, $option);
         // Set extra id array
@@ -64,17 +65,19 @@ class Event extends AbstractApi
         }
         // Get list of extra information
         if (!empty($listEventId)) {
-            $whereExtra = array('id' => $listEventId);
-            $select = Pi::model('extra', $this->getModule())->select()->where($whereExtra);
-            $rowSet = Pi::model('extra', $this->getModule())->selectWith($select);
+            $whereExtra = ['id' => $listEventId];
+            $select     = Pi::model('extra', $this->getModule())->select()->where($whereExtra);
+            $rowSet     = Pi::model('extra', $this->getModule())->selectWith($select);
             foreach ($rowSet as $row) {
                 $listExtra[$row->id] = $this->canonizeEvent($row);
             }
             // Join extra information to event
             foreach ($listStory as $event) {
-                if(isset($listExtra[$event['id']]) && is_array($listExtra[$event['id']])){
-                    $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
-                    $listEvent[$event['id']]['thumbUrl'] = Pi::url((string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('thumbnail'));
+                if (isset($listExtra[$event['id']]) && is_array($listExtra[$event['id']])) {
+                    $listEvent[$event['id']]             = array_merge($event, $listExtra[$event['id']]);
+                    $listEvent[$event['id']]['thumbUrl'] = Pi::url(
+                        (string)Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('thumbnail')
+                    );
                     //$listEvent[$event['id']]['mediumUrl'] = Pi::url((string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(320, 240));
                 }
             }
@@ -87,33 +90,33 @@ class Event extends AbstractApi
         // Get config
         $config = Pi::service('registry')->config->read($this->getModule());
         // Set array
-        $listEvent = array();
-        $listExtra = array();
-        $listEventId = array();
+        $listEvent   = [];
+        $listExtra   = [];
+        $listEventId = [];
         // Get related story list from news story table
-        $order = array('time_publish DESC', 'id DESC');
+        $order = ['time_publish DESC', 'id DESC'];
         // Set related event module
         switch ($config['related_event_type']) {
             case 'event':
-                $where = array(
-                    'status' => 1,
+                $where = [
+                    'status'     => 1,
                     'story != ?' => $id,
-                    'topic' => $topic,
-                    'type' => 'event',
-                    'module' => 'event',
+                    'topic'      => $topic,
+                    'type'       => 'event',
+                    'module'     => 'event',
                     'controller' => 'topic',
-                );
+                ];
                 break;
 
             case 'guide':
-                $where = array(
-                    'status' => 1,
+                $where = [
+                    'status'     => 1,
                     'story != ?' => $id,
-                    'topic' => $topic,
-                    'type' => 'event',
-                    'module' => 'guide',
+                    'topic'      => $topic,
+                    'type'       => 'event',
+                    'module'     => 'guide',
                     'controller' => 'category',
-                );
+                ];
                 break;
         }
         $listStory = Pi::api('api', 'news')->getStoryRelated($where, $order);
@@ -124,21 +127,21 @@ class Event extends AbstractApi
         // Check id list
         if (!empty($listEventId)) {
             // Get list of extra information
-            $whereExtra = array('id' => $listEventId);
-            $select = Pi::model('extra', $this->getModule())->select()->where($whereExtra);
-            $rowSet = Pi::model('extra', $this->getModule())->selectWith($select);
+            $whereExtra = ['id' => $listEventId];
+            $select     = Pi::model('extra', $this->getModule())->select()->where($whereExtra);
+            $rowSet     = Pi::model('extra', $this->getModule())->selectWith($select);
             foreach ($rowSet as $row) {
                 $listExtra[$row->id] = $this->canonizeEvent($row);
             }
             // Join extra information to event
             foreach ($listStory as $event) {
                 //if (($listExtra[$event['id']]['time_end'] == 0 && $listExtra[$event['id']]['time_start'] > strtotime("-1 day")) || ($listExtra[$event['id']]['time_end'] > strtotime("-1 day"))) {
-                    $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
+                $listEvent[$event['id']] = array_merge($event, $listExtra[$event['id']]);
                 //}
             }
         }
-        
-        $events = array();
+
+        $events = [];
         foreach ($listEvent as $event) {
             if ($event['time_end'] < strtotime(date('Y-m-d'))) {
                 continue;
@@ -150,17 +153,21 @@ class Event extends AbstractApi
 
     public function getListFromId($id)
     {
-        $list = array();
-        $where = array('id' => $id, 'status' => 1);
+        $list   = [];
+        $where  = ['id' => $id, 'status' => 1];
         $select = Pi::model('extra', $this->getModule())->select()->where($where);
         $rowset = Pi::model('extra', $this->getModule())->selectWith($select);
         foreach ($rowset as $row) {
-            $list[$row->id] = $this->canonizeEvent($row);
-            $list[$row->id]['eventUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
-                'module' => $this->getModule(),
-                'controller' => 'index',
-                'slug' => $row->slug,
-            )));
+            $list[$row->id]             = $this->canonizeEvent($row);
+            $list[$row->id]['eventUrl'] = Pi::url(
+                Pi::service('url')->assemble(
+                    'event', [
+                    'module'     => $this->getModule(),
+                    'controller' => 'index',
+                    'slug'       => $row->slug,
+                ]
+                )
+            );
         }
         return $list;
     }
@@ -170,16 +177,16 @@ class Event extends AbstractApi
         // Get config
         $config = Pi::service('registry')->config->read($this->getModule());
         // Set list
-        $list = array();
+        $list = [];
         // Check guide module install
         if ($config['use_guide_location'] && Pi::service('module')->isActive('guide')) {
             $listLocation = Pi::api('location', 'guide')->locationListByLevel($config['filter_location_level']);
             foreach ($listLocation as $location) {
-                $list[] = array(
-                    'id' => $location['id'],
+                $list[] = [
+                    'id'    => $location['id'],
                     'title' => $location['title'],
                     'value' => sprintf('location-%s-guide', $location['id']),
-                );
+                ];
             }
         }
         // return
@@ -191,27 +198,27 @@ class Event extends AbstractApi
         // Get config
         $config = Pi::service('registry')->config->read($this->getModule());
         // Set list
-        $list = array();
+        $list = [];
         // Check guide module install
         if ($config['use_guide_category'] && Pi::service('module')->isActive('guide')) {
             $listGuide = Pi::api('category', 'guide')->categoryList();
             foreach ($listGuide as $category) {
-                $list[] = array(
-                    'id' => $category['id'],
+                $list[] = [
+                    'id'    => $category['id'],
                     'title' => $category['title'],
                     'value' => sprintf('category-%s-guide', $category['id']),
-                );
+                ];
             }
         }
         // Check news module use topic
         if ($config['use_news_topic']) {
             $listNews = Pi::api('topic', 'news')->getTopicList('event');
             foreach ($listNews as $topic) {
-                $list[] = array(
-                    'id' => $topic['id'],
+                $list[] = [
+                    'id'    => $topic['id'],
                     'title' => $topic['title'],
                     'value' => sprintf('category-%s-news', $topic['id']),
-                );
+                ];
             }
         }
         // return
@@ -222,23 +229,23 @@ class Event extends AbstractApi
     {
         // Get config
         $config = Pi::service('registry')->config->read($this->getModule());
-        $list = array();
+        $list   = [];
         // Check
         if (!empty($config['price_filter'])) {
             $priceFilter = explode("|", $config['price_filter']);
             foreach ($priceFilter as $priceFilterSingle) {
-                $priceFilterSingle = explode(",", $priceFilterSingle);
-                $list[$priceFilterSingle[0]] = array(
+                $priceFilterSingle           = explode(",", $priceFilterSingle);
+                $list[$priceFilterSingle[0]] = [
                     'value' => $priceFilterSingle[0],
                     'title' => $priceFilterSingle[1],
-                );
+                ];
             }
         }
         // return
         return $list;
     }
 
-    public function canonizeEvent($extra, $event = array())
+    public function canonizeEvent($extra, $event = [])
     {
         // Check
         if (empty($extra)) {
@@ -254,11 +261,11 @@ class Event extends AbstractApi
         // Set register_details
         $extra['register_details'] = Pi::service('markup')->render($extra['register_details'], 'html', 'html');
         // Set time
-        $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], array('pattern' => 'yyyy/MM/dd'));
-        $extra['time_end_view'] = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], array('pattern' => 'yyyy/MM/dd'));
+        $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], ['pattern' => 'yyyy/MM/dd']);
+        $extra['time_end_view']   = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], ['pattern' => 'yyyy/MM/dd']);
         // Set register_price
         if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
-            $uid = Pi::user()->getId();
+            $uid   = Pi::user()->getId();
             $roles = Pi::user()->getRole($uid);
             if (!empty($extra['register_discount'])) {
                 $price = $extra['register_price'];
@@ -278,7 +285,7 @@ class Event extends AbstractApi
             $priceView = _currency($extra['register_price']);
         }
         // Set order
-        if(!isset($this->config)){
+        if (!isset($this->config)) {
             $this->config = Pi::service('registry')->config->read($this->getModule());
         }
 
@@ -294,48 +301,60 @@ class Event extends AbstractApi
         } else {
             if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
                 $extra['register_price_view'] = _currency($extra['register_price']);
-            }  else {
+            } else {
                 $extra['register_price_view'] = __('free!');
             }
         }
         // Set currency
-        $configSystem = Pi::service('registry')->config->read('system');
+        $configSystem            = Pi::service('registry')->config->read('system');
         $extra['price_currency'] = empty($configSystem['number_currency']) ? 'USD' : $configSystem['number_currency'];
         // canonize guide module details
         $extra['guide_category'] = json_decode($extra['guide_category'], true);
         $extra['guide_location'] = json_decode($extra['guide_location'], true);
-        $extra['guide_item'] = json_decode($extra['guide_item'], true);
+        $extra['guide_item']     = json_decode($extra['guide_item'], true);
         // Set event url
-        $extra['eventUrl'] = Pi::url(Pi::service('url')->assemble('event', array(
-            'module' => $this->getModule(),
-            'controller' => 'index',
-            'slug' => $extra['slug'],
-        )));
+        $extra['eventUrl'] = Pi::url(
+            Pi::service('url')->assemble(
+                'event', [
+                'module'     => $this->getModule(),
+                'controller' => 'index',
+                'slug'       => $extra['slug'],
+            ]
+            )
+        );
         // Set register url
-        $extra['eventOrder'] = Pi::url(Pi::service('url')->assemble('event', array(
-            'module' => $this->getModule(),
-            'controller' => 'register',
-            'action' => 'add',
-        )));
+        $extra['eventOrder'] = Pi::url(
+            Pi::service('url')->assemble(
+                'event', [
+                'module'     => $this->getModule(),
+                'controller' => 'register',
+                'action'     => 'add',
+            ]
+            )
+        );
         // Set category
         if (isset($event['topics']) && !empty($event['topics'])) {
-            $topicList = array();
+            $topicList = [];
             foreach ($event['topics'] as $topic) {
-                $topicList[] = array(
+                $topicList[] = [
                     'title' => $topic['title'],
-                    'url' => Pi::url(Pi::service('url')->assemble('event', array(
-                        'module' => $this->getModule(),
-                        'controller' => 'category',
-                        'slug' => $topic['slug'],
-                    ))),
-                );
+                    'url'   => Pi::url(
+                        Pi::service('url')->assemble(
+                            'event', [
+                            'module'     => $this->getModule(),
+                            'controller' => 'category',
+                            'slug'       => $topic['slug'],
+                        ]
+                        )
+                    ),
+                ];
             }
             $extra['topics'] = $topicList;
         }
         // Check guide module
         if (Pi::service('module')->isActive('guide') && !empty($extra['guide_location'])) {
 
-            if(!isset($this->locationList)){
+            if (!isset($this->locationList)) {
                 $this->locationList = Pi::registry('locationList', 'guide')->read();
             }
             $extra['locationInfo'] = $this->locationList[$extra['guide_location'][0]];
@@ -348,7 +367,7 @@ class Event extends AbstractApi
         }
         // Number of days
         if ($extra['time_end'] > 0) {
-            $days = ceil(($extra['time_end'] - $extra['time_start']) / 86400) + 1;
+            $days          = ceil(($extra['time_end'] - $extra['time_start']) / 86400) + 1;
             $extra['days'] = sprintf(__('%s days'), $days);
         } else {
             $extra['days'] = __('1 days');
@@ -360,7 +379,7 @@ class Event extends AbstractApi
     public function canonizeEventJson($event, $time, $largeThumb = false)
     {
         // Get config
-        if(!isset($this->config)){
+        if (!isset($this->config)) {
             $this->config = Pi::service('registry')->config->read($this->getModule());
         }
 
@@ -369,7 +388,7 @@ class Event extends AbstractApi
         $event['text_summary'] = strip_tags($event['text_summary'], "<b><strong><i><p><br><ul><li><ol><h2><h3><h4>");
         $event['text_summary'] = str_replace("<p>&nbsp;</p>", "", $event['text_summary']);
         // Set category list
-        $categoryList = array();
+        $categoryList = [];
         if (isset($event['guide_category']) && !empty($event['guide_category'])) {
             foreach ($event['guide_category'] as $category) {
                 $categoryList[$category] = sprintf('category-%s-guide', $category);
@@ -381,7 +400,7 @@ class Event extends AbstractApi
             }
         }
         // Set location list
-        $locationList = array();
+        $locationList = [];
         if (isset($event['guide_location']) && !empty($event['guide_location'])) {
             foreach ($event['guide_location'] as $category) {
                 $locationList[$category] = sprintf('location-%s-guide', $category);
@@ -446,7 +465,7 @@ class Event extends AbstractApi
         if (!empty($this->config['price_filter'])) {
             $priceFilter = explode("|", $this->config['price_filter']);
             foreach ($priceFilter as $priceFilterSingle) {
-                $priceFilterSingle = explode(",", $priceFilterSingle);
+                $priceFilterSingle      = explode(",", $priceFilterSingle);
                 $priceFilterSinglePrice = explode("-", $priceFilterSingle[0]);
                 if (intval($event['register_price']) >= min($priceFilterSinglePrice) && intval($event['register_price']) < max($priceFilterSinglePrice)) {
                     $event['price_filter'] = $priceFilterSingle[0];
@@ -456,7 +475,7 @@ class Event extends AbstractApi
 
         // Number of days
         if ($event['time_end'] > 0) {
-            $days = ceil(($event['time_end'] - $event['time_start']) / 86400) + 1;
+            $days          = ceil(($event['time_end'] - $event['time_start']) / 86400) + 1;
             $event['days'] = sprintf(__('%s days'), $days);
         } else {
             $event['days'] = __('1 days');
@@ -466,34 +485,34 @@ class Event extends AbstractApi
         //$event['mediumUrl'] = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->thumb(320, 240);
 
         // Set single event array
-        $eventSingle = array(
-            'id' => $event['id'],
+        $eventSingle = [
+            'id'    => $event['id'],
             'title' => $event['title'],
             'image' => $event['main_image'],
 
-            'realThumbUrl' => $event['thumbUrl'],
-            'thumbUrl' => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
-            'eventUrl' => $event['eventUrl'],
-            'subtitle' => $event['subtitle'],
-            'register_price' => $event['register_price'],
+            'realThumbUrl'        => $event['thumbUrl'],
+            'thumbUrl'            => $largeThumb ? $event['mediumUrl'] : $event['thumbUrl'],
+            'eventUrl'            => $event['eventUrl'],
+            'subtitle'            => $event['subtitle'],
+            'register_price'      => $event['register_price'],
             'register_price_view' => $event['register_price_view'],
-            'price_currency' => $event['price_currency'],
-            'price_filter' => $event['price_filter'],
-            'hits' => $event['hits'],
-            'text_summary' => $event['text_summary'],
-            'time_create' => $event['time_create'],
-            'time_publish' => $event['time_publish'],
-            'time_update' => $event['time_update'],
-            'time_start' => $event['time_start'],
-            'time_end' => $event['time_end'],
-            'time_start_view' => date("Y-m-d H:i:s", $event['time_start']),
-            'time_end_view' => date("Y-m-d H:i:s", $event['time_end']),
-            'time_view' => $timeView,
-            'time_level' => $timeLevel,
-            'category' => implode(' ', $categoryList),
-            'location' => implode(' ', $locationList),
-            'days' => $event['days'],
-        );
+            'price_currency'      => $event['price_currency'],
+            'price_filter'        => $event['price_filter'],
+            'hits'                => $event['hits'],
+            'text_summary'        => $event['text_summary'],
+            'time_create'         => $event['time_create'],
+            'time_publish'        => $event['time_publish'],
+            'time_update'         => $event['time_update'],
+            'time_start'          => $event['time_start'],
+            'time_end'            => $event['time_end'],
+            'time_start_view'     => date("Y-m-d H:i:s", $event['time_start']),
+            'time_end_view'       => date("Y-m-d H:i:s", $event['time_end']),
+            'time_view'           => $timeView,
+            'time_level'          => $timeLevel,
+            'category'            => implode(' ', $categoryList),
+            'location'            => implode(' ', $locationList),
+            'days'                => $event['days'],
+        ];
 
         return $eventSingle;
     }
@@ -504,61 +523,67 @@ class Event extends AbstractApi
             // Remove old links
             Pi::api('sitemap', 'sitemap')->removeAll('event', 'event');
             // find and import
-            $columns = array('id', 'slug', 'status');
-            $where = array('type' => array(
-                'event'
-            ));
-            $select = Pi::model('story', 'news')->select()->columns($columns)->where($where);
-            $rowset = Pi::model('story', 'news')->selectWith($select);
+            $columns = ['id', 'slug', 'status'];
+            $where   = ['type' => [
+                'event',
+            ]];
+            $select  = Pi::model('story', 'news')->select()->columns($columns)->where($where);
+            $rowset  = Pi::model('story', 'news')->selectWith($select);
             foreach ($rowset as $row) {
                 // Make url
-                $loc = Pi::url(Pi::service('url')->assemble('news', array(
-                    'module' => 'event',
-                    'controller' => 'index',
-                    'slug' => $row->slug,
-                )));
+                $loc = Pi::url(
+                    Pi::service('url')->assemble(
+                        'news', [
+                        'module'     => 'event',
+                        'controller' => 'index',
+                        'slug'       => $row->slug,
+                    ]
+                    )
+                );
                 // Add to sitemap
                 Pi::api('sitemap', 'sitemap')->groupLink($loc, $row->status, 'event', 'event', $row->id);
             }
         }
     }
 
-    public function migrateMedia(){
+    public function migrateMedia()
+    {
         if (Pi::service("module")->isActive("media")) {
             // Get config
             $config = Pi::service('registry')->config->read($this->getModule());
 
             $storyModel = Pi::model("story", "news");
 
-            $select = $storyModel->select();
+            $select          = $storyModel->select();
             $storyCollection = $storyModel->selectWith($select);
 
-            foreach($storyCollection as $story){
+            foreach ($storyCollection as $story) {
 
                 /**
                  * Check if media item have already migrate or no image to migrate
                  */
-                if($story->main_image || empty($story["image"]) || empty($story["path"])){
+                if ($story->main_image || empty($story["image"]) || empty($story["path"])) {
                     continue;
                 }
 
-                $mediaData = array(
-                    'active' => 1,
+                $mediaData = [
+                    'active'       => 1,
                     'time_created' => time(),
-                    'uid'   => $story->uid,
-                    'count' => 0,
-                );
+                    'uid'          => $story->uid,
+                    'count'        => 0,
+                ];
 
-                $imagePath = sprintf("upload/%s/original/%s/%s",
+                $imagePath = sprintf(
+                    "upload/%s/original/%s/%s",
                     'event/image',
                     $story["path"],
                     $story["image"]
                 );
 
                 $mediaData['title'] = $story->title;
-                $mediaId = Pi::api('doc', 'media')->insertMedia($mediaData, $imagePath);
+                $mediaId            = Pi::api('doc', 'media')->insertMedia($mediaData, $imagePath);
 
-                if($mediaId){
+                if ($mediaId) {
                     $story->main_image = $mediaId;
                     $story->save();
                 }
@@ -567,101 +592,112 @@ class Event extends AbstractApi
     }
 
     public function doAfterVote()
-    {}
-    
+    {
+    }
+
     public function favoriteList($uid = null)
     {
         // Get user id
         if ($uid == null) {
             $uid = Pi::user()->getId();
         }
-                
+
         // Check user
         if ($uid > 0) {
             $favoriteIds = Pi::api('favourite', 'favourite')->userFavourite($uid, 'event');
             // Check list of ides
             if (!empty($favoriteIds)) {
                 // Get config
-                
+
                 // TOPIC
                 $select = Pi::model('category', 'guide')->select();
                 $rowset = Pi::model('category', 'guide')->selectWith($select);
-                $topics = array();
+                $topics = [];
                 foreach ($rowset as $row) {
-                    $topics[$row->id] = array(
-                        'title' => $row->title,
-                        'categoryUrl' => Pi::url(Pi::service("url")->assemble("guide", array(
-                            "module" => 'guide',
-                            "controller" => "category",
-                            "slug" => $row->slug,
-                        )))
-                    );
+                    $topics[$row->id] = [
+                        'title'       => $row->title,
+                        'categoryUrl' => Pi::url(
+                            Pi::service("url")->assemble(
+                                "guide", [
+                                "module"     => 'guide',
+                                "controller" => "category",
+                                "slug"       => $row->slug,
+                            ]
+                            )
+                        ),
+                    ];
                 }
                 //
-                
+
                 // LOCATION
-                $select = Pi::model('location', 'guide')->select();
-                $rowset = Pi::model('location', 'guide')->selectWith($select);
-                $locations = array();
+                $select    = Pi::model('location', 'guide')->select();
+                $rowset    = Pi::model('location', 'guide')->selectWith($select);
+                $locations = [];
                 foreach ($rowset as $row) {
                     $locations[$row->id] = $row->title;
                 }
                 // 
-                
+
                 $config = Pi::service('registry')->config->read('news');
                 // Set list
-                $list = array();
-                $where = array(
-                    'story.id' => $favoriteIds, 
+                $list  = [];
+                $where = [
+                    'story.id'     => $favoriteIds,
                     'story.status' => 1,
-                    'story.type' => array(
-                       'event'
-                   )
-                );
-                
+                    'story.type'   => [
+                        'event',
+                    ],
+                ];
+
                 $storyTable = Pi::model("story", 'news')->getTable();
                 $extraTable = Pi::model("extra", 'event')->getTable();
-                
-                
+
+
                 $select = Pi::db()->select();
                 $select
-                ->from(array('story' => $storyTable))
-                ->join(array('extra' => $extraTable), 'story.id = extra.id', array('guide_category', 'guide_location', 'time_start', 'time_end' ))
-                ->where ($where);
-                
-                
+                    ->from(['story' => $storyTable])
+                    ->join(['extra' => $extraTable], 'story.id = extra.id', ['guide_category', 'guide_location', 'time_start', 'time_end'])
+                    ->where($where);
+
+
                 $rowset = Pi::db()->query($select);
-                
+
                 foreach ($rowset as $row) {
-                    $story = $row;
-                    $story['url'] = Pi::url(Pi::service('url')->assemble('news', array(
-                        'module' => 'event',
-                        'controller' => 'index',
-                        'slug' => $row['slug'],
-                    )));
-                    
-                    $story['categories'] = array();
-                    $storyTopics = json_decode($story['guide_category']);
+                    $story        = $row;
+                    $story['url'] = Pi::url(
+                        Pi::service('url')->assemble(
+                            'news', [
+                            'module'     => 'event',
+                            'controller' => 'index',
+                            'slug'       => $row['slug'],
+                        ]
+                        )
+                    );
+
+                    $story['categories'] = [];
+                    $storyTopics         = json_decode($story['guide_category']);
                     if (count($storyTopics)) {
                         foreach ($storyTopics as $idTopic) {
                             $story['categories'][] = $topics[$idTopic];
                         }
                     }
-                    
-                    $story['locations'] = array();
-                    $storyLocationsId = json_decode($story['guide_location']);
-                    $storyLocations = array();
+
+                    $story['locations'] = [];
+                    $storyLocationsId   = json_decode($story['guide_location']);
+                    $storyLocations     = [];
                     if (count($storyLocationsId)) {
                         foreach ($storyLocationsId as $idLocation) {
                             $storyLocations[] = $locations[$idLocation];
                         }
                     }
                     $story['location'] = join(' | ', $storyLocations);
-                    $story['image'] = '';
+                    $story['image']    = '';
                     if ($row['main_image']) {
-                        $story["image"] = Pi::url((string) Pi::api('doc','media')->getSingleLinkUrl($row['main_image'])->setConfigModule('news')->thumb('medium'));
+                        $story["image"] = Pi::url(
+                            (string)Pi::api('doc', 'media')->getSingleLinkUrl($row['main_image'])->setConfigModule('news')->thumb('medium')
+                        );
                     }
-                    
+
                     if (!empty($story['time_start']) && !empty($story['time_end'])) {
                         $time = sprintf(
                             '%s %s %s %s',
@@ -679,15 +715,16 @@ class Event extends AbstractApi
                 }
                 return $list;
             } else {
-             return array();
+                return [];
             }
         } else {
-            return array();
+            return [];
         }
     }
+
     public function getOnlyAvailableEvent($list)
     {
-        $events = array();
+        $events = [];
         foreach ($list as $event) {
             if ($event['time_end'] < strtotime(date('Y-m-d'))) {
                 continue;
@@ -696,16 +733,17 @@ class Event extends AbstractApi
         }
         return $events;
     }
-    
-    public function changeGuideOwner($owner, $newOwner, $item)    {
-            
+
+    public function changeGuideOwner($owner, $newOwner, $item)
+    {
+
         if ($item == null) {
             return;
         }
-        
+
         $model = Pi::model('extra', 'event');
-        $model->update(array('guide_owner' => $newOwner['id'], 'uid' => $newOwner['uid']), array(new Expression('guide_item LIKE "%' . $item . '%"')));
-        
+        $model->update(['guide_owner' => $newOwner['id'], 'uid' => $newOwner['uid']], [new Expression('guide_item LIKE "%' . $item . '%"')]);
+
     }
-    
+
 }

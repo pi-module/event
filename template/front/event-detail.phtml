@@ -11,7 +11,7 @@ if (!empty($event['time_start']) && !empty($event['time_end'])) {
 } elseif (!empty($event['time_start'])) {
     $time = $this->escape($event['time_start_view']);
 }
-$title = sprintf('%s - %s', $event['title'], $time);
+$title   = sprintf('%s - %s', $event['title'], $time);
 $summary = sprintf('%s - %s', !empty($event['text_summary']) ? $event['text_summary'] : $event['title'], $time);
 // Set script
 $script = <<<'EOT'
@@ -28,15 +28,14 @@ $script = <<<'EOT'
     });
 EOT;
 // Load files
-$this->css($this->assetModule('css/front.css'), array('defer' => 'defer'));
-$this->jQuery(array('extension/jquery.magnific-popup.min.js' => array('defer' => 'defer')));
-$this->jQuery('extension/magnific-popup.min.css', array('defer' => 'defer'));
-
+$this->css($this->assetModule('css/front.css'), ['defer' => 'defer']);
+$this->jQuery(['extension/jquery.magnific-popup.min.js' => ['defer' => 'defer']]);
+$this->jQuery('extension/magnific-popup.min.css', ['defer' => 'defer']);
 
 
 $this->footScript()->appendScript($script);
 // Set Open Graph tags for meta
-$shareImage = (string) Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large');
+$shareImage = (string)Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large');
 $this->doctype('HTML5');
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($event['eventUrl'], 'og:url', 'property');
@@ -56,22 +55,26 @@ if ($shareImage) {
 
 $this->sticky();
 // Add Geo tags
-if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])){
+if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])) {
     $this->geoTag($event['map_latitude'], $event['map_longitude'], $event['title']);
 }
 
-$this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), array('async' => 'async'));
+$this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), ['async' => 'async']);
 
-$hitsAjaxUrl = Pi::url($this->url('event', array(
-    'controller' => 'json',
-    'action' => 'hit',
-    'slug' => $event['slug'],
-)));
+$hitsAjaxUrl = Pi::url(
+    $this->url(
+        'event', [
+        'controller' => 'json',
+        'action'     => 'hit',
+        'slug'       => $event['slug'],
+    ]
+    )
+);
 
 ?>
 
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
-    <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>" />
+    <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>"/>
     <div class="page-header p-name" itemprop="name">
         <h1>
             <?php echo $this->escape($event['title']); ?>
@@ -83,8 +86,8 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
             <li><i class="fa fa-eye"></i> <span class="hitsCounter"></span></li>
 
             <script>
-                $(document).ready(function(){
-                    $.getJSON("<?php echo $hitsAjaxUrl ?>", function( result ) {
+                $(document).ready(function () {
+                    $.getJSON("<?php echo $hitsAjaxUrl ?>", function (result) {
                         var hits = result.hits;
                         $('.hitsCounter').html(hits);
                     });
@@ -97,7 +100,8 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
             <?php if (!empty($event['guideCategoryInfo'])) { ?>
                 <?php foreach ($event['guideCategoryInfo'] as $guideCategoryInfo) { ?>
                     <li class="p-category">
-                        <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>" href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
+                        <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>"
+                           href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
                             <?php echo $this->escape($guideCategoryInfo['title']); ?>
                         </a>
                     </li>
@@ -117,14 +121,17 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
     <div class="clearfix ">
         <div class="row" id="sticky-container">
             <div class="col-md-8 event-single-main">
-                <?php if ($config['image_position'] == 'center') {  ?>
+                <?php if ($config['image_position'] == 'center') { ?>
                     <div class="event-image-main clearfix u-photo gallery text-center">
-                        <?php $media = Pi::api('doc','media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
+                        <?php $media = Pi::api('doc', 'media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
                         <a href="<?php echo $media['resized_url']; ?>"
-                           title="<?php echo $this->escape($event['title']); ?><?php if($media['copyright']) echo ' - ' . $media['copyright'] ?>" itemprop="image">
+                           title="<?php echo $this->escape($event['title']); ?><?php if ($media['copyright']) echo ' - ' . $media['copyright'] ?>"
+                           itemprop="image">
                             <img class="img-responsive img-thumbnail lazyload"
                                  src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                 data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
+                                 data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                     'medium'
+                                 ); ?>"
                                  alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                         </a>
                     </div>
@@ -147,36 +154,57 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                 <?php } ?>
 
                 <?php if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])) { ?>
-                    <?php $locations = array(
-                        'latitude' => $event['map_latitude'],
+                    <?php $locations = [
+                        'latitude'  => $event['map_latitude'],
                         'longitude' => $event['map_longitude'],
-                        'title' => $event['title'],
-                        'zoom' => !empty($event['map_zoom']) ? $event['map_zoom'] : $config['map_zoom'],
-                    );
-                    $option = array(
+                        'title'     => $event['title'],
+                        'zoom'      => !empty($event['map_zoom']) ? $event['map_zoom'] : $config['map_zoom'],
+                    ];
+                    $option          = [
                         'mapTypeId' => $config['map_type'],
-                    );  ?>
+                    ]; ?>
                     <h2><?php _e('Access Map'); ?></h2>
                     <?php echo $this->googleMap($locations, $config['map_api_key'], 'point', $option); ?>
                 <?php } ?>
             </div>
             <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
-                <?php if ($config['image_position'] == 'side') {  ?>
+                <?php if ($config['image_position'] == 'side') { ?>
                     <div class="event-image-main clearfix u-photo gallery">
-                        <?php $media = Pi::api('doc','media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
+                        <?php $media = Pi::api('doc', 'media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
                         <a href="<?php echo $media['resized_url']; ?>"
-                           title="<?php echo $this->escape($event['title']); ?><?php if($media['copyright']) echo ' - ' . $media['copyright'] ?>" itemprop="image">
+                           title="<?php echo $this->escape($event['title']); ?><?php if ($media['copyright']) echo ' - ' . $media['copyright'] ?>"
+                           itemprop="image">
                             <picture>
-                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(479,479); ?>" media="(max-width: 479px)">
-                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(767,767); ?>" media="(max-width: 767px)">
-                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(720,720); ?>" media="(max-width: 991px)">
-                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(293,293); ?>" media="(max-width: 1199px)">
-                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(360,360); ?>" media="(max-width: 1366px)">
-                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(360,360); ?>" media="(max-width: 2800px)">
+                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                            479, 479
+                                        ); ?>" media="(max-width: 479px)">
+                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                            767, 767
+                                        ); ?>" media="(max-width: 767px)">
+                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                            720, 720
+                                        ); ?>" media="(max-width: 991px)">
+                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                            293, 293
+                                        ); ?>" media="(max-width: 1199px)">
+                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                            360, 360
+                                        ); ?>" media="(max-width: 1366px)">
+                                <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                            360, 360
+                                        ); ?>" media="(max-width: 2800px)">
 
                                 <img class="img-responsive img-thumbnail lazyload"
                                      src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                     data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(360,360); ?>"
+                                     data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                         360, 360
+                                     ); ?>"
                                      alt="<?php echo $this->escape($event['title']); ?>" itemprop="image"/>
                             </picture>
 
@@ -187,23 +215,30 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                     <div class="event-organizer">
                         <?php if (!empty($event['organizer_name'])) { ?>
                             <p itemscope itemtype="https://schema.org/Organization">
-                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> : <a itemprop="name" href="<?php echo $this->escape($event['source_url']); ?>"><?php echo $this->escape($event['organizer_name']); ?></a>
+                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> : <a itemprop="name" href="<?php echo $this->escape(
+                                    $event['source_url']
+                                ); ?>"><?php echo $this->escape($event['organizer_name']); ?></a>
                             </p>
                         <?php } ?>
                         <?php if (!empty($event['source_url'])) { ?>
                             <p class="u-url" itemprop="url">
-                                <a class="btn btn-success btn-lg btn-group-justified event-source-url" title="<?php _e('Organizer Website and register') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                <a class="btn btn-success btn-lg btn-group-justified event-source-url" title="<?php _e('Organizer Website and register') ?>"
+                                   href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                     <i class="fa fa-external-link"></i>
                                     <?php _e('Register') ?>
                                 </a>
                                 <script>
                                     (function ($) {
                                         $('.event-source-url').click(function () {
-                                            $.getJSON("<?php echo Pi::url($this->url('event', array(
-                                                'controller' => 'json',
-                                                'action' => 'registerClick',
-                                                'id' => $event['id'],
-                                            ))); ?>");
+                                            $.getJSON("<?php echo Pi::url(
+                                                $this->url(
+                                                    'event', [
+                                                    'controller' => 'json',
+                                                    'action'     => 'registerClick',
+                                                    'id'         => $event['id'],
+                                                ]
+                                                )
+                                            ); ?>");
                                         });
                                     })(jQuery)
                                 </script>
@@ -243,7 +278,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                             </li>
                                         </ul>
                                         <div class="clearfix">
-                                            <?php if( $config['order_active']) { ?>
+                                            <?php if ($config['order_active']) { ?>
                                                 <?php echo $this->form($form, 'inline'); ?>
                                             <?php } ?>
                                         </div>
@@ -261,7 +296,8 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                     <?php echo $this->escape($event['register_price_view']); ?>
                                 </div>
                                 <div class="event-offerUrl-btn" itemprop="url">
-                                    <a class="btn btn-success btn-lg btn-group-justified <?php echo $ended ? 'disabled' : '' ?>" title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                    <a class="btn btn-success btn-lg btn-group-justified <?php echo $ended ? 'disabled' : '' ?>"
+                                       title="<?php _e('Register to the event') ?>" href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
                                         <?php _e('Register to the event') ?>
                                     </a>
                                 </div>
@@ -274,24 +310,31 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                 </div>
                             <?php } ?>
                         </div>
-                        <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                        <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>"/>
                     </div>
                 <?php } ?>
-                <?php if ($event['register_stock'] != null) { ?> 
+                <?php if ($event['register_stock'] != null) { ?>
                     <div class="well clearfix eventTime">
                         <h2><?php _e('Stock'); ?></h2>
                         <ul class="list-inline">
-                            <?php if ($count) { ?> 
-                                <li class="text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?></strong></li>
-                            <?php } ?>     
-                            <li><i class="fa fa-ticket"></i>&nbsp; 
+                            <?php if ($count) { ?>
+                                <li class="text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(
+                                            __("I'm registrered to this event (%s place(s))"), $count
+                                        ); ?></strong></li>
+                            <?php } ?>
+                            <li><i class="fa fa-ticket"></i>&nbsp;
                                 <?php
-                                if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) { 
+                                if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) {
                                     _e('Full');
-                                } else if ($event['register_stock'] > 0) {                                                               
-                                    echo sprintf(__('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'], $event['register_stock'] - $event['register_sales']);
                                 } else {
-                                    echo sprintf(__('%s registred'), $event['register_sales']);
+                                    if ($event['register_stock'] > 0) {
+                                        echo sprintf(
+                                            __('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'],
+                                            $event['register_stock'] - $event['register_sales']
+                                        );
+                                    } else {
+                                        echo sprintf(__('%s registred'), $event['register_sales']);
+                                    }
                                 }
                                 ?>
                             </li>
@@ -311,7 +354,9 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                             <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
                         <?php } elseif (!empty($event['time_start'])) { ?>
                             <li class="event-single-time dt-start">
-                                <?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('On') ?> <?php echo $this->escape($event['time_start_view']); ?>
+                                <?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('On') ?> <?php echo $this->escape(
+                                    $event['time_start_view']
+                                ); ?>
                             </li>
                         <?php } ?>
                     </ul>
@@ -321,13 +366,13 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                         </ul>
                     <?php } ?>
                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>"/>
                     <?php } elseif (!empty($event['time_start'])) { ?>
-                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
+                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
                     <?php } ?>
-                
+
                     <?php if (!empty($event['guideLocationInfo'])) { ?>
                         <ul class="list-inline">
                             <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
@@ -336,7 +381,8 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                     <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
                                         <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
                                     </a>
-                                    <meta itemprop="address" itemscope itemtype="https://schema.org/Text" content="<?php echo $this->escape($guideLocationInfo['title']); ?>" />
+                                    <meta itemprop="address" itemscope itemtype="https://schema.org/Text"
+                                          content="<?php echo $this->escape($guideLocationInfo['title']); ?>"/>
                                 </li>
                             <?php } ?>
                         </ul>
@@ -346,7 +392,9 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                             <ul class="list-unstyled">
                                 <?php if (!empty($event['organizer_name'])) { ?>
                                     <li itemscope itemtype="https://schema.org/Organization">
-                                        <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape($event['organizer_name']); ?></span>
+                                        <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape(
+                                                $event['organizer_name']
+                                            ); ?></span>
                                     </li>
                                 <?php } ?>
                                 <?php if (!empty($event['source_url']) && !$ended) { ?>
@@ -392,20 +440,34 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                 <div class="center-block event-item-box h-review col-sm-9 col-md-9">
                                     <div class="thumbnail p-item h-card">
                                         <?php if ($guideItemInfo['main_image']) { ?>
-                                            <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                            <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>"
+                                               title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                                href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
 
                                                 <picture>
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(479,479); ?>" media="(max-width: 479px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(767,767); ?>" media="(max-width: 767px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(750,750); ?>" media="(max-width: 991px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(212,212); ?>" media="(max-width: 1199px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(262,262); ?>" media="(max-width: 1366px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(262,262); ?>" media="(max-width: 2800px)">
+                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                ->setConfigModule('news')->thumb(479, 479); ?>" media="(max-width: 479px)">
+                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                ->setConfigModule('news')->thumb(767, 767); ?>" media="(max-width: 767px)">
+                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                ->setConfigModule('news')->thumb(750, 750); ?>" media="(max-width: 991px)">
+                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                ->setConfigModule('news')->thumb(212, 212); ?>" media="(max-width: 1199px)">
+                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                ->setConfigModule('news')->thumb(262, 262); ?>" media="(max-width: 1366px)">
+                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                ->setConfigModule('news')->thumb(262, 262); ?>" media="(max-width: 2800px)">
 
                                                     <img class="img-responsive u-photo lazyload"
                                                          src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                         data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(262,262); ?>"
+                                                         data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                             ->setConfigModule('news')->thumb(262, 262); ?>"
                                                          alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                                 </picture>
 
@@ -462,32 +524,35 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                                     <div class="eventList-time small">
                                         <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
                                             <span class="eventSingleTime dt-start">
-                                            <?php _e('From') ?> <?php echo $this->escape($relatedEvent['time_start_view']); ?>
+                                            <?php _e('From') ?><?php echo $this->escape($relatedEvent['time_start_view']); ?>
                                         </span>
                                             <span class="eventSingleTime dt-end">
-                                            <?php _e('to') ?> <?php echo $this->escape($relatedEvent['time_end_view']); ?>
+                                            <?php _e('to') ?><?php echo $this->escape($relatedEvent['time_end_view']); ?>
                                         </span>
                                         <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
                                             <span class="eventSingleTime dt-start"><?php echo $this->escape($relatedEvent['time_start_view']); ?></span>
                                         <?php } ?>
 
                                         <?php $summary = !empty($relatedEvent['text_summary']) ? $relatedEvent['text_summary'] : $relatedEvent['title']; ?>
-                                        <meta itemprop="description" content="<?php echo $this->escape($summary); ?>" />
+                                        <meta itemprop="description" content="<?php echo $this->escape($summary); ?>"/>
                                         <?php if (isset($relatedEvent['locationInfo']['largeUrl'])) { ?>
-                                            <meta itemprop="image" content="<?php echo $this->escape($relatedEvent['locationInfo']['largeUrl']); ?>" />
+                                            <meta itemprop="image" content="<?php echo $this->escape($relatedEvent['locationInfo']['largeUrl']); ?>"/>
                                         <?php } ?>
                                         <?php if (!empty($relatedEvent['time_start']) && !empty($relatedEvent['time_end'])) { ?>
-                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
-                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>" />
+                                            <meta itemprop="startDate"
+                                                  content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>"/>
+                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_end'])); ?>"/>
                                         <?php } elseif (!empty($relatedEvent['time_start'])) { ?>
-                                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
-                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>" />
+                                            <meta itemprop="startDate"
+                                                  content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>"/>
+                                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $relatedEvent['time_start'])); ?>"/>
                                         <?php } ?>
                                         <span itemprop="location" itemscope itemtype="https://schema.org/Place">
                                         <a itemprop="url" href="<?php echo $this->escape($relatedEvent['locationInfo']['locationUrl']); ?>">
                                             <span itemprop="name"><?php echo $this->escape($relatedEvent['locationInfo']['title']); ?></span>
                                         </a>
-                                        <meta itemprop="address" itemscope itemtype="https://schema.org/Text" content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>" />
+                                        <meta itemprop="address" itemscope itemtype="https://schema.org/Text"
+                                              content="<?php echo $this->escape($relatedEvent['locationInfo']['title']); ?>"/>
                                     </span>
                                     </div>
                                     <div class="eventList-title">
@@ -516,21 +581,35 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
                             <div class="event-item-box h-review col-sm-4 col-md-3">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['main_image']) { ?>
-                                        <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                        <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>"
+                                           title="<?php echo $this->escape($guideItemInfo['title']); ?>"
                                            href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
 
                                             <picture>
-                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(479,479); ?>" media="(max-width: 479px)">
-                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(767,767); ?>" media="(max-width: 767px)">
-                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(220,200); ?>" media="(max-width: 991px)">
-                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(215,215); ?>" media="(max-width: 1199px)">
-                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 1366px)">
-                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb(270,270); ?>" media="(max-width: 2800px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                            ->setConfigModule('news')->thumb(479, 479); ?>" media="(max-width: 479px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                            ->setConfigModule('news')->thumb(767, 767); ?>" media="(max-width: 767px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                            ->setConfigModule('news')->thumb(220, 200); ?>" media="(max-width: 991px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                            ->setConfigModule('news')->thumb(215, 215); ?>" media="(max-width: 1199px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                            ->setConfigModule('news')->thumb(270, 270); ?>" media="(max-width: 1366px)">
+                                                <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                        data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                            ->setConfigModule('news')->thumb(270, 270); ?>" media="(max-width: 2800px)">
 
                                                 <img class="img-responsive u-photo lazyload"
                                                      style="max-width:100%"
                                                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                                     data-src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($guideItemInfo['main_image'])->setConfigModule('news')->thumb('medium'); ?>"
+                                                     data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                         ->setConfigModule('news')->thumb('medium'); ?>"
                                                      alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
                                             </picture>
 
@@ -564,7 +643,7 @@ $hitsAjaxUrl = Pi::url($this->url('event', array(
     </div>
 </div>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('iframe').wrap('<div class="iframe-wrapper">');
     });
 </script>

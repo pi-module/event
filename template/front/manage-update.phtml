@@ -1,33 +1,43 @@
 <?php
-$this->css(array(
-    $this->assetModule('css/front.css'),
-    $this->assetModule('script/system-ui.css', 'system'),
-), array('defer' => 'defer'));
+$this->css(
+    [
+        $this->assetModule('css/front.css'),
+        $this->assetModule('script/system-ui.css', 'system'),
+    ], ['defer' => 'defer']
+);
 $this->jQuery();
 $this->backbone();
 $this->js($this->assetModule('script/system-msg.js', 'system'));
 if (Pi::service('module')->isActive('guide')) {
-    $urlPackage = Pi::url($this->url('guide', array(
-        'module' => 'guide',
-        'controller' => 'package',
-        'action' => 'index',
-    )));
+    $urlPackage = Pi::url(
+        $this->url(
+            'guide', [
+            'module'     => 'guide',
+            'controller' => 'package',
+            'action'     => 'index',
+        ]
+        )
+    );
 }
 
 $local = Pi::service('i18n')->getLocale();
 if ($local = 'fa') {
-    $this->css(array(
-        $this->assetModule('css/persianDatepicker.css'),
-    ));
-    $this->js(array(
-        $this->assetModule('js/moment.min.js'),
-        $this->assetModule('js/moment-jalali.js'),
-        $this->assetModule('js/persianDatepicker.min.js'),
-    ));
+    $this->css(
+        [
+            $this->assetModule('css/persianDatepicker.css'),
+        ]
+    );
+    $this->js(
+        [
+            $this->assetModule('js/moment.min.js'),
+            $this->assetModule('js/moment-jalali.js'),
+            $this->assetModule('js/persianDatepicker.min.js'),
+        ]
+    );
 }
 ?>
 <?php $currentFlashMessages = $this->flashMessenger()->renderCurrent(); ?>
-<?php if(trim($currentFlashMessages)) { ?>
+<?php if (trim($currentFlashMessages)) { ?>
     <div class="alert alert-dismissable alert-info">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div><?php echo $currentFlashMessages; ?></div>
@@ -131,7 +141,7 @@ if ($local = 'fa') {
 
             <?php if (Pi::service('module')->isActive('guide')) { ?>
             if (0 == <?php echo $canSubmitEvent?>) {
-                $("form#event").on("submit", function() {
+                $("form#event").on("submit", function () {
                     $('#upgradePackageModal').modal();
                     return false;
                 });
@@ -143,7 +153,7 @@ if ($local = 'fa') {
     </script>
 <?php } else { ?>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
                 $('.event-time-end').datepicker('setStartDate', minDate);
@@ -153,7 +163,7 @@ if ($local = 'fa') {
 
             <?php if (Pi::service('module')->isActive('guide')) { ?>
             if (0 == <?php echo $canSubmitEvent?>) {
-                $("form#event").on("submit", function() {
+                $("form#event").on("submit", function () {
                     $('#upgradePackageModal').modal();
                     return false;
                 });
@@ -170,7 +180,7 @@ if ($local = 'fa') {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" ><?php echo _e("Main image is required"); ?></h4>
+                <h4 class="modal-title"><?php echo _e("Main image is required"); ?></h4>
             </div>
             <div class="modal-body">
                 <?php echo _e("You must add main image before save that event"); ?>
@@ -187,7 +197,7 @@ if ($local = 'fa') {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" ><?php echo _e("Description is required"); ?></h4>
+                <h4 class="modal-title"><?php echo _e("Description is required"); ?></h4>
             </div>
             <div class="modal-body">
                 <?php echo _e("You must add a description before save that event"); ?>
@@ -199,18 +209,18 @@ if ($local = 'fa') {
     </div>
 </div>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        $("#event").submit(function(e){
+        $("#event").submit(function (e) {
             if (1 != <?php echo isset($item['status']) ? $item['status'] : 1 ?>) {
                 event.preventDefault();
                 $('#publishModal').modal();
-                return;   
+                return;
             }
-           
-           var ret = false;
-           $.each(CKEDITOR.instances, 
-                function(elem) {
+
+            var ret = false;
+            $.each(CKEDITOR.instances,
+                function (elem) {
                     if (elem.indexOf('text_description') > -1) {
                         if (CKEDITOR.instances[elem].getData().length == 0) {
                             $('#descriptionRequired').modal('show');
@@ -224,32 +234,31 @@ if ($local = 'fa') {
             if (ret) {
                 return;
             }
-            
+
             var mainImage = $('input[name="main_image"]').val();
 
-            if(!mainImage){
+            if (!mainImage) {
                 $('#mainImageRequired').modal('show');
                 e.preventDefault();
             }
         });
-        
-        var registerCanOnChange = function() {
-              if ($('[type=checkbox][name=register_can]').prop('checked')) {
-                  $('[data-name=register_stock] label i.text-danger').show();
-                  $('[name=register_stock]').attr('required', true);
-              } else {
-                  $('[data-name=register_stock] label i.text-danger').hide();
-                  $('[name=register_stock]').removeAttr('required');                  
-              }
+
+        var registerCanOnChange = function () {
+            if ($('[type=checkbox][name=register_can]').prop('checked')) {
+                $('[data-name=register_stock] label i.text-danger').show();
+                $('[name=register_stock]').attr('required', true);
+            } else {
+                $('[data-name=register_stock] label i.text-danger').hide();
+                $('[name=register_stock]').removeAttr('required');
+            }
         };
-      
+
         $('[name=register_can]').change(
-          registerCanOnChange
-          
+            registerCanOnChange
         );
-        
+
         registerCanOnChange();
-        
+
         if ($(".event-time-start").length) {
             $(".event-time-start").datepicker().on('changeDate', function (selected) {
                 var minDate = new Date(selected.date.valueOf());
@@ -258,6 +267,6 @@ if ($local = 'fa') {
             var minDate = new Date($(".event-time-start").val());
             $('.event-time-end').datepicker('setStartDate', minDate);
         }
-            
+
     });
 </script>

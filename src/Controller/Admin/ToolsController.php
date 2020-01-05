@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Controller\Admin;
 
 use Pi;
@@ -20,7 +21,8 @@ use Module\Event\Form\SitemapForm;
 class ToolsController extends ActionController
 {
     public function indexAction()
-    {}
+    {
+    }
 
     public function importAction()
     {
@@ -28,7 +30,7 @@ class ToolsController extends ActionController
         if (Pi::service('module')->isActive('guide')) {
             $module = $this->params('module');
             // Select
-            $events = array();
+            $events = [];
             $select = Pi::model('event', 'guide')->select();
             $rowset = Pi::model('event', 'guide')->selectWith($select);
             foreach ($rowset as $row) {
@@ -40,24 +42,24 @@ class ToolsController extends ActionController
                 foreach ($events as $event) {
                     // Set info
                     unset($event['id']);
-                    $event['type'] = 'event';
+                    $event['type']         = 'event';
                     $event['time_publish'] = ($event['time_end']) ? $event['time_end'] : $event['time_start'];
-                    $event['topic'] =  array();
+                    $event['topic']        = [];
                     // Save as story
                     $story = Pi::api('api', 'news')->addStory($event);
                     // Set id
                     $event['id'] = $story['id'];
                     // Set guide module info
-                    $event['guide_category'] = json_encode(array($event['category']));
-                    $event['guide_location'] = json_encode(array($event['location']));
-                    $event['guide_item'] = json_encode(array($event['item']));
-                    $event['guide_owner'] = $event['owner'];
+                    $event['guide_category'] = json_encode([$event['category']]);
+                    $event['guide_location'] = json_encode([$event['location']]);
+                    $event['guide_item']     = json_encode([$event['item']]);
+                    $event['guide_owner']    = $event['owner'];
                     // Set extra fields
                     $event['register_details'] = $event['registration_details'];
-                    $event['register_price'] = $event['price'];
-                    $event['register_can'] = 0;
-                    $event['register_stock'] = 0;
-                    $event['register_sales'] = 0;
+                    $event['register_price']   = $event['price'];
+                    $event['register_can']     = 0;
+                    $event['register_stock']   = 0;
+                    $event['register_sales']   = 0;
 
                     // Save event
                     $row = $this->getModel('extra')->createRow();
@@ -119,59 +121,59 @@ class ToolsController extends ActionController
                         }
                     }
                     // Set link array
-                    $link = array(
-                        'story' => $story['id'],
+                    $link = [
+                        'story'        => $story['id'],
                         'time_publish' => $story['time_publish'],
-                        'time_update' => $story['time_update'],
-                        'status' => $story['status'],
-                        'uid' => $story['uid'],
-                        'type' => $story['type'],
-                        'module' => array(
-                            'event' => array(
-                                'name' => 'event',
-                                'controller' => array(),
-                            ),
-                            'guide' => array(
-                                'name' => 'guide',
-                                'controller' => array(),
-                            ),
-                        ),
-                    );
+                        'time_update'  => $story['time_update'],
+                        'status'       => $story['status'],
+                        'uid'          => $story['uid'],
+                        'type'         => $story['type'],
+                        'module'       => [
+                            'event' => [
+                                'name'       => 'event',
+                                'controller' => [],
+                            ],
+                            'guide' => [
+                                'name'       => 'guide',
+                                'controller' => [],
+                            ],
+                        ],
+                    ];
 
                     if (isset($event['topic']) && !empty($event['topic'])) {
-                        $link['module']['event']['controller']['topic'] = array(
-                            'name' => 'topic',
+                        $link['module']['event']['controller']['topic'] = [
+                            'name'  => 'topic',
                             'topic' => $event['topic'],
-                        );
+                        ];
                     }
 
                     if (isset($event['guide_category']) && !empty($event['guide_category'])) {
-                        $link['module']['guide']['controller']['category'] = array(
-                            'name' => 'category',
+                        $link['module']['guide']['controller']['category'] = [
+                            'name'  => 'category',
                             'topic' => json_decode($event['guide_category'], true),
-                        );
+                        ];
                     }
 
                     if (isset($event['guide_location']) && !empty($event['guide_location'])) {
-                        $link['module']['guide']['controller']['location'] = array(
-                            'name' => 'location',
+                        $link['module']['guide']['controller']['location'] = [
+                            'name'  => 'location',
                             'topic' => json_decode($event['guide_location'], true),
-                        );
+                        ];
                     }
 
                     if (isset($event['guide_item']) && !empty($event['guide_item'])) {
-                        $link['module']['guide']['controller']['item'] = array(
-                            'name' => 'item',
+                        $link['module']['guide']['controller']['item'] = [
+                            'name'  => 'item',
                             'topic' => json_decode($event['guide_item'], true),
-                        );
+                        ];
                     }
                     if (isset($event['guide_owner']) && !empty($event['guide_owner'])) {
-                        $link['module']['guide']['controller']['owner'] = array(
-                            'name' => 'owner',
-                            'topic' => array(
+                        $link['module']['guide']['controller']['owner'] = [
+                            'name'  => 'owner',
+                            'topic' => [
                                 $event['guide_owner'],
-                            ),
-                        );
+                            ],
+                        ];
                     }
 
                     // Setup link
@@ -179,11 +181,15 @@ class ToolsController extends ActionController
                     // Add / Edit sitemap
                     if (Pi::service('module')->isActive('sitemap')) {
                         // Set loc
-                        $loc = Pi::url($this->url('event', array(
-                            'module' => $module,
-                            'controller' => 'index',
-                            'slug' => $event['slug']
-                        )));
+                        $loc = Pi::url(
+                            $this->url(
+                                'event', [
+                                'module'     => $module,
+                                'controller' => 'index',
+                                'slug'       => $event['slug'],
+                            ]
+                            )
+                        );
                         // Update sitemap
                         Pi::api('sitemap', 'sitemap')->singleLink($loc, $story['status'], $module, 'event', $story['id']);
                     }
@@ -197,9 +203,9 @@ class ToolsController extends ActionController
             $message = __('Guide module not installed');
         }
         // Set jump
-        $url = array(
+        $url = [
             'action' => 'index',
-        );
+        ];
         $this->jump($url, $message);
         // Set view
         $this->view()->setTemplate(false);
@@ -207,7 +213,7 @@ class ToolsController extends ActionController
 
     public function sitemapAction()
     {
-        $form = new SitemapForm('sitemap');
+        $form    = new SitemapForm('sitemap');
         $message = __('Rebuild thie module links on sitemap module tabels');
         if ($this->request->isPost()) {
             // Set form date
@@ -226,20 +232,23 @@ class ToolsController extends ActionController
         $this->view()->assign('message', $message);
     }
 
-    public function fillTimeEndAction(){
+    public function fillTimeEndAction()
+    {
         $extraModel = Pi::model('extra', 'event');
-        $select = $extraModel->select();
+        $select     = $extraModel->select();
 
-        $select->where(array(
-            'time_end' => 0,
-        ));
+        $select->where(
+            [
+                'time_end' => 0,
+            ]
+        );
 
         $extraCollection = $extraModel->selectWith($select);
 
-        if($extraCollection->count()){
-            foreach($extraCollection as $extraEntity){
+        if ($extraCollection->count()) {
+            foreach ($extraCollection as $extraEntity) {
 
-                if($extraEntity->time_start){
+                if ($extraEntity->time_start) {
                     $extraEntity->time_end = $extraEntity->time_start;
                     $extraEntity->save();
                 }
@@ -252,6 +261,6 @@ class ToolsController extends ActionController
             $messenger->addMessage(__('Time end fields are filled yet'));
         }
 
-        $this->redirect()->toRoute(null, array('action' => 'index'));
+        $this->redirect()->toRoute(null, ['action' => 'index']);
     }
 }

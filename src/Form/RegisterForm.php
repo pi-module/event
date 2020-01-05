@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Form;
 
 use Pi;
@@ -17,7 +18,7 @@ use Pi\Form\Form as BaseForm;
 
 class RegisterForm extends BaseForm
 {
-    public function __construct($name = null, $option = array())
+    public function __construct($name = null, $option = [])
     {
         $this->option = $option;
         parent::__construct($name);
@@ -34,34 +35,40 @@ class RegisterForm extends BaseForm
     public function init()
     {
         // id
-        $this->add(array(
-            'name' => 'id',
-            'attributes' => array(
-                'type' => 'hidden',
-            ),
-        ));
+        $this->add(
+            [
+                'name'       => 'id',
+                'attributes' => [
+                    'type' => 'hidden',
+                ],
+            ]
+        );
         // number
         $number = range(0, $this->option['stock']);
         unset($number[0]);
-        $this->add(array(
-            'name' => 'number',
-            'type' => 'select',
-            'options' => array(
-                'label' => '',
-                'value_options' => $number,
-            ),
-            'attributes' => array(
-                'required' => true,
-            )
-        ));
+        $this->add(
+            [
+                'name'       => 'number',
+                'type'       => 'select',
+                'options'    => [
+                    'label'         => '',
+                    'value_options' => $number,
+                ],
+                'attributes' => [
+                    'required' => true,
+                ],
+            ]
+        );
         // Save
-        $this->add(array(
-            'name' => 'submit',
-            'type' => 'submit',
-            'attributes' => array(
-                'class' => 'btn btn-success',
-                'value' => __('Register to the event'),
-            )
-        ));
+        $this->add(
+            [
+                'name'       => 'submit',
+                'type'       => 'submit',
+                'attributes' => [
+                    'class' => 'btn btn-success',
+                    'value' => __('Register to the event'),
+                ],
+            ]
+        );
     }
 }

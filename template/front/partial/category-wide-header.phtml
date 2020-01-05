@@ -8,14 +8,22 @@
 </div>
 <div class="category-width-image">
     <picture>
-        <!--[if IE 9]><video style="display: none;"><![endif]-->
-        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/mobi-%s'), $config['image_index']); ?>" media="(max-width: 479px)">
-        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/smart-%s'), $config['image_index']); ?>" media="(max-width: 767px)">
-        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/tab-%s'), $config['image_index']); ?>" media="(max-width: 991px)">
-        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/lap-%s'), $config['image_index']); ?>" media="(max-width: 1366px)">
-        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/xlap-%s'), $config['image_index']); ?>" media="(max-width: 1920px)">
-        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/desk-%s'), $config['image_index']); ?>" media="(max-width: 2880px)">
+        <!--[if IE 9]>
+        <video style="display: none;"><![endif]-->
+        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/mobi-%s'), $config['image_index']); ?>"
+                media="(max-width: 479px)">
+        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/smart-%s'), $config['image_index']); ?>"
+                media="(max-width: 767px)">
+        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/tab-%s'), $config['image_index']); ?>"
+                media="(max-width: 991px)">
+        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/lap-%s'), $config['image_index']); ?>"
+                media="(max-width: 1366px)">
+        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/xlap-%s'), $config['image_index']); ?>"
+                media="(max-width: 1920px)">
+        <source class="img-responsive" srcset="<?php echo sprintf(Pi::url('upload/event/image/width/index/desk-%s'), $config['image_index']); ?>"
+                media="(max-width: 2880px)">
         <!--[if IE 9]></video><![endif]-->
-        <img class="img-responsive" src="<?php echo sprintf(Pi::url('upload/event/image/width/index/xlap-%s'), $config['image_index']); ?>" alt="<?php echo $this->escape($title); ?>">
+        <img class="img-responsive" src="<?php echo sprintf(Pi::url('upload/event/image/width/index/xlap-%s'), $config['image_index']); ?>"
+             alt="<?php echo $this->escape($title); ?>">
     </picture>
 </div>

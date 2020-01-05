@@ -13,7 +13,9 @@
                                 <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                    href="<?php echo $this->escape($event['eventUrl']); ?>">
                                     <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                         src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('item'); ?>"
+                                         src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                             'item'
+                                         ); ?>"
                                          alt="<?php echo $this->escape($event['title']); ?>"/>
                                 </a>
                             <?php } ?>
@@ -53,13 +55,17 @@
                                         <?php foreach ($event['topics'] as $eventTopic) { ?>
                                             <li class="p-category">
                                                 <a title="<?php echo $this->escape($eventTopic['title']); ?>"
-                                                   href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape($eventTopic['title']); ?></a>
+                                                   href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape(
+                                                        $eventTopic['title']
+                                                    ); ?></a>
                                             </li>
                                         <?php } ?>
                                     <?php } ?>
                                     <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
                                         <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
-                                            <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                                            <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape(
+                                                $event['register_price_view']
+                                            ); ?>
                                         </li>
                                     <?php } ?>
                                     <?php if ($block['show-hits']) { ?>
@@ -70,14 +76,14 @@
                                 <?php /** META ITEMPROPS */ ?>
                                 <?php if ($block['show-time']) { ?>
                                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
+                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>"/>
                                     <?php } elseif (!empty($event['time_start'])) { ?>
-                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
                                     <?php } ?>
                                 <?php } ?>
                                 <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
-                                    <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                                    <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>"/>
                                 <?php } ?>
 
                             </div>
@@ -88,7 +94,7 @@
                                     </div>
                                 </div>
                             <?php } elseif (!empty($event['text_summary'])) { ?>
-                                <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>" />
+                                <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>"/>
                             <?php } ?>
                         </div>
                     </div>
@@ -106,11 +112,13 @@
                                         <span class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></span>
                                         <span><strong><?php echo _b('to') ?></strong></span>
                                         <span class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></span>
-                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
-                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>" />
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
+                                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>"/>
                                     <?php } elseif (!empty($event['time_start'])) { ?>
-                                        <span class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['time_start_view']); ?></span>
-                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>" />
+                                        <span class="event-single-time dt-start"><i class="fa fa-clock-o"></i> <?php echo $this->escape(
+                                                $event['time_start_view']
+                                            ); ?></span>
+                                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
                                     <?php } ?>
                                 </div>
                             <?php } ?>
@@ -119,7 +127,9 @@
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
                                         <img itemprop="image" class="img-responsive img-rounded u-photo"
-                                             src="<?php echo Pi::api('doc','media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('item'); ?>"
+                                             src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
+                                                 'item'
+                                             ); ?>"
                                              alt="<?php echo $this->escape($event['title']); ?>"/>
                                     </a>
                                 </div>
@@ -151,9 +161,11 @@
                                                 <div class="event-discount"><?php echo _number(max($event['register_discount'])); ?> %</div>
                                             <?php } else { ?>
                                                 <span class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
-                                            <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape($event['register_price_view']); ?>
+                                            <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape(
+                                                        $event['register_price_view']
+                                                    ); ?>
                                         </span>
-                                                <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>" />
+                                                <meta itemprop="priceCurrency" content="<?php echo $this->escape($event['price_currency']); ?>"/>
                                             <?php } ?>
                                         </div>
                                     <?php } ?>
@@ -170,7 +182,7 @@
                                         </div>
                                     </div>
                                 <?php } elseif (!empty($event['text_summary'])) { ?>
-                                    <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>" />
+                                    <meta itemprop="description" content="<?php echo $this->escape($event['text_summary']); ?>"/>
                                 <?php } ?>
                             </div>
                         </div>

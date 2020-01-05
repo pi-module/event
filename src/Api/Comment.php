@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Api;
 
 use Pi;
@@ -30,22 +31,21 @@ class Comment extends AbstractComment
     public function get($item)
     {
 
-        $result = array();
-        $items = (array)$item;
+        $result = [];
+        $items  = (array)$item;
 
         // Set options
         $event = Pi::api('event', 'event')->getListFromId($items);
 
 
-
         foreach ($items as $id) {
-            $result[$id] = array(
-                'id' => $event[$id]['id'],
+            $result[$id] = [
+                'id'    => $event[$id]['id'],
                 'title' => $event[$id]['title'],
-                'url' => $event[$id]['eventUrl'],
-                'uid' => $event[$id]['uid'],
-                'time' => $event[$id]['time_start'],
-            );
+                'url'   => $event[$id]['eventUrl'],
+                'uid'   => $event[$id]['uid'],
+                'time'  => $event[$id]['time_start'],
+            ];
         }
 
         if (is_scalar($item)) {
@@ -74,7 +74,7 @@ class Comment extends AbstractComment
             && !empty($params['slug'])
         ) {
             $event = Pi::api('event', 'event')->getEventSingle($params['slug'], 'slug');
-            $item = $event['id'];
+            $item  = $event['id'];
         } else {
             $item = false;
         }
@@ -84,9 +84,9 @@ class Comment extends AbstractComment
     public function canonize($id)
     {
         $data = Pi::api('event', 'event')->getEventSingle($id);
-        return array(
-            'url' => $data['eventUrl'],
+        return [
+            'url'   => $data['eventUrl'],
             'title' => $data['title'],
-        );
+        ];
     }
 }

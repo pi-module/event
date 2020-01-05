@@ -26,10 +26,11 @@
                 <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#orderUser<?php echo $this->escape($order['id']); ?>">
-                        <?php echo !empty($order['user']['name']) ? $this->escape($order['user']['name']) : '' ; ?>
+                        <?php echo !empty($order['user']['name']) ? $this->escape($order['user']['name']) : ''; ?>
                     </button>
                     <!-- Modal -->
-                    <div class="modal fade" id="orderUser<?php echo $this->escape($order['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="orderUserLabel<?php echo $this->escape($order['id']); ?>">
+                    <div class="modal fade" id="orderUser<?php echo $this->escape($order['id']); ?>" tabindex="-1" role="dialog"
+                         aria-labelledby="orderUserLabel<?php echo $this->escape($order['id']); ?>">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -53,7 +54,8 @@
                         <?php echo $this->escape($order['eventInfo']['title']); ?>
                     </button>
                     <!-- Modal -->
-                    <div class="modal fade" id="orderPlan<?php echo $this->escape($order['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="orderPlanLabel<?php echo $this->escape($order['id']); ?>">
+                    <div class="modal fade" id="orderPlan<?php echo $this->escape($order['id']); ?>" tabindex="-1" role="dialog"
+                         aria-labelledby="orderPlanLabel<?php echo $this->escape($order['id']); ?>">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

@@ -10,36 +10,36 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     // Front section
-    'front' => array(
-        'public' => array(
-            'title' => _a('Global public resource'),
-            'access' => array(
+    'front' => [
+        'public' => [
+            'title'  => _a('Global public resource'),
+            'access' => [
                 'guest',
                 'member',
-            ),
-        ),
-        'manage' => array(
-            'title' => _a('Manage'),
-            'access' => array(
+            ],
+        ],
+        'manage' => [
+            'title'  => _a('Manage'),
+            'access' => [
                 'member',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     // Admin section
-    'admin' => array(
-        'event' => array(
-            'title' => _a('Event'),
-            'access' => array(),
-        ),
-        'order' => array(
-            'title' => _a('List of order'),
-            'access' => array(),
-        ),
-        'tools' => array(
-            'title' => _a('Tools'),
-            'access' => array(),
-        ),
-    ),
-);
+    'admin' => [
+        'event' => [
+            'title'  => _a('Event'),
+            'access' => [],
+        ],
+        'order' => [
+            'title'  => _a('List of order'),
+            'access' => [],
+        ],
+        'tools' => [
+            'title'  => _a('Tools'),
+            'access' => [],
+        ],
+    ],
+];

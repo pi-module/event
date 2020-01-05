@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Controller\Admin;
 
 use Pi;
@@ -20,16 +21,18 @@ class OrderController extends ActionController
     public function indexAction()
     {
         // Get info
-        $list = array();
-        $order = array('id DESC');
+        $list   = [];
+        $order  = ['id DESC'];
         $select = $this->getModel('order')->select()->order($order);
         $rowset = $this->getModel('order')->selectWith($select);
         // Make list
         foreach ($rowset as $row) {
-            $list[$row->id] = Pi::api('order', 'event')->canonizeOrder($row);
-            $list[$row->id]['user'] = Pi::user()->get($row->uid, array(
-                'id', 'identity', 'name', 'email'
-            ));
+            $list[$row->id]         = Pi::api('order', 'event')->canonizeOrder($row);
+            $list[$row->id]['user'] = Pi::user()->get(
+                $row->uid, [
+                'id', 'identity', 'name', 'email',
+            ]
+            );
         }
         // Set view
         $this->view()->setTemplate('order-index');

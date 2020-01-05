@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Controller\Front;
 
 use Pi;
@@ -34,10 +35,14 @@ class IndexController extends ActionController
             default:
             case 'angular':
                 // Set filter url
-                $filterUrl = Pi::url($this->url('', array(
-                    'controller' => 'json',
-                    'action' => 'filterIndex'
-                )));
+                $filterUrl = Pi::url(
+                    $this->url(
+                        '', [
+                        'controller' => 'json',
+                        'action'     => 'filterIndex',
+                    ]
+                    )
+                );
                 // Get location list
                 $locationList = Pi::api('event', 'event')->getLocationList();
                 // Get category list

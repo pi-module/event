@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Api;
 
 use Pi;
@@ -34,10 +35,10 @@ class Order extends AbstractApi
         }
         return true;
     }
-    
+
     public function getProductDetails($product)
     {
-        $event = Pi::api('event', 'event')->getEventSingle($product, 'id', 'light');
+        $event               = Pi::api('event', 'event')->getEventSingle($product, 'id', 'light');
         $event['productUrl'] = $event['eventUrl'];
         return $event;
     }
@@ -49,32 +50,33 @@ class Order extends AbstractApi
             if ($product['product'] > 0) {
                 // Set number
                 $number = $product['number'];
-                
+
                 // Get event
-                $event = Pi::api('event', 'event')->getEventSingle($product['product'], 'id', 'light');
+                $event   = Pi::api('event', 'event')->getEventSingle($product['product'], 'id', 'light');
                 $setting = json_decode($event['setting'], true);
                 // Update sales
                 Pi::model('extra', $this->getModule())->update(
-                    array('register_sales' => ($event['register_sales'] + $number)),
-                    array('id' => $event['id'])
+                    ['register_sales' => ($event['register_sales'] + $number)],
+                    ['id' => $event['id']]
                 );
-                
+
                 // Save order
-                $values = array(
-                    'uid' => $order['uid'],
-                    'event' => $event['id'],
-                    'order_id' => $order['id'],
-                    'number' => $number,
-                    'price' => $product['product_price'],
-                    'vat'=> $product['vat_price'],
-                    'total'=> $product['product_price'] + $product['vat_price'] + $product['shipping_price'] + $product['packing_price'] + $product['setup_price'] - $product['discount_price'],
+                $values = [
+                    'uid'        => $order['uid'],
+                    'event'      => $event['id'],
+                    'order_id'   => $order['id'],
+                    'number'     => $number,
+                    'price'      => $product['product_price'],
+                    'vat'        => $product['vat_price'],
+                    'total'      => $product['product_price'] + $product['vat_price'] + $product['shipping_price'] + $product['packing_price']
+                        + $product['setup_price'] - $product['discount_price'],
                     'time_order' => time(),
                     'time_start' => $event['time_start'],
-                    'time_end' => $event['time_end'],
-                    'status' => 1,
-                    'extra' => json_encode($setting['action']),
-                );
-                $row = Pi::model('order', $this->getModule())->createRow();
+                    'time_end'   => $event['time_end'],
+                    'status'     => 1,
+                    'extra'      => json_encode($setting['action']),
+                ];
+                $row    = Pi::model('order', $this->getModule())->createRow();
                 $row->assign($values);
                 $row->save();
                 // Set url
@@ -84,23 +86,31 @@ class Order extends AbstractApi
                     'action' => 'detail',
                     'id' => $row->id,
                 ))); */
-                
-                
-                 if (Pi::service('authentication')->hasIdentity()) {
-                     $url = Pi::url(Pi::service('url')->assemble('order', array(
-                        'module' => 'order',
-                        'controller' => 'detail',
-                        'action' => 'index',
-                        'id' => $order['id'],
-                    )));
-                 } else {
-                    $url =  Pi::url(Pi::service('url')->assemble('event', array(
-                        'module' => 'event',
-                        'controller' => 'detail',
-                        'action' => 'index',
-                        'slug' => $event['slug']
-                    )));
-                    
+
+
+                if (Pi::service('authentication')->hasIdentity()) {
+                    $url = Pi::url(
+                        Pi::service('url')->assemble(
+                            'order', [
+                            'module'     => 'order',
+                            'controller' => 'detail',
+                            'action'     => 'index',
+                            'id'         => $order['id'],
+                        ]
+                        )
+                    );
+                } else {
+                    $url = Pi::url(
+                        Pi::service('url')->assemble(
+                            'event', [
+                            'module'     => 'event',
+                            'controller' => 'detail',
+                            'action'     => 'index',
+                            'slug'       => $event['slug'],
+                        ]
+                        )
+                    );
+
                 }
 
                 // Send notification
@@ -135,17 +145,17 @@ class Order extends AbstractApi
         // Set time
         $order['time_order_view'] = _date($order['time_order']);
         $order['time_start_view'] = _date($order['time_start']);
-        $order['time_end_view'] = _date($order['time_end']);
+        $order['time_end_view']   = _date($order['time_end']);
         // Set number view
         $order['number_view'] = $order['number'];
         // Set price
         if (Pi::service('module')->isActive('order')) {
             $order['price_view'] = Pi::api('api', 'order')->viewPrice($order['price']);
-            $order['vat_view'] = Pi::api('api', 'order')->viewPrice($order['vat']);
+            $order['vat_view']   = Pi::api('api', 'order')->viewPrice($order['vat']);
             $order['total_view'] = Pi::api('api', 'order')->viewPrice($order['total']);
         } else {
             $order['price_view'] = _currency($order['price']);
-            $order['vat_view'] = _currency($order['vat']);
+            $order['vat_view']   = _currency($order['vat']);
             $order['total_view'] = _currency($order['total']);
         }
         // Set order url
@@ -163,18 +173,18 @@ class Order extends AbstractApi
         return $order;
     }
 
-    public function createExtraDetailForProduct($values) 
+    public function createExtraDetailForProduct($values)
     {
         return json_encode(
-            array(
-               'item' => $values['module_item'],
-            )
-        );   
+            [
+                'item' => $values['module_item'],
+            ]
+        );
     }
 
     public function getExtraFieldsFormForOrder()
     {
-        return array();
+        return [];
     }
 
 }

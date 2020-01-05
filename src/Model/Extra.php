@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Model;
 
 use Pi\Application\Model\Model;
@@ -24,31 +25,32 @@ class Extra extends Model
     /**
      * {@inheritDoc}
      */
-    protected $columns = array(
-        'id',
-        'uid',
-        'title',
-        'slug',
-        'status',
-        'time_start',
-        'time_end',
-        'source_url',
-        'organizer_name',
-        'address',
-        'offer_url',
-        'register_details',
-        'register_can',
-        'register_stock',
-        'register_sales',
-        'register_price',
-        'register_discount',
-        'register_click',
-        'guide_owner',
-        'guide_category',
-        'guide_location',
-        'guide_item',
-        'map_latitude',
-        'map_longitude',
-        'map_zoom',
-    );
+    protected $columns
+        = [
+            'id',
+            'uid',
+            'title',
+            'slug',
+            'status',
+            'time_start',
+            'time_end',
+            'source_url',
+            'organizer_name',
+            'address',
+            'offer_url',
+            'register_details',
+            'register_can',
+            'register_stock',
+            'register_sales',
+            'register_price',
+            'register_discount',
+            'register_click',
+            'guide_owner',
+            'guide_category',
+            'guide_location',
+            'guide_item',
+            'map_latitude',
+            'map_longitude',
+            'map_zoom',
+        ];
 }

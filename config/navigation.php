@@ -10,72 +10,72 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     // Front section
-    'front' => array(
-        'manage' => array(
-            'label' => _a('Manage events'),
-            'permission' => array(
+    'front' => [
+        'manage' => [
+            'label'      => _a('Manage events'),
+            'permission' => [
                 'resource' => 'manage',
-            ),
-            'route' => 'event',
-            'module' => 'event',
+            ],
+            'route'      => 'event',
+            'module'     => 'event',
             'controller' => 'manage',
-        ),
-    ),
+        ],
+    ],
     // Admin section
-    'admin' => array(
-        'event' => array(
-            'label' => _a('Event'),
-            'permission' => array(
+    'admin' => [
+        'event' => [
+            'label'      => _a('Event'),
+            'permission' => [
                 'resource' => 'event',
-            ),
-            'route' => 'admin',
-            'module' => 'event',
+            ],
+            'route'      => 'admin',
+            'module'     => 'event',
             'controller' => 'event',
-            'action' => 'index',
-            'pages' => array(
-                'event' => array(
-                    'label' => _a('All Events'),
-                    'permission' => array(
+            'action'     => 'index',
+            'pages'      => [
+                'event'  => [
+                    'label'      => _a('All Events'),
+                    'permission' => [
                         'resource' => 'event',
-                    ),
-                    'route' => 'admin',
-                    'module' => 'event',
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'event',
                     'controller' => 'event',
-                    'action' => 'index',
-                ),
-                'update' => array(
-                    'label' => _a('New event'),
-                    'permission' => array(
+                    'action'     => 'index',
+                ],
+                'update' => [
+                    'label'      => _a('New event'),
+                    'permission' => [
                         'resource' => 'event',
-                    ),
-                    'route' => 'admin',
-                    'module' => 'event',
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'event',
                     'controller' => 'event',
-                    'action' => 'update',
-                ),
-            ),
-        ),
-        'order' => array(
-            'label' => _a('List of order'),
-            'permission' => array(
+                    'action'     => 'update',
+                ],
+            ],
+        ],
+        'order' => [
+            'label'      => _a('List of order'),
+            'permission' => [
                 'resource' => 'order',
-            ),
-            'route' => 'admin',
-            'module' => 'event',
+            ],
+            'route'      => 'admin',
+            'module'     => 'event',
             'controller' => 'order',
-            'action' => 'index',
-        ),
-        'tools' => array(
-            'label' => _a('Tools'),
-            'permission' => array(
+            'action'     => 'index',
+        ],
+        'tools' => [
+            'label'      => _a('Tools'),
+            'permission' => [
                 'resource' => 'tools',
-            ),
-            'route' => 'admin',
-            'module' => 'event',
+            ],
+            'route'      => 'admin',
+            'module'     => 'event',
             'controller' => 'tools',
-            'action' => 'index',
-        ),
-    ),
-);
+            'action'     => 'index',
+        ],
+    ],
+];

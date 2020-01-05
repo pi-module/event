@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Event\Api;
 
 use Pi;
@@ -20,48 +21,53 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected $table = array(
-        'story',
-        'topic',
-    );
+    protected $table
+        = [
+            'story',
+            'topic',
+        ];
 
     /**
      * {@inheritDoc}
      */
-    protected $searchIn = array(
-        'title',
-        'text_summary',
-        'text_description',
-    );
+    protected $searchIn
+        = [
+            'title',
+            'text_summary',
+            'text_description',
+        ];
 
     /**
      * {@inheritDoc}
      */
-    protected $meta = array(
-        'id'            => 'id',
-        'title'         => 'title',
-        'text_summary'  => 'content',
-        'time_create'   => 'time',
-        'slug'          => 'slug',
-        'main_image'    => 'main_image',
-        'path'          => 'path',
-    );
+    protected $meta
+        = [
+            'id'           => 'id',
+            'title'        => 'title',
+            'text_summary' => 'content',
+            'time_create'  => 'time',
+            'slug'         => 'slug',
+            'main_image'   => 'main_image',
+            'path'         => 'path',
+        ];
 
     /**
      * {@inheritDoc}
      */
-    protected $condition = array(
-        'status'  => 1,
-        'type'    => 'event',
-    );
+    protected $condition
+        = [
+            'status' => 1,
+            'type'   => 'event',
+        ];
 
     /**
      * {@inheritDoc}
      */
-    protected $order = array(
-        'time_publish DESC',
-        'id DESC'
-    );
+    protected $order
+        = [
+            'time_publish DESC',
+            'id DESC',
+        ];
 
     /**
      * {@inheritDoc}
@@ -79,19 +85,27 @@ class Search extends AbstractSearch
     {
         switch ($table) {
             case 'story':
-                $link = Pi::url(Pi::service('url')->assemble('event', array(
-                    'module'      => $this->getModule(),
-                    'controller'  => 'detail',
-                    'slug'        => $item['slug'],
-                )));
+                $link = Pi::url(
+                    Pi::service('url')->assemble(
+                        'event', [
+                        'module'     => $this->getModule(),
+                        'controller' => 'detail',
+                        'slug'       => $item['slug'],
+                    ]
+                    )
+                );
                 break;
 
             case 'topic':
-                $link = Pi::url(Pi::service('url')->assemble('event', array(
-                    'module'      => $this->getModule(),
-                    'controller'  => 'category',
-                    'slug'        => $item['slug'],
-                )));
+                $link = Pi::url(
+                    Pi::service('url')->assemble(
+                        'event', [
+                        'module'     => $this->getModule(),
+                        'controller' => 'category',
+                        'slug'       => $item['slug'],
+                    ]
+                    )
+                );
                 break;
         }
 
@@ -103,6 +117,6 @@ class Search extends AbstractSearch
      */
     protected function buildImage(array $item, $table = '')
     {
-        return (string) Pi::api('doc','media')->getSingleLinkUrl($item['main_image'])->setConfigModule('news')->thumb('thumbnail');
+        return (string)Pi::api('doc', 'media')->getSingleLinkUrl($item['main_image'])->setConfigModule('news')->thumb('thumbnail');
     }
 }

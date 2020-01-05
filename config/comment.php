@@ -10,11 +10,11 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
-    'event' => array(
-        'title' => _a('Event comments'),
-        'icon' => 'icon-post',
+return [
+    'event' => [
+        'title'    => _a('Event comments'),
+        'icon'     => 'icon-post',
         'callback' => 'Module\Event\Api\Comment',
-        'locator' => 'Module\Event\Api\Comment',
-    ),
-);
+        'locator'  => 'Module\Event\Api\Comment',
+    ],
+];
