@@ -1,44 +1,13 @@
 <?php $this->css($this->assetModule('css/admin.css')); ?>
 <div class="clearfix">
-    <div class="clearfix">
-        <div class="col-md-4">
-            <a class="btn btn-primary" title="<?php _e('Add event'); ?>"
-               href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'update']); ?>"><i
-                        class="fa fa-folder-open"></i> <?php _e('Add event'); ?></a>
-
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-eye"></i> <?php _e('View'); ?> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a title="<?php _e('All events'); ?>"
-                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index']); ?>"><i
-                                    class="fa fa-file"></i> <?php _e('All events'); ?></a></li>
-                    <li><a title="<?php _e('Published'); ?>"
-                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '1']); ?>"><i
-                                    class="fa fa-file"></i> <?php _e('Published'); ?></a></li>
-                    <li><a title="<?php _e('Pending review'); ?>"
-                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '2']); ?>"><i
-                                    class="fa fa-file"></i> <?php _e('Pending review'); ?></a></li>
-                    <li><a title="<?php _e('Draft'); ?>"
-                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '3']); ?>"><i
-                                    class="fa fa-file"></i> <?php _e('Draft'); ?></a></li>
-                    <li><a title="<?php _e('Private'); ?>"
-                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '4']); ?>"><i
-                                    class="fa fa-file"></i> <?php _e('Private'); ?></a></li>
-                    <li><a title="<?php _e('Trash'); ?>"
-                           href="<?php echo $this->url('', ['controller' => 'event', 'action' => 'index', 'status' => '5']); ?>"><i
-                                    class="fa fa-file"></i> <?php _e('Trash'); ?></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-8">
+    <div class="card bg-light">
+        <div class="card-body">
             <?php echo $this->form($form, 'inline'); ?>
         </div>
     </div>
     <?php if (!empty($list)) { ?>
         <h3><?php _e('List of events'); ?></h3>
-        <table class="table table-striped table-bordered table-condensed">
+        <table class="table table-striped table-bordered table-hover table-responsive-md table-sm mt-3">
             <tr>
                 <th><?php _e('ID'); ?></th>
                 <th><?php _e('Title'); ?></th>
@@ -67,20 +36,20 @@
                             <?php echo $this->escape($event['title']); ?>
                         </div>
                         <div class="clearfix">
-                            <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                <?php echo _b('From') ?><?php echo $this->escape($event['time_start_view']); ?>
-                                <?php echo _b('to') ?><?php echo $this->escape($event['time_end_view']); ?>
-                            <?php } elseif (!empty($event['time_start'])) { ?>
-                                <?php echo $this->escape($event['time_start_view']); ?>
-                            <?php } ?>
+                            <?php if (!empty($event['time_start']) && !empty($event['time_end'])) {
+                                 echo sprintf('%s %s %s %s', __('From'), $event['time_start_view'], __('to'), $event['time_start_view']);
+                             } elseif (!empty($event['time_start'])) {
+                                 echo $this->escape($event['time_start_view']);
+                             } ?>
                         </div>
                     </td>
                     <td>
-                        <a class="btn btn-success" title="<?php _e('View'); ?>" href="<?php echo $event['eventUrl']; ?>"
-                           target="_blank"><i class="fa fa-eye"></i> <?php _e('View'); ?></a>
-                        <a class="btn btn-primary" title="<?php _e('Edit'); ?>"
-                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $event['id']]); ?>"><i
-                                    class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                        <a class="btn btn-success btn-sm" title="<?php _e('View'); ?>" href="<?php echo $event['eventUrl']; ?>" target="_blank">
+                            <i class="fa fa-eye"></i> <?php _e('View'); ?>
+                        </a>
+                        <a class="btn btn-primary btn-sm" title="<?php _e('Edit'); ?>" href="<?php echo $this->url('', ['action' => 'update', 'id' => $event['id']]); ?>">
+                            <i class="fa fa-edit"></i> <?php _e('Edit'); ?>
+                        </a>
                     </td>
                 </tr>
             <?php } ?>
@@ -88,12 +57,12 @@
         <div class="paginator">
             <?php echo $this->paginationControl($paginator, 'Sliding', 'paginator.phtml'); ?>
         </div>
-        <p>
-            <span class="label label-success"><?php _e('Published'); ?></span>
-            <span class="label label-warning"><?php _e('Pending review'); ?></span>
-            <span class="label label-warning"><?php _e('Draft'); ?></span>
-            <span class="label label-warning"><?php _e('Private'); ?></span>
-            <span class="label label-danger"><?php _e('Trash'); ?></span>
-        </p>
+        <ul class="list-inline">
+            <li class="list-inline-item badge badge-success"><?php _e('Published'); ?></li>
+            <li class="list-inline-item badge badge-warning"><?php _e('Pending review'); ?></li>
+            <li class="list-inline-item badge badge-warning"><?php _e('Draft'); ?></li>
+            <li class="list-inline-item badge badge-warning"><?php _e('Private'); ?></li>
+            <li class="list-inline-item badge badge-danger"><?php _e('Trash'); ?></li>
+        </ul>
     <?php } ?>
 </div>

@@ -130,7 +130,7 @@ return [
                 ],
             ],
             'filter'      => 'text',
-            'value'       => 'angular',
+            'value'       => 'angularnew',
             'category'    => 'view',
         ],
         'view_summary'           => [

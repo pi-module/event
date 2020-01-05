@@ -25,11 +25,12 @@ class DetailController extends ActionController
         // Get info from url
         $module = $this->params('module');
         $slug   = $this->params('slug');
+
         // Get config
         $config = Pi::service('registry')->config->read($module);
+
         // Find event
         $event = Pi::api('event', 'event')->getEventSingle($slug, 'slug', 'full');
-
         if ($slug != $event['slug']) {
             return $this->redirect()->toRoute('', ['slug' => $event['slug']])->setStatusCode(301);
         }
@@ -105,14 +106,18 @@ class DetailController extends ActionController
                 }
             }
         }
-        // Set form
+
+        // Set form options
         $option          = [];
         $option['stock'] = ($event['register_stock'] == 0 || $event['register_stock'] - $event['register_sales'] > 10) ? 10
             : ($event['register_stock'] - $event['register_sales']);
+
+        // Set form
         $form            = new RegisterForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         $form->setAttribute('action', $event['eventOrder']);
         $form->setData($event);
+
         // Related
         if ($config['related_event'] && !empty($eventTopic)) {
             $eventTopic    = array_unique($eventTopic);
@@ -124,6 +129,7 @@ class DetailController extends ActionController
         if (($event['time_end'] == 0 && $event['time_start'] < $today) || ($event['time_end'] > 0 && $event['time_end'] < $today)) {
             $ended = true;
         }
+
         // Set vote
         if ($config['vote_bar'] && Pi::service('module')->isActive('vote')) {
             $vote              = [];
@@ -141,6 +147,7 @@ class DetailController extends ActionController
             }
             $this->view()->assign('vote', $vote);
         }
+
         // favourite
         if ($config['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
             $favourite['is']     = Pi::api('favourite', 'favourite')->loadFavourite('event', 'story', $event['id']);
@@ -159,14 +166,13 @@ class DetailController extends ActionController
         // my places
         $uid   = Pi::user()->getId();
         $count = 0;
-        if ($uid) {
+        if ($uid && Pi::service('module')->isActive('order')) {
             $where = [
                 'uid'            => $uid,
                 'module'         => 'event',
                 'product'        => $event['id'],
                 'status_payment' => 2,
             ];
-
 
             $orderTable              = Pi::model('order', 'order')->getTable();
             $detailTable             = Pi::model("detail", 'order')->getTable();

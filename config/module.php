@@ -15,7 +15,7 @@ return [
     'meta'       => [
         'title'       => _a('Event'),
         'description' => _a('Manage events'),
-        'version'     => '2.0.13',
+        'version'     => '2.1.0',
         'license'     => 'New BSD',
         'logo'        => 'image/logo.png',
         'readme'      => 'docs/readme.txt',

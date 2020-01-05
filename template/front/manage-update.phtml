@@ -45,12 +45,12 @@ if ($local = 'fa') {
     <?php $this->flashMessenger()->clearMessages() ?>
 <?php } ?>
 <div id="event-form-container" class="clearfix">
-    <div class="guide-manage clearfix">
-        <div class="col-md-3">
+    <div class="guide-manage clearfix row">
+        <div class="col-lg-3 col-md-3">
             <?php $sideActive = 'event'; ?>
             <?php include $this->templateModule('front/user-profile-sidebar.phtml', 'user'); ?>
         </div>
-        <div class="col-md-9">
+        <div class="col-lg-9 col-md-9">
             <div class="page-header">
                 <h1><?php echo $this->escape($title); ?></h1>
             </div>

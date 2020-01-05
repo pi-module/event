@@ -13,6 +13,7 @@ if (!empty($event['time_start']) && !empty($event['time_end'])) {
 }
 $title   = sprintf('%s - %s', $event['title'], $time);
 $summary = sprintf('%s - %s', !empty($event['text_summary']) ? $event['text_summary'] : $event['title'], $time);
+
 // Set script
 $script = <<<'EOT'
     window.addEventListener('DOMContentLoaded', function() {
@@ -27,13 +28,13 @@ $script = <<<'EOT'
         });
     });
 EOT;
+
 // Load files
 $this->css($this->assetModule('css/front.css'), ['defer' => 'defer']);
 $this->jQuery(['extension/jquery.magnific-popup.min.js' => ['defer' => 'defer']]);
 $this->jQuery('extension/magnific-popup.min.css', ['defer' => 'defer']);
-
-
 $this->footScript()->appendScript($script);
+
 // Set Open Graph tags for meta
 $shareImage = (string)Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('large');
 $this->doctype('HTML5');
@@ -45,6 +46,7 @@ if (isset($event['text_summary']) && !empty($event['text_summary'])) {
 if ($shareImage) {
     $this->headMeta($shareImage, 'og:image', 'property');
 }
+
 // Set twitter for meta
 $this->headMeta($title, 'og:title', 'property');
 $this->headMeta($summary, 'twitter:description');
@@ -52,8 +54,8 @@ if ($shareImage) {
     $this->headMeta('summary_large_image', 'twitter:card');
     $this->headMeta($shareImage, 'twitter:image');
 }
-
 $this->sticky();
+
 // Add Geo tags
 if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])) {
     $this->geoTag($event['map_latitude'], $event['map_longitude'], $event['title']);
@@ -63,16 +65,15 @@ $this->js(Pi::url('static/vendor/lazysizes/lazysizes.min.js'), ['async' => 'asyn
 
 $hitsAjaxUrl = Pi::url(
     $this->url(
-        'event', [
-        'controller' => 'json',
-        'action'     => 'hit',
-        'slug'       => $event['slug'],
-    ]
+        'event',
+        [
+            'controller' => 'json',
+            'action'     => 'hit',
+            'slug'       => $event['slug'],
+        ]
     )
 );
-
 ?>
-
 <div class="clearfix h-event single-event" itemscope itemtype="https://schema.org/Event">
     <meta itemprop="url" content="<?php echo $this->escape($event['eventUrl']); ?>"/>
     <div class="page-header p-name" itemprop="name">
@@ -82,24 +83,14 @@ $hitsAjaxUrl = Pi::url(
     </div>
     <div class="clearfix small itemUnderHead">
         <ul class="text-muted list-inline text-right pull-right">
-            <li><i class="fa fa-calendar"></i> <?php echo $this->escape($event['time_update_view']); ?></li>
-            <li><i class="fa fa-eye"></i> <span class="hitsCounter"></span></li>
-
-            <script>
-                $(document).ready(function () {
-                    $.getJSON("<?php echo $hitsAjaxUrl ?>", function (result) {
-                        var hits = result.hits;
-                        $('.hitsCounter').html(hits);
-                    });
-                });
-            </script>
-
+            <li class="list-inline-item"><i class="fa fa-calendar"></i> <?php echo $this->escape($event['time_update_view']); ?></li>
+            <li class="list-inline-item"><i class="fa fa-eye"></i> <span class="hitsCounter"></span></li>
             <?php if (!empty($event['guideCategoryInfo']) || !empty($event['topics'])) { ?>
-                <li><i class="fa fa-folder"></i></li>
+                <li class="list-inline-item"><i class="fa fa-folder"></i></li>
             <?php } ?>
             <?php if (!empty($event['guideCategoryInfo'])) { ?>
                 <?php foreach ($event['guideCategoryInfo'] as $guideCategoryInfo) { ?>
-                    <li class="p-category">
+                    <li class="list-inline-item p-category">
                         <a class="u-url" title="<?php echo $this->escape($guideCategoryInfo['title']); ?>"
                            href="<?php echo $this->escape($guideCategoryInfo['categoryUrl']); ?>">
                             <?php echo $this->escape($guideCategoryInfo['title']); ?>
@@ -109,7 +100,7 @@ $hitsAjaxUrl = Pi::url(
             <?php } ?>
             <?php if (!empty($event['topics'])) { ?>
                 <?php foreach ($event['topics'] as $eventTopic) { ?>
-                    <li class="p-category">
+                    <li class="list-inline-item p-category">
                         <a title="<?php echo $this->escape($eventTopic['title']); ?>" href="<?php echo $this->escape($eventTopic['url']); ?>">
                             <?php echo $this->escape($eventTopic['title']); ?>
                         </a>
@@ -117,17 +108,25 @@ $hitsAjaxUrl = Pi::url(
                 <?php } ?>
             <?php } ?>
         </ul>
+        <script>
+            $(document).ready(function () {
+                $.getJSON("<?php echo $hitsAjaxUrl ?>", function (result) {
+                    var hits = result.hits;
+                    $('.hitsCounter').html(hits);
+                });
+            });
+        </script>
     </div>
-    <div class="clearfix ">
+    <div class="clearfix">
         <div class="row" id="sticky-container">
-            <div class="col-md-8 event-single-main">
+            <div class="col-lg-8 col-md-8 event-single-main mb-3">
                 <?php if ($config['image_position'] == 'center') { ?>
                     <div class="event-image-main clearfix u-photo gallery text-center">
                         <?php $media = Pi::api('doc', 'media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
                         <a href="<?php echo $media['resized_url']; ?>"
                            title="<?php echo $this->escape($event['title']); ?><?php if ($media['copyright']) echo ' - ' . $media['copyright'] ?>"
                            itemprop="image">
-                            <img class="img-responsive img-thumbnail lazyload"
+                            <img class="img-fluid img-thumbnail lazyload"
                                  src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                  data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
                                      'medium'
@@ -152,7 +151,6 @@ $hitsAjaxUrl = Pi::url(
                         <?php echo $event['register_details']; ?>
                     </div>
                 <?php } ?>
-
                 <?php if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])) { ?>
                     <?php $locations = [
                         'latitude'  => $event['map_latitude'],
@@ -167,9 +165,9 @@ $hitsAjaxUrl = Pi::url(
                     <?php echo $this->googleMap($locations, $config['map_api_key'], 'point', $option); ?>
                 <?php } ?>
             </div>
-            <div class="col-md-4 event-single-sidebar" id="sticky-sidebar">
+            <div class="col-lg-4 col-md-4 event-single-sidebar mb-3" id="sticky-sidebar">
                 <?php if ($config['image_position'] == 'side') { ?>
-                    <div class="event-image-main clearfix u-photo gallery">
+                    <div class="event-image-main clearfix u-photo gallery mb-3 text-center">
                         <?php $media = Pi::api('doc', 'media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
                         <a href="<?php echo $media['resized_url']; ?>"
                            title="<?php echo $this->escape($event['title']); ?><?php if ($media['copyright']) echo ' - ' . $media['copyright'] ?>"
@@ -200,7 +198,7 @@ $hitsAjaxUrl = Pi::url(
                                             360, 360
                                         ); ?>" media="(max-width: 2800px)">
 
-                                <img class="img-responsive img-thumbnail lazyload"
+                                <img class="img-fluid img-thumbnail lazyload"
                                      src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
                                      data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
                                          360, 360
@@ -212,68 +210,70 @@ $hitsAjaxUrl = Pi::url(
                     </div>
                 <?php } ?>
                 <?php if ($config['important_organizer']) { ?>
-                    <div class="event-organizer">
-                        <?php if (!empty($event['organizer_name'])) { ?>
-                            <p itemscope itemtype="https://schema.org/Organization">
-                                <i class="fa fa-user"></i> <?php _e('Organizer name') ?> : <a itemprop="name" href="<?php echo $this->escape(
-                                    $event['source_url']
-                                ); ?>"><?php echo $this->escape($event['organizer_name']); ?></a>
-                            </p>
-                        <?php } ?>
-                        <?php if (!empty($event['source_url'])) { ?>
-                            <p class="u-url" itemprop="url">
-                                <a class="btn btn-success btn-lg btn-group-justified event-source-url" title="<?php _e('Organizer Website and register') ?>"
-                                   href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
-                                    <i class="fa fa-external-link"></i>
-                                    <?php _e('Register') ?>
-                                </a>
-                                <script>
-                                    (function ($) {
-                                        $('.event-source-url').click(function () {
-                                            $.getJSON("<?php echo Pi::url(
-                                                $this->url(
-                                                    'event', [
-                                                    'controller' => 'json',
-                                                    'action'     => 'registerClick',
-                                                    'id'         => $event['id'],
-                                                ]
-                                                )
-                                            ); ?>");
-                                        });
-                                    })(jQuery)
-                                </script>
-                            </p>
-                        <?php } ?>
-                        <?php if ($event['register_price'] > 0) { ?>
-                            <div class="clearfix text-center">
-                                <ul class="list-inline">
-                                    <li class="clearfix event-minPrice-title">
-                                        <?php _e('Start From') ?> :
-                                    </li>
-                                    <li class="clearfix event-minPrice-title">
-                                        <strong><?php echo $this->escape($event['register_price_view_clean']); ?></strong>
-                                    </li>
-                                </ul>
-                            </div>
-                        <?php } ?>
-                        <?php if (!empty($event['address'])) { ?>
-                            <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                                <i class="fa fa-location-arrow"></i>
-                                <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
-                            </p>
-                        <?php } ?>
+                    <div class="card bg-light event-organizer mb-3">
+                        <div class="card-body">
+                            <?php if (!empty($event['organizer_name'])) { ?>
+                                <p itemscope itemtype="https://schema.org/Organization">
+                                    <i class="fa fa-user"></i> <?php _e('Organizer name') ?> : <a itemprop="name" href="<?php echo $this->escape(
+                                        $event['source_url']
+                                    ); ?>"><?php echo $this->escape($event['organizer_name']); ?></a>
+                                </p>
+                            <?php } ?>
+                            <?php if (!empty($event['source_url'])) { ?>
+                                <p class="u-url" itemprop="url">
+                                    <a class="btn btn-success btn-lg btn-group-justified event-source-url" title="<?php _e('Organizer Website and register') ?>"
+                                       href="<?php echo $this->escape($event['offer_url']); ?>" target="_blank">
+                                        <i class="fa fa-external-link"></i>
+                                        <?php _e('Register') ?>
+                                    </a>
+                                    <script>
+                                        (function ($) {
+                                            $('.event-source-url').click(function () {
+                                                $.getJSON("<?php echo Pi::url(
+                                                    $this->url(
+                                                        'event', [
+                                                            'controller' => 'json',
+                                                            'action'     => 'registerClick',
+                                                            'id'         => $event['id'],
+                                                        ]
+                                                    )
+                                                ); ?>");
+                                            });
+                                        })(jQuery)
+                                    </script>
+                                </p>
+                            <?php } ?>
+                            <?php if ($event['register_price'] > 0) { ?>
+                                <div class="clearfix text-center">
+                                    <ul class="list-inline">
+                                        <li class="clearfix event-minPrice-title">
+                                            <?php _e('Start From') ?> :
+                                        </li>
+                                        <li class="clearfix event-minPrice-title">
+                                            <strong><?php echo $this->escape($event['register_price_view_clean']); ?></strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <?php } ?>
+                            <?php if (!empty($event['address'])) { ?>
+                                <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                    <i class="fa fa-location-arrow"></i>
+                                    <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
+                                </p>
+                            <?php } ?>
+                        </div>
                     </div>
                 <?php } elseif (($event['register_can'] || !empty($event['offer_url']) || $config['order_free']) && !$ended) { ?>
-                    <div class="clearfix well" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                        <div class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                    <div class="clearfix card bg-light mb-3" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                        <div class="card-body p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                             <?php if ($event['register_can']) { ?>
                                 <?php if ($event['register_stock'] == 0 || $event['register_stock'] - $event['register_sales'] > 0) { ?>
-                                    <div class="clearfix text-center">
+                                    <div class="clearfix">
                                         <ul class="list-inline">
-                                            <li class="clearfix event-minPrice-title">
+                                            <li class="list-inline-item clearfix event-minPrice-title">
                                                 <?php _e('Start From') ?> :
                                             </li>
-                                            <li class="clearfix event-minPrice-text">
+                                            <li class="list-inline-item clearfix event-minPrice-text">
                                                 <strong><?php echo $this->escape($event['register_price_view']); ?></strong>
                                             </li>
                                         </ul>
@@ -314,184 +314,193 @@ $hitsAjaxUrl = Pi::url(
                     </div>
                 <?php } ?>
                 <?php if ($event['register_stock'] != null) { ?>
-                    <div class="well clearfix eventTime">
-                        <h2><?php _e('Stock'); ?></h2>
-                        <ul class="list-inline">
-                            <?php if ($count) { ?>
-                                <li class="text-success"><strong><i class="fa fa-check"></i>&nbsp;<?php echo sprintf(
-                                            __("I'm registrered to this event (%s place(s))"), $count
-                                        ); ?></strong></li>
-                            <?php } ?>
-                            <li><i class="fa fa-ticket"></i>&nbsp;
-                                <?php
-                                if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) {
-                                    _e('Full');
-                                } else {
-                                    if ($event['register_stock'] > 0) {
-                                        echo sprintf(
-                                            __('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'],
-                                            $event['register_stock'] - $event['register_sales']
-                                        );
+                    <div class="card bg-light clearfix eventTime mb-3">
+                        <div class="card-body">
+                            <h2 class="card-title"><?php _e('Stock'); ?></h2>
+                            <ul class="list-inline">
+                                <?php if ($count) { ?>
+                                    <li class="list-inline-item text-success">
+                                        <strong>
+                                            <i class="fa fa-check"></i>&nbsp;<?php echo sprintf(__("I'm registrered to this event (%s place(s))"), $count); ?>
+                                        </strong>
+                                    </li>
+                                <?php } ?>
+                                <li class="list-inline-item">
+                                    <i class="fa fa-ticket"></i>&nbsp;
+                                    <?php if ($event['register_sales'] == $event['register_stock'] && $event['register_stock'] > 0) {
+                                        _e('Full');
                                     } else {
-                                        echo sprintf(__('%s registred'), $event['register_sales']);
-                                    }
-                                }
-                                ?>
-                            </li>
-                        </ul>
+                                        if ($event['register_stock'] > 0) {
+                                            echo sprintf(
+                                                __('%s registred / %s places (%s left)'), $event['register_sales'], $event['register_stock'],
+                                                $event['register_stock'] - $event['register_sales']
+                                            );
+                                        } else {
+                                            echo sprintf(__('%s registred'), $event['register_sales']);
+                                        }
+                                    } ?>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 <?php } ?>
-                <div class="well clearfix eventTime">
-                    <h2><?php _e('Key Event Elements'); ?></h2>
-                    <ul class="list-inline">
-                        <?php if ($config['view_days']) { ?>
-                            <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
-                        <?php } ?>
-                        <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                            <li><?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('From') ?></li>
-                            <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
-                            <li><?php _e('to') ?></li>
-                            <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
-                        <?php } elseif (!empty($event['time_start'])) { ?>
-                            <li class="event-single-time dt-start">
-                                <?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('On') ?> <?php echo $this->escape(
-                                    $event['time_start_view']
-                                ); ?>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                    <?php if ($ended) { ?>
-                        <ul class="list-inline ended">
-                            <li class=""><i class="fa fa-exclamation-triangle"></i><span> <?php _e("Ended event"); ?></span></li>
-                        </ul>
-                    <?php } ?>
-                    <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
-                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>"/>
-                    <?php } elseif (!empty($event['time_start'])) { ?>
-                        <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
-                        <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
-                    <?php } ?>
-
-                    <?php if (!empty($event['guideLocationInfo'])) { ?>
+                <div class="card bg-light clearfix eventTime mb-3">
+                    <div class="card-body">
+                        <h2 class="card-title"><?php _e('Key Event Elements'); ?></h2>
                         <ul class="list-inline">
-                            <li><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
-                            <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
-                                <li itemprop="location" itemscope itemtype="https://schema.org/Place">
-                                    <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
-                                        <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
-                                    </a>
-                                    <meta itemprop="address" itemscope itemtype="https://schema.org/Text"
-                                          content="<?php echo $this->escape($guideLocationInfo['title']); ?>"/>
+                            <?php if ($config['view_days']) { ?>
+                                <li class="list-inline-item"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
+                            <?php } ?>
+                            <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                                <li class="list-inline-item"><?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('From') ?>
+                                </li>
+                                <li class="list-inline-item dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
+                                <li class="list-inline-item "><?php _e('to') ?></li>
+                                <li class="list-inline-item dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
+                            <?php } elseif (!empty($event['time_start'])) { ?>
+                                <li class="list-inline-item event-single-time dt-start">
+                                    <?php if (!$config['view_days']) { ?><i class="fa fa-clock-o"></i> <?php } ?><?php _e('On') ?> <?php echo $this->escape(
+                                        $event['time_start_view']
+                                    ); ?>
                                 </li>
                             <?php } ?>
                         </ul>
-                    <?php } ?>
-                    <?php if (!$config['important_organizer']) { ?>
-                        <div class="event-organizer">
-                            <ul class="list-unstyled">
-                                <?php if (!empty($event['organizer_name'])) { ?>
-                                    <li itemscope itemtype="https://schema.org/Organization">
-                                        <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape(
-                                                $event['organizer_name']
-                                            ); ?></span>
-                                    </li>
-                                <?php } ?>
-                                <?php if (!empty($event['source_url']) && !$ended) { ?>
-                                    <li class="u-url" itemprop="url">
-                                        <i class="fa fa-external-link"></i>
-                                        <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>" target="_blank">
-                                            <?php _e('Organizer Website') ?>
+                        <?php if ($ended) { ?>
+                            <ul class="list-inline ended">
+                                <li class="list-inline-item"><i class="fa fa-exclamation-triangle"></i><span> <?php _e("Ended event"); ?></span></li>
+                            </ul>
+                        <?php } ?>
+                        <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
+                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
+                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_end'])); ?>"/>
+                        <?php } elseif (!empty($event['time_start'])) { ?>
+                            <meta itemprop="startDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
+                            <meta itemprop="endDate" content="<?php echo $this->escape(date("Y-m-d H:i:s", $event['time_start'])); ?>"/>
+                        <?php } ?>
+
+                        <?php if (!empty($event['guideLocationInfo'])) { ?>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-map-marker"></i> <?php _e('Related locations'); ?></li>
+                                <?php foreach ($event['guideLocationInfo'] as $guideLocationInfo) { ?>
+                                    <li class="list-inline-item" itemprop="location" itemscope itemtype="https://schema.org/Place">
+                                        <a itemprop="url" href="<?php echo $this->escape($guideLocationInfo['locationUrl']); ?>">
+                                            <span itemprop="name"><?php echo $this->escape($guideLocationInfo['title']); ?></span>
                                         </a>
-                                    </li>
-                                <?php } ?>
-                                <?php if (!empty($event['address'])) { ?>
-                                    <li itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                                        <i class="fa fa-location-arrow"></i>
-                                        <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
+                                        <meta itemprop="address" itemscope itemtype="https://schema.org/Text"
+                                              content="<?php echo $this->escape($guideLocationInfo['title']); ?>"/>
                                     </li>
                                 <?php } ?>
                             </ul>
-                        </div>
-                    <?php } ?>
+                        <?php } ?>
+                        <?php if (!$config['important_organizer']) { ?>
+                            <div class="event-organizer">
+                                <ul class="list-unstyled">
+                                    <?php if (!empty($event['organizer_name'])) { ?>
+                                        <li class="list-inline-item" itemscope itemtype="https://schema.org/Organization">
+                                            <i class="fa fa-user"></i> <?php _e('Organizer name') ?> <span itemprop="name"><?php echo $this->escape(
+                                                    $event['organizer_name']
+                                                ); ?></span>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (!empty($event['source_url']) && !$ended) { ?>
+                                        <li class="list-inline-item u-url" itemprop="url">
+                                            <i class="fa fa-external-link"></i>
+                                            <a title="<?php _e('Organizer Website') ?>" href="<?php echo $this->escape($event['source_url']); ?>"
+                                               target="_blank">
+                                                <?php _e('Organizer Website') ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (!empty($event['address'])) { ?>
+                                        <li class="list-inline-item" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                            <i class="fa fa-location-arrow"></i>
+                                            <?php _e('Address') ?> : <span itemprop="addressLocality"><?php echo $this->escape($event['address']); ?></span>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
                 <?php if (!empty($favourite)) { ?>
-                    <div class="clearfix eventFavourite">
+                    <div class="clearfix eventFavourite mb-3">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-lg-12 col-md-12">
                                 <?php include $this->template('partial/favourite-loader', 'front'); ?>
                             </div>
                         </div>
                     </div>
                 <?php } ?>
                 <?php if (!empty($vote)) { ?>
-                    <div class="well clearfix eventVote">
-                        <h2><?php _e('Vote to this event'); ?></h2>
-                        <?php include $this->template('votebar', 'front', 'vote'); ?>
+                    <div class="card bg-light clearfix eventVote mb-3">
+                        <div class="card-body">
+                            <h2 class="card-title"><?php _e('Vote to this event'); ?></h2>
+                            <?php include $this->template('votebar', 'front', 'vote'); ?>
+                        </div>
                     </div>
                 <?php } ?>
                 <?php if (!empty($event['guideItemInfo']['commercial'])) { ?>
-                    <div class="event-item-related clearfix">
+                    <div class="event-item-related clearfix mb-3">
                         <div class="page-header">
                             <h2><?php _e('Nearby recommended professionals'); ?></h2>
                         </div>
                         <div class="thumbnails row">
                             <?php foreach ($event['guideItemInfo']['commercial'] as $guideItemInfo) { ?>
-                                <div class="center-block event-item-box h-review col-sm-9 col-md-9">
-                                    <div class="thumbnail p-item h-card">
+                                <div class="center-block event-item-box h-review col-lg-9 col-md-9 col-9">
+                                    <div class="card p-item h-card">
                                         <?php if ($guideItemInfo['main_image']) { ?>
-                                            <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>"
-                                               title="<?php echo $this->escape($guideItemInfo['title']); ?>"
-                                               href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-
-                                                <picture>
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
-                                                                ->setConfigModule('news')->thumb(479, 479); ?>" media="(max-width: 479px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
-                                                                ->setConfigModule('news')->thumb(767, 767); ?>" media="(max-width: 767px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
-                                                                ->setConfigModule('news')->thumb(750, 750); ?>" media="(max-width: 991px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
-                                                                ->setConfigModule('news')->thumb(212, 212); ?>" media="(max-width: 1199px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
-                                                                ->setConfigModule('news')->thumb(262, 262); ?>" media="(max-width: 1366px)">
-                                                    <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                            data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
-                                                                ->setConfigModule('news')->thumb(262, 262); ?>" media="(max-width: 2800px)">
-
-                                                    <img class="img-responsive u-photo lazyload"
-                                                         src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
-                                                         data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
-                                                             ->setConfigModule('news')->thumb(262, 262); ?>"
-                                                         alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
-                                                </picture>
-
-
-                                                <?php if ($guideItemInfo['ribbon']) { ?>
-                                                    <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
-                                                <?php } ?>
-                                                <?php if (!empty($guideItemInfo['min_price'])) { ?>
-                                                    <div class="item-price">
-                                                        <ul class="list-unstyled">
-                                                            <li class="item-price-from"><?php _e('Min price from'); ?></li>
-                                                            <li class="item-price-price"><?php echo $this->escape($guideItemInfo['min_price_view']); ?></li>
-                                                            <li class="item-price-service"><?php echo $this->escape($guideItemInfo['main_service']); ?></li>
-                                                        </ul>
-                                                    </div>
-                                                <?php } ?>
-                                            </a>
+                                            <div class="card-img-top">
+                                                <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>"
+                                                   title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                                   href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                                    <picture>
+                                                        <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                                data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                    ->setConfigModule('news')->thumb(479, 479); ?>" media="(max-width: 479px)">
+                                                        <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                                data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                    ->setConfigModule('news')->thumb(767, 767); ?>" media="(max-width: 767px)">
+                                                        <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                                data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                    ->setConfigModule('news')->thumb(750, 750); ?>" media="(max-width: 991px)">
+                                                        <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                                data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                    ->setConfigModule('news')->thumb(212, 212); ?>" media="(max-width: 1199px)">
+                                                        <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                                data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                    ->setConfigModule('news')->thumb(262, 262); ?>" media="(max-width: 1366px)">
+                                                        <source srcset="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                                data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                    ->setConfigModule('news')->thumb(262, 262); ?>" media="(max-width: 2800px)">
+                                                        <img class="img-fluid u-photo lazyload"
+                                                             src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAQAAAAwokVPAAAAGElEQVR42mNkoAAwjmoe1TyqeVTzwGoGADbOABUMpReEAAAAAElFTkSuQmCC"
+                                                             data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
+                                                                 ->setConfigModule('news')->thumb(262, 262); ?>"
+                                                             alt="<?php echo $this->escape($guideItemInfo['title']); ?>"/>
+                                                    </picture>
+                                                    <?php if ($guideItemInfo['ribbon']) { ?>
+                                                        <p><span><?php echo $this->escape($guideItemInfo['ribbon']); ?></span></p>
+                                                    <?php } ?>
+                                                    <?php if (!empty($guideItemInfo['min_price'])) { ?>
+                                                        <div class="item-price">
+                                                            <ul class="list-unstyled">
+                                                                <li class="item-price-from"><?php _e('Min price from'); ?></li>
+                                                                <li class="item-price-price"><?php echo $this->escape($guideItemInfo['min_price_view']); ?></li>
+                                                                <li class="item-price-service"><?php echo $this->escape($guideItemInfo['main_service']); ?></li>
+                                                            </ul>
+                                                        </div>
+                                                    <?php } ?>
+                                                </a>
+                                            </div>
                                         <?php } ?>
-                                        <h3 class="p-name">
-                                            <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
-                                               href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
-                                                <?php echo $this->escape($guideItemInfo['title']); ?>
-                                            </a>
-                                        </h3>
+                                        <div class="card-body">
+                                            <h3 class="p-name">
+                                                <a class="u-url" title="<?php echo $this->escape($guideItemInfo['title']); ?>"
+                                                   href="<?php echo $this->escape($guideItemInfo['itemUrl']); ?>">
+                                                    <?php echo $this->escape($guideItemInfo['title']); ?>
+                                                </a>
+                                            </h3>
+                                        </div>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -499,11 +508,11 @@ $hitsAjaxUrl = Pi::url(
                     </div>
                 <?php } ?>
                 <?php if ($config['social_sharing']) { ?>
-                    <div class="clearfix">
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
+                    <div class="clearfix mb-3">
+                        <div class="col-lg-12 col-md-12 col-12 socialSharingText">
                             <strong><?php _e('Share if you like'); ?></strong>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
+                        <div class="col-lg-12 col-md-12 col-12 socialSharing">
                             <?php echo $this->socialSharing(
                                 $config['social_sharing'],
                                 $title,
@@ -514,7 +523,7 @@ $hitsAjaxUrl = Pi::url(
                     </div>
                 <?php } ?>
                 <?php if (isset($relatedEvents) && !empty($relatedEvents)) { ?>
-                    <div class="event-related clearfix">
+                    <div class="event-related clearfix mb-3">
                         <div class="page-header">
                             <h2><?php _e('Related events'); ?></h2>
                         </div>
@@ -570,15 +579,15 @@ $hitsAjaxUrl = Pi::url(
                 <?php } ?>
             </div>
         </div>
-        <?php if (!empty($event['guideItemInfo']['free'])) { ?>
+        <?php if (isset($event['guideItemInfo']['free']) && !empty($event['guideItemInfo']['free'])) { ?>
             <div class="row">
-                <div class="col-md-12 event-item-related clearfix">
+                <div class="col-lg-12 col-md-12 col-12 event-item-related clearfix">
                     <div class="page-header">
                         <h2><?php _e('Related items'); ?></h2>
                     </div>
                     <div class="thumbnails row">
                         <?php foreach ($event['guideItemInfo']['free'] as $guideItemInfo) { ?>
-                            <div class="event-item-box h-review col-sm-4 col-md-3">
+                            <div class="event-item-box h-review col-4 col-lg-3 col-md-3">
                                 <div class="thumbnail p-item h-card">
                                     <?php if ($guideItemInfo['main_image']) { ?>
                                         <a class="u-url<?php if ($guideItemInfo['ribbon']) { ?> item-ribbon<?php } ?>"
@@ -605,7 +614,7 @@ $hitsAjaxUrl = Pi::url(
                                                         data-srcset="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])
                                                             ->setConfigModule('news')->thumb(270, 270); ?>" media="(max-width: 2800px)">
 
-                                                <img class="img-responsive u-photo lazyload"
+                                                <img class="img-fluid u-photo lazyload"
                                                      style="max-width:100%"
                                                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                                      data-src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($guideItemInfo['main_image'])

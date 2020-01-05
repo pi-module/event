@@ -82,12 +82,16 @@ class ManageController extends ActionController
         $module = $this->params('module');
         $id     = $this->params('id');
         $item   = $this->params('item');
+
         // Set local
         $local = Pi::service('i18n')->getLocale();
+
         // Get config
         $config = Pi::service('registry')->config->read($module);
+
         // Get user
         $uid = Pi::user()->getId();
+
         // check
         if (!$config['manage_active']) {
             $this->getResponse()->setStatusCode(401);
@@ -120,6 +124,7 @@ class ManageController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+
         // Set option
         $option = [
             'side'               => 'front',
@@ -131,26 +136,12 @@ class ManageController extends ActionController
             'manage_register'    => $config['manage_register'],
             'order_discount'     => $config['order_discount'],
             'register_can'       => $this->params('register_can'),
-
+            'id'                 => $id,
         ];
 
         // Find event
         if ($id) {
             $event = Pi::api('event', 'event')->getEventSingle($id, 'id', 'full');
-            if ($event['image']) {
-
-                $event['thumbUrl'] = Pi::url(
-                    sprintf(
-                        'upload/%s/original/%s/%s',
-                        'event/image',
-                        $event['path'],
-                        $event['image']
-                    )
-                );
-
-                $option['thumbUrl']  = $event['thumbUrl'];
-                $option['removeUrl'] = $this->url('', ['action' => 'remove', 'id' => $event['id']]);
-            }
 
             if ($event['time_end'] < strtotime('now midnight')) {
                 $this->getResponse()->setStatusCode(401);
@@ -158,7 +149,6 @@ class ManageController extends ActionController
                 $this->view()->setLayout('layout-simple');
                 return;
             }
-
         }
         // Check event uid
         if (isset($event['uid']) && $event['uid'] != $uid) {
@@ -174,6 +164,7 @@ class ManageController extends ActionController
         } else {
             $title = __('Add event');
         }
+
         // Check event guide owner
         if ($item && Pi::service('module')->isActive('guide')) {
             $owner           = $this->canonizeGuideOwner();
@@ -204,6 +195,7 @@ class ManageController extends ActionController
             // Check item
             $canSubmitEvent = true;
         }
+
         // Set form
         $option['id'] = $id;
         $form         = new EventForm('event', $option);
@@ -212,6 +204,7 @@ class ManageController extends ActionController
         if ($this->request->isPost() && $canSubmitEvent) {
             $data = $this->request->getPost();
             $file = $this->request->getFiles();
+
             // Set slug
             if ($config['generate_slug']) {
                 $slug = Rand::getString(16, 'abcdefghijklmnopqrstuvwxyz123456789', true);
@@ -220,28 +213,14 @@ class ManageController extends ActionController
             }
             $filter       = new Filter\Slug;
             $data['slug'] = $filter($slug);
+
             // Form filter
             $form->setInputFilter(new EventFilter($option));
             $form->setData($data);
             if ($form->isValid()) {
-                $formIsValid = true;
-
                 $values = $form->getData();
-                // upload image
-                $image = Pi::api('api', 'news')->uploadImage($file, 'event-', 'event/image', $values['cropping']);
 
-                if ($file && !empty($file['image']['name']) && (!$image || is_string($image))) {
-                    $formIsValid = false;
-
-                    if (is_string($image)) {
-                        $messenger = $this->plugin('flashMessenger');
-                        $messenger->addMessage($image);
-                    }
-                }
-
-                if ($formIsValid) {
-                    $values = array_merge($values, $image);
-
+                // Unset image
                     if ($values['image'] == '') {
                         unset($values['image']);
                     }
@@ -261,15 +240,16 @@ class ManageController extends ActionController
                     $values['type'] = 'event';
                     // Set status
                     $values['status'] = $config['manage_approval'] ? 1 : 2;
+                    
                     // Set guide module info
                     if (isset($owner) && isset($owner['id'])) {
                         $values['guide_owner'] = $owner['id'];
                     }
-                    if (isset($values['guide_category'])) {
+                    if (isset($values['guide_category']) && !empty($values['guide_category'])) {
                         $values['guide_category'] = Json::encode($values['guide_category']);
                     }
 
-                    if (isset($values['guide_location'])) {
+                    if (isset($values['guide_location']) && !empty($values['guide_location'])) {
                         $values['guide_location'] = Json::encode($values['guide_location']);
                     }
 
@@ -283,8 +263,9 @@ class ManageController extends ActionController
 
                     // Save values on news story table and event extra table
                     $edit = false;
-                    if (!empty($values['id'])) {
+                    if (!empty($id)) {
                         $edit  = true;
+                        $values['id'] = $id;
                         $story = Pi::api('api', 'news')->editStory($values, true, false);
                         if (isset($story) && !empty($story)) {
                             $row = $this->getModel('extra')->find($story['id']);
@@ -434,7 +415,6 @@ class ManageController extends ActionController
                         $this->jump(['module' => 'guide', 'controller' => 'manage', 'action' => 'event-list', 'item' => $item['id']], $message);
                     }
                     $this->jump(['action' => 'index'], $message);
-                }
             }
         } else {
             if ($id) {

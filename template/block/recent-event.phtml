@@ -7,12 +7,12 @@
             <div class="recent-event-list recent-event-list-vertical clearfix">
             <?php foreach ($block['resources'] as $event) { ?>
                 <?php if (!empty($event)) { ?>
-                    <div class="recent-event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
-                        <div class="col-md-4 eventImage">
+                    <div class="recent-event-single clearfix row h-event" itemscope itemtype="https://schema.org/Event">
+                        <div class="col-lg-4 col-md-4 eventImage">
                             <?php if ($event['main_image']) { ?>
                                 <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                    href="<?php echo $this->escape($event['eventUrl']); ?>">
-                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                    <img itemprop="image" class="img-fluid img-rounded u-photo"
                                          src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
                                              'item'
                                          ); ?>"
@@ -20,7 +20,7 @@
                                 </a>
                             <?php } ?>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-lg-8 col-md-8">
                             <div class="recent-event-single-title p-name" itemprop="name">
                                 <h3 class="clearfix">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
@@ -88,7 +88,7 @@
 
                             </div>
                             <?php if (!empty($event['text_summary']) && $block['show-summary']) { ?>
-                                <div class="col-md-12 clearfix">
+                                <div class="col-lg-12 col-md-12 clearfix">
                                     <div class="event-single-summery p-summary" itemprop="description">
                                         <?php echo $event['text_summary']; ?>
                                     </div>
@@ -104,7 +104,7 @@
             <div class="recent-event-list recent-event-list-horizontal row clearfix">
                 <?php foreach ($block['resources'] as $event) { ?>
                     <?php if (!empty($event)) { ?>
-                        <div class="recent-event-single clearfix h-event col-md-3" itemscope itemtype="https://schema.org/Event">
+                        <div class="recent-event-single clearfix h-event col-lg-3 col-md-3" itemscope itemtype="https://schema.org/Event">
                             <?php if ($block['show-time']) { ?>
                                 <div class="event-time clearfix">
                                     <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
@@ -126,7 +126,7 @@
                                 <div class="recent-event-single-image">
                                     <a itemprop="url" title="<?php echo $this->escape($event['title']); ?>"
                                        href="<?php echo $this->escape($event['eventUrl']); ?>">
-                                        <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                        <img itemprop="image" class="img-fluid img-rounded u-photo"
                                              src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb(
                                                  'item'
                                              ); ?>"

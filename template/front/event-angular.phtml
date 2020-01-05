@@ -139,7 +139,7 @@ if (isset($config['image_homepage']) && !empty($config['image_homepage'])) {
     <div class="ajax-spinner">
         <img src="<?php echo $this->assetModule('image/spinner.gif'); ?>" class="ajax-spinner-loader" alt=""/>
     </div>
-    <div class="col-sm-12 col-md-12">
+    <div class="col-lg-12 col-md-12 col-12">
         <?php if (isset($isHomepage) && $isHomepage == 1) { ?>
             <?php if (!empty($config['image_index'])) { ?>
 
@@ -167,7 +167,7 @@ if (isset($config['image_homepage']) && !empty($config['image_homepage'])) {
             <?php } ?>
         <?php } ?>
     </div>
-    <div class="col-sm-12 col-md-3">
+    <div class="col-lg-3 col-md-3 col-12">
         <div class="event-search-form clearfix">
             <div class="page-header">
                 <h4><?php _e('Search on this group'); ?></h4>
@@ -238,11 +238,11 @@ if (isset($config['image_homepage']) && !empty($config['image_homepage'])) {
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-9" data-ng-controller="listdata">
+    <div class="col-lg-9 col-md-9 col-12 " data-ng-controller="listdata">
         <div class="clearfix">
             <div class="event-list clearfix">
-                <div class="clearfix event-sort ">
-                    <ul class="list-inline col-md-8">
+                <div class="clearfix event-sort row">
+                    <ul class="list-inline col-lg-8 col-md-8">
                         <li><?php _e('Sort by'); ?> :</li>
                         <li class="event-sort-type" data-ng-click="sort('time_publish')"><?php _e('Time'); ?> <i
                                     class="fa sort-icon" data-ng-show="sortKey=='time_publish'"
@@ -272,8 +272,6 @@ if (isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                         <?php } ?>
                     <?php } ?>
                 </div>
-
-                <div class=" clearfix"></div>
                 <div class="clearfix <?php echo (isset($config['view_list_type']) && $config['view_list_type'] == 'box') ? 'match-height-list' : '' ?>">
                     <?php if (isset($config['view_list_type']) && $config['view_list_type'] == 'line') { ?>
                         <div data-on-finish-render="dirPaginateFinished"
@@ -297,7 +295,7 @@ if (isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                                                 <source srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                                         data-srcset="{{event.thumbUrl}}" media="(max-width: 2800px)">
 
-                                                <img itemprop="image" class="img-responsive img-rounded u-photo center-block lazyload"
+                                                <img itemprop="image" class="img-fluid img-rounded u-photo center-block lazyload"
                                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII="
                                                      data-src="#"
                                                      data-ng-src="{{event.thumbUrl}}"
@@ -342,13 +340,13 @@ if (isset($config['image_homepage']) && !empty($config['image_homepage'])) {
                     <?php } elseif (isset($config['view_list_type']) && $config['view_list_type'] == 'box') { ?>
                         <div data-on-finish-render="dirPaginateFinished"
                              data-dir-paginate="event in events|orderBy:sortKey:reverse|filter: {title : filterTitle, location : filterLocation , category : filterCategory, time_level : filterTime, price_filter : filterPrice} |itemsPerPage:<?php echo $config['view_perpage']; ?>"
-                             class="col-xs-12 col-md-4 event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
+                             class="col-lg-4 col-md-4 col-12 event-single clearfix h-event" itemscope itemtype="https://schema.org/Event">
                             <div class="thumbnail">
                                 <div class="event-single-image" data-ng-if="event.image">
                                     <div class="text-center">
                                         <a itemprop="url" title="{{event.title}}"
                                            data-ng-href="{{event.eventUrl}}">
-                                            <img itemprop="image" class="img-responsive img-rounded u-photo center-block"
+                                            <img itemprop="image" class="img-fluid img-rounded u-photo center-block"
                                                  src="#"
                                                  data-ng-src="{{event.thumbUrl}}"
                                                  alt="{{event.title}}"/>

@@ -20,13 +20,6 @@ class EventFilter extends InputFilter
 {
     public function __construct($option = [])
     {
-        // id
-        $this->add(
-            [
-                'name'     => 'id',
-                'required' => false,
-            ]
-        );
         // title
         $this->add(
             [

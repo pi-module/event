@@ -20,10 +20,7 @@ class EventForm extends BaseForm
 {
     public function __construct($name = null, $option = [])
     {
-        $this->option    = $option;
-        $this->thumbUrl  = (isset($option['thumbUrl'])) ? $option['thumbUrl'] : '';
-        $this->removeUrl = (isset($option['removeUrl'])) ? $option['removeUrl'] : '';
-        $this->module    = Pi::service('module')->current();
+        $this->option = $option;
         parent::__construct($name);
     }
 
@@ -37,15 +34,6 @@ class EventForm extends BaseForm
 
     public function init()
     {
-        // id
-        $this->add(
-            [
-                'name'       => 'id',
-                'attributes' => [
-                    'type' => 'hidden',
-                ],
-            ]
-        );
         // title
         $this->add(
             [
@@ -60,6 +48,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // subtitle
         $this->add(
             [
@@ -73,6 +62,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // slug
         if ($this->option['side'] == 'admin') {
             $this->add(
@@ -97,6 +87,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         // extra
         $this->add(
             [
@@ -107,6 +98,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // Check local
         $local = Pi::service('i18n')->getLocale();
         if ($local == 'fa') {
@@ -209,6 +201,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         // extra
         $this->add(
             [
@@ -219,6 +212,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // text_summary
         $this->add(
             [
@@ -236,6 +230,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // text_description
         $this->add(
             [
@@ -252,6 +247,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // extra_main
         $this->add(
             [
@@ -262,6 +258,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // status
         if ($this->option['side'] == 'admin') {
             $this->add(
@@ -284,6 +281,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         // Image
         $this->add(
             [
@@ -295,6 +293,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // address
         if ($this->option['side'] == 'admin' || ($this->option['side'] == 'front' && $this->option['manage_register'])) {
             $this->add(
@@ -310,6 +309,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         // organizer_name
         $this->add(
             [
@@ -323,6 +323,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // source_url
         $this->add(
             [
@@ -336,6 +337,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // offer_url
         $this->add(
             [
@@ -349,6 +351,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // register
         $this->add(
             [
@@ -359,6 +362,7 @@ class EventForm extends BaseForm
                 ],
             ]
         );
+
         // register_details
         if ($this->option['side'] == 'admin' || ($this->option['side'] == 'front' && $this->option['manage_register'])) {
             $this->add(
@@ -375,6 +379,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         // Check order active
         if ($this->option['order_active']) {
             // register_can
@@ -391,6 +396,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         if ($this->option['order_active']) {
             // register_stock
             $this->add(
@@ -421,7 +427,6 @@ class EventForm extends BaseForm
                 ],
             ]
         );
-
 
         // order_discount
         if ($this->option['order_active'] && isset($this->option['order_discount']) && $this->option['order_discount']) {
@@ -455,6 +460,7 @@ class EventForm extends BaseForm
                 );
             }
         }
+
         // Check topic
         if ($this->option['use_news_topic']) {
             $this->add(
@@ -499,6 +505,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         // extra guide
         if (Pi::service('module')->isActive('guide') && $this->option['side'] == 'admin') {
             $this->add(
@@ -583,6 +590,7 @@ class EventForm extends BaseForm
                 );
             }
         }
+
         // Check order active
         if ($this->option['map_use']) {
             $this->add(
@@ -691,6 +699,7 @@ class EventForm extends BaseForm
                 ]
             );
         }
+
         // Save
         $this->add(
             [
