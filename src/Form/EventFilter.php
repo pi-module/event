@@ -14,7 +14,7 @@
 namespace Module\Event\Form;
 
 use Pi;
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 class EventFilter extends InputFilter
 {
@@ -31,7 +31,7 @@ class EventFilter extends InputFilter
                     ],
                 ],
                 'validators' => [
-                    new \Zend\Validator\Db\NoRecordExists(
+                    new \Laminas\Validator\Db\NoRecordExists(
                         [
                             'table'   => Pi::model('story', 'news')->getTable(),
                             'field'   => 'title',

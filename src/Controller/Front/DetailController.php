@@ -182,7 +182,7 @@ class DetailController extends ActionController
             $select = Pi::db()->select();
             $select
                 ->from(['order' => $orderTable])->columns([])
-                ->join(['detail' => $detailTable], 'detail.order = order.id', ['count' => new \Zend\Db\Sql\Expression('SUM(number)')])
+                ->join(['detail' => $detailTable], 'detail.order = order.id', ['count' => new \Laminas\Db\Sql\Expression('SUM(number)')])
                 ->join(['invoice' => $invoiceTable], 'invoice.order = order.id', [])
                 ->join(['invoice_installment' => $invoiceInstallmentTable], 'invoice_installment.invoice = invoice.id', ['status_payment'])
                 ->where($where);
