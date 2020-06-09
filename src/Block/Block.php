@@ -15,7 +15,7 @@ namespace Module\Event\Block;
 
 use Pi;
 use Module\Guide\Form\SearchLocationForm;
-use Zend\Db\Sql\Predicate\Expression;
+use Laminas\Db\Sql\Predicate\Expression;
 
 class Block
 {

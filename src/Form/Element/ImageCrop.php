@@ -14,9 +14,9 @@
 namespace Module\Event\Form\Element;
 
 use Pi;
-use Zend\Form\Element\Image as ZendImage;
+use Laminas\Form\Element\Image as LaminasImage;
 
-class ImageCrop extends ZendImage
+class ImageCrop extends LaminasImage
 {
     /**
      * @return array

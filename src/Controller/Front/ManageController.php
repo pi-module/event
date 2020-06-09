@@ -18,7 +18,7 @@ use Pi\Filter;
 use Pi\Mvc\Controller\ActionController;
 use Module\Event\Form\EventForm;
 use Module\Event\Form\EventFilter;
-use Zend\Math\Rand;
+use Laminas\Math\Rand;
 
 class ManageController extends ActionController
 {
