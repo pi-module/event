@@ -90,6 +90,12 @@ class Event extends Standard
                         if (isset($parts[1]) && $parts[1] == 'add') {
                             $matches['action'] = 'add';
                             $matches['slug']   = $this->decode($parts[2]);
+                        } elseif (isset($parts[1]) && $parts[1] == 'process') {
+                            $matches['action'] = 'process';
+                        } elseif (isset($parts[1]) && $parts[1] == 'manual') {
+                            $matches['action'] = 'manual';
+                            $matches['id']     = $this->decode($parts[3]);
+                            $matches['number'] = $this->decode($parts[5]);
                         }
                         break;
 
@@ -218,6 +224,10 @@ class Event extends Standard
 
         if (!empty($mergedParams['status'])) {
             $url['status'] = 'status' . $this->paramDelimiter . $mergedParams['status'];
+        }
+
+        if (!empty($mergedParams['number'])) {
+            $url['number'] = 'number' . $this->paramDelimiter . $mergedParams['number'];
         }
 
         // Make url

@@ -1,0 +1,23 @@
+<?php $this->css($this->assetModule('css/admin.css')); ?>
+<div id="topic-form" class="clearfix">
+    <h1><?php echo $this->escape($title); ?></h1>
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <?php echo $this->form($form); ?>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="card">
+                <?php $media = Pi::api('doc', 'media')->getSingleLinkData($event['main_image'], 'large', null, null, 'news') ?>
+                <img src="<?php echo Pi::api('doc', 'media')->getSingleLinkUrl($event['main_image'])->setConfigModule('news')->thumb('medium'); ?>" class="card-img-top" alt="...">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <?php _e('Price') ?> : <strong><?php echo Pi::api('api', 'order')->viewPrice($orderParams['price']); ?></strong>
+                    </li>
+                    <li class="list-group-item">
+                        <?php _e('Number') ?> : <strong><?php echo $this->escape($orderParams['number']); ?> <?php _e('person') ?></strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

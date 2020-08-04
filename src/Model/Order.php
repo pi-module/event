@@ -36,5 +36,6 @@ class Order extends Model
             'status',
             'type',
             'extra',
+            'main_image',
         ];
 }

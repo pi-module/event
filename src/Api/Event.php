@@ -162,10 +162,10 @@ class Event extends AbstractApi
             $list[$row->id]['eventUrl'] = Pi::url(
                 Pi::service('url')->assemble(
                     'event', [
-                    'module'     => $this->getModule(),
-                    'controller' => 'index',
-                    'slug'       => $row->slug,
-                ]
+                        'module'     => $this->getModule(),
+                        'controller' => 'index',
+                        'slug'       => $row->slug,
+                    ]
                 )
             );
         }
@@ -251,18 +251,23 @@ class Event extends AbstractApi
         if (empty($extra)) {
             return '';
         }
+
         // object to array
         if (is_object($extra)) {
             /* @var $extra \Pi\Db\RowGateway\RowGateway */
             $extra = $extra->toArray();
         }
+
         // Make register_discount
         $extra['register_discount'] = json_decode($extra['register_discount'], true);
+
         // Set register_details
         $extra['register_details'] = Pi::service('markup')->render($extra['register_details'], 'html', 'html');
+
         // Set time
         $extra['time_start_view'] = (empty($extra['time_start'])) ? '' : _date($extra['time_start'], ['pattern' => 'yyyy/MM/dd']);
         $extra['time_end_view']   = (empty($extra['time_end'])) ? '' : _date($extra['time_end'], ['pattern' => 'yyyy/MM/dd']);
+
         // Set register_price
         if (is_numeric($extra['register_price']) && $extra['register_price'] > 0) {
             $uid   = Pi::user()->getId();
@@ -284,6 +289,7 @@ class Event extends AbstractApi
         } else {
             $priceView = _currency($extra['register_price']);
         }
+
         // Set order
         if (!isset($this->config)) {
             $this->config = Pi::service('registry')->config->read($this->getModule());
@@ -305,33 +311,54 @@ class Event extends AbstractApi
                 $extra['register_price_view'] = __('free!');
             }
         }
+
         // Set currency
         $configSystem            = Pi::service('registry')->config->read('system');
         $extra['price_currency'] = empty($configSystem['number_currency']) ? 'USD' : $configSystem['number_currency'];
+
         // canonize guide module details
         $extra['guide_category'] = json_decode($extra['guide_category'], true);
         $extra['guide_location'] = json_decode($extra['guide_location'], true);
         $extra['guide_item']     = json_decode($extra['guide_item'], true);
+
         // Set event url
         $extra['eventUrl'] = Pi::url(
             Pi::service('url')->assemble(
                 'event', [
-                'module'     => $this->getModule(),
-                'controller' => 'index',
-                'slug'       => $extra['slug'],
-            ]
+                    'module'     => $this->getModule(),
+                    'controller' => 'index',
+                    'slug'       => $extra['slug'],
+                ]
             )
         );
+
         // Set register url
-        $extra['eventOrder'] = Pi::url(
-            Pi::service('url')->assemble(
-                'event', [
-                'module'     => $this->getModule(),
-                'controller' => 'register',
-                'action'     => 'add',
-            ]
-            )
-        );
+        switch ($this->config['register_type']) {
+            case 'offline':
+                $extra['eventOrder'] = Pi::url(
+                    Pi::service('url')->assemble(
+                        'event', [
+                            'module'     => $this->getModule(),
+                            'controller' => 'register',
+                            'action'     => 'process',
+                        ]
+                    )
+                );
+                break;
+
+            default:
+            case 'online':
+                $extra['eventOrder'] = Pi::url(
+                    Pi::service('url')->assemble(
+                        'event', [
+                            'module'     => $this->getModule(),
+                            'controller' => 'register',
+                            'action'     => 'add',
+                        ]
+                    )
+                );
+                break;
+        }
         // Set category
         if (isset($event['topics']) && !empty($event['topics'])) {
             $topicList = [];
@@ -341,10 +368,10 @@ class Event extends AbstractApi
                     'url'   => Pi::url(
                         Pi::service('url')->assemble(
                             'event', [
-                            'module'     => $this->getModule(),
-                            'controller' => 'category',
-                            'slug'       => $topic['slug'],
-                        ]
+                                'module'     => $this->getModule(),
+                                'controller' => 'category',
+                                'slug'       => $topic['slug'],
+                            ]
                         )
                     ),
                 ];
@@ -534,10 +561,10 @@ class Event extends AbstractApi
                 $loc = Pi::url(
                     Pi::service('url')->assemble(
                         'news', [
-                        'module'     => 'event',
-                        'controller' => 'index',
-                        'slug'       => $row->slug,
-                    ]
+                            'module'     => 'event',
+                            'controller' => 'index',
+                            'slug'       => $row->slug,
+                        ]
                     )
                 );
                 // Add to sitemap
@@ -619,10 +646,10 @@ class Event extends AbstractApi
                         'categoryUrl' => Pi::url(
                             Pi::service("url")->assemble(
                                 "guide", [
-                                "module"     => 'guide',
-                                "controller" => "category",
-                                "slug"       => $row->slug,
-                            ]
+                                    "module"     => 'guide',
+                                    "controller" => "category",
+                                    "slug"       => $row->slug,
+                                ]
                             )
                         ),
                     ];
@@ -667,10 +694,10 @@ class Event extends AbstractApi
                     $story['url'] = Pi::url(
                         Pi::service('url')->assemble(
                             'news', [
-                            'module'     => 'event',
-                            'controller' => 'index',
-                            'slug'       => $row['slug'],
-                        ]
+                                'module'     => 'event',
+                                'controller' => 'index',
+                                'slug'       => $row['slug'],
+                            ]
                         )
                     );
 

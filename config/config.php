@@ -356,6 +356,22 @@ return [
             'filter'      => 'number_int',
             'value'       => 1,
         ],
+        'register_type'       => [
+            'title'       => _a('Register type'),
+            'description' => '',
+            'edit'        => [
+                'type'    => 'select',
+                'options' => [
+                    'options' => [
+                        'online'  => _a('Online'),
+                        'offline' => _a('Offline'),
+                    ],
+                ],
+            ],
+            'filter'      => 'string',
+            'value'       => 'online',
+            'category'    => 'order',
+        ],
         'order_free'          => [
             'category'    => 'order',
             'title'       => _a('Show free word for free events'),

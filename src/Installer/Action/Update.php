@@ -211,10 +211,26 @@ class Update extends BasicUpdate
             } catch (\Exception $exception) {
                 $this->setResult(
                     'db', [
-                    'status'  => false,
-                    'message' => 'Table alter query failed: '
-                        . $exception->getMessage(),
-                ]
+                        'status'  => false,
+                        'message' => 'Table alter query failed: '
+                            . $exception->getMessage(),
+                    ]
+                );
+                return false;
+            }
+        }
+
+        if (version_compare($moduleVersion, '2.2.1', '<')) {
+            $sql = sprintf("ALTER TABLE %s ADD `main_image` INT(10) UNSIGNED NOT NULL DEFAULT '0'", $orderTable);
+            try {
+                $orderAdapter->query($sql, 'execute');
+            } catch (\Exception $exception) {
+                $this->setResult(
+                    'db', [
+                        'status'  => false,
+                        'message' => 'Table alter query failed: '
+                            . $exception->getMessage(),
+                    ]
                 );
                 return false;
             }

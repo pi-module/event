@@ -53,6 +53,7 @@ CREATE TABLE `{order}`
     `status`     TINYINT(1) UNSIGNED       NOT NULL DEFAULT '0',
     `type`       ENUM ('discount', 'full') NOT NULL DEFAULT 'discount',
     `extra`      TEXT,
+    `main_image` INT(10) UNSIGNED          NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`),
     KEY `uid` (`uid`),
     KEY `event` (`event`),

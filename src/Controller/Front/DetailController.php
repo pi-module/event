@@ -108,15 +108,17 @@ class DetailController extends ActionController
         }
 
         // Set form options
-        $option          = [];
-        $option['stock'] = ($event['register_stock'] == 0 || $event['register_stock'] - $event['register_sales'] > 10) ? 10
-            : ($event['register_stock'] - $event['register_sales']);
+        $option          = [
+            'stock' => ($event['register_stock'] == 0 || $event['register_stock'] - $event['register_sales'] > 10) ? 10 : ($event['register_stock'] - $event['register_sales'])
+        ];
 
         // Set form
         $form            = new RegisterForm('event', $option);
         $form->setAttribute('enctype', 'multipart/form-data');
         $form->setAttribute('action', $event['eventOrder']);
-        $form->setData($event);
+        $form->setData([
+            'id' => $event['id'],
+        ]);
 
         // Related
         if ($config['related_event'] && !empty($eventTopic)) {

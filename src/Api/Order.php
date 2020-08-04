@@ -169,6 +169,21 @@ class Order extends AbstractApi
         if ($event) {
             $order['eventInfo'] = Pi::api('event', 'event')->getEventSingle($order['event']);
         }
+
+        switch ($order['status']) {
+            case 1:
+                $order['status_view'] = __('Paid');
+                break;
+
+            case 2:
+                $order['status_view'] = __('Unprocessed');
+                break;
+
+            default:
+                $order['status_view'] = __('Cancel');
+                break;
+        }
+
         // return
         return $order;
     }
