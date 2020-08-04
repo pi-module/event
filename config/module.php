@@ -1,10 +1,10 @@
 <?php
 /**
- * Pi Engine (http://pialog.org)
+ * Pi Engine (http://piengine.org)
  *
  * @link            http://code.pialog.org for the Pi Engine source repository
- * @copyright       Copyright (c) Pi Engine http://pialog.org
- * @license         http://pialog.org/license.txt New BSD License
+ * @copyright       Copyright (c) Pi Engine http://piengine.org
+ * @license         http://piengine.org/license.txt New BSD License
  */
 
 /**
@@ -15,11 +15,11 @@ return [
     'meta'       => [
         'title'       => _a('Event'),
         'description' => _a('Manage events'),
-        'version'     => '2.1.0',
+        'version'     => '2.2.0',
         'license'     => 'New BSD',
         'logo'        => 'image/logo.png',
         'readme'      => 'docs/readme.txt',
-        'demo'        => 'http://pialog',
+        'demo'        => 'http://piengine.org',
         'icon'        => 'fa-calendar',
     ],
     'dependency' => [
@@ -30,7 +30,7 @@ return [
     'author'     => [
         'Name'    => 'Hossein Azizabadi',
         'email'   => 'azizabadi@faragostaresh.com',
-        'website' => 'http://pialog',
+        'website' => 'http://piengine.org',
         'credits' => 'Pi Engine Team',
     ],
     // Resource

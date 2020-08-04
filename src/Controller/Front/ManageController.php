@@ -1,10 +1,10 @@
 <?php
 /**
- * Pi Engine (http://pialog.org)
+ * Pi Engine (http://piengine.org)
  *
  * @link            http://code.pialog.org for the Pi Engine source repository
- * @copyright       Copyright (c) Pi Engine http://pialog.org
- * @license         http://pialog.org/license.txt New BSD License
+ * @copyright       Copyright (c) Pi Engine http://piengine.org
+ * @license         http://piengine.org/license.txt New BSD License
  */
 
 /**
@@ -240,7 +240,7 @@ class ManageController extends ActionController
                     $values['type'] = 'event';
                     // Set status
                     $values['status'] = $config['manage_approval'] ? 1 : 2;
-                    
+
                     // Set guide module info
                     if (isset($owner) && isset($owner['id'])) {
                         $values['guide_owner'] = $owner['id'];
