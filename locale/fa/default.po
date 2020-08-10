@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2020-08-04 14:31+0430\n"
+"POT-Creation-Date: 2020-08-09 15:23+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -304,7 +304,7 @@ msgstr "ماژول سفارش ثبت نشده است"
 
 #: src/Controller/Front/RegisterController.php:265
 msgid "You register on event successfully."
-msgstr ""
+msgstr "ثبت نام شما در این رویداد با موفقیت انجام شد"
 
 #: src/Controller/Front/RegisterController.php:279
 #, php-format
@@ -551,7 +551,8 @@ msgstr "فقط رویداد های مربوط به جدول اخبار"
 msgid "ID"
 msgstr "شناسه"
 
-#: template/admin/event-index.phtml:14 template/front/manage-index.phtml:28
+#: template/admin/event-index.phtml:14 template/admin/order-index.phtml:12
+#: template/front/manage-index.phtml:28
 msgid "Action"
 msgstr "عملکرد"
 
@@ -578,7 +579,7 @@ msgstr "فهرست تمام رویداد ها"
 msgid "Name"
 msgstr "نام"
 
-#: template/admin/order-index.phtml:8 template/admin/order-index.phtml:76
+#: template/admin/order-index.phtml:8 template/admin/order-index.phtml:77
 #: template/front/manage-order.phtml:27 template/front/register-manual.phtml:17
 msgid "Number"
 msgstr "تعداد"
@@ -591,23 +592,27 @@ msgstr "مجموع"
 msgid "Event"
 msgstr "رویداد"
 
-#: template/admin/order-index.phtml:38 template/admin/order-index.phtml:63
+#: template/admin/order-index.phtml:37 template/admin/order-index.phtml:64
 #: template/front/event-angular-new.phtml:102
 #: template/front/manage-update.phtml:72 template/front/manage-update.phtml:91
 msgid "Close"
 msgstr "بستن"
 
-#: template/admin/order-index.phtml:73
-msgid "Total price"
-msgstr ""
+#: template/admin/order-index.phtml:56
+msgid "View register"
+msgstr "مشاهده فیش"
 
-#: template/admin/order-index.phtml:76 template/front/register-manual.phtml:17
+#: template/admin/order-index.phtml:74
+msgid "Total price"
+msgstr "قیمت نهایی"
+
+#: template/admin/order-index.phtml:77 template/front/register-manual.phtml:17
 msgid "person"
 msgstr "نفر"
 
-#: template/admin/order-index.phtml:80
+#: template/admin/order-index.phtml:81
 msgid "Accept order"
-msgstr ""
+msgstr "تایید سفارش"
 
 #: template/admin/tools-index.phtml:4 template/admin/tools-index.phtml:6
 #: template/admin/tools-sitemap.phtml:4 template/admin/tools-sitemap.phtml:6
@@ -713,7 +718,7 @@ msgstr ""
 
 #: template/front/event-angular.phtml:393
 msgid "Login / Register"
-msgstr ""
+msgstr "ورود / ثبت نام"
 
 #: template/front/event-angular.phtml:399
 msgid "Please login to add an event"
@@ -744,31 +749,6 @@ msgstr ""
 #: template/front/event-detail.phtml:293 template/front/event-detail.phtml:306
 msgid "Start From"
 msgstr "قیمت"
-
-#: template/front/event-detail.phtml:319
-msgid "Stock"
-msgstr ""
-
-#: template/front/event-detail.phtml:324
-#, php-format
-msgid "I'm registrered to this event (%s place(s))"
-msgstr ""
-
-#: template/front/event-detail.phtml:331
-msgid "Full"
-msgstr ""
-
-#: template/front/event-detail.phtml:335 template/front/manage-index.phtml:51
-#: template/front/manage-order.phtml:13
-#, php-format
-msgid "%s registred / %s places (%s left)"
-msgstr ""
-
-#: template/front/event-detail.phtml:339 template/front/manage-index.phtml:55
-#: template/front/manage-order.phtml:17
-#, php-format
-msgid "%s registred"
-msgstr ""
 
 #: template/front/event-detail.phtml:349
 msgid "Key Event Elements"
@@ -824,6 +804,16 @@ msgstr "پایان"
 
 #: template/front/manage-index.phtml:27
 msgid "Availability"
+msgstr ""
+
+#: template/front/manage-index.phtml:51 template/front/manage-order.phtml:13
+#, php-format
+msgid "%s registred / %s places (%s left)"
+msgstr ""
+
+#: template/front/manage-index.phtml:55 template/front/manage-order.phtml:17
+#, php-format
+msgid "%s registred"
 msgstr ""
 
 #: template/front/manage-index.phtml:93

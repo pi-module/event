@@ -32,28 +32,28 @@
                             <div class="recent-event-single-information small">
                                 <ul class="clearfix list-inline event-time">
                                     <?php if ($block['show-days']) { ?>
-                                        <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
+                                        <li class="list-inline-item"><i class="fa fa-clock-o"></i> <?php echo $this->escape($event['days']); ?></li>
                                     <?php } ?>
                                     <?php if ($block['show-time']) { ?>
                                         <?php if (!empty($event['time_start']) && !empty($event['time_end'])) { ?>
-                                            <li>
+                                            <li class="list-inline-item">
                                                 <?php if (!$block['show-days']) { ?><i class="fa fa-clock-o"></i> <?php } ?>
                                                 <strong><?php echo _b('From') ?></strong>
                                             </li>
-                                            <li class="dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
-                                            <li><strong><?php echo _b('to') ?></strong></li>
-                                            <li class="dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
+                                            <li class="list-inline-item dt-start"><?php echo $this->escape($event['time_start_view']); ?></li>
+                                            <li class="list-inline-item"><strong><?php echo _b('to') ?></strong></li>
+                                            <li class="list-inline-item dt-end"><?php echo $this->escape($event['time_end_view']); ?></li>
                                         <?php } elseif (!empty($event['time_start'])) { ?>
-                                            <li class="event-single-time dt-start">
+                                            <li class="list-inline-item event-single-time dt-start">
                                                 <?php if ($block['show-days']) { ?><i class="fa fa-clock-o"></i> <?php } ?>
                                                 <?php echo $this->escape($event['time_start_view']); ?>
                                             </li>
                                         <?php } ?>
                                     <?php } ?>
                                     <?php if (!empty($event['topics']) && $block['show-topic']) { ?>
-                                        <li><i class="fa fa-folder"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-folder"></i></li>
                                         <?php foreach ($event['topics'] as $eventTopic) { ?>
-                                            <li class="p-category">
+                                            <li class="list-inline-item p-category">
                                                 <a title="<?php echo $this->escape($eventTopic['title']); ?>"
                                                    href="<?php echo $this->escape($eventTopic['url']); ?>"><?php echo $this->escape(
                                                         $eventTopic['title']
@@ -62,14 +62,14 @@
                                         <?php } ?>
                                     <?php } ?>
                                     <?php if (!empty($event['register_price']) && $block['show-price']) { ?>
-                                        <li class="p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
+                                        <li class="list-inline-item p-price" itemprop="price" content="<?php echo $this->escape($event['register_price']); ?>">
                                             <i class="fa fa-money"></i> <?php echo _b('Minimum Price') ?> : <?php echo $this->escape(
                                                 $event['register_price_view']
                                             ); ?>
                                         </li>
                                     <?php } ?>
                                     <?php if ($block['show-hits']) { ?>
-                                        <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($event['hits'])); ?></li>
+                                        <li class="list-inline-item"><i class="fa fa-eye"></i> <?php echo $this->escape(_number($event['hits'])); ?></li>
                                     <?php } ?>
                                 </ul>
 

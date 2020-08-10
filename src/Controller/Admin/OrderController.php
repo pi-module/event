@@ -30,12 +30,33 @@ class OrderController extends ActionController
             $list[$row->id]         = Pi::api('order', 'event')->canonizeOrder($row);
             $list[$row->id]['user'] = Pi::user()->get(
                 $row->uid, [
-                'id', 'identity', 'name', 'email',
-            ]
+                    'id', 'identity', 'name', 'email',
+                ]
             );
         }
         // Set view
         $this->view()->setTemplate('order-index');
         $this->view()->assign('list', $list);
+    }
+
+    public function acceptAction()
+    {
+        // Get id
+        $id = $this->params('id');
+
+        // Update sales
+        $this->getModel('order')->update(
+            [
+                'status' => 1,
+            ],
+            [
+                'id' => $id,
+            ]
+        );
+
+        return [
+            'status'     => 1,
+            'ajaxstatus' => 1,
+        ];
     }
 }
