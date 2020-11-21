@@ -27,100 +27,6 @@ use Laminas\Math\Rand;
 
 class Order extends AbstractApi
 {
-    public function checkProduct($id, $type = null)
-    {
-        $product = Pi::model('extra', 'event')->find($id, 'id');
-        if (empty($product) || $product['status'] != 1) {
-            return false;
-        }
-        return true;
-    }
-
-    public function getProductDetails($product)
-    {
-        $event               = Pi::api('event', 'event')->getEventSingle($product, 'id', 'light');
-        $event['productUrl'] = $event['eventUrl'];
-        return $event;
-    }
-
-    public function postPaymentUpdate($order, $detail)
-    {
-        // Update time
-        foreach ($detail as $product) {
-            if ($product['product'] > 0) {
-                // Set number
-                $number = $product['number'];
-
-                // Get event
-                $event   = Pi::api('event', 'event')->getEventSingle($product['product'], 'id', 'light');
-                $setting = json_decode($event['setting'], true);
-                // Update sales
-                Pi::model('extra', $this->getModule())->update(
-                    ['register_sales' => ($event['register_sales'] + $number)],
-                    ['id' => $event['id']]
-                );
-
-                // Save order
-                $values = [
-                    'uid'        => $order['uid'],
-                    'event'      => $event['id'],
-                    'order_id'   => $order['id'],
-                    'number'     => $number,
-                    'price'      => $product['product_price'],
-                    'vat'        => $product['vat_price'],
-                    'total'      => $product['product_price'] + $product['vat_price'] + $product['shipping_price'] + $product['packing_price']
-                        + $product['setup_price'] - $product['discount_price'],
-                    'time_order' => time(),
-                    'time_start' => $event['time_start'],
-                    'time_end'   => $event['time_end'],
-                    'status'     => 1,
-                    'extra'      => json_encode($setting['action']),
-                ];
-                $row    = Pi::model('order', $this->getModule())->createRow();
-                $row->assign($values);
-                $row->save();
-                // Set url
-                /* $url = Pi::url(Pi::service('url')->assemble('event', array(
-                    'module' => $this->getModule(),
-                    'controller' => 'register',
-                    'action' => 'detail',
-                    'id' => $row->id,
-                ))); */
-
-
-                if (Pi::service('authentication')->hasIdentity()) {
-                    $url = Pi::url(
-                        Pi::service('url')->assemble(
-                            'order', [
-                            'module'     => 'order',
-                            'controller' => 'detail',
-                            'action'     => 'index',
-                            'id'         => $order['id'],
-                        ]
-                        )
-                    );
-                } else {
-                    $url = Pi::url(
-                        Pi::service('url')->assemble(
-                            'event', [
-                            'module'     => 'event',
-                            'controller' => 'detail',
-                            'action'     => 'index',
-                            'slug'       => $event['slug'],
-                        ]
-                        )
-                    );
-
-                }
-
-                // Send notification
-                //Pi::api('notification', 'order')->newOrder($order, $event);
-                // Set back url
-                return $url;
-            }
-        }
-    }
-
     public function getOrder($parameter, $field = 'id', $event = true)
     {
         // Check for order module request
@@ -188,6 +94,114 @@ class Order extends AbstractApi
         return $order;
     }
 
+    /*
+     * Start Order module needed functions
+     */
+    public function checkProduct($id, $type = null)
+    {
+        $product = Pi::model('extra', 'event')->find($id, 'id');
+        if (empty($product) || $product['status'] != 1) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getInstallmentDueDate($cart = [], $composition = [100])
+    {
+        return null;
+    }
+
+    public function getInstallmentComposition($extra = [])
+    {
+        return [100];
+    }
+
+    public function getProductDetails($product)
+    {
+        $event               = Pi::api('event', 'event')->getEventSingle($product, 'id', 'light');
+        $event['productUrl'] = $event['eventUrl'];
+        return $event;
+    }
+
+    public function postPaymentUpdate($order, $detail)
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+
+        // Update company
+        if (empty($detail)) {
+            return false;
+        }
+
+        // Update time
+        foreach ($detail as $product) {
+            if (intval($product['product']) > 0) {
+                // Set number
+                $number = $product['number'];
+
+                // Get event
+                $event   = Pi::api('event', 'event')->getEventSingle(intval($product['product']), 'id', 'light');
+                $setting = json_decode($event['setting'], true);
+
+                // Update sales
+                Pi::model('extra', $this->getModule())->update(
+                    ['register_sales' => ($event['register_sales'] + $number)],
+                    ['id' => $event['id']]
+                );
+
+                // Save order
+                $values = [
+                    'uid'        => $order['uid'],
+                    'event'      => $event['id'],
+                    'order_id'   => $order['id'],
+                    'number'     => $number,
+                    'price'      => $product['product_price'],
+                    'vat'        => $product['vat_price'],
+                    'total'      => $product['product_price'] + $product['vat_price'] + $product['shipping_price'] + $product['packing_price'] + $product['setup_price'] - $product['discount_price'],
+                    'time_order' => time(),
+                    'time_start' => $event['time_start'],
+                    'time_end'   => $event['time_end'],
+                    'status'     => 1,
+                    'extra'      => json_encode($setting['action']),
+                ];
+                $row    = Pi::model('order', $this->getModule())->createRow();
+                $row->assign($values);
+                $row->save();
+
+                // Set url
+                if (Pi::service('authentication')->hasIdentity()) {
+                    $url = Pi::url(
+                        Pi::service('url')->assemble(
+                            'order', [
+                            'module'     => 'order',
+                            'controller' => 'detail',
+                            'action'     => 'index',
+                            'id'         => $order['id'],
+                        ]
+                        )
+                    );
+                } else {
+                    $url = Pi::url(
+                        Pi::service('url')->assemble(
+                            'event', [
+                            'module'     => 'event',
+                            'controller' => 'detail',
+                            'action'     => 'index',
+                            'slug'       => $event['slug'],
+                        ]
+                        )
+                    );
+
+                }
+
+                // Send notification
+                //Pi::api('notification', 'order')->newOrder($order, $event);
+                // Set back url
+                return $url;
+            }
+        }
+    }
+
     public function createExtraDetailForProduct($values)
     {
         return json_encode(
@@ -202,4 +216,20 @@ class Order extends AbstractApi
         return [];
     }
 
+    public function isAlwaysAvailable($order)
+    {
+        return [
+            'status' => 1,
+        ];
+    }
+
+    public function showInInvoice($order, $product)
+    {
+        return true;
+    }
+
+    public function postCancelUpdate($order, $detail)
+    {
+        return true;
+    }
 }

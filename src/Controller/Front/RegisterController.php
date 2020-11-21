@@ -91,12 +91,6 @@ class RegisterController extends ActionController
                     $this->jump($event['eventUrl'], $message, 'error');
                 }
 
-                // Set extra
-                $extra                  = [];
-                $extra['view_type']     = 'template';
-                $extra['view_template'] = 'order-detail';
-                $extra['getDetail']     = true;
-
                 // Set singel Product
                 $singleProduct = [
                     'product'        => $event['id'],
@@ -108,16 +102,31 @@ class RegisterController extends ActionController
                     'vat_price'      => 0,
                     'number'         => $number,
                     'title'          => $event['title'],
-                    'extra'          => json_encode($extra),
+                    'extra'          => json_encode(
+                        [
+                            'view_type'     => 'template',
+                            'view_template' => 'order-detail',
+                            'getDetail'     => true,
+                        ]
+                    ),
                 ];
 
                 // Set order array
-                $order                          = [];
-                $order['module']                = $module;
-                $order['product']               = $event['id'];
-                $order['type_payment']          = 'onetime';
-                $order['type_commodity']        = 'service';
-                $order['product'][$event['id']] = $singleProduct;
+                $order = [
+                    'module_name'    => $module,
+                    'module_table'   => 'extra',
+                    'type_payment'   => 'onetime',
+                    'type_commodity' => 'service',
+                    'total_discount' => 0,
+                    'total_shipping' => 0,
+                    'total_packing'  => 0,
+                    'total_setup'    => 0,
+                    'total_vat'      => 0,
+                    'can_pay'        => 1,
+                    'product'        => [
+                        $event['id'] => $singleProduct,
+                    ],
+                ];
 
                 // Set session_order if user not login
                 if ($uid == 0) {
