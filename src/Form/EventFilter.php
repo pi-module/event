@@ -154,7 +154,7 @@ class EventFilter extends InputFilter
         $this->add(
             [
                 'name'     => 'image',
-                'required' => false,
+                'required' => true,
             ]
         );
         // cropping

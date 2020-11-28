@@ -288,8 +288,9 @@ class EventForm extends BaseForm
                 'name'    => 'main_image',
                 'type'    => 'Module\Media\Form\Element\Media',
                 'options' => [
-                    'label'  => __('Main image'),
-                    'module' => 'news',
+                    'label'    => __('Main image'),
+                    'module'   => 'news',
+                    'required' => true,
                 ],
             ]
         );
