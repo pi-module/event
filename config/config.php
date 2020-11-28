@@ -202,7 +202,6 @@ return [
                     'options' => [
                         'line'  => _a('Line : each event on one line'),
                         'box'   => _a('Box : each event as box and 3 box on one line'),
-                        'table' => _a('Table'),
                     ],
                 ],
             ],
