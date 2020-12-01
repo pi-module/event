@@ -282,14 +282,16 @@ class EventForm extends BaseForm
             );
         }
 
-        // Image
+        // main_image
         $this->add(
             [
-                'name'    => 'main_image',
-                'type'    => 'Module\Media\Form\Element\Media',
-                'options' => [
-                    'label'    => __('Main image'),
-                    'module'   => 'news',
+                'name'       => 'main_image',
+                'type'       => 'Module\Media\Form\Element\Media',
+                'options'    => [
+                    'label'  => __('Main image'),
+                    'module' => 'news',
+                ],
+                'attributes' => [
                     'required' => true,
                 ],
             ]

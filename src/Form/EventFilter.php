@@ -147,13 +147,6 @@ class EventFilter extends InputFilter
         $this->add(
             [
                 'name'     => 'main_image',
-                'required' => false,
-            ]
-        );
-        // image
-        $this->add(
-            [
-                'name'     => 'image',
                 'required' => true,
             ]
         );
