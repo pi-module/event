@@ -55,13 +55,28 @@ class Time extends AbstractApi
                 $time = [
                     'expired'        => time(),
                     'thisWeek'       => pmktime(
-                        0, 0, 0, pdate('m', strtotime("-1 Saturday")), pdate('d', strtotime("-1 Saturday")), pdate('Y', strtotime("-1 Saturday"))
+                        0,
+                        0,
+                        0,
+                        pdate('m', strtotime("-1 Saturday")),
+                        pdate('d', strtotime("-1 Saturday")),
+                        pdate('Y', strtotime("-1 Saturday"))
                     ),
                     'nextWeek'       => pmktime(
-                        0, 0, 0, pdate('m', strtotime("+1 Saturday")), pdate('d', strtotime("+1 Saturday")), pdate('Y', strtotime("+1 Saturday"))
+                        0,
+                        0,
+                        0,
+                        pdate('m', strtotime("+1 Saturday")),
+                        pdate('d', strtotime("+1 Saturday")),
+                        pdate('Y', strtotime("+1 Saturday"))
                     ),
                     'nextTwoWeek'    => pmktime(
-                        0, 0, 0, pdate('m', strtotime("+2 Saturday")), pdate('d', strtotime("+2 Saturday")), pdate('Y', strtotime("+2 Saturday"))
+                        0,
+                        0,
+                        0,
+                        pdate('m', strtotime("+2 Saturday")),
+                        pdate('d', strtotime("+2 Saturday")),
+                        pdate('Y', strtotime("+2 Saturday"))
                     ),
                     'thisMonth'      => pmktime(0, 0, 0, $thisMonth, 1, $year),
                     'nextMonth'      => pmktime(0, 0, 0, $nextMonth, 1, $year),

@@ -47,7 +47,8 @@ class CategoryController extends ActionController
                 // Set filter url
                 $filterUrl = Pi::url(
                     $this->url(
-                        '', [
+                        '',
+                        [
                         'controller' => 'json',
                         'action'     => 'filterCategory',
                         'slug'       => $slug,

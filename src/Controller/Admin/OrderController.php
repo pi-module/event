@@ -29,7 +29,8 @@ class OrderController extends ActionController
         foreach ($rowset as $row) {
             $list[$row->id]         = Pi::api('order', 'event')->canonizeOrder($row);
             $list[$row->id]['user'] = Pi::user()->get(
-                $row->uid, [
+                $row->uid,
+                [
                     'id', 'identity', 'name', 'email',
                 ]
             );

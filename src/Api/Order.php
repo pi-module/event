@@ -172,7 +172,8 @@ class Order extends AbstractApi
                 if (Pi::service('authentication')->hasIdentity()) {
                     $url = Pi::url(
                         Pi::service('url')->assemble(
-                            'order', [
+                            'order',
+                            [
                             'module'     => 'order',
                             'controller' => 'detail',
                             'action'     => 'index',
@@ -183,7 +184,8 @@ class Order extends AbstractApi
                 } else {
                     $url = Pi::url(
                         Pi::service('url')->assemble(
-                            'event', [
+                            'event',
+                            [
                             'module'     => 'event',
                             'controller' => 'detail',
                             'action'     => 'index',
@@ -191,7 +193,6 @@ class Order extends AbstractApi
                         ]
                         )
                     );
-
                 }
 
                 // Send notification

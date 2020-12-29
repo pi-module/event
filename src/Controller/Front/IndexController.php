@@ -37,7 +37,8 @@ class IndexController extends ActionController
                 // Set filter url
                 $filterUrl = Pi::url(
                     $this->url(
-                        '', [
+                        '',
+                        [
                         'controller' => 'json',
                         'action'     => 'filterIndex',
                     ]

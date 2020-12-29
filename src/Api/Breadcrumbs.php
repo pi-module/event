@@ -35,7 +35,8 @@ class Breadcrumbs extends AbstractBreadcrumbs
                     'label' => $moduleData['title'],
                     'href'  => Pi::url(
                         Pi::service('url')->assemble(
-                            'event', [
+                            'event',
+                            [
                             'module' => $this->getModule(),
                         ]
                         )
@@ -53,7 +54,8 @@ class Breadcrumbs extends AbstractBreadcrumbs
                             'label' => $topic['title'],
                             'href'  => Pi::url(
                                 Pi::service('url')->assemble(
-                                    'event', [
+                                    'event',
+                                    [
                                     'module'     => $this->getModule(),
                                     'controller' => 'category',
                                     'slug'       => $topic['slug'],
@@ -88,7 +90,8 @@ class Breadcrumbs extends AbstractBreadcrumbs
                             'label' => __('Manage events'),
                             'href'  => Pi::url(
                                 Pi::service('url')->assemble(
-                                    'event', [
+                                    'event',
+                                    [
                                     'controller' => 'manage',
                                 ]
                                 )
@@ -104,7 +107,8 @@ class Breadcrumbs extends AbstractBreadcrumbs
                             'label' => __('Manage events'),
                             'href'  => Pi::url(
                                 Pi::service('url')->assemble(
-                                    'event', [
+                                    'event',
+                                    [
                                     'controller' => 'manage',
                                 ]
                                 )

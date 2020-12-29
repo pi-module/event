@@ -186,7 +186,8 @@ return [
                 <br> lap-header.jpg => width: 1366px 
                 <br> xlap-header.jpg => width: 1920px 
                 <br> desk-header.jpg => width: 2880px"
-                ), Pi::path('upload/event/image/width/index')
+                ),
+                Pi::path('upload/event/image/width/index')
             ),
             'edit'        => 'text',
             'filter'      => 'string',

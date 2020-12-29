@@ -78,7 +78,8 @@ class Update extends BasicUpdate
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -101,7 +102,8 @@ class Update extends BasicUpdate
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -115,7 +117,8 @@ class Update extends BasicUpdate
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -129,7 +132,8 @@ class Update extends BasicUpdate
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -147,7 +151,8 @@ class Update extends BasicUpdate
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -163,7 +168,8 @@ class Update extends BasicUpdate
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -177,7 +183,8 @@ class Update extends BasicUpdate
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -188,13 +195,13 @@ class Update extends BasicUpdate
         }
 
         if (version_compare($moduleVersion, '2.0.10', '<')) {
-
             $sql = sprintf("ALTER TABLE %s DROP  `register_type` ", $extraTable);
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                     'status'  => false,
                     'message' => 'Table alter query failed: '
                         . $exception->getMessage(),
@@ -204,13 +211,13 @@ class Update extends BasicUpdate
             }
         }
         if (version_compare($moduleVersion, '2.0.12', '<')) {
-
             $sql = sprintf("ALTER TABLE %s DROP  `code_private`, DROP  `code_public`  ", $orderTable);
             try {
                 $extraAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                         'status'  => false,
                         'message' => 'Table alter query failed: '
                             . $exception->getMessage(),
@@ -226,7 +233,8 @@ class Update extends BasicUpdate
                 $orderAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                         'status'  => false,
                         'message' => 'Table alter query failed: '
                             . $exception->getMessage(),

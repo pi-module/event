@@ -119,7 +119,9 @@ class ManageController extends ActionController
             $this->terminate(
                 __(
                     'You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'
-                ), '', 'error-denied'
+                ),
+                '',
+                'error-denied'
             );
             $this->view()->setLayout('layout-simple');
             return;
@@ -221,87 +223,87 @@ class ManageController extends ActionController
                 $values = $form->getData();
 
                 // Unset image
-                    if ($values['image'] == '') {
-                        unset($values['image']);
-                    }
+                if ($values['image'] == '') {
+                    unset($values['image']);
+                }
 
-                    // Set time
-                    if ($local == 'fa') {
-                        $values['time_publish'] = ($values['time_end']) ? $values['time_end'] : $values['time_start'];
-                        $values['time_start']   = $values['time_start'];
-                        $values['time_end']     = ($values['time_end']) ? $values['time_end'] : '';
+                // Set time
+                if ($local == 'fa') {
+                    $values['time_publish'] = ($values['time_end']) ? $values['time_end'] : $values['time_start'];
+                    $values['time_start']   = $values['time_start'];
+                    $values['time_end']     = ($values['time_end']) ? $values['time_end'] : '';
+                } else {
+                    $values['time_publish'] = ($values['time_end']) ? strtotime($values['time_end']) : strtotime($values['time_start']);
+                    $values['time_start']   = strtotime($values['time_start']);
+                    $values['time_end']     = ($values['time_end']) ? strtotime($values['time_end']) : '';
+                }
+
+                // Set type
+                $values['type'] = 'event';
+                // Set status
+                $values['status'] = $config['manage_approval'] ? 1 : 2;
+
+                // Set guide module info
+                if (isset($owner) && isset($owner['id'])) {
+                    $values['guide_owner'] = $owner['id'];
+                }
+                if (isset($values['guide_category']) && !empty($values['guide_category'])) {
+                    $values['guide_category'] = Json::encode($values['guide_category']);
+                }
+
+                if (isset($values['guide_location']) && !empty($values['guide_location'])) {
+                    $values['guide_location'] = Json::encode($values['guide_location']);
+                }
+
+                if (!empty($item)) {
+                    $values['guide_item'] = json_encode([$item['id']]);
+                } else {
+                    if (isset($values['guide_item'])) {
+                        $values['guide_item'] = json_encode($values['guide_item']);
+                    }
+                }
+
+                // Save values on news story table and event extra table
+                $edit = false;
+                if (!empty($id)) {
+                    $edit  = true;
+                    $values['id'] = $id;
+                    $story = Pi::api('api', 'news')->editStory($values, true, false);
+                    if (isset($story) && !empty($story)) {
+                        $row = $this->getModel('extra')->find($story['id']);
                     } else {
-                        $values['time_publish'] = ($values['time_end']) ? strtotime($values['time_end']) : strtotime($values['time_start']);
-                        $values['time_start']   = strtotime($values['time_start']);
-                        $values['time_end']     = ($values['time_end']) ? strtotime($values['time_end']) : '';
+                        $message = __('Error on save story data on news module.');
+                        $this->jump(['action' => 'index'], $message, 'error');
                     }
-
-                    // Set type
-                    $values['type'] = 'event';
-                    // Set status
-                    $values['status'] = $config['manage_approval'] ? 1 : 2;
-
-                    // Set guide module info
-                    if (isset($owner) && isset($owner['id'])) {
-                        $values['guide_owner'] = $owner['id'];
-                    }
-                    if (isset($values['guide_category']) && !empty($values['guide_category'])) {
-                        $values['guide_category'] = Json::encode($values['guide_category']);
-                    }
-
-                    if (isset($values['guide_location']) && !empty($values['guide_location'])) {
-                        $values['guide_location'] = Json::encode($values['guide_location']);
-                    }
-
-                    if (!empty($item)) {
-                        $values['guide_item'] = json_encode([$item['id']]);
+                } else {
+                    $values['uid'] = Pi::user()->getId();
+                    $story         = Pi::api('api', 'news')->addStory($values, true);
+                    if (isset($story) && !empty($story)) {
+                        $row          = $this->getModel('extra')->createRow();
+                        $values['id'] = $story['id'];
                     } else {
-                        if (isset($values['guide_item'])) {
-                            $values['guide_item'] = json_encode($values['guide_item']);
-                        }
+                        $message = __('Error on save story data on news module.');
+                        $this->jump(['action' => 'index'], $message, 'error');
                     }
+                }
 
-                    // Save values on news story table and event extra table
-                    $edit = false;
-                    if (!empty($id)) {
-                        $edit  = true;
-                        $values['id'] = $id;
-                        $story = Pi::api('api', 'news')->editStory($values, true, false);
-                        if (isset($story) && !empty($story)) {
-                            $row = $this->getModel('extra')->find($story['id']);
-                        } else {
-                            $message = __('Error on save story data on news module.');
-                            $this->jump(['action' => 'index'], $message, 'error');
-                        }
-                    } else {
-                        $values['uid'] = Pi::user()->getId();
-                        $story         = Pi::api('api', 'news')->addStory($values, true);
-                        if (isset($story) && !empty($story)) {
-                            $row          = $this->getModel('extra')->createRow();
-                            $values['id'] = $story['id'];
-                        } else {
-                            $message = __('Error on save story data on news module.');
-                            $this->jump(['action' => 'index'], $message, 'error');
-                        }
-                    }
+                // Set map
+                if ($config['map_use'] && !empty($values['map_latitude']) && !empty($values['map_longitude'])) {
+                    $values['map_zoom'] = empty($values['map_zoom']) ? $config['map_zoom'] : $values['map_zoom'];
+                }
 
-                    // Set map
-                    if ($config['map_use'] && !empty($values['map_latitude']) && !empty($values['map_longitude'])) {
-                        $values['map_zoom'] = empty($values['map_zoom']) ? $config['map_zoom'] : $values['map_zoom'];
-                    }
+                $row->assign($values);
+                if ($values['register_stock'] == null) {
+                    $row->register_stock = null;
+                }
+                $row->save();
 
-                    $row->assign($values);
-                    if ($values['register_stock'] == null) {
-                        $row->register_stock = null;
-                    }
-                    $row->save();
-
-                    // Check topic
-                    if (!$config['use_news_topic']) {
-                        $values['topic'] = [];
-                    }
-                    // Set link array
-                    $link = [
+                // Check topic
+                if (!$config['use_news_topic']) {
+                    $values['topic'] = [];
+                }
+                // Set link array
+                $link = [
                         'story'        => $story['id'],
                         'time_publish' => $story['time_publish'],
                         'time_update'  => $story['time_update'],
@@ -320,101 +322,102 @@ class ManageController extends ActionController
                             ],
                         ],
                     ];
-                    // Add guide module info on link
-                    if (Pi::service('module')->isActive('guide')) {
-                        $link['module']['guide'] = [
+                // Add guide module info on link
+                if (Pi::service('module')->isActive('guide')) {
+                    $link['module']['guide'] = [
                             'name'       => 'guide',
                             'controller' => [],
                         ];
-                        if ($config['use_guide_category'] && isset($values['guide_category']) && !empty($values['guide_category'])) {
-                            $link['module']['guide']['controller']['category'] = [
+                    if ($config['use_guide_category'] && isset($values['guide_category']) && !empty($values['guide_category'])) {
+                        $link['module']['guide']['controller']['category'] = [
                                 'name'  => 'category',
                                 'topic' => json_decode($values['guide_category'], true),
                             ];
-                        }
+                    }
 
-                        if ($config['use_guide_location'] && isset($values['guide_location']) && !empty($values['guide_location'])) {
-                            $link['module']['guide']['controller']['location'] = [
+                    if ($config['use_guide_location'] && isset($values['guide_location']) && !empty($values['guide_location'])) {
+                        $link['module']['guide']['controller']['location'] = [
                                 'name'  => 'location',
                                 'topic' => json_decode($values['guide_location'], true),
                             ];
-                        }
+                    }
 
-                        if (isset($values['guide_item']) && !empty($values['guide_item'])) {
-                            $link['module']['guide']['controller']['item'] = [
+                    if (isset($values['guide_item']) && !empty($values['guide_item'])) {
+                        $link['module']['guide']['controller']['item'] = [
                                 'name'  => 'item',
                                 'topic' => json_decode($values['guide_item'], true),
                             ];
-                        }
+                    }
 
-                        if (isset($values['guide_owner']) && !empty($values['guide_owner'])) {
-                            $link['module']['guide']['controller']['owner'] = [
+                    if (isset($values['guide_owner']) && !empty($values['guide_owner'])) {
+                        $link['module']['guide']['controller']['owner'] = [
                                 'name'  => 'owner',
                                 'topic' => [
                                     $values['guide_owner'],
                                 ],
                             ];
-                        }
                     }
-                    // Setup link
-                    Pi::api('api', 'news')->setupLink($link);
-                    // Add / Edit sitemap
-                    if (Pi::service('module')->isActive('sitemap')) {
-                        // Set loc
-                        $loc = Pi::url(
-                            $this->url(
-                                'event', [
+                }
+                // Setup link
+                Pi::api('api', 'news')->setupLink($link);
+                // Add / Edit sitemap
+                if (Pi::service('module')->isActive('sitemap')) {
+                    // Set loc
+                    $loc = Pi::url(
+                        $this->url(
+                            'event',
+                            [
                                 'module'     => $module,
                                 'controller' => 'index',
                                 'slug'       => $values['slug'],
                             ]
-                            )
-                        );
-                        // Update sitemap
-                        Pi::api('sitemap', 'sitemap')->singleLink($loc, $story['status'], $module, 'event', $story['id']);
-                    }
-                    // Add log
-                    if ($row->status == 1) {
-                        $message = __('Thanks for contributing ! Event data saved successfully and was published on public side');
-                    } else {
-                        $message = __('Thanks for contributing ! Event data saved successfully and we will be validate it soon');
-                    }
+                        )
+                    );
+                    // Update sitemap
+                    Pi::api('sitemap', 'sitemap')->singleLink($loc, $story['status'], $module, 'event', $story['id']);
+                }
+                // Add log
+                if ($row->status == 1) {
+                    $message = __('Thanks for contributing ! Event data saved successfully and was published on public side');
+                } else {
+                    $message = __('Thanks for contributing ! Event data saved successfully and we will be validate it soon');
+                }
 
-                    // Set to admin
-                    $adminmail = Pi::config('adminmail');
-                    $adminname = Pi::config('adminname');
-                    $toAdmin   = [
+                // Set to admin
+                $adminmail = Pi::config('adminmail');
+                $adminname = Pi::config('adminname');
+                $toAdmin   = [
                         $adminmail => $adminname,
                     ];
 
-                    // Set info
-                    $information = [
+                // Set info
+                $information = [
                         'admin-event-url' => Pi::url(
                             Pi::service('url')->assemble('admin', ['module' => 'event', 'controller' => 'event', 'action' => 'index'])
                         ),
                         'title'           => $values['title'],
                     ];
 
-                    // Send mail to admin
-                    if ($edit) {
-                        Pi::service('notification')->send(
-                            $toAdmin,
-                            'admin_edit_event',
-                            $information,
-                            Pi::service('module')->current()
-                        );
-                    } else {
-                        Pi::service('notification')->send(
-                            $toAdmin,
-                            'admin_add_event',
-                            $information,
-                            Pi::service('module')->current()
-                        );
-                    }
-                    if ($item['id']) {
-                        $this->jump(['module' => 'guide', 'controller' => 'manage', 'action' => 'event-list', 'item' => $item['id']], $message);
-                    }
-                    $this->jump(['action' => 'index'], $message);
+                // Send mail to admin
+                if ($edit) {
+                    Pi::service('notification')->send(
+                        $toAdmin,
+                        'admin_edit_event',
+                        $information,
+                        Pi::service('module')->current()
+                    );
+                } else {
+                    Pi::service('notification')->send(
+                        $toAdmin,
+                        'admin_add_event',
+                        $information,
+                        Pi::service('module')->current()
+                    );
+                }
+                if ($item['id']) {
+                    $this->jump(['module' => 'guide', 'controller' => 'manage', 'action' => 'event-list', 'item' => $item['id']], $message);
+                }
+                $this->jump(['action' => 'index'], $message);
             }
         } else {
             if ($id) {
@@ -441,7 +444,6 @@ class ManageController extends ActionController
         $this->view()->assign('item', $item);
         $this->view()->assign('config', $config);
         $this->view()->assign('canSubmitEvent', $canSubmitEvent);
-
     }
 
     public function removeAction()
@@ -480,7 +482,9 @@ class ManageController extends ActionController
             $this->terminate(
                 __(
                     'You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'
-                ), '', 'error-denied'
+                ),
+                '',
+                'error-denied'
             );
             $this->view()->setLayout('layout-simple');
             return;
@@ -546,7 +550,9 @@ class ManageController extends ActionController
             $this->terminate(
                 __(
                     'You are not allowed to submit new event, please contact to website admin and complete your registration, after that you allowed to submit events'
-                ), '', 'error-denied'
+                ),
+                '',
+                'error-denied'
             );
             $this->view()->setLayout('layout-simple');
             return;
@@ -571,7 +577,8 @@ class ManageController extends ActionController
         foreach ($rowset as $row) {
             $list[$row->id]         = Pi::api('order', 'event')->canonizeOrder($row, false);
             $list[$row->id]['user'] = Pi::user()->get(
-                $row->uid, [
+                $row->uid,
+                [
                 'id', 'identity', 'name', 'email',
             ]
             );
@@ -599,7 +606,8 @@ class ManageController extends ActionController
             $owner = Pi::model('owner', 'guide')->find($uid, 'uid');
             if (empty($owner)) {
                 return $this->redirect()->toRoute(
-                    '', [
+                    '',
+                    [
                     'module'     => 'guide',
                     'controller' => 'manage',
                     'action'     => 'index',

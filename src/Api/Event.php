@@ -161,7 +161,8 @@ class Event extends AbstractApi
             $list[$row->id]             = $this->canonizeEvent($row);
             $list[$row->id]['eventUrl'] = Pi::url(
                 Pi::service('url')->assemble(
-                    'event', [
+                    'event',
+                    [
                         'module'     => $this->getModule(),
                         'controller' => 'index',
                         'slug'       => $row->slug,
@@ -225,7 +226,7 @@ class Event extends AbstractApi
         return $list;
     }
 
-    Public function getPriceFilterList()
+    public function getPriceFilterList()
     {
         // Get config
         $config = Pi::service('registry')->config->read($this->getModule());
@@ -324,7 +325,8 @@ class Event extends AbstractApi
         // Set event url
         $extra['eventUrl'] = Pi::url(
             Pi::service('url')->assemble(
-                'event', [
+                'event',
+                [
                     'module'     => $this->getModule(),
                     'controller' => 'index',
                     'slug'       => $extra['slug'],
@@ -337,7 +339,8 @@ class Event extends AbstractApi
             case 'offline':
                 $extra['eventOrder'] = Pi::url(
                     Pi::service('url')->assemble(
-                        'event', [
+                        'event',
+                        [
                             'module'     => $this->getModule(),
                             'controller' => 'register',
                             'action'     => 'process',
@@ -350,7 +353,8 @@ class Event extends AbstractApi
             case 'online':
                 $extra['eventOrder'] = Pi::url(
                     Pi::service('url')->assemble(
-                        'event', [
+                        'event',
+                        [
                             'module'     => $this->getModule(),
                             'controller' => 'register',
                             'action'     => 'add',
@@ -367,7 +371,8 @@ class Event extends AbstractApi
                     'title' => $topic['title'],
                     'url'   => Pi::url(
                         Pi::service('url')->assemble(
-                            'event', [
+                            'event',
+                            [
                                 'module'     => $this->getModule(),
                                 'controller' => 'category',
                                 'slug'       => $topic['slug'],
@@ -380,7 +385,6 @@ class Event extends AbstractApi
         }
         // Check guide module
         if (Pi::service('module')->isActive('guide') && !empty($extra['guide_location'])) {
-
             if (!isset($this->locationList)) {
                 $this->locationList = Pi::registry('locationList', 'guide')->read();
             }
@@ -560,7 +564,8 @@ class Event extends AbstractApi
                 // Make url
                 $loc = Pi::url(
                     Pi::service('url')->assemble(
-                        'news', [
+                        'news',
+                        [
                             'module'     => 'event',
                             'controller' => 'index',
                             'slug'       => $row->slug,
@@ -645,7 +650,8 @@ class Event extends AbstractApi
                         'title'       => $row->title,
                         'categoryUrl' => Pi::url(
                             Pi::service("url")->assemble(
-                                "guide", [
+                                "guide",
+                                [
                                     "module"     => 'guide',
                                     "controller" => "category",
                                     "slug"       => $row->slug,
@@ -693,7 +699,8 @@ class Event extends AbstractApi
                     $story        = $row;
                     $story['url'] = Pi::url(
                         Pi::service('url')->assemble(
-                            'news', [
+                            'news',
+                            [
                                 'module'     => 'event',
                                 'controller' => 'index',
                                 'slug'       => $row['slug'],
@@ -763,14 +770,11 @@ class Event extends AbstractApi
 
     public function changeGuideOwner($owner, $newOwner, $item)
     {
-
         if ($item == null) {
             return;
         }
 
         $model = Pi::model('extra', 'event');
         $model->update(['guide_owner' => $newOwner['id'], 'uid' => $newOwner['uid']], [new Expression('guide_item LIKE "%' . $item . '%"')]);
-
     }
-
 }

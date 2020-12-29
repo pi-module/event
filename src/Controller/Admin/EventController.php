@@ -302,7 +302,8 @@ class EventController extends ActionController
                     // Set loc
                     $loc = Pi::url(
                         $this->url(
-                            'event', [
+                            'event',
+                            [
                                 'module'     => $module,
                                 'controller' => 'index',
                                 'slug'       => $values['slug'],

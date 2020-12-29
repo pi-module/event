@@ -30,7 +30,6 @@ class Comment extends AbstractComment
      */
     public function get($item)
     {
-
         $result = [];
         $items  = (array)$item;
 

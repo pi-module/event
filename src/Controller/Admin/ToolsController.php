@@ -183,7 +183,8 @@ class ToolsController extends ActionController
                         // Set loc
                         $loc = Pi::url(
                             $this->url(
-                                'event', [
+                                'event',
+                                [
                                 'module'     => $module,
                                 'controller' => 'index',
                                 'slug'       => $event['slug'],
@@ -247,7 +248,6 @@ class ToolsController extends ActionController
 
         if ($extraCollection->count()) {
             foreach ($extraCollection as $extraEntity) {
-
                 if ($extraEntity->time_start) {
                     $extraEntity->time_end = $extraEntity->time_start;
                     $extraEntity->save();

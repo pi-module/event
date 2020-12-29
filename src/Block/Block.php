@@ -101,7 +101,8 @@ class Block
         // Set more link
         $block['morelink'] = Pi::url(
             Pi::service('url')->assemble(
-                'event', [
+                'event',
+                [
                 'module'     => $module,
                 'controller' => 'index',
                 'action'     => 'index',

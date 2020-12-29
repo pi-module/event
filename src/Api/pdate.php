@@ -1,20 +1,20 @@
 <?php
 
-# Copyright (C) 1388-1392 / 2009-2013 Vahid Sohrablou (IranPHP.org) 
-# 
-# This program is free software; you can redistribute it and/or 
-# modify it under the terms of the GNU General Public License 
-# as published by the Free Software Foundation; either version 2 
-# of the License, or (at your option) any later version. 
-# 
-# This program is distributed in the hope that it will be useful, 
-# but WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
-# GNU General Public License for more details. 
-# 
-# A copy of the GNU General Public License is available from: 
-# 
-# <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
+# Copyright (C) 1388-1392 / 2009-2013 Vahid Sohrablou (IranPHP.org)
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# A copy of the GNU General Public License is available from:
+#
+# <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a>
 
 # Version 1.2.9
 
@@ -163,8 +163,9 @@ function pdate($format, $timestamp = null)
 
             case 'r':
                 $result .= (substr($pdate_week_name[$pWeek], 0, 2) . '، ' . $pDay . ' ' . substr($pdate_month_name[$pMonth], 0, 6) . ' ' . $pYear . ' ' . date(
-                        'H::i:s P', $timestamp
-                    ));
+                    'H::i:s P',
+                    $timestamp
+                ));
                 break;
 
             case 'U':
@@ -302,8 +303,9 @@ function pstrftime($format, $timestamp = null)
                 # Time and Date Stamps
                 case 'c':
                     $result .= (substr($pdate_week_name[$pWeek], 0, 2) . ' ' . substr($pdate_month_name[$pMonth], 0, 6) . ' ' . $pDay . ' ' . strftime(
-                            "%T", $timestamp
-                        ) . ' ' . $pYear);
+                        "%T",
+                        $timestamp
+                    ) . ' ' . $pYear);
                     break;
 
                 case 'D':
@@ -405,21 +407,21 @@ function pgetdate($timestamp = null)
             'year' => $year, 'yday' => $yday, 'weekday' => $weekday, 'month' => $month];
 }
 
-# Copyright (C) 2000 Roozbeh Pournader and Mohammad Tou'si 
-# 
-# This program is free software; you can redistribute it and/or 
-# modify it under the terms of the GNU General Public License 
-# as published by the Free Software Foundation; either version 2 
-# of the License, or (at your option) any later version. 
-# 
-# This program is distributed in the hope that it will be useful, 
-# but WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
-# GNU General Public License for more details. 
-# 
-# A copy of the GNU General Public License is available from: 
-# 
-# <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
+# Copyright (C) 2000 Roozbeh Pournader and Mohammad Tou'si
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# A copy of the GNU General Public License is available from:
+#
+# <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a>
 
 function div($a, $b)
 {
@@ -438,8 +440,7 @@ function gregorian_to_jalali($g_y, $g_m, $g_d)
         $g_day_no += $g_days_in_month[$i];
     }
 
-    if ($gm > 1 && (($gy % 4 == 0 && $gy % 100 != 0) || ($gy % 400 == 0))) # leap and after Feb
-    {
+    if ($gm > 1 && (($gy % 4 == 0 && $gy % 100 != 0) || ($gy % 400 == 0))) { # leap and after Feb
         $g_day_no++;
     }
     $g_day_no += $g_d - 1;
@@ -479,8 +480,7 @@ function jalali_to_gregorian($j_y, $j_m, $j_d)
     $g_day_no = $g_day_no % 146097;
     $leap     = 1;
 
-    if ($g_day_no >= 36525) # 36525 = (365 * 100 + 100 / 4)
-    {
+    if ($g_day_no >= 36525) { # 36525 = (365 * 100 + 100 / 4)
         $g_day_no--;
         $gy       += (100 * div($g_day_no, 36524)); # 36524 = (365 * 100 + 100 / 4 - 100 / 100)
         $g_day_no = $g_day_no % 36524;
