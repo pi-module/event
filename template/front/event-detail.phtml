@@ -146,9 +146,15 @@ $hitsAjaxUrl = Pi::url(
                     </div>
                 <?php } ?>
                 <?php if (!empty($event['register_details'])) { ?>
-                    <div class="clearfix event-single-main-box event-single-register-details" itemprop="description">
-                        <h2><?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?></h2>
-                        <?php echo $event['register_details']; ?>
+                    <div class="clearfix event-single-main-box event-single-register-details card mb-3 bg-light" itemprop="description">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <?php echo sprintf(__('Participate/Register to %s'), $this->escape($event['title'])); ?>
+                            </h2>
+                            <div class="card-text">
+                                <?php echo $event['register_details']; ?>
+                            </div>
+                        </div>
                     </div>
                 <?php } ?>
                 <?php if ($config['map_use'] && !empty($event['map_latitude']) && !empty($event['map_longitude'])) { ?>
